@@ -7,7 +7,7 @@ import {
   query,
 } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
-import Recipe from "../../generated/com/vaadin/recipes/data/Recipe";
+import RecipeInfo from "../../generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "../../generated/RecipeEndpoint";
 import { TextFieldElement } from "@vaadin/vaadin-text-field";
 
@@ -16,7 +16,7 @@ export class AllRecipes extends LitElement {
   @property({ type: String })
   filter: string = "";
   @property({ type: Array })
-  recipes: Recipe[] = [];
+  recipes: RecipeInfo[] = [];
 
   updateFilter = this.doUpdateFilter.bind(this);
 

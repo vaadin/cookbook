@@ -1,15 +1,15 @@
 package com.vaadin.recipes.data;
 
-public class Recipe {
+public class RecipeInfo {
 
     private String title;
     private String url;
 
-    public Recipe() {
+    public RecipeInfo() {
 
     }
 
-    public Recipe(String url, String title) {
+    public RecipeInfo(String url, String title) {
         this.url = url;
         this.title = title;
     }
