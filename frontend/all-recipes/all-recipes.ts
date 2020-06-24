@@ -7,9 +7,10 @@ import {
   query,
 } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
-import RecipeInfo from "../../generated/com/vaadin/recipes/data/RecipeInfo";
-import * as RecipeEndpoint from "../../generated/RecipeEndpoint";
+import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
+import * as RecipeEndpoint from "../generated/RecipeEndpoint";
 import { TextFieldElement } from "@vaadin/vaadin-text-field";
+import { tsRecipeRoutes } from "../ts-recipes";
 
 @customElement("all-recipes")
 export class AllRecipes extends LitElement {
@@ -55,7 +56,8 @@ export class AllRecipes extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    this.recipes = await RecipeEndpoint.list();
+    this.recipes = tsRecipeRoutes.map((route) => route.info);
+    this.recipes = [...this.recipes, ...(await RecipeEndpoint.list())];
   }
   doUpdateFilter() {
     this.filter = this.filterField?.value.toLowerCase() || "";

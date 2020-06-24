@@ -1,5 +1,6 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
 import { Router } from "@vaadin/router";
+import { tsRecipeRoutes } from "./ts-recipes";
 
 const { serverSideRoutes } = new Flow({
   imports: () => import("../target/frontend/generated-flow-imports"),
@@ -18,9 +19,10 @@ const routes = [
         path: "",
         component: "all-recipes",
         action: async () => {
-          await import("./views/all-recipes/all-recipes");
+          await import("./all-recipes/all-recipes");
         },
       },
+      ...tsRecipeRoutes,
       ...serverSideRoutes, // IMPORTANT: this must be the last entry in the array
     ],
   },
