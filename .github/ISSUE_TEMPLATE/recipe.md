@@ -14,4 +14,4 @@ As a user of the application, I want to ___ (so that __)
 
 **Related tags (optional):**
 
-**Potential solution (optional):**
+*(Potential solutions in comments or PRs)*
