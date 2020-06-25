@@ -13,5 +13,3 @@ As a user of the application, I want to ___ (so that __)
 **Recipe tags (optional):**
 
 **Related tags (optional):**
-
-*(Potential solutions in comments or PRs)*
