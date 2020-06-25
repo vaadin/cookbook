@@ -26,7 +26,7 @@ public class AllRecipes implements ApplicationListener<ContextRefreshedEvent> {
             throw new IllegalArgumentException(
                     "The class " + recipeClass.getName() + " must have a @Route annotation with a value");
         }
-        RecipeInfo recipeInfo = new RecipeInfo(route.value(), recipe.theUserOfMyAppWantsTo());
+        RecipeInfo recipeInfo = new RecipeInfo(route.value(), recipe.howdoI());
         allRecipes.add(recipeInfo);
     }
 

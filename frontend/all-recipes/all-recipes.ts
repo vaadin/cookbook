@@ -1,15 +1,16 @@
+import { TextFieldElement } from "@vaadin/vaadin-text-field";
+import "@vaadin/vaadin-text-field";
 import {
-  LitElement,
-  html,
   css,
   customElement,
+  html,
+  LitElement,
   property,
   query,
 } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "../generated/RecipeEndpoint";
-import { TextFieldElement } from "@vaadin/vaadin-text-field";
 import { tsRecipeRoutes } from "../ts-recipes";
 
 @customElement("all-recipes")
@@ -35,7 +36,7 @@ export class AllRecipes extends LitElement {
 
   render() {
     return html`
-      <h1>The user of my app wants to...</h1>
+      <h1>How do I...</h1>
       <vaadin-text-field
         id="filterField"
         @value-changed="${this.updateFilter}"
@@ -45,10 +46,11 @@ export class AllRecipes extends LitElement {
       <ul>
         ${repeat(
           this.recipes.filter((recipe) =>
-            recipe.title.toLowerCase().includes(this.filter)
+            recipe.howDoI.toLowerCase().includes(this.filter)
           ),
           (recipe) => recipe.url,
-          (recipe) => html`<li><a href="${recipe.url}">${recipe.title}</a></li>`
+          (recipe) =>
+            html`<li><a href="${recipe.url}">${recipe.howDoI}</a></li>`
         )}
       </ul>
     `;

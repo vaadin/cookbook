@@ -17,9 +17,9 @@ const routes = [
     children: [
       {
         path: "",
-        component: "all-recipes",
+        component: "intro-view",
         action: async () => {
-          await import("./all-recipes/all-recipes");
+          await import("./views/intro-view");
         },
       },
       ...tsRecipeRoutes,

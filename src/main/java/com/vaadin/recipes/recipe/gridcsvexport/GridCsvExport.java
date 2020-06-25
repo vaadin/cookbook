@@ -28,7 +28,7 @@ import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Recipe(theUserOfMyAppWantsTo = "Export grid data as CSV")
+@Recipe(howdoI = "Export grid data as CSV")
 public class GridCsvExport extends VerticalLayout {
 
     public static class Person {

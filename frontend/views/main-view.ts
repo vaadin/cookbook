@@ -1,11 +1,10 @@
 import { css, customElement, html, LitElement } from "lit-element";
 import "@vaadin/vaadin-app-layout/theme/lumo/vaadin-app-layout";
-// @ts-ignore
 import { AppLayoutElement } from "@vaadin/vaadin-app-layout/src/vaadin-app-layout";
 import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle";
 import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tab";
 import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tabs";
-import "./menu-layout";
+import "../all-recipes/all-recipes";
 
 @customElement("main-view")
 export class MainEndpoint extends LitElement {
@@ -26,8 +25,7 @@ export class MainEndpoint extends LitElement {
         <vaadin-drawer-toggle
           slot="navbar touch-optimized"
         ></vaadin-drawer-toggle>
-
-        <menu-layout slot="drawer"></menu-layout>
+        <all-recipes slot="drawer"></all-recipes>
         <slot></slot>
       </vaadin-app-layout>
     `;

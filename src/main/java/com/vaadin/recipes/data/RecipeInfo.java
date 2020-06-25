@@ -2,24 +2,24 @@ package com.vaadin.recipes.data;
 
 public class RecipeInfo {
 
-    private String title;
+    private String howDoI;
     private String url;
 
     public RecipeInfo() {
 
     }
 
-    public RecipeInfo(String url, String title) {
+    public RecipeInfo(String url, String howDoI) {
         this.url = url;
-        this.title = title;
+        this.howDoI = howDoI;
     }
 
-    public String getTitle() {
-        return title;
+    public String getHowDoI() {
+        return howDoI;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setHowDoI(String howDoI) {
+        this.howDoI = howDoI;
     }
 
     public String getUrl() {

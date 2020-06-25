@@ -3,7 +3,7 @@ import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 
 interface Recipe {
   tag: string;
-  title: string;
+  howDoI: string;
   import: () => Promise<void>;
 }
 interface RecipeRoute extends RouteWithAction {
@@ -16,14 +16,14 @@ const registerRecipe = (data: Recipe) => {
     component: data.tag,
     action: data.import,
     info: {
-      title: data.title,
+      howDoI: data.howDoI,
       url: data.tag,
     },
   });
 };
 registerRecipe({
   tag: "circular-progress-view",
-  title: "See progress as a circular indicator",
+  howDoI: "Show progress as a circular indicator",
   import: async () => {
     await import("./recipe/circular-progress-indicator/circular-progress-view");
   },
