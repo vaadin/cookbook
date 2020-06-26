@@ -11,13 +11,13 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.flow.shared.communication.PushMode;
 
-@Route("notify-changes")
-@Metadata(howdoI = "Show notification when someone makes changes")
-public class NotifyChanges extends Recipe {
+@Route("notify-users")
+@Metadata(howdoI = "Show a notification to active users")
+public class NotifyUsers extends Recipe {
 
     private static final Set<SerializableConsumer<String>> subscribers = new HashSet<>();
 
@@ -28,15 +28,15 @@ public class NotifyChanges extends Recipe {
     private static final ExecutorService notifierThread = Executors.newSingleThreadExecutor();
 
     private SerializableConsumer<String> subscriber;
-    private final Checkbox notifyMe = new Checkbox("Notify me for changes");
+    private final Checkbox notifyMe = new Checkbox("Subscribe to notifications");
 
-    public NotifyChanges() {
+    public NotifyUsers() {
         notifyMe.addValueChangeListener(event -> updateSubscription());
         addAttachListener(event -> updateSubscription());
         addDetachListener(event -> updateSubscription());
 
-        Button makeChanges = new Button("Make changes",
-                clickEvent -> notifySubscribers("Changes made from the magic button"));
+        Button makeChanges = new Button("Notify subscribers",
+                clickEvent -> notifySubscribers("This is a notification triggerd by the button"));
 
         add(notifyMe, makeChanges);
     }
