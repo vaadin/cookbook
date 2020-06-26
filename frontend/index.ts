@@ -39,8 +39,7 @@ export const updateCurrentRecipe = (path?: string) => {
   }
 
   if (path.includes("-")) {
-    const tag = path.substr(1);
-
+    const tag = path.substr(path.lastIndexOf("/") + 1);
     const recipe = recipes.find((recipe) => recipe.url == tag);
     if (recipe) {
       const mainView = document.querySelector("main-view")! as MainView;
