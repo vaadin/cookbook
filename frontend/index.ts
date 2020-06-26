@@ -1,18 +1,20 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
-import { Router } from "@vaadin/router";
+import { Route, Router } from "@vaadin/router";
+import { recipes } from "./all-recipes";
 import { tsRecipeRoutes } from "./ts-recipes";
+import { MainView } from "./views/main-view";
 
 const { serverSideRoutes } = new Flow({
   imports: () => import("../target/frontend/generated-flow-imports"),
 });
 
-const routes = [
-  // for client-side, place routes below (more info https://vaadin.com/docs/v15/flow/typescript/creating-routes.html)
+const routes: Route[] = [
   {
     path: "",
     component: "main-view",
-    action: async () => {
+    action: async (_context, _commands) => {
       await import("./views/main-view");
+      updateCurrentRecipe(_context.pathname);
     },
     children: [
       {
@@ -30,3 +32,19 @@ const routes = [
 
 export const router = new Router(document.querySelector("#outlet"));
 router.setRoutes(routes);
+
+export const updateCurrentRecipe = (path?: string) => {
+  if (!path) {
+    path = router.location.pathname;
+  }
+
+  if (path.includes("-")) {
+    const tag = path.substr(1);
+
+    const recipe = recipes.find((recipe) => recipe.url == tag);
+    if (recipe) {
+      const mainView = document.querySelector("main-view")! as MainView;
+      mainView.recipe = recipe;
+    }
+  }
+};

@@ -1,11 +1,12 @@
 import "@vaadin/vaadin-text-field/vaadin-number-field";
 import "@vaadin/vaadin-radio-button";
 import "@vaadin/vaadin-radio-button/vaadin-radio-group";
-import { css, customElement, html, LitElement, property } from "lit-element";
+import { css, customElement, html, property } from "lit-element";
 import "./circular-progress-indicator";
+import { Recipe } from "../recipe";
 
 @customElement("circular-progress-view")
-export class CircularProgressView extends LitElement {
+export class CircularProgressView extends Recipe {
   @property({ type: Number })
   value: number = 25;
   @property({ type: String })

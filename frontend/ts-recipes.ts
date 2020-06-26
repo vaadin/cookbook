@@ -1,29 +1,30 @@
 import { RouteWithAction } from "@vaadin/router";
 import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 
-interface Recipe {
-  tag: string;
-  howDoI: string;
+interface RecipeInfoWithImport extends RecipeInfo {
   import: () => Promise<void>;
 }
 interface RecipeRoute extends RouteWithAction {
   info: RecipeInfo;
 }
 export const tsRecipeRoutes: RecipeRoute[] = [];
-const registerRecipe = (data: Recipe) => {
+const registerRecipe = (recipeInfo: RecipeInfoWithImport) => {
   tsRecipeRoutes.push({
-    path: data.tag,
-    component: data.tag,
-    action: data.import,
-    info: {
-      howDoI: data.howDoI,
-      url: data.tag,
-    },
+    path: recipeInfo.url,
+    component: recipeInfo.url,
+    action: recipeInfo.import,
+    info: recipeInfo,
   });
 };
+
 registerRecipe({
-  tag: "circular-progress-view",
+  url: "circular-progress-view",
   howDoI: "Show progress as a circular indicator",
+  // TODO Add main source automatically and use relative path for the rest
+  sourceFiles: [
+    "recipe/circular-progress-indicator/circular-progress-indicator.ts",
+    "recipe/circular-progress-indicator/circular-progress-view.ts",
+  ],
   import: async () => {
     await import("./recipe/circular-progress-indicator/circular-progress-view");
   },

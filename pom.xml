@@ -121,6 +121,23 @@
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>frontend</directory>
+                <includes>
+                    <include>recipe/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

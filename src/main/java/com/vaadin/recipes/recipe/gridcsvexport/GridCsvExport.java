@@ -15,21 +15,21 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.router.Route;
+import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Recipe(howdoI = "Export grid data as CSV")
-public class GridCsvExport extends VerticalLayout {
+@Metadata(howdoI = "Export grid data as CSV")
+public class GridCsvExport extends Recipe {
 
     public static class Person {
         private String firstName, lastName;

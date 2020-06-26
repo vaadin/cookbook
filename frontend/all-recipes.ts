@@ -9,16 +9,17 @@ import {
   query,
 } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
-import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
-import * as RecipeEndpoint from "../generated/RecipeEndpoint";
-import { tsRecipeRoutes } from "../ts-recipes";
+import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
+import * as RecipeEndpoint from "./generated/RecipeEndpoint";
+import { tsRecipeRoutes } from "./ts-recipes";
+import { updateCurrentRecipe } from ".";
+
+export const recipes: RecipeInfo[] = [];
 
 @customElement("all-recipes")
 export class AllRecipes extends LitElement {
   @property({ type: String })
   filter: string = "";
-  @property({ type: Array })
-  recipes: RecipeInfo[] = [];
 
   updateFilter = this.doUpdateFilter.bind(this);
 
@@ -45,7 +46,7 @@ export class AllRecipes extends LitElement {
 
       <ul>
         ${repeat(
-          this.recipes.filter((recipe) =>
+          recipes.filter((recipe) =>
             recipe.howDoI.toLowerCase().includes(this.filter)
           ),
           (recipe) => recipe.url,
@@ -58,8 +59,10 @@ export class AllRecipes extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    this.recipes = tsRecipeRoutes.map((route) => route.info);
-    this.recipes = [...this.recipes, ...(await RecipeEndpoint.list())];
+    recipes.push(...tsRecipeRoutes.map((route) => route.info));
+    recipes.push(...(await RecipeEndpoint.list()));
+    await this.requestUpdate();
+    updateCurrentRecipe();
   }
   doUpdateFilter() {
     this.filter = this.filterField?.value.toLowerCase() || "";

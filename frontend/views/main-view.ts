@@ -1,22 +1,32 @@
-import { css, customElement, html, LitElement } from "lit-element";
-import "@vaadin/vaadin-app-layout/theme/lumo/vaadin-app-layout";
 import { AppLayoutElement } from "@vaadin/vaadin-app-layout/src/vaadin-app-layout";
+import "@vaadin/vaadin-app-layout/theme/lumo/vaadin-app-layout";
 import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle";
-import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tab";
-import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tabs";
-import "../all-recipes/all-recipes";
+import "@vaadin/vaadin-split-layout";
+import "@vaadin/vaadin-tabs";
+import { css, customElement, html, LitElement, property } from "lit-element";
+import "../all-recipes";
+import "../code-viewer";
+import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 
 @customElement("main-view")
-export class MainEndpoint extends LitElement {
+export class MainView extends LitElement {
+  @property({ type: Object })
+  recipe: RecipeInfo = { howDoI: "", sourceFiles: [], url: "" };
+
   static get styles() {
-    return [
-      css`
-        :host {
-          display: block;
-          height: 100%;
-        }
-      `,
-    ];
+    return css`
+      :host {
+        display: block;
+        height: 100%;
+      }
+      .examplewrapper {
+        min-height: 50%;
+        max-height: 50%;
+      }
+      .layout {
+        height: 100%;
+      }
+    `;
   }
 
   render() {
@@ -25,14 +35,17 @@ export class MainEndpoint extends LitElement {
         <vaadin-drawer-toggle
           slot="navbar touch-optimized"
         ></vaadin-drawer-toggle>
+        <span slot="navbar">${this.recipe.howDoI}</span>
         <all-recipes slot="drawer"></all-recipes>
-        <slot></slot>
+        <vaadin-split-layout class="layout" orientation="vertical">
+          <div class="examplewrapper"><slot></slot></div>
+          <code-viewer .files=${this.recipe.sourceFiles}></code-viewer>
+        </vaadin-split-layout>
       </vaadin-app-layout>
     `;
   }
 
   private _routerLocationChanged() {
-    // @ts-ignore
     AppLayoutElement.dispatchCloseOverlayDrawerEvent();
   }
 

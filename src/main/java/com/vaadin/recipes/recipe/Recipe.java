@@ -1,9 +1,10 @@
 package com.vaadin.recipes.recipe;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Recipe {
-    String howdoI();
+public class Recipe extends VerticalLayout {
+
+    public Recipe() {
+
+    }
 }

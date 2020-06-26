@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.Application;
-import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.Util;
+import com.vaadin.recipes.recipe.Metadata;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationListener;
@@ -20,13 +21,15 @@ public class AllRecipes implements ApplicationListener<ContextRefreshedEvent> {
     private List<RecipeInfo> allRecipes = new ArrayList<>();
 
     public void addRecipe(Class<? extends com.vaadin.flow.component.Component> recipeClass) {
-        Recipe recipe = recipeClass.getAnnotation(Recipe.class);
+        Metadata recipe = recipeClass.getAnnotation(Metadata.class);
         Route route = recipeClass.getAnnotation(Route.class);
         if (route == null || route.value().equals(Route.NAMING_CONVENTION)) {
             throw new IllegalArgumentException(
                     "The class " + recipeClass.getName() + " must have a @Route annotation with a value");
         }
-        RecipeInfo recipeInfo = new RecipeInfo(route.value(), recipe.howdoI());
+        List<String> sourceFiles = new ArrayList<>();
+        sourceFiles.add(Util.getSourceFile(recipeClass));
+        RecipeInfo recipeInfo = new RecipeInfo(route.value(), recipe.howdoI(), sourceFiles);
         allRecipes.add(recipeInfo);
     }
 
@@ -37,7 +40,7 @@ public class AllRecipes implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
-        provider.addIncludeFilter(new AnnotationTypeFilter(Recipe.class));
+        provider.addIncludeFilter(new AnnotationTypeFilter(Metadata.class));
 
         for (BeanDefinition beanDef : provider.findCandidateComponents(Application.class.getPackage().getName())) {
             String beanName = beanDef.getBeanClassName();
