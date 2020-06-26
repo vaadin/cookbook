@@ -19,9 +19,9 @@ export class MainView extends LitElement {
         display: block;
         height: 100%;
       }
-      .examplewrapper {
-        min-height: 50%;
-        max-height: 50%;
+      .examplewrapper,
+      code-viewer {
+        flex: 1;
       }
       .layout {
         height: 100%;
