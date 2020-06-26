@@ -6,7 +6,7 @@ All solutions should be of the type "The user of my app wants to ..." and focus 
 
 Solutions are implemented using Java, TS or a mix that is appropriate. The focus is on the solution, not how it is implemented.
 
-The project is deployed at https://recipes.vaadin.com
+The project is deployed at https://labs.vaadin.com/recipes/
 
 ## Contributing a Java UI based recipe
 
@@ -75,7 +75,7 @@ registerRecipe({
 });
 ```
 
-6. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipenamegoeshere
+6. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipe-name-goes-here
 
 7. Commit and create a PR
 8. Wait for 1-2 days for somebody to react to the PR
