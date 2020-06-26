@@ -8,6 +8,16 @@ Solutions are implemented using Java, TS or a mix that is appropriate. The focus
 
 The project is currently deployed at https://labs.vaadin.com/recipes/
 
+## General guidelines for recipes
+
+Try to keep recipes short and show one thing. The focus is on the functionality which can be copy pasted to another project.
+
+Try to keep recipes in one file. Use a few files if really needed. Use common sense.
+
+Recipes cannot be wrong if they work but all recipes can be improved. It is better to improve an existing recipe than create another one which is almost the same.
+
+Recipes are written in TS or Java. The Java version _should_ be compatible with Vaadin 14. The TS version requires Vaadin 16+.
+
 ## Contributing a Java UI based recipe
 
 1. If you want to avoid problems with other people contributing the same idea at the same time, create or find an issue describing the intent (one sentence is typically enough) and accept the issue
