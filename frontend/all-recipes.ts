@@ -39,6 +39,7 @@ export class AllRecipes extends LitElement {
     return html`
       <h1>How do I...</h1>
       <vaadin-text-field
+        clear-button-visible
         id="filterField"
         @value-changed="${this.updateFilter}"
         placeholder="Filter..."
@@ -61,6 +62,9 @@ export class AllRecipes extends LitElement {
     super.connectedCallback();
     recipes.push(...tsRecipeRoutes.map((route) => route.info));
     recipes.push(...(await RecipeEndpoint.list()));
+    recipes.sort((a, b) =>
+      a.howDoI < b.howDoI ? -1 : a.howDoI == b.howDoI ? 0 : 1
+    );
     await this.requestUpdate();
     updateCurrentRecipe();
   }
