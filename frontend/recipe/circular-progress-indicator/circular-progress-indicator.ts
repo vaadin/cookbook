@@ -1,55 +1,47 @@
-import { customElement, LitElement, property, svg, css } from "lit-element";
+import "@vaadin/vaadin-text-field/vaadin-number-field";
+import "@vaadin/vaadin-radio-button";
+import "@vaadin/vaadin-radio-button/vaadin-radio-group";
+import { css, customElement, html, property } from "lit-element";
+import "./circular-progress-indicator-component";
+import { Recipe } from "../recipe";
 
 @customElement("circular-progress-indicator")
-export class CircularProgressIndicator extends LitElement {
+export class CircularProgressIndicator extends Recipe {
   @property({ type: Number })
-  value: number = 0;
+  value: number = 25;
   @property({ type: String })
   color: string = "blue";
 
   static get styles() {
     return css`
       :host {
-        display: block;
-      }
-      .background {
-        fill: none;
-        stroke: black;
-        stroke-opacity: 0.05;
-      }
-      .indicator {
-        fill: none;
-      }
-      text {
-        text-anchor: middle;
-        font-size: 1.5em;
+        display: flex;
+        flex-direction: column;
       }
     `;
   }
-
   render() {
-    const value = Math.min(100, Math.max(0, this.value));
-
-    const dx = Math.sin((value / 100.0) * 2 * 3.14) * 50;
-    const dy = -Math.cos((value / 100.0) * 2 * 3.14) * 50 + 50;
-    const sweep = value > 50 ? 1 : 0;
-    const stroke = 5;
-
-    return svg`
-      <svg style="height: 100px" viewbox="0 0 120 120">
-        <path
-          class="background"
-          stroke-width="${stroke}"
-          d="M60 10 a 50 50 0 1 0 1 0 Z"
-        />
-        <path
-          class="indicator"
-          stroke="${this.color}"
-          stroke-width="${stroke}"
-          d="M60 10 a 50 50 0 ${sweep} 1 ${dx} ${dy}"
-        />
-        <text x="60" y="70">${value} %</text>
-      </svg>
+    return html`
+      <circular-progress-indicator-component
+        value="${this.value}"
+        color=${this.color}
+      ></circular-progress-indicator-component>
+      <vaadin-number-field
+        @value-changed=${(e: any) => (this.value = e.target.value)}
+        max="100"
+        min="0"
+        label="Value"
+        .value=${this.value}
+      ></vaadin-number-field>
+      <vaadin-radio-group
+        @value-changed=${(e: any) => {
+          this.color = e.target.value;
+        }}
+      >
+        <vaadin-radio-button checked value="#f00">red</vaadin-radio-button>
+        <vaadin-radio-button value="#0f0">green</vaadin-radio-button>
+        <vaadin-radio-button value="#00f">blue</vaadin-radio-button>
+      </vaadin-radio-group>
     `;
   }
 }

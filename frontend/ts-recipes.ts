@@ -9,23 +9,29 @@ interface RecipeRoute extends RouteWithAction {
 }
 export const tsRecipeRoutes: RecipeRoute[] = [];
 const registerRecipe = (recipeInfo: RecipeInfoWithImport) => {
+  const folder = "recipe/" + recipeInfo.url + "/";
+  const absoluteSourceFiles = [
+    recipeInfo.url + ".ts",
+    ...recipeInfo.sourceFiles,
+  ].map((relativePath) => folder + relativePath);
+  const modifiedRecipeInfo = Object.assign(recipeInfo, {
+    sourceFiles: absoluteSourceFiles,
+  });
   tsRecipeRoutes.push({
     path: recipeInfo.url,
     component: recipeInfo.url,
     action: recipeInfo.import,
-    info: recipeInfo,
+    info: modifiedRecipeInfo,
   });
 };
 
 registerRecipe({
-  url: "circular-progress-view",
+  url: "circular-progress-indicator",
   howDoI: "Show progress as a circular indicator",
-  // TODO Add main source automatically and use relative path for the rest
-  sourceFiles: [
-    "recipe/circular-progress-indicator/circular-progress-indicator.ts",
-    "recipe/circular-progress-indicator/circular-progress-view.ts",
-  ],
+  sourceFiles: ["circular-progress-indicator-component.ts"],
   import: async () => {
-    await import("./recipe/circular-progress-indicator/circular-progress-view");
+    await import(
+      "./recipe/circular-progress-indicator/circular-progress-indicator"
+    );
   },
 });
