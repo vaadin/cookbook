@@ -65,8 +65,12 @@ export class CodeViewer extends LitElement {
       >
       ${/*Don't reuse these elements. This is needed because Prism 
           removes the markers lit-html uses to track slots */
-      unsafeHTML(`<pre><code class="language-${this.language}">
-          ${this.escapeHtml(this.contents)}</code></pre>`)}
+      unsafeHTML(
+        `<pre><code class="language-${this.language}">${this.escapeHtml(
+          this.contents
+        )}
+        </code></pre>`
+      )}
     `;
   }
 
