@@ -49,7 +49,7 @@ export class ShortcutListener extends Recipe {
         <p>Press <strong>enter</strong> to submit value</p>
         <vaadin-text-field
           .value=${this.value}
-          @keyup=${this.updateValue}
+          @input=${this.updateValue}
         ></vaadin-text-field>
       </div>
 
@@ -57,7 +57,7 @@ export class ShortcutListener extends Recipe {
         <p>Press <strong>shift + enter</strong> to submit value</p>
         <vaadin-text-field
           .value=${this.value}
-          @keyup=${this.updateValue}
+          @input=${this.updateValue}
         ></vaadin-text-field>
       </div>
 
