@@ -10,3 +10,12 @@ registerRecipe({
     );
   },
 });
+
+registerRecipe({
+  url: "shortcut-listener",
+  howDoI: "Listen for keyboard shortcuts",
+  sourceFiles: [], // Add any additional files to show here, relative to the same folder
+  import: async () => {
+    await import("./recipe/shortcut-listener/shortcut-listener");
+  },
+});
