@@ -47,6 +47,8 @@ export class ShortcutListener extends Recipe {
     return html`
       <div class="scope" @keyup=${this.enterListener}>
         <p>Press <strong>enter</strong> to submit value</p>
+        <!-- 'input' fires on every keystroke.
+             'change' fires on blur -->
         <vaadin-text-field
           .value=${this.value}
           @input=${this.updateValue}
