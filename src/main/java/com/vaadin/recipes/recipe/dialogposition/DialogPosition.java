@@ -1,5 +1,6 @@
 package com.vaadin.recipes.recipe.dialogposition;
 
+import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
@@ -18,8 +19,10 @@ import java.util.Objects;
 @Metadata(howdoI = "A simple way to SET and GET the position of a vaadin dialog")
 public class DialogPosition extends Recipe {
 
+    private final MyDialog myDialog = new MyDialog();
+
     public DialogPosition() {
-        MyDialog myDialog = new MyDialog();
+
         myDialog.add(new H4("My Dialog"), new Span("hold mouse click to move dialog. Click outside or press ESC to close it."));
         myDialog.setDraggable(true);
         myDialog.setModal(false);
@@ -37,6 +40,13 @@ public class DialogPosition extends Recipe {
                 }))));
 
         add(new Button("open dialog", buttonClickEvent -> myDialog.open()));
+    }
+
+    @Override
+    protected void onDetach(DetachEvent detachEvent) {
+        super.onDetach(detachEvent);
+
+        myDialog.close();
     }
 
     public static class MyDialog extends Dialog {
