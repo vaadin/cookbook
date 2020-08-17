@@ -1,98 +1,92 @@
 package com.vaadin.recipes.recipe.dialogposition;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Objects;
-
 @Route("dialog-position")
-@Metadata(howdoI = "A simple way to SET and GET the position of a vaadin dialog")
+@Metadata(howdoI = "A simple way to keep the position of a vaadin dialog and set it after reopening")
 public class DialogPosition extends Recipe {
 
+    private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
     private final MyDialog myDialog = new MyDialog();
+    private final Button resetPosition = new Button("reset Position", buttonClickEvent -> myDialog.setPosition(INITIAL_POSITION));
+
+    private MyDialog.Position lastPosition ;
 
     public DialogPosition() {
 
-        myDialog.add(new H4("My Dialog"), new Span("hold mouse click to move dialog. Click outside or press ESC to close it."));
+        myDialog.add(new VerticalLayout(
+            new H4("My Dialog"),
+            new Span("keep left mouse clicked and move dialog around"),
+            new Button("close", this::closeDialog)));
         myDialog.setDraggable(true);
         myDialog.setModal(false);
-        myDialog.setCloseOnEsc(true);
-        myDialog.setCloseOnOutsideClick(true);
+        myDialog.addOpenedChangeListener(event -> resetPosition.setEnabled(event.isOpened()));
 
-        TextField top = new TextField("top");
-        TextField left = new TextField("left");
+        add(new Button("open dialog", this::openDialog));
+        resetPosition.setEnabled(false);
+        add(resetPosition);
+    }
 
-        add(new HorizontalLayout(top, left,
-                new Button("set Position", buttonClickEvent -> myDialog.setPosition(new MyDialog.Position(String.format("%s", top.getValue()), String.format("%s", left.getValue())))),
-                new Button("get Position", buttonClickEvent -> myDialog.getPosition(position -> {
-                    top.setValue(position.getTop());
-                    left.setValue(position.getLeft());
-                }))));
+    private void openDialog(ClickEvent<Button> buttonClickEvent) {
+        myDialog.open();
+        myDialog.setPosition(lastPosition != null ? lastPosition : INITIAL_POSITION);
+    }
 
-        add(new Button("open dialog", buttonClickEvent -> myDialog.open()));
+    private void closeDialog(ClickEvent<Button> buttonClickEvent) {
+        myDialog.getPosition(position -> {
+            lastPosition = position;
+            myDialog.close();
+        });;
     }
 
     @Override
     protected void onDetach(DetachEvent detachEvent) {
         super.onDetach(detachEvent);
-
         myDialog.close();
     }
 
     public static class MyDialog extends Dialog {
 
         private static final String SET_PROPERTY_IN_OVERLAY_JS = "this.$.overlay.$.overlay.style[$0]=$1";
-        public static final String RETURN_PROPERTY_FROM_OVERLAY_JS = "return this.$.overlay.$.overlay.style[$0]";
-
-        public void getXPosition(SerializableConsumer<String> consumer) {
-            getElement().executeJs(RETURN_PROPERTY_FROM_OVERLAY_JS, "top").then(String.class, consumer);
-        }
-
-        public void setXPosition(String xPosition) {
-            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "top", xPosition);
-        }
-
-        public void getYPosition(SerializableConsumer<String> consumer) {
-            getElement().executeJs(RETURN_PROPERTY_FROM_OVERLAY_JS, "left").then(String.class, consumer);
-        }
-
-        public void setYPosition(String yPosition) {
-            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "left", yPosition);
-        }
 
         public void setPosition(Position position) {
-            setYPosition(position.getLeft());
-            setXPosition(position.getTop());
+            enablePositioning(true);
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "left", position.getLeft());
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "top", position.getTop());
+        }
+
+        private void enablePositioning(boolean positioningEnabled) {
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "align-self", positioningEnabled ? "flex-start" : "unset");
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "position", positioningEnabled ? "absolute" : "relative");
         }
 
         public void getPosition(SerializableConsumer<Position> consumer) {
             getElement().executeJs("return [" +
-                    "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" +
+                        "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" +
                     "]")
                     .then(String.class, s -> {
                         String[] split = StringUtils.split(s, ',');
-                        Objects.nonNull(split);
-                        Position position = new Position(split[0], split[1]);
-                        consumer.accept(position);
+                        if (split.length == 2 && split[0] != null && split[1] != null) {
+                            Position position = new Position(split[0], split[1]);
+                            consumer.accept(position);
+                        }
                     });
         }
 
         public static class Position {
             private String top;
             private String left;
-
-            public Position() {
-            }
 
             public Position(String top, String left) {
                 this.top = top;
