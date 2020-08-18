@@ -14,7 +14,7 @@ import com.vaadin.recipes.recipe.Recipe;
 import org.apache.commons.lang3.StringUtils;
 
 @Route("dialog-position")
-@Metadata(howdoI = "Re-open a dialog in the same position?")
+@Metadata(howdoI = "Re-open a dialog in the same position")
 public class DialogPosition extends Recipe {
 
     private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
