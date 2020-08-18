@@ -7,6 +7,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.ElementFactory;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -31,6 +32,7 @@ public class DialogPosition extends Recipe {
             new Button("close", this::closeDialog)));
         myDialog.setDraggable(true);
         myDialog.setModal(false);
+        myDialog.setWidth("600px");
         myDialog.addOpenedChangeListener(event -> resetPosition.setEnabled(event.isOpened()));
 
         add(new Button("open dialog", this::openDialog));
