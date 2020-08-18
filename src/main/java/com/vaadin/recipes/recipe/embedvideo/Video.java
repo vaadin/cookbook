@@ -3,7 +3,7 @@ package com.vaadin.recipes.recipe.embedvideo;
 import com.vaadin.flow.component.*;
 
 @Tag("video")
-public class Video extends HtmlContainer implements ClickNotifier<Video> {
+public class Video extends HtmlContainer {
 
     private static final PropertyDescriptor<String, String> srcDescriptor = PropertyDescriptors
             .attributeWithDefault("src", "");
