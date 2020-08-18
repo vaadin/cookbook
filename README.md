@@ -25,7 +25,7 @@ Recipes are written in TS or Java. The Java version _should_ be compatible with 
 3. Create a Java package for your recipe
 
 ```
-mkdir src/main/java/org/vaadin/recipes/recipenamegoeshere/
+mkdir src/main/java/com/vaadin/recipes/recipe/recipenamegoeshere/
 ```
 
 4. Create a Java file in the folder with the following
