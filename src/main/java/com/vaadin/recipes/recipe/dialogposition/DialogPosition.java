@@ -27,7 +27,7 @@ public class DialogPosition extends Recipe {
 
         myDialog.add(new VerticalLayout(
             new H4("My Dialog"),
-            new Span("keep left mouse clicked and move dialog around"),
+            new Span("Keep left mouse clicked and move dialog around. After closing the dialog and you can reopen it at the same location again."),
             new Button("close", this::closeDialog)));
         myDialog.setDraggable(true);
         myDialog.setModal(false);
