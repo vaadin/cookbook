@@ -6,7 +6,7 @@ All solutions should be of the type "The user of my app wants to ..." and focus 
 
 Solutions are implemented using Java, TS or a mix that is appropriate. The focus is on the solution, not how it is implemented.
 
-The project is currently deployed at https://cookbook.vaadin.com/
+The project is deployed at https://cookbook.vaadin.com/
 
 ## General guidelines for recipes
 
