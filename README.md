@@ -1,4 +1,4 @@
-# Recipes for Vaadin
+# Vaadin Cookbook
 
 A collection of solutions to common use cases you run into when developing business web applications.
 
