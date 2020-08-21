@@ -7,21 +7,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.Application;
 import com.vaadin.recipes.Util;
 import com.vaadin.recipes.recipe.Metadata;
+import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.SourceFiles;
 
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.stereotype.Component;
 
-@Component
-public class AllRecipes implements ApplicationListener<ContextRefreshedEvent> {
+public class AllRecipes {
 
-    private List<RecipeInfo> allRecipes = new ArrayList<>();
+    private static List<RecipeInfo> allRecipes = new ArrayList<>();
 
-    public void addRecipe(Class<? extends com.vaadin.flow.component.Component> recipeClass) {
+    private AllRecipes() {
+        // Static use only
+    }
+
+    public static void addRecipe(Class<? extends Recipe> recipeClass) {
         Metadata recipe = recipeClass.getAnnotation(Metadata.class);
         Route route = recipeClass.getAnnotation(Route.class);
         SourceFiles additionalFiles = recipeClass.getAnnotation(SourceFiles.class);
@@ -41,23 +42,26 @@ public class AllRecipes implements ApplicationListener<ContextRefreshedEvent> {
                 }
             }
         }
-        RecipeInfo recipeInfo = new RecipeInfo(route.value(), recipe.howdoI(), sourceFiles);
+        RecipeInfo recipeInfo = new RecipeInfo(recipeClass, route.value(), recipe.howdoI(), sourceFiles);
         allRecipes.add(recipeInfo);
     }
 
-    public List<RecipeInfo> getRecipes() {
+    public static List<RecipeInfo> getRecipes() {
         return allRecipes;
     }
 
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public static RecipeInfo getRecipeInfo(Class<? extends Recipe> recipeClass) {
+        return allRecipes.stream().filter(recipe -> recipe.getRecipeClass() == recipeClass).findFirst().orElse(null);
+    }
+
+    public static void scan() {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AnnotationTypeFilter(Metadata.class));
 
         for (BeanDefinition beanDef : provider.findCandidateComponents(Application.class.getPackage().getName())) {
             String beanName = beanDef.getBeanClassName();
             try {
-                addRecipe((Class<? extends com.vaadin.flow.component.Component>) Class.forName(beanName));
+                addRecipe((Class<? extends Recipe>) Class.forName(beanName));
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
