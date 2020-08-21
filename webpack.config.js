@@ -5,27 +5,52 @@
  * This file can be used for manual configuration. It will not be modified
  * if the flowDefaults constant exists.
  */
-const merge = require('webpack-merge');
-const flowDefaults = require('./webpack.generated.js');
+const merge = require("webpack-merge");
+const flowDefaults = require("./webpack.generated.js");
+const path = require("path");
+
+const { spawn } = require("child_process");
 
 /**
  * To change the webpack config, add a new configuration object in
  * the merge arguments below:
  */
-module.exports = merge(flowDefaults,
-  // Override default configuration
-  // {
-  //   mode: 'development',
-  //   devtool: 'inline-source-map',
-  // },
+module.exports = merge(flowDefaults, {
+  plugins: [
+    function (compiler) {
+      compiler.hooks.afterEmit.tapAsync(
+        "GenerateRouteInfo",
+        (compilation, done) => {
+          console.log("Here");
+          const parseClientRoutes = spawn("node", [
+            path.resolve(__dirname, "parseClientRoutes.js"),
+            "frontend/recipe/**/*.ts",
+          ]);
 
-  // Add a custom plugin
-  // (install the plugin with `npm install --save-dev webpack-bundle-analyzer`)
-  // {
-  //   plugins: [
-  //     new require('webpack-bundle-analyzer').BundleAnalyzerPlugin({
-  //       analyzerMode: 'static'
-  //     })
-  //   ]
-  // },
-);
+          parseClientRoutes.stdout.on("data", (data) => {
+            console.log(data.toString("utf-8"));
+          });
+
+          parseClientRoutes.on("close", (code) => {
+            if (code !== 0) {
+              throw `parseClientRoutes process exited with code ${code}`;
+            }
+            done();
+          });
+        }
+      );
+    },
+    // generate({
+    //   file: "ts-routes.js",
+    //   content: () => {
+    //     glob("frontend/recipe/**/*.ts", {}, function (er, files) {
+    //       files.forEach((file) => {
+    //         const recipeInfo = parseAnnotation(file);
+    //         console.log(recipeInfo);
+    //       });
+    //       return "Hello";
+    //     });
+    //   },
+    // }),
+  ],
+});

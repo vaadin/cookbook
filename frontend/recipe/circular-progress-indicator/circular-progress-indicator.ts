@@ -3,8 +3,13 @@ import "@vaadin/vaadin-radio-button";
 import "@vaadin/vaadin-radio-button/vaadin-radio-group";
 import { css, customElement, html, property } from "lit-element";
 import "./circular-progress-indicator-component";
-import { Recipe } from "../recipe";
+import { Recipe, recipeInfo } from "../recipe";
 
+@recipeInfo({
+  url: "circular-progress-indicator",
+  howDoI: "Show progress as a circular indicator",
+  sourceFiles: ["circular-progress-indicator-component.ts"],
+})
 @customElement("circular-progress-indicator")
 export class CircularProgressIndicator extends Recipe {
   @property({ type: Number })

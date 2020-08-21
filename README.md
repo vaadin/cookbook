@@ -58,8 +58,13 @@ mkdir frontend/recipe/recipe-name-goes-here/
 
 ```
 import { customElement, html } from "lit-element";
-import { Recipe } from "../recipe";
+import { Recipe, recipeInfo } from "../recipe";
 
+@recipeInfo({
+  url: "recipe-name-goes-here",
+  howDoI: "Short (< 50) character explanation",
+  sourceFiles: [],
+})
 @customElement("recipe-name-goes-here")
 export class RecipeNameGoesHere extends Recipe {
   render() {
@@ -70,24 +75,11 @@ export class RecipeNameGoesHere extends Recipe {
 }
 ```
 
-5. Add metadata for the view to `frontend/ts-recipes.ts`:
+Add any additional source files to the `sourceFiles` array. Files should be relative to the same folder.
 
-```
-registerRecipe({
-  url: "recipe-name-goes-here",
-  howDoI: "Short (< 50) character explanation",
-  sourceFiles: [], // Add any additional files to show here, relative to the same folder
-  import: async () => {
-    await import(
-      "./recipe/recipe-name-goes-here/recipe-name-goes-here"
-    );
-  },
-});
-```
+5. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipe-name-goes-here
 
-6. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipe-name-goes-here
-
-7. Commit and create a PR
-8. Wait for 1-2 days for somebody to react to the PR
-9. Fix any potential comments
-10. :tada:
+6. Commit and create a PR
+7. Wait for 1-2 days for somebody to react to the PR
+8. Fix any potential comments
+9. :tada:

@@ -17,7 +17,8 @@
   "include": [
     "frontend/**/*.ts",
     "frontend/index.js",
-    "types.d.ts"
+    "types.d.ts",
+    "transform.ts"
   ],
   "exclude": []
 }
