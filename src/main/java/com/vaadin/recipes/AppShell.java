@@ -28,12 +28,12 @@ public class AppShell implements AppShellConfigurator {
             // Server side route
             Class<? extends Recipe> recipeClass = (Class<? extends Recipe>) target.get().getNavigationTarget();
             String howDoI = getHowDoI(recipeClass);
-            settings.setPageTitle("Vaadin Cookbook - " + howDoI);
+            settings.setPageTitle(howDoI + " - Vaadin Cookbook");
             settings.addMetaTag("description", howDoI);
         }
     }
 
     private String getHowDoI(Class<? extends Recipe> recipeClass) {
-        return "How do I " + AllRecipes.getRecipeInfo(recipeClass).getHowDoI();
+        return "How do I " + AllRecipes.getRecipeInfo(recipeClass).getHowDoI() + " in Vaadin";
     }
 }
