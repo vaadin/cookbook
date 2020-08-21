@@ -2,8 +2,13 @@ package com.vaadin.recipes.data;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vaadin.recipes.recipe.Recipe;
+
 public class RecipeInfo {
 
+    @JsonIgnore
+    private Class<? extends Recipe> recipeClass;
     private String howDoI;
     private String url;
     private List<String> sourceFiles;
@@ -12,10 +17,11 @@ public class RecipeInfo {
 
     }
 
-    public RecipeInfo(String url, String howDoI, List<String> sourceFiles) {
+    public RecipeInfo(Class<? extends Recipe> recipeClass, String url, String howDoI, List<String> sourceFiles) {
         this.url = url;
         this.howDoI = howDoI;
         this.sourceFiles = sourceFiles;
+        this.recipeClass = recipeClass;
     }
 
     public String getHowDoI() {
@@ -40,5 +46,9 @@ public class RecipeInfo {
 
     public void setSourceFiles(List<String> sourceFiles) {
         this.sourceFiles = sourceFiles;
+    }
+
+    public Class<? extends Recipe> getRecipeClass() {
+        return recipeClass;
     }
 }
