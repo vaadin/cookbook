@@ -2,7 +2,6 @@ package com.vaadin.recipes;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -16,10 +15,6 @@ import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import com.vaadin.recipes.recipe.Recipe;
-
-import org.apache.commons.io.IOUtils;
-
-import elemental.json.Json;
 
 @PWA(name = "Recipes", shortName = "recipes")
 public class AppShell implements AppShellConfigurator {
