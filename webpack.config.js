@@ -18,7 +18,7 @@ const { spawn } = require("child_process");
 module.exports = merge(flowDefaults, {
   plugins: [
     function (compiler) {
-      compiler.hooks.afterEmit.tapAsync(
+      compiler.hooks.beforeCompile.tapAsync(
         "GenerateRouteInfo",
         (compilation, done) => {
           console.log("Here");
