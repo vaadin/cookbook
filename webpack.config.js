@@ -40,17 +40,5 @@ module.exports = merge(flowDefaults, {
         }
       );
     },
-    // generate({
-    //   file: "ts-routes.js",
-    //   content: () => {
-    //     glob("frontend/recipe/**/*.ts", {}, function (er, files) {
-    //       files.forEach((file) => {
-    //         const recipeInfo = parseAnnotation(file);
-    //         console.log(recipeInfo);
-    //       });
-    //       return "Hello";
-    //     });
-    //   },
-    // }),
   ],
 });
