@@ -1,7 +1,12 @@
-import { customElement, html, css, property } from "lit-element";
-import { Recipe } from "../recipe";
 import "@vaadin/vaadin-text-field";
+import { css, customElement, html, property } from "lit-element";
+import { Recipe, recipeInfo } from "../recipe";
 
+@recipeInfo({
+  url: "shortcut-listener",
+  howDoI: "Listen for keyboard shortcuts",
+  sourceFiles: [],
+})
 @customElement("shortcut-listener")
 export class ShortcutListener extends Recipe {
   @property()

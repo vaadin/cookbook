@@ -1,9 +1,8 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
 import { Route, Router } from "@vaadin/router";
 import { recipes } from "./all-recipes";
-import { tsRecipeRoutes } from "./util";
 import { MainView } from "./views/main-view";
-import "./ts-recipes";
+import { tsRecipeRoutes } from "./ts-routes";
 
 const { serverSideRoutes } = new Flow({
   imports: () => import("../target/frontend/generated-flow-imports"),

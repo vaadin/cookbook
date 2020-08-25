@@ -51,4 +51,10 @@ public class RecipeInfo {
     public Class<? extends Recipe> getRecipeClass() {
         return recipeClass;
     }
+
+    @Override
+    public String toString() {
+        return "RecipeInfo [howDoI=" + howDoI + ", recipeClass=" + recipeClass + ", sourceFiles=" + sourceFiles
+                + ", url=" + url + "]";
+    }
 }

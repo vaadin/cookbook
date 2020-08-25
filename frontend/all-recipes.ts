@@ -11,8 +11,8 @@ import {
 import { repeat } from "lit-html/directives/repeat";
 import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "./generated/RecipeEndpoint";
-import { tsRecipeRoutes } from "./util";
 import { updateCurrentRecipe } from ".";
+import { tsRecipeRoutes } from "./ts-routes";
 
 export const recipes: RecipeInfo[] = [];
 
