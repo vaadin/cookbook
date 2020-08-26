@@ -12,6 +12,10 @@ public class Util {
         return recipeClass.getPackage().getName().replace(".", "/") + "/" + name;
     }
 
+    public static String getFrontendFile(String name) {
+        return name;
+    }
+
     public static String getSimpleName(String fullName) {
         return new File(fullName).getName();
 

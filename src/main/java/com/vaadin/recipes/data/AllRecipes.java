@@ -37,11 +37,11 @@ public class AllRecipes {
                 if (additionalFile.endsWith(".java")) {
                     sourceFiles.add(Util.getSourceFile(recipeClass, additionalFile));
                 } else {
-                    throw new IllegalArgumentException(
-                            "Currently only java classes in the same package as the recipe are supported. Create an issue at https://github.com/vaadin/recipes/issues");
+                    sourceFiles.add(Util.getFrontendFile(additionalFile));
                 }
             }
         }
+
         RecipeInfo recipeInfo = new RecipeInfo(recipeClass, route.value(), recipe.howdoI(), sourceFiles);
         allRecipes.add(recipeInfo);
     }
