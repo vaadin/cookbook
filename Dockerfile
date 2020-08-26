@@ -3,9 +3,16 @@ FROM maven:3-jdk-11 as build
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update -qq && apt-get install -qq --no-install-recommends nodejs
 WORKDIR /usr/src/app/
+COPY pom.xml .
+RUN mvn dependency:go-offline -Pproduction
+
 COPY src src
 COPY frontend frontend
-COPY pom.xml .
+COPY package.json .
+COPY pnpm-lock.yaml .
+COPY parseClientRoutes.ts .
+COPY parseClientRoutes.js .
+COPY webpack.config.js .
 RUN mvn clean package -DskipTests -Pproduction
 
 # Run stage
