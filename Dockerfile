@@ -11,7 +11,6 @@ COPY frontend frontend
 COPY package.json .
 COPY pnpm-lock.yaml .
 COPY parseClientRoutes.ts .
-COPY parseClientRoutes.js .
 COPY webpack.config.js .
 RUN mvn clean package -DskipTests -Pproduction
 
