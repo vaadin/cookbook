@@ -18,6 +18,7 @@ public class RecipeInfo {
     @Nullable
     private String description;
     private String url;
+    @Nullable
     private List<String> sourceFiles;
     @Nullable
     private List<Tag> tags;

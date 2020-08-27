@@ -26,14 +26,12 @@ export const recipeToRoute = (
   const folder = "recipe/" + recipeInfo.url + "/";
   const absoluteSourceFiles = [
     recipeInfo.url + ".ts",
-    ...recipeInfo.sourceFiles,
+    ...(recipeInfo.sourceFiles || []),
   ].map((relativePath) => folder + relativePath);
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPESCRIPT", ...(recipeInfo.tags ? recipeInfo.tags : [])].map(
-      (tag) => "" + tag
-    ),
+    tags: ["Tag.TYPESCRIPT", ...(recipeInfo.tags || [])].map((tag) => "" + tag),
   });
   return {
     path: recipeInfo.url,
