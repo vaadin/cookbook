@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Route("index-of-item-in-treeGrid")
-@Metadata(howdoI = "How to add the missing index of item method in the treegrid")
+@Metadata(howdoI = "add the missing index of item method in the TreeGrid")
 public class IndexOfItemInTreeGrid  extends Recipe {
 
     private Span indexLabel;
