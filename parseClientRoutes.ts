@@ -1,6 +1,7 @@
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
 import { BaseRoute } from "@vaadin/router";
+import Tag from "./frontend/generated/com/vaadin/recipes/recipe/Tag";
 const debug = (...theArgs) => {
   // console.log(theArgs);
 };
@@ -18,6 +19,7 @@ export const firstToLower = (text: string) => {
   }
   return text.substr(0, 1).toLowerCase() + text.substr(1);
 };
+
 export const recipeToRoute = (
   recipeInfo: RecipeInfo
 ): RecipeRouteWithAction => {
@@ -29,6 +31,9 @@ export const recipeToRoute = (
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
+    tags: ["Tag.TYPESCRIPT", ...(recipeInfo.tags ? recipeInfo.tags : [])].map(
+      (tag) => "" + tag
+    ),
   });
   return {
     path: recipeInfo.url,
@@ -53,10 +58,9 @@ const findRoute = (
       ts.isIdentifier(decoratorNode.expression.expression) &&
       decoratorNode.expression.expression.text == "recipeInfo"
     ) {
-      const src = getSource(
-        decoratorNode.expression.arguments[0],
-        source
-      ).replace(/\n/g, "");
+      const src = getSource(decoratorNode.expression.arguments[0], source)
+        .replace(/\n/g, "")
+        .replace(/Tag.([A-Za-z]+)/, '"Tag.$1"');
       const recipeInfo = eval("const a= " + src + ";a;");
       const route = recipeToRoute(recipeInfo);
       return route;
@@ -136,14 +140,16 @@ writeIfChanged(
     routes.map((route) => route.info),
     null,
     2
-  )
+  ).replace(/"Tag.([A-Za-z]*)"/g, '"$1"')
 );
 
 const routesJson = JSON.stringify(routes, null, 2);
-const routesTS = routesJson.replace(
-  /"actionString": "(.*)"/g,
-  'action: async() => { await import("$1");}'
-);
+const routesTS = routesJson
+  .replace(
+    /"actionString": "(.*)"/g,
+    'action: async() => { await import("$1");}'
+  )
+  .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1");
 
 const tsRoutesTpl = fs.readFileSync(routesTsFile, "utf-8");
 

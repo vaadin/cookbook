@@ -11,7 +11,7 @@ import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 @customElement("main-view")
 export class MainView extends LitElement {
   @property({ type: Object })
-  recipe: RecipeInfo = { howDoI: "", sourceFiles: [], url: "" };
+  recipe: RecipeInfo = { howDoI: "", sourceFiles: [], url: "", tags: [] };
 
   static get styles() {
     return css`
@@ -26,6 +26,13 @@ export class MainView extends LitElement {
       .layout {
         height: 100%;
       }
+      .tag {
+        padding: 0.3em;
+        margin-right: 0.3em;
+        font-size: var(--lumo-font-size-s);
+        background: lightgrey;
+        border-radius: 4px;
+      }
     `;
   }
 
@@ -35,9 +42,11 @@ export class MainView extends LitElement {
         <vaadin-drawer-toggle
           slot="navbar touch-optimized"
         ></vaadin-drawer-toggle>
-        <span slot="navbar touch-optimized"
-          >How do I ${this.recipe.howDoI}</span
-        >
+        <span slot="navbar touch-optimized">
+          ${this.recipe.tags?.map(
+            (tag) => html`<span class="tag">${tag}</span>`
+          )}<span class="title">How do I ${this.recipe.howDoI}</span>
+        </span>
         <all-recipes slot="drawer"></all-recipes>
         <vaadin-split-layout class="layout" orientation="vertical">
           <div class="examplewrapper">
