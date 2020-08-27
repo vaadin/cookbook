@@ -1,6 +1,7 @@
 import "@vaadin/vaadin-text-field";
 import { css, customElement, html, property } from "lit-element";
 import { Recipe, recipeInfo } from "../recipe";
+import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 
 @recipeInfo({
   url: "shortcut-listener",
@@ -8,6 +9,7 @@ import { Recipe, recipeInfo } from "../recipe";
   description:
     "Show how you can react to various shortcut keys in different scopes of a view",
   sourceFiles: [],
+  tags: [Tag.KEYBOARD],
 })
 @customElement("shortcut-listener")
 export class ShortcutListener extends Recipe {
