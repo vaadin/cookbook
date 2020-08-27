@@ -67,7 +67,7 @@ public class AppShell implements AppShellConfigurator {
 
     private void setRouteMeta(AppShellSettings settings, String howDoI, String description) {
         settings.setPageTitle(howDoI + " - Vaadin Cookbook");
-        settings.addMetaTag("description", description);
+        settings.addMetaTag("description", description != null && !description.isEmpty() ? description : howDoI);
     }
 
     private String getHowDoI(RecipeInfo recipeInfo) {
