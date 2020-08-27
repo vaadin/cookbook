@@ -2,16 +2,17 @@
 FROM maven:3-jdk-11 as build
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update -qq && apt-get install -qq --no-install-recommends nodejs
+RUN useradd -m myuser
 WORKDIR /usr/src/app/
-COPY pom.xml .
+RUN chown myuser:myuser /usr/src/app/
+USER myuser
+COPY --chown=myuser:myuser src src
+COPY --chown=myuser:myuser frontend frontend
+COPY --chown=myuser pom.xml package.json pnpm-lock.yaml parseClientRoutes.ts webpack.config.js ./
+
+# This allows repeated builds to start from the next step, with all Maven dependencies cached
 RUN mvn dependency:go-offline -Pproduction
 
-COPY src src
-COPY frontend frontend
-COPY package.json .
-COPY pnpm-lock.yaml .
-COPY parseClientRoutes.ts .
-COPY webpack.config.js .
 RUN mvn clean package -DskipTests -Pproduction
 
 # Run stage
