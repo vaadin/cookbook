@@ -5,7 +5,7 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
 @Route("embed-video")
-@Metadata(howdoI = "Show a video", sourceFiles = "Video.java")
+@Metadata(howdoI = "Show a video", description = "Demonstrates how you can use the <video> element to show an mp4 video", sourceFiles = "Video.java")
 public class EmbedVideo extends Recipe {
 
     public EmbedVideo() {

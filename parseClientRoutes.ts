@@ -12,7 +12,12 @@ const path = require("path");
 const fs = require("fs");
 
 const args = process.argv.slice(2);
-
+export const firstToLower = (text: string) => {
+  if (!text || text.length < 2) {
+    return text;
+  }
+  return text.substr(0, 1).toLowerCase() + text.substr(1);
+};
 export const recipeToRoute = (
   recipeInfo: RecipeInfo
 ): RecipeRouteWithAction => {
@@ -23,6 +28,7 @@ export const recipeToRoute = (
   ].map((relativePath) => folder + relativePath);
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
+    howDoI: firstToLower(recipeInfo.howDoI),
   });
   return {
     path: recipeInfo.url,

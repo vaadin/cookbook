@@ -5,6 +5,8 @@ import { Recipe, recipeInfo } from "../recipe";
 @recipeInfo({
   url: "shortcut-listener",
   howDoI: "Listen for keyboard shortcuts",
+  description:
+    "Show how you can react to various shortcut keys in different scopes of a view",
   sourceFiles: [],
 })
 @customElement("shortcut-listener")

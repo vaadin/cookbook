@@ -35,10 +35,15 @@ export class MainView extends LitElement {
         <vaadin-drawer-toggle
           slot="navbar touch-optimized"
         ></vaadin-drawer-toggle>
-        <span slot="navbar touch-optimized">${this.recipe.howDoI}</span>
+        <span slot="navbar touch-optimized"
+          >How do I ${this.recipe.howDoI}</span
+        >
         <all-recipes slot="drawer"></all-recipes>
         <vaadin-split-layout class="layout" orientation="vertical">
-          <div class="examplewrapper"><slot></slot></div>
+          <div class="examplewrapper">
+            <div>${this.recipe.description}</div>
+            <slot></slot>
+          </div>
           <code-viewer .files=${this.recipe.sourceFiles}></code-viewer>
         </vaadin-split-layout>
       </vaadin-app-layout>
