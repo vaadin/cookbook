@@ -62,8 +62,7 @@ import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
   url: "recipe-name-goes-here",
-  howDoI: "Short (< 50) character explanation",
-  sourceFiles: [],
+  howDoI: "Short (< 50) character explanation"
 })
 @customElement("recipe-name-goes-here")
 export class RecipeNameGoesHere extends Recipe {

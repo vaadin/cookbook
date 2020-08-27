@@ -8,7 +8,6 @@ import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
   howDoI: "Listen for keyboard shortcuts",
   description:
     "Show how you can react to various shortcut keys in different scopes of a view",
-  sourceFiles: [],
   tags: [Tag.KEYBOARD],
 })
 @customElement("shortcut-listener")

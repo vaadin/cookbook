@@ -11,7 +11,7 @@ import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 @customElement("main-view")
 export class MainView extends LitElement {
   @property({ type: Object })
-  recipe: RecipeInfo = { howDoI: "", sourceFiles: [], url: "", tags: [] };
+  recipe: RecipeInfo = { howDoI: "", url: "", tags: [] };
 
   static get styles() {
     return css`
@@ -53,7 +53,7 @@ export class MainView extends LitElement {
             <div>${this.recipe.description}</div>
             <slot></slot>
           </div>
-          <code-viewer .files=${this.recipe.sourceFiles}></code-viewer>
+          <code-viewer .files=${this.recipe.sourceFiles || []}></code-viewer>
         </vaadin-split-layout>
       </vaadin-app-layout>
     `;
