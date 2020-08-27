@@ -5,12 +5,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
-import com.vaadin.recipes.recipe.SourceFiles;
 import com.vaadin.recipes.recipe.allowusertopickacolor.ColorPicker;
 
 @Route("dynamically-change-progressbar-color")
-@Metadata(howdoI = "Dynamically set the progress bar color")
-@SourceFiles("recipe/dynamicallychangeprogressbarcolor/dynamically-change-progressbar-color.css")
+@Metadata(howdoI = "Dynamically set the progress bar color", sourceFiles = {
+        "recipe/dynamicallychangeprogressbarcolor/dynamically-change-progressbar-color.css" })
 @CssImport(themeFor = "vaadin-progress-bar", value = "./recipe/dynamicallychangeprogressbarcolor/dynamically-change-progressbar-color.css")
 public class DynamicallyChangeProgressBarColor extends VerticalLayout {
 

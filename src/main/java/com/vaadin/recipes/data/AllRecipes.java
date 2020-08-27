@@ -8,7 +8,6 @@ import com.vaadin.recipes.Application;
 import com.vaadin.recipes.Util;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.SourceFiles;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -25,20 +24,17 @@ public class AllRecipes {
     public static void addRecipe(Class<? extends Recipe> recipeClass) {
         Metadata recipe = recipeClass.getAnnotation(Metadata.class);
         Route route = recipeClass.getAnnotation(Route.class);
-        SourceFiles additionalFiles = recipeClass.getAnnotation(SourceFiles.class);
         if (route == null || route.value().equals(Route.NAMING_CONVENTION)) {
             throw new IllegalArgumentException(
                     "The class " + recipeClass.getName() + " must have a @Route annotation with a value");
         }
         List<String> sourceFiles = new ArrayList<>();
         sourceFiles.add(Util.getSourceFile(recipeClass));
-        if (additionalFiles != null) {
-            for (String additionalFile : additionalFiles.value()) {
-                if (additionalFile.endsWith(".java")) {
-                    sourceFiles.add(Util.getSourceFile(recipeClass, additionalFile));
-                } else {
-                    sourceFiles.add(Util.getFrontendFile(additionalFile));
-                }
+        for (String additionalFile : recipe.sourceFiles()) {
+            if (additionalFile.endsWith(".java")) {
+                sourceFiles.add(Util.getSourceFile(recipeClass, additionalFile));
+            } else {
+                sourceFiles.add(Util.getFrontendFile(additionalFile));
             }
         }
 
