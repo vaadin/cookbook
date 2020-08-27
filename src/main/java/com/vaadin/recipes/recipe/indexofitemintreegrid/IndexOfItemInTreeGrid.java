@@ -25,11 +25,11 @@ public class IndexOfItemInTreeGrid  extends Recipe {
 
     public static class CustomTreeGrid<T> extends TreeGrid<T> {
 
-        /** This is the new method for getting the row index of an item in a treegrid. This works but is prone to break in the future versions due to
-         * its usage of reflection to access private methods to get access to the index.
-         *
-         * @param <T>
-         */
+       /** This is the new method for getting the row index of an item in a treegrid. This works but is prone to break in the future versions due to
+          * its usage of reflection to access private methods to get access to the index.
+          *
+          * @param <T>
+        */
         public int getIndexForItem(T item) {
             HierarchicalDataCommunicator<T> dataCommunicator = super.getDataCommunicator();
             Method getHierarchyMapper = null;
