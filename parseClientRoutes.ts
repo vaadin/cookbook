@@ -118,9 +118,8 @@ files.forEach((file) => {
 const frontend = path.resolve(__dirname, "frontend");
 const recipeInfoJson = path.resolve(
   __dirname,
-  "src",
-  "main",
-  "resources",
+  "target",
+  "classes",
   "ts-recipe-info.json"
 );
 const routesTsFile = path.resolve(frontend, "ts-routes.ts");
