@@ -130,6 +130,7 @@ const recipeInfoJson = path.resolve(
   "classes",
   "ts-recipe-info.json"
 );
+const routesTsTemplateFile = path.resolve(__dirname, "ts-routes.ts.template");
 const routesTsFile = path.resolve(frontend, "ts-routes.ts");
 
 writeIfChanged(
@@ -149,7 +150,7 @@ const routesTS = routesJson
   )
   .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1");
 
-const tsRoutesTpl = fs.readFileSync(routesTsFile, "utf-8");
+const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
 
 const tsRoutes = tsRoutesTpl.replace(
   /export const tsRecipeRoutes: RecipeRoute\[\] = .*/s,
