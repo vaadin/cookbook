@@ -7,5 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Metadata {
     String howdoI();
 
+    String description() default "";
+
     String[] sourceFiles() default {};
 }

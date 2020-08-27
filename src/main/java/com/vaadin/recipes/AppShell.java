@@ -3,6 +3,7 @@ package com.vaadin.recipes;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,8 +49,9 @@ public class AppShell implements AppShellConfigurator {
         if (target.isPresent()) {
             // Server side route
             Class<? extends Recipe> recipeClass = (Class<? extends Recipe>) target.get().getNavigationTarget();
-            String howDoI = getHowDoI(AllRecipes.getRecipeInfo(recipeClass));
-            setRouteMeta(settings, howDoI);
+            RecipeInfo recipeInfo = AllRecipes.getRecipeInfo(recipeClass);
+            String howDoI = getHowDoI(recipeInfo);
+            setRouteMeta(settings, howDoI, recipeInfo.getDescription());
         } else {
             RecipeInfo recipeInfo = tsRecipes.get(pathInfo);
             if (recipeInfo == null && pathInfo != null && pathInfo.startsWith("/")) {
@@ -58,18 +60,19 @@ public class AppShell implements AppShellConfigurator {
 
             if (recipeInfo != null) {
                 // TS route
-                setRouteMeta(settings, getHowDoI(recipeInfo));
+                setRouteMeta(settings, getHowDoI(recipeInfo), recipeInfo.getDescription());
             }
         }
     }
 
-    private void setRouteMeta(AppShellSettings settings, String howDoI) {
+    private void setRouteMeta(AppShellSettings settings, String howDoI, String description) {
         settings.setPageTitle(howDoI + " - Vaadin Cookbook");
-        settings.addMetaTag("description", howDoI);
+        settings.addMetaTag("description", description);
     }
 
     private String getHowDoI(RecipeInfo recipeInfo) {
         return "How do I " + recipeInfo.getHowDoI();
 
     }
+
 }

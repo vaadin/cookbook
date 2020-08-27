@@ -38,7 +38,8 @@ public class AllRecipes {
             }
         }
 
-        RecipeInfo recipeInfo = new RecipeInfo(recipeClass, route.value(), recipe.howdoI(), sourceFiles);
+        RecipeInfo recipeInfo = new RecipeInfo(recipeClass, route.value(), recipe.howdoI(), recipe.description(),
+                sourceFiles);
         allRecipes.add(recipeInfo);
     }
 
