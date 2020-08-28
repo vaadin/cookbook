@@ -3,6 +3,7 @@ package com.vaadin.recipes.recipe.datepickerpattern;
 import java.time.LocalDate;
 
 import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -19,19 +20,23 @@ public class DatePickerPattern extends Recipe {
   public DatePickerPattern() {
 
     DatePickerWithPattern datePicker = new DatePickerWithPattern();
-    datePicker.setValue(LocalDate.of(2020, 4, 11));
     datePicker.setLabel("Custom date pattern");
     datePicker.setPattern("yyyy-MM-dd");
 
-    // Add a pattern selector for the example
+    // Add a text node for displaying the current value
+    Text currentValue = new Text("");
+    datePicker.addValueChangeListener(e -> currentValue.setText("Current value: " + datePicker.getValue()));
+    datePicker.setValue(LocalDate.of(2020, 4, 11));
+
+    // Add a pattern selector
     ComboBox<String> comboBox = new ComboBox<>("Select the date pattern");
     comboBox.setItems("yyyy-MM-dd", "dd MMMM yyyy", "MM/dd/yyyy", "d. MMM yyyy", "M-d-yy", "yyyy'年'M'月'd'日'");
     comboBox.setAllowCustomValue(true);
     comboBox.addValueChangeListener(e -> datePicker.setPattern(e.getValue()));
     comboBox.addCustomValueSetListener(e -> datePicker.setPattern(e.getDetail()));
-    comboBox.setValue("yyyy-MM-dd");
+    comboBox.setValue(datePicker.getPattern());
 
-    add(datePicker, comboBox);
+    add(datePicker, currentValue, comboBox);
   }
 
   @JsModule("./recipe/date-picker-pattern/date-picker-pattern.js")
