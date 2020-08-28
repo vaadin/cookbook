@@ -49,6 +49,9 @@ export class GeoLocation extends Recipe {
         <p>Message: ${this.error?.message}</p>
       </section>
     ` : nothing}
+
+    <div class="next-step">See the <a href="leaflet-map">showing a map</a> recipe
+    to see how to show a location on a map.</div>
     `;
   }
 
@@ -87,6 +90,10 @@ export class GeoLocation extends Recipe {
 
     p {
       margin: 0;
+    }
+
+    .next-step {
+      margin-top: 3em;
     }
   `;
 }
