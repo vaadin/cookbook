@@ -1,7 +1,6 @@
 package com.vaadin.recipes.recipe.scrolltoitemintreegrid;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataCommunicator;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
