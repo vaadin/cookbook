@@ -44,6 +44,8 @@ dependencies:
   '@vaadin/vaadin-text-field': 2.7.0-beta1
   '@vaadin/vaadin-time-picker': 2.3.0-beta1
   '@vaadin/vaadin-upload': 4.4.0-beta1
+  date-fns: 2.16.0
+  leaflet: 1.6.0
   lit-element: 2.3.1
 devDependencies:
   '@types/validator': 10.11.3
@@ -2820,6 +2822,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-m62ShEObQ39CfralilEQRjH6oAMtNCV1xJyEx5LpRYUVN+EviphDgUc/F3hnYbADmkiNs67Y+3ylmlG7Lnu+FA==
+  /date-fns/2.16.0:
+    dev: false
+    engines:
+      node: '>=0.11'
+    resolution:
+      integrity: sha512-DWTRyfOA85sZ4IiXPHhiRIOs3fW5U6Msrp+gElXARa6EpoQTXPyHQmh7hr+ssw2nx9FtOQWnAMJKgL5vaJqILw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -4351,6 +4359,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
+  /leaflet/1.6.0:
+    dev: false
+    resolution:
+      integrity: sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==
   /leven/3.1.0:
     dev: true
     engines:
@@ -6795,7 +6807,9 @@ specifiers:
   chokidar: ^3.4.0
   compression-webpack-plugin: 3.1.0
   copy-webpack-plugin: 5.1.1
+  date-fns: 2.16.0
   html-webpack-plugin: 3.2.0
+  leaflet: 1.6.0
   lit-element: 2.3.1
   lit-html: 1.2.1
   progress-webpack-plugin: 0.0.24
