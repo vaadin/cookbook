@@ -1,6 +1,8 @@
 package com.vaadin.recipes.recipe.dialogwithkeyboardshortcuts;
 
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.ShortcutRegistration;
+import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Span;
@@ -32,6 +34,13 @@ public class DialogWithKeyboardShortcuts extends Recipe {
             dialog.close();
         });
         okButton.addClickShortcut(Key.ENTER);
+
+        // Prevent click shortcut of the OK button from also triggering when
+        // another button is focused
+        ShortcutRegistration shortcutRegistration = Shortcuts.addShortcutListener(buttons, () -> {
+        }, Key.ENTER).listenOn(buttons);
+        shortcutRegistration.setEventPropagationAllowed(false);
+        shortcutRegistration.setBrowserDefaultAllowed(true);
 
         dialog.open();
     }
