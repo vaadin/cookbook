@@ -1,6 +1,8 @@
 package com.vaadin.recipes.recipe.scrolltoitemintreegrid;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataCommunicator;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
@@ -43,7 +45,7 @@ public class ScrollToItemInTreeGrid extends Recipe {
         public void scrollToItem(T item){
             int index = getIndexForItem(item);
             if(index>=0){
-                this.getElement().executeJs("this.scrollWhenReady($0);", index);
+                this.getElement().executeJs("this.scrollWhenReady($0, true);", index);
             }
         }
 
@@ -68,8 +70,8 @@ public class ScrollToItemInTreeGrid extends Recipe {
         }
 
         private void initScrollWhenReady() {
-            runBeforeClientResponse(ui -> getElement().executeJs("this.scrollWhenReady = function(index){" +
-                    "if(this.loading) {var that = this; setTimeout(function(){that.scrollWhenReady(index);}, 200);}" +
+            runBeforeClientResponse(ui -> getElement().executeJs("this.scrollWhenReady = function(index, firstCall){" +
+                    "if(this.loading || firstCall) {var that = this; setTimeout(function(){that.scrollWhenReady(index, false);}, 200);}" +
                     "        else {this.scrollToIndex(index);}" +
                     "};"));
         }
@@ -123,21 +125,25 @@ public class ScrollToItemInTreeGrid extends Recipe {
      */
     public ScrollToItemInTreeGrid(){
         ScrollTreeGrid<Person> grid = new ScrollTreeGrid<>();
-        grid.setWidth("90%");
         grid.addHierarchyColumn(p -> p.getName()).setHeader("Name");
         Person grandDad = new Person("Granddad", null);
         Person dad = new Person("Dad", grandDad);
         List<Person> people = new ArrayList<>();
         people.add(grandDad);
         people.add(dad);
-        for(int i=0;i<100;i++){
+        Person firstChild = new Person("First Child", dad);
+        people.add(firstChild);
+        for(int i=2;i<100;i++){
             Person child = new Person("Child "+i, dad);
             people.add(child);
         }
         Person lastChild = new Person("Last Child", dad);
         people.add(lastChild);
         people.forEach(p -> grid.getTreeData().addItem(p.getParent(), p));
-        grid.addExpandListener(e -> grid.scrollToItem(lastChild));
         add(grid);
+        HorizontalLayout buttons = new HorizontalLayout();
+        buttons.add(new Button("Expand and scroll to first", e -> {grid.expand(grandDad, dad); grid.scrollToItem(firstChild);}));
+        buttons.add(new Button("Expand and scroll to last", e -> {grid.expand(grandDad,dad); grid.scrollToItem(lastChild);}));
+        add(buttons);
     }
 }
