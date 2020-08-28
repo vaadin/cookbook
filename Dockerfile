@@ -6,13 +6,14 @@ RUN useradd -m myuser
 WORKDIR /usr/src/app/
 RUN chown myuser:myuser /usr/src/app/
 USER myuser
-COPY --chown=myuser:myuser src src
-COPY --chown=myuser:myuser frontend frontend
-COPY --chown=myuser pom.xml package.json pnpm-lock.yaml parseClientRoutes.ts webpack.config.js ./
+COPY --chown=myuser pom.xml ./
 
 # This allows repeated builds to start from the next step, with all Maven dependencies cached
 RUN mvn dependency:go-offline -Pproduction
 
+COPY --chown=myuser:myuser src src
+COPY --chown=myuser:myuser frontend frontend
+COPY --chown=myuser package.json pnpm-lock.yaml parseClientRoutes.ts webpack.config.js ./
 RUN mvn clean package -DskipTests -Pproduction
 
 # Run stage
