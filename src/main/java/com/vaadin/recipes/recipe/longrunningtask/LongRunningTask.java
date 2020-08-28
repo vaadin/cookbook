@@ -11,8 +11,8 @@ import com.vaadin.recipes.recipe.Recipe;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Route("long-running-task")
-@Metadata(howdoI = "Show a progress bar while a long task is running")
-// @Push (add it hera or in your AppShellConfigurator implementation)
+@Metadata(howdoI = "Show a progress bar while a long task is running", sourceFiles = {  "BackEndService.java "})
+// @Push (add it here or in your AppShellConfigurator implementation)
 public class LongRunningTask extends Recipe {
 
     private final BackendService backendService;
