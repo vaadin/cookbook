@@ -1,13 +1,8 @@
 package com.vaadin.recipes;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.NavigationState;
 import com.vaadin.flow.server.AppShellSettings;
 import com.vaadin.flow.server.PWA;
@@ -16,7 +11,14 @@ import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import com.vaadin.recipes.recipe.Recipe;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 @PWA(name = "Recipes", shortName = "recipes")
+@Push
 public class AppShell implements AppShellConfigurator {
 
     private static final String TS_RECIPE_INFO_JSON = "ts-recipe-info.json";
