@@ -11,7 +11,6 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
@@ -51,12 +50,6 @@ public class NotifyUsers extends Recipe {
                 return;
             }
 
-            /*
-             * Alternatively, add @Push to the app shell class (main layout in
-             * Vaadin 14) to have it enabled all the time
-             */
-            ui.getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
-
             subscriber = message -> ui.access(() -> Notification.show(message));
             synchronized (subscribers) {
                 subscribers.add(subscriber);
@@ -66,12 +59,6 @@ public class NotifyUsers extends Recipe {
                 // Already unsubscribed
                 return;
             }
-
-            /*
-             * Remove this if using @Push on the app shell class (main layout in
-             * Vaadin 14)
-             */
-            UI.getCurrent().getPushConfiguration().setPushMode(PushMode.MANUAL);
 
             synchronized (subscribers) {
                 subscribers.remove(subscriber);
