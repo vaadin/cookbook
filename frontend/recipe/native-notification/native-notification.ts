@@ -49,7 +49,15 @@ export class NativeNotification extends Recipe {
     // https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission
     let permission = Notification.permission;
     if (permission !== "granted") {
-      permission = await Notification.requestPermission();
+      // Safari uses the deprecated .requestPermission(callback) API
+      // Other browsers use the standard .requestPermission() => Promise API
+      let permissionCallback: NotificationPermissionCallback;
+      const permissionSafari = new Promise<NotificationPermission>(r => permissionCallback = r);
+      const permissionModern = Notification.requestPermission(permissionCallback!);
+
+      // If `permissionModern` is defined use it (Safari would return `undefined`).
+      // Otherwise fallback to the callback-based API.
+      permission = await (permissionModern || permissionSafari);
     }
 
     switch (permission) {
