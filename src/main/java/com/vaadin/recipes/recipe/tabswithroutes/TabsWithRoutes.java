@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Route("tabs-with-routes")
 @Metadata(howdoI = "Bind tabs to routes")
-public class TabsWithRoutes extends Recipe implements RouterLayout {
+public class TabsWithRoutes extends Recipe implements RouterLayout, BeforeEnterObserver {
 
     public TabsWithRoutes() {
         RouteTabs routeTabs = new RouteTabs();
@@ -36,6 +36,13 @@ public class TabsWithRoutes extends Recipe implements RouterLayout {
         @Override
         public void setParameter(BeforeEvent beforeEvent, String s) {
             add(new Text("Content of B with parameter " + s));
+        }
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (event.getNavigationTarget() == TabsWithRoutes.class) {
+            event.forwardTo(ViewA.class);
         }
     }
 
