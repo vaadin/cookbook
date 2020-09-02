@@ -47,7 +47,7 @@ public class AppShell implements AppShellConfigurator {
         Optional<NavigationState> target = request.getService().getRouter().resolveNavigationTarget(pathInfo,
                 request.getParameterMap());
 
-        if (target.isPresent()) {
+        if (target.isPresent() && Recipe.class.isAssignableFrom(target.get().getNavigationTarget())) {
             // Server side route
             Class<? extends Recipe> recipeClass = (Class<? extends Recipe>) target.get().getNavigationTarget();
             RecipeInfo recipeInfo = AllRecipes.getRecipeInfo(recipeClass);
