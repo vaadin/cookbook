@@ -9,7 +9,8 @@ import com.vaadin.recipes.recipe.Recipe;
 import java.util.Random;
 
 @Route("lazy-component-view")
-@Metadata(howdoI = "lazily initialize components", sourceFiles = "LazyContainer.java")
+@Metadata(howdoI = "lazily initialize components", sourceFiles = { "LazyContainer.java",
+        "recipe/lazy-component-view/loader-placeholder-styles.css" })
 public class LazyComponentView extends Recipe {
 
     private Div div1 = buildDiv();

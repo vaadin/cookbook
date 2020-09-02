@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
  *
  * @param <T> Component lazy loaded
  */
-@CssImport("./styles/loader-placeholder-styles.css")
+@CssImport("./recipe/lazy-component-view/loader-placeholder-styles.css")
 public class LazyContainer<T extends Component> extends Composite<Div> {
 
     private boolean loaded = false;
