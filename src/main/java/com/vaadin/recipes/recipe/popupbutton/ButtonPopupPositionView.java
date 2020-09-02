@@ -23,7 +23,7 @@ public class ButtonPopupPositionView extends Recipe {
         dialog.open();
         /* position the dialog next to the button on the left */
         dialog.getElement().executeJs(
-            "debugger; $0.$.overlay.$.overlay.style['align-self']='flex-start';" +
+            "$0.$.overlay.$.overlay.style['align-self']='flex-start';" +
                 "$0.$.overlay.$.overlay.style['position']='absolute';" +
                 "$0.$.overlay.$.overlay.style['top']= ($1.getBoundingClientRect().top - $1.getBoundingClientRect().height )+ 'px';" +
                 "$0.$.overlay.$.overlay.style['left']= ($1.getBoundingClientRect().left + $1.getBoundingClientRect().width) + 'px'"
