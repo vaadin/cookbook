@@ -88,6 +88,7 @@ export class RecipesListView extends LitElement {
 
         .recipes-list-view-header .title {
           width: var(--recipes-filter-column-width);
+          flex: none;
           margin: 0;
           padding: 0;
         }
@@ -114,53 +115,62 @@ export class RecipesListView extends LitElement {
           .recipes-list-view-header > .container-fluid {
             flex-wrap: wrap;
           }
+
+          .recipes-list-view-header-search {
+            order: 1;
+            margin-top: var(--space-xs);
+          }
+
           .recipes-list-view-header-links {
-            margin: var(--space-sm) 0;
+            margin-left: auto;
+          }
+
+          .recipes-list-container {
+            flex-direction: column;
           }
         }
 
         .recipes-list-container {
+          display: flex;
           padding-top: var(--space-md);
           padding-bottom: var(--space-xl);
+        }
+
+        .recipes-list-tags {
+          width: var(--recipes-filter-column-width);
+          flex: none;
         }
 
         .recipes-list {
           list-style: none;
           margin: 0;
           padding: 0;
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-          gap: var(--space-sm);
         }
 
-        .recipes-list .card {
-          box-shadow: var(--elevation-sm);
+        .recipe {
           position: relative;
         }
 
-        .recipes-list .card a {
+        .recipe-title {
+          margin-bottom: 0;
+        }
+
+        p.recipe-description {
+          margin-bottom: 0;
+        }
+
+        .recipe a {
           color: inherit;
           text-decoration: none;
         }
 
-        .recipes-list .card a::before {
+        .recipe a::before {
           content: "";
           position: absolute;
           top: 0;
           right: 0;
           bottom: 0;
           left: 0;
-        }
-
-        .recipes-list .card .feature-box {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-        }
-
-        .recipes-list .card .feature-box-text {
-          flex: auto;
-          margin-bottom: var(--space-xs);
         }
       </style>
 
@@ -202,18 +212,15 @@ export class RecipesListView extends LitElement {
             (recipe) => recipe.url,
             (recipe) =>
               html`
-                <li class="card">
-                  <div class="feature-box">
-                    <div class="feature-box-text">
-                      <h5>
-                        <a href="${recipe.url}">${recipe.howDoI.trim().replace(/^\w/, (c) => c.toUpperCase())}</a>
-                      </h5>
-                    </div>
-                    <div class="tags">
-                    ${recipe.tags?.map(
-                      (tag) => html`<span class="tag water">${tag}</span> `
-                    )}
-                    </div>
+                <li class="recipe">
+                  <h5 class="recipe-title">
+                    <a href="${recipe.url}">${recipe.howDoI.trim().replace(/^\w/, (c) => c.toUpperCase())}</a>
+                  </h5>
+                  <p class="paragraph-sm recipe-description" ?hidden=${recipe.description?.length===0}>${recipe.description}</p>
+                  <div class="recipe-tags">
+                  ${recipe.tags?.map(
+                    (tag) => html`<span class="tag water">${tag}</span> `
+                  )}
                   </div>
                 </li>`
           )}
