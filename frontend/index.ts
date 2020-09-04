@@ -1,7 +1,5 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
 import { Route, Router } from "@vaadin/router";
-import { recipes } from "./all-recipes";
-import { MainView } from "./views/main-view";
 import { tsRecipeRoutes } from "./ts-routes";
 
 const { serverSideRoutes } = new Flow({
@@ -14,7 +12,6 @@ const routes: Route[] = [
     component: "main-view",
     action: async (_context, _commands) => {
       await import("./views/main-view");
-      updateCurrentRecipe(_context.pathname);
     },
     children: [
       {
@@ -33,17 +30,3 @@ const routes: Route[] = [
 export const router = new Router(document.querySelector("#outlet"));
 router.setRoutes(routes);
 
-export const updateCurrentRecipe = (path?: string) => {
-  if (!path) {
-    path = router.location.pathname;
-  }
-
-  if (path.includes("-")) {
-    const tag = path.substr(path.lastIndexOf("/") + 1);
-    const recipe = recipes.find((recipe) => recipe.url == tag);
-    if (recipe) {
-      const mainView = document.querySelector("main-view")! as MainView;
-      mainView.recipe = recipe;
-    }
-  }
-};
