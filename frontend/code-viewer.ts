@@ -1,6 +1,5 @@
 import "@vaadin/vaadin-tabs";
 import {
-  css,
   customElement,
   html,
   LitElement,
@@ -33,37 +32,35 @@ export class CodeViewer extends LitElement {
   @property({ type: String })
   language = "none";
 
-  static get styles() {
-    return [
-      css`
-        ${unsafeCSS(prismCss)}
-      `,
-      css`
-        :host {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-        vaadin-tabs {
-          width: 100%;
-        }
-        pre {
-          width: 100%;
-          overflow: auto;
-          padding: var(--lumo-space-m);
-        }
-      `,
-    ];
+  createRenderRoot() {
+    return this;
   }
 
   render() {
     return html`
-      <vaadin-tabs @selected-changed=${this.viewSource}
-        >${this.files.map(
+      <style>
+        code-viewer {
+          display: block;
+          background-color: var(--color-charcoal);
+          font-size: var(--text-size-sm);
+          border-radius: var(--roundness-lg);
+        }
+
+        ${unsafeCSS(prismCss)}
+
+        pre[class*="language-"] {
+          background: transparent;
+        }
+      </style>
+
+      <vaadin-tabs
+        @selected-changed=${this.viewSource}
+        theme="cookbook-code">
+        ${this.files.map(
           (file) => html`<vaadin-tab>${getSimpleName(file)}</vaadin-tab>`
-        )}</vaadin-tabs
-      >
-      ${/*Don't reuse these elements. This is needed because Prism 
+        )}
+      </vaadin-tabs>
+      ${/*Don't reuse these elements. This is needed because Prism
           removes the markers lit-html uses to track slots */
       unsafeHTML(
         `<pre><code class="language-${this.language}">${this.escapeHtml(
@@ -78,6 +75,7 @@ export class CodeViewer extends LitElement {
     const fileIndex = e.detail.value;
     this.viewSourceFile(fileIndex);
   }
+
   async viewSourceFile(index: number) {
     if (this.files.length <= index) {
       // Hack to handle initial rendering
@@ -94,7 +92,7 @@ export class CodeViewer extends LitElement {
     // Wait for LitElement to finish updating the DOM before higlighting
     await this.updateComplete;
     //@ts-ignore
-    Prism.highlightAllUnder(this.shadowRoot);
+    Prism.highlightAllUnder(this);
   }
 
   escapeHtml(unsafe: string) {

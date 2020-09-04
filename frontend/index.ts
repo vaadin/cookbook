@@ -18,7 +18,7 @@ const routes: Route[] = [
     },
   },
   {
-    path: "/:recipe",
+    path: "",
     component: "recipe-view",
     action: async (_context, _commands) => {
       await initRecipes();
