@@ -3,15 +3,15 @@ package com.vaadin.recipes.recipe.splitbuttonbar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("split-button-bar")
-@Metadata(howdoI = "split a button bar into left and right groups")
+@Metadata(howdoI = "split a button bar into left and right groups", tags = { Tag.LAYOUT })
 public class SplitButtonBar extends Recipe {
 
     public SplitButtonBar() {

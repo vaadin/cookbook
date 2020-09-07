@@ -1,5 +1,9 @@
 package com.vaadin.recipes.recipe.undoablesend;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -9,13 +13,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("undoable-send")
-@Metadata(howdoI = "Send with undo button")
+@Metadata(howdoI = "Send with undo button", tags = { Tag.PUSH })
 public class UndoableSend extends Recipe {
 
     private static final Executor executor =

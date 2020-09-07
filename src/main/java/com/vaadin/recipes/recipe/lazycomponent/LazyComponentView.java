@@ -5,12 +5,13 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 import java.util.Random;
 
 @Route("lazy-component-view")
 @Metadata(howdoI = "lazily initialize components", sourceFiles = { "LazyContainer.java",
-        "recipe/lazy-component-view/loader-placeholder-styles.css" })
+        "recipe/lazy-component-view/loader-placeholder-styles.css" }, tags = { Tag.PERFORMANCE })
 public class LazyComponentView extends Recipe {
 
     private Div div1 = buildDiv();

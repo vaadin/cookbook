@@ -6,16 +6,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("dynamic-grid-cell-background-color")
 @Metadata(howdoI = "Set the grid cell bg color depending on data", sourceFiles = {
-    "recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css"})
-@CssImport(themeFor="vaadin-grid", value="./recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css")
+        "recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css" }, tags = { Tag.THEME,
+                Tag.GRID })
+@CssImport(themeFor = "vaadin-grid", value = "./recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css")
 public class DynamicGridCellBackgroundColor extends Recipe {
     private Random r = new Random();
 

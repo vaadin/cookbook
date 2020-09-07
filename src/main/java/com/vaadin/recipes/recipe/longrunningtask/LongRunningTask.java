@@ -8,10 +8,13 @@ import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
+
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Route("long-running-task")
-@Metadata(howdoI = "Show a progress bar while a long task is running", sourceFiles = { "BackendService.java" })
+@Metadata(howdoI = "Show a progress bar while a long task is running", sourceFiles = { "BackendService.java" }, tags = {
+        Tag.PUSH, Tag.USABILITY })
 // @Push (add it here or in your AppShellConfigurator implementation)
 public class LongRunningTask extends Recipe {
 

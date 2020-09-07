@@ -5,10 +5,12 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
+
 import elemental.json.JsonValue;
 
 @Route("avoid-double-click")
-@Metadata(howdoI = "Avoid double-clicks on a Button")
+@Metadata(howdoI = "Avoid double-clicks on a Button", tags = { Tag.USABILITY })
 public class AvoidDoubleClick extends Recipe {
 
     public AvoidDoubleClick() {

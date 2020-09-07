@@ -13,9 +13,11 @@ import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("user-locale-grid-numbers")
-@Metadata(howdoI = "Show numbers in a grid according to the user's locale", sourceFiles = "ApplicationI18NProvider.java")
+@Metadata(howdoI = "Show numbers in a grid according to the user's locale", sourceFiles = "ApplicationI18NProvider.java", tags = {
+        Tag.GRID })
 public class UserLocaleGridNumbers extends Recipe {
     private final Grid<Double> grid = new Grid<>();
 

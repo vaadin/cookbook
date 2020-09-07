@@ -10,4 +10,6 @@ public @interface Metadata {
     String description() default "";
 
     String[] sourceFiles() default {};
+
+    Tag[] tags() default {};
 }

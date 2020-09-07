@@ -1,5 +1,9 @@
 package com.vaadin.recipes.recipe.scrolltoitemintreegrid;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -11,13 +15,10 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("scroll-to-item-in-tree-grid")
-@Metadata(howdoI = "Scroll to a specific item when expanding nodes")
+@Metadata(howdoI = "Scroll to a specific item when expanding nodes", tags = { Tag.GRID })
 public class ScrollToItemInTreeGrid extends Recipe {
 
     public static class ScrollTreeGrid<T> extends TreeGrid<T> {

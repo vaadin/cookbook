@@ -23,12 +23,13 @@ import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Metadata(howdoI = "Export grid data as CSV")
+@Metadata(howdoI = "Export grid data as CSV", tags = { Tag.GRID })
 public class GridCsvExport extends Recipe {
 
     public static class Person {
