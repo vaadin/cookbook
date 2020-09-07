@@ -1,5 +1,8 @@
 import { TextFieldElement } from "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-text-field";
+import "@vaadin/vaadin-details";
+import "@vaadin/vaadin-checkbox";
+import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
 import { customElement, html, LitElement, property, query } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
@@ -48,6 +51,19 @@ registerStyles(
   `
 );
 
+registerStyles(
+  "vaadin-details",
+  css`
+    [part="summary-content"] {
+      min-width: 0;
+    }
+
+    :host([theme~="cookbook"]) [part="summary"] {
+      padding: 0;
+    }
+  `
+);
+
 @customElement("recipes-list-view")
 export class RecipesListView extends LitElement {
   @property({ type: String })
@@ -68,6 +84,7 @@ export class RecipesListView extends LitElement {
         recipes-list-view {
           display: block;
           --recipes-filter-column-width: 180px;
+          --recipes-list-view-header-height: 80px;
         }
 
         .recipes-list-view-header {
@@ -76,6 +93,7 @@ export class RecipesListView extends LitElement {
           position: sticky;
           top: 0;
           z-index: 1000;
+          height: var(--recipes-list-view-header-height);
         }
 
         .recipes-list-view-header > .container-fluid {
@@ -111,34 +129,56 @@ export class RecipesListView extends LitElement {
           text-decoration: none !important;
         }
 
-        @media (max-width: 600px) {
-          .recipes-list-view-header > .container-fluid {
-            flex-wrap: wrap;
-          }
-
-          .recipes-list-view-header-search {
-            order: 1;
-            margin-top: var(--space-xs);
-          }
-
-          .recipes-list-view-header-links {
-            margin-left: auto;
-          }
-
-          .recipes-list-container {
-            flex-direction: column;
-          }
-        }
-
         .recipes-list-container {
           display: flex;
+          align-items: flex-start;
           padding-top: var(--space-md);
           padding-bottom: var(--space-xl);
         }
 
         .recipes-list-tags {
           width: var(--recipes-filter-column-width);
+          box-sizing: border-box;
+          padding-right: var(--space-md);
           flex: none;
+          position: -webkit-sticky;
+          position: sticky;
+          top: var(--recipes-list-view-header-height);
+          z-index: 1000;
+          background-color: var(--color-alloy-lighter);
+          max-height: calc(100vh - var(--recipes-list-view-header-height));
+          overflow: auto;
+        }
+
+        .recipes-list-tags vaadin-details {
+          margin: 0;
+        }
+
+        .recipes-list-tags h6 {
+          margin: 0;
+          padding: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .recipes-list-tags .selected-tags {
+          font-weight: var(--text-weight-regular);
+        }
+
+        .recipes-list-tags vaadin-details[opened] .selected-tags {
+          display: none;
+        }
+
+        .recipes-list-tags vaadin-checkbox-group,
+        .recipes-list-tags vaadin-checkbox {
+          font-family: inherit;
+          font-size: var(--text-size-sm);
+          color: var(--color-graphite);
+        }
+
+        .recipes-list-tags vaadin-checkbox {
+          display: block;
         }
 
         .recipes-list {
@@ -147,12 +187,12 @@ export class RecipesListView extends LitElement {
           padding: 0;
         }
 
-        .recipe {
-          position: relative;
-        }
-
         .recipe-title {
           margin-bottom: 0;
+        }
+
+        .recipe:first-child .recipe-title {
+          padding-top: 0;
         }
 
         p.recipe-description {
@@ -164,13 +204,38 @@ export class RecipesListView extends LitElement {
           text-decoration: none;
         }
 
-        .recipe a::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
+        @media (max-width: 600px) {
+          recipes-list-view {
+            --recipes-filter-column-width: auto;
+            --recipes-list-view-header-height: 118px;
+          }
+
+          .recipes-list-view-header > .container-fluid {
+            flex-wrap: wrap;
+          }
+
+          .recipes-list-view-header-search {
+            order: 1;
+            margin-top: var(--space-xs);
+            min-width: 50vw;
+          }
+
+          .recipes-list-view-header-links {
+            margin-left: auto;
+          }
+
+          .recipes-list-tags {
+            padding-right: 0;
+            border-bottom: 1px solid var(--color-alloy-darker);
+            padding: var(--space-xs) 0;
+            margin-bottom: var(--space-md);
+          }
+
+          .recipes-list-container {
+            flex-direction: column;
+            align-items: stretch;
+            padding-top: 0;
+          }
         }
       </style>
 
@@ -205,7 +270,25 @@ export class RecipesListView extends LitElement {
 
       <div class="recipes-list-container container-fluid">
         <div class="recipes-list-tags">
-          <!-- TODO -->
+          <!--TODO: collapse when viewport is small, and show selected ones in the summary (“All” or “Java, TypeScript, Lorem” if a subset is selected) -->
+          <vaadin-details theme="reverse cookbook" opened>
+            <h6 slot="summary">Tags<span class="selected-tags">: All</span></h6>
+            <vaadin-checkbox-group>
+              <vaadin-checkbox checked>Java</vaadin-checkbox>
+              <vaadin-checkbox checked>TypeScript</vaadin-checkbox>
+              <vaadin-checkbox checked>Lorem</vaadin-checkbox>
+              <vaadin-checkbox checked>Ipsum</vaadin-checkbox>
+              <vaadin-checkbox checked>Dolor</vaadin-checkbox>
+              <vaadin-checkbox checked>Sit</vaadin-checkbox>
+              <vaadin-checkbox checked>Amet</vaadin-checkbox>
+              <vaadin-checkbox checked>Consectetur</vaadin-checkbox>
+              <vaadin-checkbox checked>Adipiscising</vaadin-checkbox>
+              <vaadin-checkbox checked>Elit</vaadin-checkbox>
+              <vaadin-checkbox checked>Sed do</vaadin-checkbox>
+              <vaadin-checkbox checked>Eiusmod</vaadin-checkbox>
+              <vaadin-checkbox checked>Tempor</vaadin-checkbox>
+            </vaadin-checkbox-group>
+          </vaadin-details>
         </div>
         <ul class="recipes-list">
           ${repeat(
