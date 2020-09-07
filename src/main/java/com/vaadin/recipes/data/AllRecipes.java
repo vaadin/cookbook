@@ -70,4 +70,19 @@ public class AllRecipes {
         }
 
     }
+
+    public static String getTitle(RecipeInfo recipeInfo) {
+        return getHowDoI(recipeInfo) + " - Vaadin Cookbook";
+    }
+
+    private static String getHowDoI(RecipeInfo recipeInfo) {
+        return "How do I " + recipeInfo.getHowDoI();
+
+    }
+
+    public static String getDescription(RecipeInfo recipeInfo) {
+        String description = recipeInfo.getDescription();
+        return description != null && !description.isEmpty() ? description : getHowDoI(recipeInfo);
+    }
+
 }

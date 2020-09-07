@@ -53,8 +53,7 @@ public class AppShell implements AppShellConfigurator {
         }
 
         if (recipeInfo != null) {
-            String howDoI = getHowDoI(recipeInfo);
-            setRouteMeta(settings, howDoI, recipeInfo.getDescription());
+            setRouteMeta(settings, recipeInfo);
         } else {
             LoggerFactory.getLogger(getClass()).warn("No recipe info found for {}", request.getPathInfo());
         }
@@ -106,14 +105,9 @@ public class AppShell implements AppShellConfigurator {
         return null;
     }
 
-    private void setRouteMeta(AppShellSettings settings, String howDoI, String description) {
-        settings.setPageTitle(howDoI + " - Vaadin Cookbook");
-        settings.addMetaTag("description", description != null && !description.isEmpty() ? description : howDoI);
-    }
-
-    private String getHowDoI(RecipeInfo recipeInfo) {
-        return "How do I " + recipeInfo.getHowDoI();
-
+    private void setRouteMeta(AppShellSettings settings, RecipeInfo recipeInfo) {
+        settings.setPageTitle(AllRecipes.getTitle(recipeInfo));
+        settings.addMetaTag("description", AllRecipes.getDescription(recipeInfo));
     }
 
 }
