@@ -12,11 +12,11 @@ import elemental.json.JsonValue;
 public class AvoidDoubleClick extends Recipe {
 
     public AvoidDoubleClick() {
-        Button button = new Button("click me twice");
+        Button button = new Button("this button has accidental double-click protection");
         button.getElement().addEventListener("click", e -> {
             JsonValue detail = e.getEventData().get("event.detail");
             if (detail.asNumber() > 1) {
-                Notification.show("Double click, ignore me");
+                // double click, ignore
             } else {
                 Notification.show("Single click, do something");
             }
