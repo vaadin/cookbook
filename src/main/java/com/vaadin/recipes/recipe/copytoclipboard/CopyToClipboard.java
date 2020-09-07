@@ -10,7 +10,8 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
 @Route("copy-to-clipboard")
-@Metadata(howdoI = "Copy text to clipboard", description = "How to copy text to the user's clipboard when clicking a button")
+@Metadata(howdoI = "Copy text to clipboard", description = "How to copy text to the user's clipboard when clicking a button", sourceFiles = {
+        "./recipe/copytoclipboard/copytoclipboard.js" })
 @JsModule("./recipe/copytoclipboard/copytoclipboard.js")
 public class CopyToClipboard extends Recipe {
 
