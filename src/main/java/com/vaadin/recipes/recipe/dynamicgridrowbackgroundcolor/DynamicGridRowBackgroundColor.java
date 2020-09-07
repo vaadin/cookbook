@@ -10,12 +10,13 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("dynamic-grid-row-background-color")
 @Metadata(howdoI = "Set the grid row bg color depending on data", sourceFiles = {
-    "recipe/dynamicgridrowbackgroundcolor/dynamic-grid-row-background-color.css"})
+        "recipe/dynamicgridrowbackgroundcolor/dynamic-grid-row-background-color.css" }, tags = { Tag.THEME, Tag.GRID })
 @CssImport(themeFor = "vaadin-grid", value = "./recipe/dynamicgridrowbackgroundcolor/dynamic-grid-row-background-color.css")
-public class DynamicGridRowBackgroundColor extends Recipe{
+public class DynamicGridRowBackgroundColor extends Recipe {
     private Random r = new Random();
 
     public DynamicGridRowBackgroundColor(){

@@ -1,5 +1,8 @@
 package com.vaadin.recipes.recipe.gridcolumntoggle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
@@ -11,12 +14,10 @@ import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("grid-column-toggle")
-@Metadata(howdoI = "Show a popup to toggle grid columns")
+@Metadata(howdoI = "Show a popup to toggle grid columns", tags = { Tag.GRID })
 public class GridColumnToggle extends Recipe {
 
     private final Map<Column<?>, String> toggleableColumns = new HashMap<>();

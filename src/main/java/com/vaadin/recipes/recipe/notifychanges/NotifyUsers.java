@@ -13,9 +13,10 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("notify-users")
-@Metadata(howdoI = "Show a notification to active users")
+@Metadata(howdoI = "Show a notification to active users", tags = { Tag.PUSH })
 public class NotifyUsers extends Recipe {
 
     private static final Set<SerializableConsumer<String>> subscribers = new HashSet<>();

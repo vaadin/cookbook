@@ -6,12 +6,13 @@ import com.vaadin.flow.component.grid.dnd.GridDropMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Route("grid-dnd-reorder-rows")
-@Metadata(howdoI = "Drag and drop rows to reorder a Grid")
+@Metadata(howdoI = "Drag and drop rows to reorder a Grid", tags = { Tag.GRID })
 public class GridDndReorderRows extends Recipe {
 
     private Person draggedItem;

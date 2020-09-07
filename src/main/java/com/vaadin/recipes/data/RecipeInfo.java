@@ -1,6 +1,7 @@
 package com.vaadin.recipes.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,14 +29,15 @@ public class RecipeInfo {
     }
 
     public RecipeInfo(Class<? extends Recipe> recipeClass, String url, String howDoI, String description,
-            List<String> sourceFiles) {
+            List<String> sourceFiles, Tag[] tags) {
         this.url = url;
         this.howDoI = firstToLower(howDoI);
         this.description = description;
         this.sourceFiles = sourceFiles;
         this.recipeClass = recipeClass;
-        tags = new ArrayList<>();
-        tags.add(Tag.JAVA);
+        this.tags = new ArrayList<>();
+        this.tags.add(Tag.JAVA);
+        this.tags.addAll(Arrays.asList(tags));
     }
 
     private static String firstToLower(String howDoI) {

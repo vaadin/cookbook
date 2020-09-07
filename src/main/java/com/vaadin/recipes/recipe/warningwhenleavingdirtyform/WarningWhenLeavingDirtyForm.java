@@ -4,14 +4,15 @@ import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveEvent.ContinueNavigationAction;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.BeforeLeaveEvent.ContinueNavigationAction;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("warning-when-leaving-dirty-form")
-@Metadata(howdoI = "Warn user when leaving a dirty form")
+@Metadata(howdoI = "Warn user when leaving a dirty form", tags = { Tag.USABILITY })
 public class WarningWhenLeavingDirtyForm extends Recipe implements BeforeLeaveObserver {
 
     private TextField firstName = new TextField("First Name");

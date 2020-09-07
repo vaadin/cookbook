@@ -11,9 +11,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("dialog-with-keyboard-shortcuts")
-@Metadata(howdoI = "Show a dialog where Enter submits and Esc closes")
+@Metadata(howdoI = "Show a dialog where Enter submits and Esc closes", tags = { Tag.KEYBOARD })
 public class DialogWithKeyboardShortcuts extends Recipe {
     public DialogWithKeyboardShortcuts() {
         add(new Button("Show dialog", event -> showDialog()));
