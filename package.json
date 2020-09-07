@@ -4,6 +4,14 @@
   "scripts": {
     "postinstall": "tsc parseClientRoutes.ts"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "frontend/**": "prettier --write"
+  },
   "dependencies": {
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-list": "3.1.0",
@@ -32,7 +40,7 @@
     "@vaadin/vaadin-grid": "5.7.0",
     "@vaadin/vaadin-grid-pro": "2.2.0",
     "@vaadin/vaadin-icons": "4.3.1",
-    "@vaadin/vaadin-item": "2.3.0-beta1",
+    "@vaadin/vaadin-item": "2.3.0",
     "@vaadin/vaadin-list-box": "1.4.0",
     "@vaadin/vaadin-login": "1.2.0",
     "@vaadin/vaadin-lumo-styles": "1.6.0",
@@ -61,8 +69,11 @@
     "compression-webpack-plugin": "3.1.0",
     "copy-webpack-plugin": "5.1.1",
     "html-webpack-plugin": "3.2.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.3.0",
     "lit-element": "2.3.1",
     "lit-html": "1.2.1",
+    "prettier": "^2.1.1",
     "progress-webpack-plugin": "0.0.24",
     "raw-loader": "4.0.0",
     "script-ext-html-webpack-plugin": "2.1.4",
@@ -145,6 +156,6 @@
       "lit-html": "1.2.1",
       "@types/validator": "10.11.3"
     },
-    "hash": "430f092b27b28d8ceb18e482f996ffc5a5caaf9044f7ab340cdf936d75bf81d5"
+    "hash": "3e88eea984492a54040c9af2e2d903df5c6c55c91a8798824942045f168d8154"
   }
 }
