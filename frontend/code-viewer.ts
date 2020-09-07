@@ -1,6 +1,5 @@
 import "@vaadin/vaadin-tabs";
 import {
-  css,
   customElement,
   html,
   LitElement,
@@ -11,9 +10,43 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { getSimpleName } from "./util";
 import { getSource } from "./generated/RecipeEndpoint";
 import "@vaadin/vaadin-text-field/vaadin-text-area";
+import { registerStyles, css } from "@vaadin/vaadin-themable-mixin/register-styles";
 //@ts-ignore
 import * as Prism from "./prism.js";
 import prismCss from "./prism.css";
+
+
+registerStyles('vaadin-tabs', css`
+  :host([theme~="cookbook-code"]) {
+    box-shadow: inset 0 -1px 0 0 var(--color-graphite-darker);
+    color: var(--color-graphite-lighter);
+  }
+
+  [part="forward-button"],
+  [part="back-button"] {
+    color: var(--color-graphite);
+  }
+`);
+
+registerStyles('vaadin-tab', css`
+  :host([theme~="cookbook-code"]) {
+    color: var(--color-stainless);
+  }
+
+  :host([theme~="cookbook-code"][selected]),
+  :host([theme~="cookbook-code"][active]) {
+    color: var(--color-alloy-lighter);
+  }
+
+  :host([theme~="cookbook-code"][selected]) {
+    border-bottom: 2px solid var(--color-water);
+  }
+
+  :host([theme~="cookbook-code"][selected])::before,
+  :host([theme~="cookbook-code"][selected])::after {
+    display: none !important;
+  }
+`);
 
 @customElement("code-viewer")
 export class CodeViewer extends LitElement {
@@ -33,37 +66,35 @@ export class CodeViewer extends LitElement {
   @property({ type: String })
   language = "none";
 
-  static get styles() {
-    return [
-      css`
-        ${unsafeCSS(prismCss)}
-      `,
-      css`
-        :host {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-        vaadin-tabs {
-          width: 100%;
-        }
-        pre {
-          width: 100%;
-          overflow: auto;
-          padding: var(--lumo-space-m);
-        }
-      `,
-    ];
+  createRenderRoot() {
+    return this;
   }
 
   render() {
     return html`
-      <vaadin-tabs @selected-changed=${this.viewSource}
-        >${this.files.map(
-          (file) => html`<vaadin-tab>${getSimpleName(file)}</vaadin-tab>`
-        )}</vaadin-tabs
-      >
-      ${/*Don't reuse these elements. This is needed because Prism 
+      <style>
+        code-viewer {
+          display: block;
+          background-color: var(--color-charcoal);
+          font-size: var(--text-size-sm);
+          border-radius: var(--roundness-lg);
+        }
+
+        ${unsafeCSS(prismCss)}
+
+        pre[class*="language-"] {
+          background: transparent;
+        }
+      </style>
+
+      <vaadin-tabs
+        @selected-changed=${this.viewSource}
+        theme="cookbook-code">
+        ${this.files.map(
+          (file) => html`<vaadin-tab theme="cookbook-code">${getSimpleName(file)}</vaadin-tab>`
+        )}
+      </vaadin-tabs>
+      ${/*Don't reuse these elements. This is needed because Prism
           removes the markers lit-html uses to track slots */
       unsafeHTML(
         `<pre><code class="language-${this.language}">${this.escapeHtml(
@@ -78,6 +109,7 @@ export class CodeViewer extends LitElement {
     const fileIndex = e.detail.value;
     this.viewSourceFile(fileIndex);
   }
+
   async viewSourceFile(index: number) {
     if (this.files.length <= index) {
       // Hack to handle initial rendering
@@ -94,7 +126,7 @@ export class CodeViewer extends LitElement {
     // Wait for LitElement to finish updating the DOM before higlighting
     await this.updateComplete;
     //@ts-ignore
-    Prism.highlightAllUnder(this.shadowRoot);
+    Prism.highlightAllUnder(this);
   }
 
   escapeHtml(unsafe: string) {
