@@ -64,6 +64,23 @@ registerStyles(
   `
 );
 
+registerStyles(
+  "vaadin-checkbox",
+  css`
+    :host([theme~="cookbook"]) label {
+      display: flex;
+    }
+
+    :host([theme~="cookbook"]) [part="label"]:not([empty]) {
+      flex: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-right: 0;
+    }
+  `
+);
+
 @customElement("recipes-list-view")
 export class RecipesListView extends LitElement {
   @property({ type: String })
@@ -83,7 +100,7 @@ export class RecipesListView extends LitElement {
       <style>
         recipes-list-view {
           display: block;
-          --recipes-filter-column-width: 180px;
+          --recipes-filter-column-width: 200px;
           --recipes-list-view-header-height: 80px;
         }
 
@@ -139,7 +156,6 @@ export class RecipesListView extends LitElement {
         .recipes-list-tags {
           width: var(--recipes-filter-column-width);
           box-sizing: border-box;
-          padding-right: var(--space-md);
           flex: none;
           position: -webkit-sticky;
           position: sticky;
@@ -148,6 +164,8 @@ export class RecipesListView extends LitElement {
           background-color: var(--color-alloy-lighter);
           max-height: calc(100vh - var(--recipes-list-view-header-height));
           overflow: auto;
+          padding: var(--space-xs) 0;
+          padding-right: var(--space-md);
         }
 
         .recipes-list-tags vaadin-details {
@@ -175,10 +193,15 @@ export class RecipesListView extends LitElement {
           font-family: inherit;
           font-size: var(--text-size-sm);
           color: var(--color-graphite);
+          width: 100%;
         }
 
         .recipes-list-tags vaadin-checkbox {
           display: block;
+        }
+
+        .recipes-list-tags vaadin-checkbox .tag {
+          float: right;
         }
 
         .recipes-list {
@@ -192,7 +215,7 @@ export class RecipesListView extends LitElement {
         }
 
         .recipe:first-child .recipe-title {
-          padding-top: 0;
+          padding-top: var(--space-xs);
         }
 
         p.recipe-description {
@@ -227,7 +250,6 @@ export class RecipesListView extends LitElement {
           .recipes-list-tags {
             padding-right: 0;
             border-bottom: 1px solid var(--color-alloy-darker);
-            padding: var(--space-xs) 0;
             margin-bottom: var(--space-md);
           }
 
@@ -274,19 +296,33 @@ export class RecipesListView extends LitElement {
           <vaadin-details theme="reverse cookbook" opened>
             <h6 slot="summary">Tags<span class="selected-tags">: All</span></h6>
             <vaadin-checkbox-group>
-              <vaadin-checkbox checked>Java</vaadin-checkbox>
-              <vaadin-checkbox checked>TypeScript</vaadin-checkbox>
-              <vaadin-checkbox checked>Lorem</vaadin-checkbox>
-              <vaadin-checkbox checked>Ipsum</vaadin-checkbox>
-              <vaadin-checkbox checked>Dolor</vaadin-checkbox>
-              <vaadin-checkbox checked>Sit</vaadin-checkbox>
-              <vaadin-checkbox checked>Amet</vaadin-checkbox>
-              <vaadin-checkbox checked>Consectetur</vaadin-checkbox>
-              <vaadin-checkbox checked>Adipiscising</vaadin-checkbox>
-              <vaadin-checkbox checked>Elit</vaadin-checkbox>
-              <vaadin-checkbox checked>Sed do</vaadin-checkbox>
-              <vaadin-checkbox checked>Eiusmod</vaadin-checkbox>
-              <vaadin-checkbox checked>Tempor</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook"
+                >Java <span class="tag stainless">13</span></vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook"
+                >TypeScript
+                <span class="tag stainless">8</span></vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook"
+                >Very long tag name
+                <span class="tag stainless">3</span></vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook">Ipsum</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook">Dolor</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook">Sit</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook">Amet</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook"
+                >Consectetur</vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook"
+                >Adipiscising</vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook">Elit</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook">Sed do</vaadin-checkbox>
+              <vaadin-checkbox checked theme="cookbook"
+                >Eiusmod</vaadin-checkbox
+              >
+              <vaadin-checkbox checked theme="cookbook">Tempor</vaadin-checkbox>
             </vaadin-checkbox-group>
           </vaadin-details>
         </div>
