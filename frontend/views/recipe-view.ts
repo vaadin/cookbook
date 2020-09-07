@@ -37,7 +37,7 @@ export class RecipeView extends LitElement {
     `;
   }
 
-  async onAfterEnter(context:any) {
+  async onAfterEnter(context: any) {
     const tag = context.pathname.substr(context.pathname.lastIndexOf("/") + 1);
     const recipe = recipes.find((recipe) => recipe.url == tag);
     if (recipe) {
@@ -82,7 +82,9 @@ export class RecipeView extends LitElement {
   }
 }
 
-const headerTemplate: (data: any) => TemplateResult = (recipe: RecipeInfo) => html`
+const headerTemplate: (data: any) => TemplateResult = (
+  recipe: RecipeInfo
+) => html`
   <style>
     .recipe-view-back-link {
       font-weight: 600;
@@ -101,14 +103,15 @@ const headerTemplate: (data: any) => TemplateResult = (recipe: RecipeInfo) => ht
       </div>
       <span>Back to Cookbook</span>
     </a>
-    <h3 class="recipe-view-title">${recipe.howDoI.trim().replace(/^\w/, (c) => c.toUpperCase())}</h3>
-    <p class="paragraph-sm" ?hidden=${recipe.description?.length===0}>${recipe.description}</p>
-    ${recipe.tags?.map(
-      (tag) => html`<span class="tag">${tag}</span> `
-    )}
+    <h3 class="recipe-view-title">
+      ${recipe.howDoI.trim().replace(/^\w/, (c) => c.toUpperCase())}
+    </h3>
+    <p class="paragraph-sm" ?hidden=${recipe.description?.length === 0}>
+      ${recipe.description}
+    </p>
+    ${recipe.tags?.map((tag) => html`<span class="tag">${tag}</span> `)}
   </div>
 `;
 
-const codeTemplate: (data: any) => TemplateResult = (recipe: RecipeInfo) => html`
-  <code-viewer .files=${recipe.sourceFiles || []}></code-viewer>
-`;
+const codeTemplate: (data: any) => TemplateResult = (recipe: RecipeInfo) =>
+  html` <code-viewer .files=${recipe.sourceFiles || []}></code-viewer> `;

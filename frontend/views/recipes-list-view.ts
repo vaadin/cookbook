@@ -1,52 +1,52 @@
 import { TextFieldElement } from "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-text-field";
-import {
-  customElement,
-  html,
-  LitElement,
-  property,
-  query,
-} from "lit-element";
+import { customElement, html, LitElement, property, query } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
-import { registerStyles, css } from "@vaadin/vaadin-themable-mixin/register-styles";
+import {
+  registerStyles,
+  css,
+} from "@vaadin/vaadin-themable-mixin/register-styles";
 
-registerStyles('vaadin-text-field', css`
-  :host([theme~="vcom"]) {
-    --lumo-font-family: var(--font-main), Verdana, sans‑serif;
-  }
+registerStyles(
+  "vaadin-text-field",
+  css`
+    :host([theme~="vcom"]) {
+      --lumo-font-family: var(--font-main), Verdana, sans‑serif;
+    }
 
-  :host([theme~="vcom"].form-field) {
-    margin-bottom: 0 !important;
-  }
+    :host([theme~="vcom"].form-field) {
+      margin-bottom: 0 !important;
+    }
 
-  :host([theme~="vcom"]) [part="input-field"] {
-    height: var(--field-height);
-    font-family: var(--font-main),Verdana,sans‑serif;
-    font-size: 1rem;
-    line-height: 1.1;
-    background: var(--field-background-color);
-    border: 1px solid var(--field-border-color);
-    color: var(--field-value-color);
-    padding: var(--space-xs);
-    border-radius: var(--roundness-sm);
-    transition: all .2s ease-in;
-  }
+    :host([theme~="vcom"]) [part="input-field"] {
+      height: var(--field-height);
+      font-family: var(--font-main), Verdana, sans‑serif;
+      font-size: 1rem;
+      line-height: 1.1;
+      background: var(--field-background-color);
+      border: 1px solid var(--field-border-color);
+      color: var(--field-value-color);
+      padding: var(--space-xs);
+      border-radius: var(--roundness-sm);
+      transition: all 0.2s ease-in;
+    }
 
-  :host([theme~="vcom"]) [part="input-field"]::after {
-    display: none;
-  }
+    :host([theme~="vcom"]) [part="input-field"]::after {
+      display: none;
+    }
 
-  :host([theme~="vcom"]) [part="input-field"]:hover {
-    background-color: var(--field-background-color-hover);
-    border-color: var(--field-border-color-hover);
-  }
+    :host([theme~="vcom"]) [part="input-field"]:hover {
+      background-color: var(--field-background-color-hover);
+      border-color: var(--field-border-color-hover);
+    }
 
-  :host([theme~="vcom"][focused]) [part="input-field"] {
-    border-color: var(--field-border-color-active);
-    box-shadow: var(--elevation-sm);
-  }
-`);
+    :host([theme~="vcom"][focused]) [part="input-field"] {
+      border-color: var(--field-border-color-active);
+      box-shadow: var(--elevation-sm);
+    }
+  `
+);
 
 @customElement("recipes-list-view")
 export class RecipesListView extends LitElement {
@@ -185,12 +185,15 @@ export class RecipesListView extends LitElement {
             placeholder="How do I..."
             theme="vcom"
             class="recipes-list-view-header-search form-field"
-            >
+          >
             <i class="las la-search" aria-hidden="true" slot="prefix"></i>
           </vaadin-text-field>
 
           <div class="recipes-list-view-header-links">
-            <a href="https://github.com/vaadin/cookbook#vaadin-cookbook" class="link-with-arrow">
+            <a
+              href="https://github.com/vaadin/cookbook#vaadin-cookbook"
+              class="link-with-arrow"
+            >
               <span>Submit a recipe</span>
               <div class="icon-wrapper">
                 <i class="las la-arrow-right" aria-hidden="true"></i>
@@ -202,7 +205,7 @@ export class RecipesListView extends LitElement {
 
       <div class="recipes-list-container container-fluid">
         <div class="recipes-list-tags">
-        <!-- TODO -->
+          <!-- TODO -->
         </div>
         <ul class="recipes-list">
           ${repeat(
@@ -211,18 +214,26 @@ export class RecipesListView extends LitElement {
             ),
             (recipe) => recipe.url,
             (recipe) =>
-              html`
-                <li class="recipe">
-                  <h5 class="recipe-title">
-                    <a href="${recipe.url}">${recipe.howDoI.trim().replace(/^\w/, (c) => c.toUpperCase())}</a>
-                  </h5>
-                  <p class="paragraph-sm recipe-description" ?hidden=${recipe.description?.length===0}>${recipe.description}</p>
-                  <div class="recipe-tags">
+              html` <li class="recipe">
+                <h5 class="recipe-title">
+                  <a href="${recipe.url}"
+                    >${recipe.howDoI
+                      .trim()
+                      .replace(/^\w/, (c) => c.toUpperCase())}</a
+                  >
+                </h5>
+                <p
+                  class="paragraph-sm recipe-description"
+                  ?hidden=${recipe.description?.length === 0}
+                >
+                  ${recipe.description}
+                </p>
+                <div class="recipe-tags">
                   ${recipe.tags?.map(
                     (tag) => html`<span class="tag water">${tag}</span> `
                   )}
-                  </div>
-                </li>`
+                </div>
+              </li>`
           )}
         </ul>
       </div>

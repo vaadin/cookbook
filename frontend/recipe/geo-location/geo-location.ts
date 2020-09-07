@@ -10,48 +10,68 @@ import { nothing } from "lit-html";
 })
 @customElement("geo-location")
 export class GeoLocation extends Recipe {
-
-  @property({type: Object})
+  @property({ type: Object })
   private position?: Position;
 
-  @property({type: Object})
+  @property({ type: Object })
   private error?: PositionError;
 
   private watchId = -1;
 
   render() {
     return html`
-    <section>
-      <h2>Position</h2>
-      ${this.position ? html`
-        <p>Latitude: ${this.position?.coords.latitude}
-          [± ${this.position?.coords.accuracy} meters]</p>
-        <p>Longitude: ${this.position?.coords.longitude}
-          [± ${this.position?.coords.accuracy} meters]</p>
-        <p>Altitude: ${this.position?.coords.altitude ? html`
-          ${this.position?.coords.altitude} meters
-            [± ${this.position?.coords.altitudeAccuracy} meters]
-        ` : 'not available'}</p>
-        <p>Heading to: ${this.position?.coords.heading ? html`
-          ${this.position?.coords.heading}
-        ` : 'not available'}</p>
-        <p>Speed: ${this.position?.coords.speed ? html`
-          ${this.position?.coords.speed} meters per second
-        ` : 'not available'}</p>
-        <p>Updated at: ${new Date(this.position?.timestamp!)}</p>
-      ` : `Updating...`}
-    </section>
-
-    ${this.error ? html`
       <section>
-        <h2>Error</h2>
-        <p>Code: ${this.error?.code}</p>
-        <p>Message: ${this.error?.message}</p>
+        <h2>Position</h2>
+        ${this.position
+          ? html`
+              <p>
+                Latitude: ${this.position?.coords.latitude} [±
+                ${this.position?.coords.accuracy} meters]
+              </p>
+              <p>
+                Longitude: ${this.position?.coords.longitude} [±
+                ${this.position?.coords.accuracy} meters]
+              </p>
+              <p>
+                Altitude:
+                ${this.position?.coords.altitude
+                  ? html`
+                      ${this.position?.coords.altitude} meters [±
+                      ${this.position?.coords.altitudeAccuracy} meters]
+                    `
+                  : "not available"}
+              </p>
+              <p>
+                Heading to:
+                ${this.position?.coords.heading
+                  ? html` ${this.position?.coords.heading} `
+                  : "not available"}
+              </p>
+              <p>
+                Speed:
+                ${this.position?.coords.speed
+                  ? html` ${this.position?.coords.speed} meters per second `
+                  : "not available"}
+              </p>
+              <p>Updated at: ${new Date(this.position?.timestamp!)}</p>
+            `
+          : `Updating...`}
       </section>
-    ` : nothing}
 
-    <div class="next-step">See the <a href="leaflet-map">showing a map</a> recipe
-    to see how to show a location on a map.</div>
+      ${this.error
+        ? html`
+            <section>
+              <h2>Error</h2>
+              <p>Code: ${this.error?.code}</p>
+              <p>Message: ${this.error?.message}</p>
+            </section>
+          `
+        : nothing}
+
+      <div class="next-step">
+        See the <a href="leaflet-map">showing a map</a> recipe to see how to
+        show a location on a map.
+      </div>
     `;
   }
 
@@ -62,7 +82,7 @@ export class GeoLocation extends Recipe {
     const options: PositionOptions = {
       enableHighAccuracy: true,
       timeout: 10 * 1000, // 10 seconds
-      maximumAge: 100 // 100ms old values are still OK
+      maximumAge: 100, // 100ms old values are still OK
     };
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition
@@ -74,7 +94,9 @@ export class GeoLocation extends Recipe {
       (error: PositionError) => {
         this.position = undefined;
         this.error = error;
-      }, options);
+      },
+      options
+    );
   }
 
   disconnectedCallback() {

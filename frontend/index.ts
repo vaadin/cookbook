@@ -28,7 +28,7 @@ const routes: Route[] = [
       ...tsRecipeRoutes,
       ...serverSideRoutes, // IMPORTANT: this must be the last entry in the array
     ],
-  }
+  },
 ];
 
 export const router = new Router(document.querySelector("#outlet"));
