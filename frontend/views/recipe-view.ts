@@ -1,8 +1,9 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 import { render, TemplateResult } from "lit-html";
+import { recipes } from "../";
 import "../code-viewer";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
-import { recipes } from "../";
+import { Context } from "@vaadin/router";
 
 @customElement("recipe-view")
 export class RecipeView extends LitElement {
@@ -37,8 +38,8 @@ export class RecipeView extends LitElement {
     `;
   }
 
-  async onAfterEnter(context: any) {
-    const tag = context.pathname.substr(context.pathname.lastIndexOf("/") + 1);
+  async onAfterEnter(context: Context) {
+    const tag = context.pathname.split("/")[1];
     const recipe = recipes.find((recipe) => recipe.url == tag);
     if (recipe) {
       this.recipe = recipe;
