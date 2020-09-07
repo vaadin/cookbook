@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Iterator;
 
 @Route("camera")
@@ -57,13 +58,6 @@ public class CameraView extends Recipe {
     add(upload, output);
   }
 
-  /**
-   *
-   * @param mimeType
-   * @param fileName
-   * @param stream
-   * @return
-   */
   private Component createComponent(String mimeType, String fileName,
                                     InputStream stream) {
     if (mimeType.startsWith("image")) {
@@ -96,7 +90,7 @@ public class CameraView extends Recipe {
     }
     Div content = new Div();
     String text = String.format("Mime type: '%s'\nSHA-256 hash: '%s'",
-        mimeType, MessageDigestUtil.sha256(stream.toString()));
+        mimeType, Arrays.toString(MessageDigestUtil.sha256(stream.toString())));
     content.setText(text);
     return content;
 
