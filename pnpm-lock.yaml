@@ -44,6 +44,7 @@ dependencies:
   '@vaadin/vaadin-text-field': 2.7.0
   '@vaadin/vaadin-time-picker': 2.3.0
   '@vaadin/vaadin-upload': 4.4.0
+  change-case: 4.1.1
   date-fns: 2.16.0
   leaflet: 1.6.0
   lit-element: 2.3.1
@@ -54,7 +55,7 @@ devDependencies:
   compression-webpack-plugin: 3.1.0_webpack@4.42.0
   copy-webpack-plugin: 5.1.1_webpack@4.42.0
   html-webpack-plugin: 3.2.0_webpack@4.42.0
-  husky: 4.2.5
+  husky: 4.3.0
   lint-staged: 10.3.0
   lit-html: 1.2.1
   prettier: 2.1.1
@@ -2363,7 +2364,7 @@ packages:
   /browserslist/4.14.1:
     dependencies:
       caniuse-lite: 1.0.30001124
-      electron-to-chromium: 1.3.562
+      electron-to-chromium: 1.3.563
       escalade: 3.0.2
       node-releases: 1.1.60
     dev: true
@@ -2482,6 +2483,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-yjw2iKTpzzpM2nd9xNy8cTJJz3M=
+  /camel-case/4.1.1:
+    dependencies:
+      pascal-case: 3.1.1
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-7fa2WcG4fYFkclIvEmxBbTvmibwF2/agfEBc6q3lOpVu0A13ltLsA+Hr/8Hp6kp5f+G7hKi6t8lys6XxP+1K6Q==
   /camelcase/5.3.1:
     dev: true
     engines:
@@ -2492,6 +2500,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-zQW8V3CdND7GHRH6rxm6s59Ww4g/qGWTheoboW9nfeMg7sUoopIfKCcNZUjwYRCOrvereh3kwDpZj4VLQ7zGtA==
+  /capital-case/1.0.3:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.13.0
+      upper-case-first: 2.0.1
+    dev: false
+    resolution:
+      integrity: sha512-OlUSJpUr7SY0uZFOxcwnDOU7/MpHlKTZx2mqnDYQFrDudXLFm0JJ9wr/l4csB+rh2Ug0OPuoSO53PqiZBqno9A==
   /chalk/2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -2511,6 +2527,23 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
+  /change-case/4.1.1:
+    dependencies:
+      camel-case: 4.1.1
+      capital-case: 1.0.3
+      constant-case: 3.0.3
+      dot-case: 3.0.3
+      header-case: 2.0.3
+      no-case: 3.0.3
+      param-case: 3.0.3
+      pascal-case: 3.1.1
+      path-case: 3.0.3
+      sentence-case: 3.0.3
+      snake-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-qRlUWn/hXnX1R1LBDF/RelJLiqNjKjUqlmuBVSEIyye8kq49CXqkZWKmi8XeUAdDXWFOcGLUMZ+aHn3Q5lzUXw==
   /chokidar/3.4.2:
     dependencies:
       anymatch: 3.1.1
@@ -2752,6 +2785,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ZMkYO/LkF17QvCPqM0gxw8yUzigAOZOSWSHg91FH6orS7vcEj5dVZTidN2fQ14yBSdg97RqhSNwLUXInd52OTA==
+  /constant-case/3.0.3:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.13.0
+      upper-case: 2.0.1
+    dev: false
+    resolution:
+      integrity: sha512-FXtsSnnrFYpzDmvwDGQW+l8XK3GV1coLyBN0eBz16ZUzGaZcT2ANVCJmLeuw2GQgxKHQIe9e0w2dzkSfaRlUmA==
   /constants-browserify/1.0.0:
     dev: true
     resolution:
@@ -2846,18 +2887,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
-  /cosmiconfig/6.0.0:
-    dependencies:
-      '@types/parse-json': 4.0.0
-      import-fresh: 3.2.1
-      parse-json: 5.1.0
-      path-type: 4.0.0
-      yaml: 1.10.0
-    dev: true
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-xb3ZL6+L8b9JLLCx3ZdoZy4+2ECphCMo2PwqgP1tlfVq6M6YReyzBJtvWWtbDSpNr9hn96pkCiZqUcFEc+54Qg==
   /cosmiconfig/7.0.0:
     dependencies:
       '@types/parse-json': 4.0.0
@@ -3175,6 +3204,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==
+  /dot-case/3.0.3:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-7hwEmg6RiSQfm/GwPL4AAWXKy3YNNZA3oFv2Pdiey0mwkRCPZ9x6SZbkLcn8Ma5PYeVokzoD4Twv2n7LKp5WeA==
   /duplexify/3.7.1:
     dependencies:
       end-of-stream: 1.4.4
@@ -3188,10 +3224,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.562:
+  /electron-to-chromium/1.3.563:
     dev: true
     resolution:
-      integrity: sha512-WhRe6liQ2q/w1MZc8mD8INkenHivuHdrr4r5EQHNomy3NJux+incP6M6lDMd0paShP3MD0WGe5R1TWmEClf+Bg==
+      integrity: sha512-JkEjRFmuSegdTBCPG+RS1zw9csObHoN4el+X9EfEALO0UT7us8swxspJx7cRsrMkjd8bmmRTAd0xuUhvvb5DLg==
   /elliptic/6.5.3:
     dependencies:
       bn.js: 4.11.9
@@ -3992,6 +4028,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+  /header-case/2.0.3:
+    dependencies:
+      capital-case: 1.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-LChe/V32mnUQnTwTxd3aAlNMk8ia9tjCDb/LjYtoMrdAPApxLB+azejUk5ERZIZdIqvinwv6BAUuFXH/tQPdZA==
   /highcharts/8.1.2:
     dev: false
     resolution:
@@ -4142,12 +4185,12 @@ packages:
       node: '>=8.12.0'
     resolution:
       integrity: sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
-  /husky/4.2.5:
+  /husky/4.3.0:
     dependencies:
       chalk: 4.1.0
       ci-info: 2.0.0
       compare-versions: 3.6.0
-      cosmiconfig: 6.0.0
+      cosmiconfig: 7.0.0
       find-versions: 3.2.0
       opencollective-postinstall: 2.0.3
       pkg-dir: 4.2.0
@@ -4160,7 +4203,7 @@ packages:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-SYZ95AjKcX7goYVZtVZF2i6XiZcHknw50iXvY7b0MiGoj5RwdgRQNEHdb+gPDPCXKlzwrybjFjkL6FOj8uRhZQ==
+      integrity: sha512-tTMeLCLqSBqnflBZnlVDhpaIMucSGaYyX6855jM4AguGeWCeSzNdb1mfyWduTZ3pe3SJVvVWGL0jO1iKZVPfTA==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -4830,6 +4873,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
+  /lower-case/2.0.1:
+    dependencies:
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-LiWgfDLLb1dwbFQZsSglpRj+1ctGnayXz3Uv0/WO8n558JycT5fg6zkNcnW0G68Nn0aEldTFeEfmjCfmqry/rQ==
   /lru-cache/5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -5170,6 +5219,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
+  /no-case/3.0.3:
+    dependencies:
+      lower-case: 2.0.1
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-ehY/mVQCf9BL0gKfsJBvFJen+1V//U+0HQMPrWct40ixE4jnv0bfvxDbWtAHL9EcaPEOJHVVYKoQn1TlZUB8Tw==
   /node-forge/0.9.0:
     dev: true
     engines:
@@ -5482,6 +5538,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-35T9jPZTHs915r75oIWPvHK+Ikc=
+  /param-case/3.0.3:
+    dependencies:
+      dot-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-VWBVyimc1+QrzappRs7waeN2YmoZFCGXWASRYX1/rGHtXqEcrGEIDm+jqIwFa2fRXNgQEwrxaYuIrX0WcAguTA==
   /parent-module/1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -5523,6 +5586,13 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
+  /pascal-case/3.1.1:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-XIeHKqIrsquVTQL2crjq3NfJUxmdLasn3TYOU0VBM+UX2a6ztAWBlJQBePLGY7VHW8+2dRadeIPK5+KImwTxQA==
   /pascalcase/0.1.1:
     dev: true
     engines:
@@ -5533,6 +5603,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-BapA40NHICOS+USX9SN4tyhq+A2RrN/Ws5F0Z5aMHDp98Fl86lX8Oti8B7uN93L4Ifv4fHOEA+pQw87gmMO/lQ==
+  /path-case/3.0.3:
+    dependencies:
+      dot-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-UMFU6UETFpCNWbIWNczshPrnK/7JAXBP2NYw80ojElbQ2+JYxdqWDBkvvqM93u4u6oLmuJ/tPOf2tM8KtXv4eg==
   /path-dirname/1.0.2:
     dev: true
     resolution:
@@ -6190,6 +6267,14 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yI+XjPJcNuE3V4fT9sAg==
+  /sentence-case/3.0.3:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.13.0
+      upper-case-first: 2.0.1
+    dev: false
+    resolution:
+      integrity: sha512-ZPr4dgTcNkEfcGOMFQyDdJrTU9uQO1nb1cjf+nuzb6FxgMDgKddZOM29qEsB7jvsZSMruLRcL2KfM4ypKpa0LA==
   /serialize-javascript/2.1.2:
     dev: true
     resolution:
@@ -6330,6 +6415,13 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-qMCMfhY040cVHT43K9BFygqYbUPFZKHOg7K73mtTWJRb8pyP3fzf4Ixd5SzdEJQ6MRUg/WBnOLxghZtKKurENQ==
+  /snake-case/3.0.3:
+    dependencies:
+      dot-case: 3.0.3
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-WM1sIXEO+rsAHBKjGf/6R1HBBcgbncKS08d2Aqec/mrDSpU80SiOU41hO7ny6DToHSyrlwTYzQBIK1FPSx4Y3Q==
   /snapdragon-node/2.1.1:
     dependencies:
       define-property: 1.0.0
@@ -6772,7 +6864,6 @@ packages:
     resolution:
       integrity: sha1-LmhELZ9k7HILjMieZEOsbKqVACk=
   /tslib/1.13.0:
-    dev: true
     resolution:
       integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
   /tty-browserify/0.0.0:
@@ -6888,10 +6979,22 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk=
+  /upper-case-first/2.0.1:
+    dependencies:
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-105J8XqQ+9RxW3l9gHZtgve5oaiR9TIwvmZAMAIZWRHe00T21cdvewKORTlOJf/zXW6VukuTshM+HXZNWz7N5w==
   /upper-case/1.1.3:
     dev: true
     resolution:
       integrity: sha1-9rRQHC7EzdJrp4vnIilh3ndiFZg=
+  /upper-case/2.0.1:
+    dependencies:
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-laAsbea9SY5osxrv7S99vH9xAaJKrw5Qpdh4ENRLcaxipjKsiaBwiAsxfa8X5mObKNTQPsupSq0J/VIxsSJe3A==
   /uri-js/4.4.0:
     dependencies:
       punycode: 2.1.1
@@ -7394,6 +7497,7 @@ specifiers:
   '@vaadin/vaadin-time-picker': 2.3.0
   '@vaadin/vaadin-upload': 4.4.0
   awesome-typescript-loader: 5.2.1
+  change-case: ^4.1.1
   chokidar: ^3.4.0
   compression-webpack-plugin: 3.1.0
   copy-webpack-plugin: 5.1.1

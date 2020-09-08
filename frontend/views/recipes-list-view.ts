@@ -1,15 +1,17 @@
-import { TextFieldElement } from "@vaadin/vaadin-text-field";
-import "@vaadin/vaadin-text-field";
-import "@vaadin/vaadin-details";
 import "@vaadin/vaadin-checkbox";
 import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
-import { customElement, html, LitElement, property, query } from "lit-element";
+import "@vaadin/vaadin-details";
+import "@vaadin/vaadin-text-field";
+import {
+  css,
+  registerStyles,
+} from "@vaadin/vaadin-themable-mixin/register-styles";
+import { capitalCase } from "change-case";
+import { customElement, html, LitElement, property } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
-import {
-  registerStyles,
-  css,
-} from "@vaadin/vaadin-themable-mixin/register-styles";
+import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
+import Tag from "../generated/com/vaadin/recipes/recipe/Tag";
 
 registerStyles(
   "vaadin-text-field",
@@ -85,11 +87,21 @@ registerStyles(
 export class RecipesListView extends LitElement {
   @property({ type: String })
   filter: string = "";
+  @property({ type: Array })
+  filterTags: Tag[] = [];
 
-  updateFilter = this.doUpdateFilter.bind(this);
-
-  @query("#filterField")
-  filterField: TextFieldElement | undefined;
+  tags: Tag[] = [
+    Tag.JAVA,
+    Tag.TYPESCRIPT,
+    Tag.KEYBOARD,
+    Tag.PUSH,
+    Tag.GRID,
+    Tag.CSV,
+    Tag.THEME,
+    Tag.PERFORMANCE,
+    Tag.USABILITY,
+    Tag.LAYOUT,
+  ];
 
   createRenderRoot() {
     return this;
@@ -210,6 +222,10 @@ export class RecipesListView extends LitElement {
           padding: 0;
         }
 
+        .recipe-tags {
+          cursor: pointer;
+        }
+
         .recipe-title {
           margin-bottom: 0;
         }
@@ -267,7 +283,6 @@ export class RecipesListView extends LitElement {
 
           <vaadin-text-field
             clear-button-visible
-            id="filterField"
             @value-changed="${this.updateFilter}"
             placeholder="How do I..."
             theme="vcom"
@@ -295,41 +310,27 @@ export class RecipesListView extends LitElement {
           <!--TODO: collapse when viewport is small, and show selected ones in the summary (“All” or “Java, TypeScript, Lorem” if a subset is selected) -->
           <vaadin-details theme="reverse cookbook" opened>
             <h6 slot="summary">Tags<span class="selected-tags">: All</span></h6>
-            <vaadin-checkbox-group>
-              <vaadin-checkbox checked theme="cookbook"
-                >Java <span class="tag stainless">13</span></vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook"
-                >TypeScript
-                <span class="tag stainless">8</span></vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook"
-                >Very long tag name
-                <span class="tag stainless">3</span></vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook">Ipsum</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook">Dolor</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook">Sit</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook">Amet</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook"
-                >Consectetur</vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook"
-                >Adipiscising</vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook">Elit</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook">Sed do</vaadin-checkbox>
-              <vaadin-checkbox checked theme="cookbook"
-                >Eiusmod</vaadin-checkbox
-              >
-              <vaadin-checkbox checked theme="cookbook">Tempor</vaadin-checkbox>
+            <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
+              ${this.tags.map(
+                (tag) => html`
+                  <vaadin-checkbox
+                    value="${tag}"
+                    ?checked=${this.filterTags.includes(tag)}
+                    theme="cookbook"
+                    >${capitalCase(tag).replace(/ /g, "")}
+                    <span class="tag stainless"
+                      >${this.matchCount(tag)}</span
+                    ></vaadin-checkbox
+                  >
+                `
+              )}
             </vaadin-checkbox-group>
           </vaadin-details>
         </div>
         <ul class="recipes-list">
           ${repeat(
             recipes.filter((recipe) =>
-              recipe.howDoI.toLowerCase().includes(this.filter)
+              this.recipeMatches(recipe, this.filter, this.filterTags)
             ),
             (recipe) => recipe.url,
             (recipe) =>
@@ -349,7 +350,12 @@ export class RecipesListView extends LitElement {
                 </p>
                 <div class="recipe-tags">
                   ${recipe.tags?.map(
-                    (tag) => html`<span class="tag water">${tag}</span> `
+                    (tag) =>
+                      html`<span
+                        class="tag water"
+                        @click="${() => this.setFilterTag(tag)}"
+                        >${tag}</span
+                      > `
                   )}
                 </div>
               </li>`
@@ -358,8 +364,44 @@ export class RecipesListView extends LitElement {
       </div>
     `;
   }
+  matchCount(tag: Tag): number {
+    return recipes.filter((recipe) =>
+      this.recipeMatches(recipe, this.filter, [...this.filterTags, tag])
+    ).length;
+  }
 
-  doUpdateFilter() {
-    this.filter = this.filterField?.value.toLowerCase() || "";
+  setFilterTag(tag: Tag) {
+    this.filterTags = [tag];
+  }
+
+  recipeMatches(
+    recipe: RecipeInfo,
+    filter: string,
+    filterTags: Tag[]
+  ): boolean {
+    const summary = recipe.howDoI.toLowerCase();
+    const description = (recipe.description || "").toLowerCase();
+    if (!summary.includes(filter) && !description.includes(filter)) {
+      return false;
+    }
+    return this.recipeHasTags(recipe, filterTags);
+  }
+
+  tagFilterChange(e: CustomEvent) {
+    this.filterTags = e.detail.value;
+  }
+
+  updateFilter(e: CustomEvent) {
+    const value = e.detail.value;
+    this.filter = value.toLowerCase();
+  }
+
+  recipeHasTags(recipe: RecipeInfo, tags: Tag[]) {
+    for (const includeTag of tags) {
+      if (!recipe.tags?.includes(includeTag)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
