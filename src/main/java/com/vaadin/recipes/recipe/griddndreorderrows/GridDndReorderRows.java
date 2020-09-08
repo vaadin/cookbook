@@ -7,14 +7,12 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Route("grid-dnd-reorder-rows")
 @Metadata(howdoI = "Drag and drop rows to reorder a Grid", tags = { Tag.GRID })
 public class GridDndReorderRows extends Recipe {
-
     private Person draggedItem;
     private List<Person> gridItems;
 
@@ -27,32 +25,37 @@ public class GridDndReorderRows extends Recipe {
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.setRowsDraggable(true);
 
-        grid.addDragStartListener(event -> {
-            // store current dragged item so we know what to drop
-            draggedItem = event.getDraggedItems().get(0);
-            grid.setDropMode(GridDropMode.BETWEEN);
-        });
-
-        grid.addDragEndListener(event -> {
-            draggedItem = null;
-            // Once dragging has ended, disable drop mode so that
-            // it won't look like other dragged items can be dropped
-            grid.setDropMode(null);
-        });
-
-        grid.addDropListener(event -> {
-            Person dropOverItem = event.getDropTargetItem().get();
-            if (!dropOverItem.equals(draggedItem)) {
-                // reorder dragged item the backing gridItems container
-                gridItems.remove(draggedItem);
-                // calculate drop index based on the dropOverItem
-                int dropIndex = gridItems.indexOf(dropOverItem)
-                        + (event.getDropLocation() == GridDropLocation.BELOW ? 1
-                        : 0);
-                gridItems.add(dropIndex, draggedItem);
-                grid.getDataProvider().refreshAll();
+        grid.addDragStartListener(
+            event -> {
+                // store current dragged item so we know what to drop
+                draggedItem = event.getDraggedItems().get(0);
+                grid.setDropMode(GridDropMode.BETWEEN);
             }
-        });
+        );
+
+        grid.addDragEndListener(
+            event -> {
+                draggedItem = null;
+                // Once dragging has ended, disable drop mode so that
+                // it won't look like other dragged items can be dropped
+                grid.setDropMode(null);
+            }
+        );
+
+        grid.addDropListener(
+            event -> {
+                Person dropOverItem = event.getDropTargetItem().get();
+                if (!dropOverItem.equals(draggedItem)) {
+                    // reorder dragged item the backing gridItems container
+                    gridItems.remove(draggedItem);
+                    // calculate drop index based on the dropOverItem
+                    int dropIndex =
+                        gridItems.indexOf(dropOverItem) + (event.getDropLocation() == GridDropLocation.BELOW ? 1 : 0);
+                    gridItems.add(dropIndex, draggedItem);
+                    grid.getDataProvider().refreshAll();
+                }
+            }
+        );
         add(grid);
     }
 

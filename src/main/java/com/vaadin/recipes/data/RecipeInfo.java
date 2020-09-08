@@ -1,35 +1,41 @@
 package com.vaadin.recipes.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 import javax.annotation.Nullable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
-
 public class RecipeInfo {
-
     @JsonIgnore
     private Class<? extends Recipe> recipeClass;
+
     private String howDoI;
+
     @Nullable
     private String description;
+
     private String url;
+
     @Nullable
     private List<String> sourceFiles;
+
     @Nullable
     private List<Tag> tags;
 
-    public RecipeInfo() {
+    public RecipeInfo() {}
 
-    }
-
-    public RecipeInfo(Class<? extends Recipe> recipeClass, String url, String howDoI, String description,
-            List<String> sourceFiles, Tag[] tags) {
+    public RecipeInfo(
+        Class<? extends Recipe> recipeClass,
+        String url,
+        String howDoI,
+        String description,
+        List<String> sourceFiles,
+        Tag[] tags
+    ) {
         this.url = url;
         if (howDoI.toLowerCase().startsWith("how do i ")) {
             howDoI = howDoI.substring("how do i ".length());
@@ -76,8 +82,20 @@ public class RecipeInfo {
 
     @Override
     public String toString() {
-        return "RecipeInfo [description=" + description + ", howDoI=" + howDoI + ", recipeClass=" + recipeClass
-                + ", sourceFiles=" + sourceFiles + ", tags=" + tags + ", url=" + url + "]";
+        return (
+            "RecipeInfo [description=" +
+            description +
+            ", howDoI=" +
+            howDoI +
+            ", recipeClass=" +
+            recipeClass +
+            ", sourceFiles=" +
+            sourceFiles +
+            ", tags=" +
+            tags +
+            ", url=" +
+            url +
+            "]"
+        );
     }
-
 }

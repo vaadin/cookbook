@@ -14,28 +14,28 @@ import com.vaadin.recipes.recipe.Tag;
 @Route("warning-when-leaving-dirty-form")
 @Metadata(howdoI = "Warn user when leaving a dirty form", tags = { Tag.USABILITY })
 public class WarningWhenLeavingDirtyForm extends Recipe implements BeforeLeaveObserver {
-
     private TextField firstName = new TextField("First Name");
     private TextField lastName = new TextField("Last Name");
     private Binder<Person> binder = new Binder<>(Person.class);
-    
-    public WarningWhenLeavingDirtyForm(){
+
+    public WarningWhenLeavingDirtyForm() {
         add(firstName, lastName);
         binder.bindInstanceFields(this);
     }
+
     @Override
     public void beforeLeave(BeforeLeaveEvent event) {
-        if(binder.hasChanges()){
+        if (binder.hasChanges()) {
             final ContinueNavigationAction action = event.postpone();
             final ConfirmDialog dialog = new ConfirmDialog();
             dialog.setText("Are you sure you want to leave? You have unsaved data.");
-            dialog.setConfirmButton("Stay", e->dialog.close()); 
+            dialog.setConfirmButton("Stay", e -> dialog.close());
             dialog.setCancelButton("Leave", e -> action.proceed());
             dialog.setCancelable(true);
             dialog.open();
         }
     }
-    
+
     public static class Person {
         private String firstName, lastName;
 
@@ -55,4 +55,4 @@ public class WarningWhenLeavingDirtyForm extends Recipe implements BeforeLeaveOb
             this.lastName = lastName;
         }
     }
-}   
+}

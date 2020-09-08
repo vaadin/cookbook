@@ -8,7 +8,6 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.dom.ElementConstants;
 import com.vaadin.flow.function.SerializableConsumer;
-
 import java.util.function.BiConsumer;
 
 /**
@@ -18,7 +17,6 @@ import java.util.function.BiConsumer;
  */
 @CssImport("./recipe/lazy-component-view/loader-placeholder-styles.css")
 public class LazyContainer<T extends Component> extends Composite<Div> {
-
     private boolean loaded = false;
     private T component;
     private BiConsumer<T, UI> componentLoader;
@@ -29,10 +27,11 @@ public class LazyContainer<T extends Component> extends Composite<Div> {
         super();
     }
 
-    public LazyContainer(T component, BiConsumer<T, UI> componentLoader)  {
+    public LazyContainer(T component, BiConsumer<T, UI> componentLoader) {
         this();
         setComponent(component, componentLoader);
     }
+
     /**
      * set the component to the lazy container
      *
@@ -54,10 +53,12 @@ public class LazyContainer<T extends Component> extends Composite<Div> {
         // add relative position to the container
         getContent().addClassName("lazy-component-container");
         // run the component loader once/if the component is attached
-        runBeforeClientResponse(ui -> {
-            loadingThread = new LoadingThread(ui, this);
-            loadingThread.start();
-        });
+        runBeforeClientResponse(
+            ui -> {
+                loadingThread = new LoadingThread(ui, this);
+                loadingThread.start();
+            }
+        );
     }
 
     public void setWidthFull() {
@@ -97,10 +98,8 @@ public class LazyContainer<T extends Component> extends Composite<Div> {
     }
 
     private void runBeforeClientResponse(SerializableConsumer<UI> command) {
-        getElement().getNode().runWhenAttached(ui -> ui
-                .beforeClientResponse(this, context -> command.accept(ui)));
+        getElement().getNode().runWhenAttached(ui -> ui.beforeClientResponse(this, context -> command.accept(ui)));
     }
-
 
     private class LoadingThread extends Thread {
         private final UI ui;

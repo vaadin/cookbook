@@ -1,7 +1,6 @@
 package com.vaadin.recipes;
 
 import com.vaadin.recipes.data.AllRecipes;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -24,5 +23,4 @@ public class Application extends SpringBootServletInitializer implements Applica
     public void onApplicationEvent(ContextRefreshedEvent event) {
         AllRecipes.scan();
     }
-
 }

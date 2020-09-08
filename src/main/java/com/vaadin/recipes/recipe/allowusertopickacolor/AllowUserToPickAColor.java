@@ -12,10 +12,11 @@ public class AllowUserToPickAColor extends Recipe {
 
     public AllowUserToPickAColor() {
         ColorPicker colorPicker = new ColorPicker();
-        colorPicker.addValueChangeListener(e -> {
-            Notification.show("Thank you for picking " + colorPicker.getValue(), 5000, Position.MIDDLE);
-        });
+        colorPicker.addValueChangeListener(
+            e -> {
+                Notification.show("Thank you for picking " + colorPicker.getValue(), 5000, Position.MIDDLE);
+            }
+        );
         add(colorPicker);
     }
-
 }

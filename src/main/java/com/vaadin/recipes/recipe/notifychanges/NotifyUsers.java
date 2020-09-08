@@ -1,10 +1,5 @@
 package com.vaadin.recipes.recipe.notifychanges;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -14,11 +9,14 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Route("notify-users")
 @Metadata(howdoI = "Show a notification to active users", tags = { Tag.PUSH })
 public class NotifyUsers extends Recipe {
-
     private static final Set<SerializableConsumer<String>> subscribers = new HashSet<>();
 
     /*
@@ -35,8 +33,10 @@ public class NotifyUsers extends Recipe {
         addAttachListener(event -> updateSubscription());
         addDetachListener(event -> updateSubscription());
 
-        Button makeChanges = new Button("Notify subscribers",
-                clickEvent -> notifySubscribers("This is a notification triggerd by the button"));
+        Button makeChanges = new Button(
+            "Notify subscribers",
+            clickEvent -> notifySubscribers("This is a notification triggerd by the button")
+        );
 
         add(notifyMe, makeChanges);
     }
@@ -75,13 +75,15 @@ public class NotifyUsers extends Recipe {
         }
 
         for (SerializableConsumer<String> subscriber : subscribersSnapshot) {
-            notifierThread.execute(() -> {
-                try {
-                    subscriber.accept(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            notifierThread.execute(
+                () -> {
+                    try {
+                        subscriber.accept(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
+            );
         }
     }
 }
