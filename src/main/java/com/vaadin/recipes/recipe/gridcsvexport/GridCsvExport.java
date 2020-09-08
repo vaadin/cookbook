@@ -29,7 +29,7 @@ import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Metadata(howdoI = "Export grid data as CSV", tags = { Tag.GRID })
+@Metadata(howdoI = "Export grid data as CSV", tags = { Tag.GRID, Tag.CSV })
 public class GridCsvExport extends Recipe {
 
     public static class Person {

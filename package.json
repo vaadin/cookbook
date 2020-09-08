@@ -58,6 +58,7 @@
     "@vaadin/vaadin-text-field": "2.7.0",
     "@vaadin/vaadin-time-picker": "2.3.0",
     "@vaadin/vaadin-upload": "4.4.0",
+    "change-case": "^4.1.1",
     "date-fns": "2.16.0",
     "leaflet": "1.6.0",
     "lit-element": "2.3.1"
@@ -156,6 +157,6 @@
       "lit-html": "1.2.1",
       "@types/validator": "10.11.3"
     },
-    "hash": "3e88eea984492a54040c9af2e2d903df5c6c55c91a8798824942045f168d8154"
+    "hash": "c9c18d4b422a2526fb7cdeb0b44dcfdaa4fddf65b1ddb0ba85a2c0e77a148c62"
   }
 }

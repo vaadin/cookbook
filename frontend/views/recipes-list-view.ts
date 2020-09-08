@@ -1,12 +1,17 @@
-import { TextFieldElement } from "@vaadin/vaadin-text-field";
+import "@vaadin/vaadin-checkbox";
+import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
+import "@vaadin/vaadin-details";
 import "@vaadin/vaadin-text-field";
-import { customElement, html, LitElement, property, query } from "lit-element";
+import {
+  css,
+  registerStyles,
+} from "@vaadin/vaadin-themable-mixin/register-styles";
+import { capitalCase } from "change-case";
+import { customElement, html, LitElement, property } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
-import {
-  registerStyles,
-  css,
-} from "@vaadin/vaadin-themable-mixin/register-styles";
+import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
+import Tag from "../generated/com/vaadin/recipes/recipe/Tag";
 
 registerStyles(
   "vaadin-text-field",
@@ -48,15 +53,55 @@ registerStyles(
   `
 );
 
+registerStyles(
+  "vaadin-details",
+  css`
+    [part="summary-content"] {
+      min-width: 0;
+    }
+
+    :host([theme~="cookbook"]) [part="summary"] {
+      padding: 0;
+    }
+  `
+);
+
+registerStyles(
+  "vaadin-checkbox",
+  css`
+    :host([theme~="cookbook"]) label {
+      display: flex;
+    }
+
+    :host([theme~="cookbook"]) [part="label"]:not([empty]) {
+      flex: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-right: 0;
+    }
+  `
+);
+
 @customElement("recipes-list-view")
 export class RecipesListView extends LitElement {
   @property({ type: String })
   filter: string = "";
+  @property({ type: Array })
+  filterTags: Tag[] = [];
 
-  updateFilter = this.doUpdateFilter.bind(this);
-
-  @query("#filterField")
-  filterField: TextFieldElement | undefined;
+  tags: Tag[] = [
+    Tag.JAVA,
+    Tag.TYPESCRIPT,
+    Tag.KEYBOARD,
+    Tag.PUSH,
+    Tag.GRID,
+    Tag.CSV,
+    Tag.THEME,
+    Tag.PERFORMANCE,
+    Tag.USABILITY,
+    Tag.LAYOUT,
+  ];
 
   createRenderRoot() {
     return this;
@@ -67,7 +112,8 @@ export class RecipesListView extends LitElement {
       <style>
         recipes-list-view {
           display: block;
-          --recipes-filter-column-width: 180px;
+          --recipes-filter-column-width: 200px;
+          --recipes-list-view-header-height: 80px;
         }
 
         .recipes-list-view-header {
@@ -76,6 +122,7 @@ export class RecipesListView extends LitElement {
           position: sticky;
           top: 0;
           z-index: 1000;
+          height: var(--recipes-list-view-header-height);
         }
 
         .recipes-list-view-header > .container-fluid {
@@ -111,34 +158,62 @@ export class RecipesListView extends LitElement {
           text-decoration: none !important;
         }
 
-        @media (max-width: 600px) {
-          .recipes-list-view-header > .container-fluid {
-            flex-wrap: wrap;
-          }
-
-          .recipes-list-view-header-search {
-            order: 1;
-            margin-top: var(--space-xs);
-          }
-
-          .recipes-list-view-header-links {
-            margin-left: auto;
-          }
-
-          .recipes-list-container {
-            flex-direction: column;
-          }
-        }
-
         .recipes-list-container {
           display: flex;
+          align-items: flex-start;
           padding-top: var(--space-md);
           padding-bottom: var(--space-xl);
         }
 
         .recipes-list-tags {
           width: var(--recipes-filter-column-width);
+          box-sizing: border-box;
           flex: none;
+          position: -webkit-sticky;
+          position: sticky;
+          top: var(--recipes-list-view-header-height);
+          z-index: 1000;
+          background-color: var(--color-alloy-lighter);
+          max-height: calc(100vh - var(--recipes-list-view-header-height));
+          overflow: auto;
+          padding: var(--space-xs) 0;
+          padding-right: var(--space-md);
+        }
+
+        .recipes-list-tags vaadin-details {
+          margin: 0;
+        }
+
+        .recipes-list-tags h6 {
+          margin: 0;
+          padding: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .recipes-list-tags .selected-tags {
+          font-weight: var(--text-weight-regular);
+        }
+
+        .recipes-list-tags vaadin-details[opened] .selected-tags {
+          display: none;
+        }
+
+        .recipes-list-tags vaadin-checkbox-group,
+        .recipes-list-tags vaadin-checkbox {
+          font-family: inherit;
+          font-size: var(--text-size-sm);
+          color: var(--color-graphite);
+          width: 100%;
+        }
+
+        .recipes-list-tags vaadin-checkbox {
+          display: block;
+        }
+
+        .recipes-list-tags vaadin-checkbox .tag {
+          float: right;
         }
 
         .recipes-list {
@@ -147,12 +222,16 @@ export class RecipesListView extends LitElement {
           padding: 0;
         }
 
-        .recipe {
-          position: relative;
+        .recipe-tags {
+          cursor: pointer;
         }
 
         .recipe-title {
           margin-bottom: 0;
+        }
+
+        .recipe:first-child .recipe-title {
+          padding-top: var(--space-xs);
         }
 
         p.recipe-description {
@@ -164,13 +243,37 @@ export class RecipesListView extends LitElement {
           text-decoration: none;
         }
 
-        .recipe a::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
+        @media (max-width: 600px) {
+          recipes-list-view {
+            --recipes-filter-column-width: auto;
+            --recipes-list-view-header-height: 118px;
+          }
+
+          .recipes-list-view-header > .container-fluid {
+            flex-wrap: wrap;
+          }
+
+          .recipes-list-view-header-search {
+            order: 1;
+            margin-top: var(--space-xs);
+            min-width: 50vw;
+          }
+
+          .recipes-list-view-header-links {
+            margin-left: auto;
+          }
+
+          .recipes-list-tags {
+            padding-right: 0;
+            border-bottom: 1px solid var(--color-alloy-darker);
+            margin-bottom: var(--space-md);
+          }
+
+          .recipes-list-container {
+            flex-direction: column;
+            align-items: stretch;
+            padding-top: 0;
+          }
         }
       </style>
 
@@ -180,7 +283,6 @@ export class RecipesListView extends LitElement {
 
           <vaadin-text-field
             clear-button-visible
-            id="filterField"
             @value-changed="${this.updateFilter}"
             placeholder="How do I..."
             theme="vcom"
@@ -205,12 +307,32 @@ export class RecipesListView extends LitElement {
 
       <div class="recipes-list-container container-fluid">
         <div class="recipes-list-tags">
-          <!-- TODO -->
+          <!--TODO: collapse when viewport is small, and show selected ones in the summary (“All” or “Java, TypeScript, Lorem” if a subset is selected) -->
+          <vaadin-details theme="reverse cookbook" opened>
+            <h6 slot="summary">
+              Filter<span class="selected-tags">: All</span>
+            </h6>
+            <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
+              ${this.tags.map(
+                (tag) => html`
+                  <vaadin-checkbox
+                    value="${tag}"
+                    ?checked=${this.filterTags.includes(tag)}
+                    theme="cookbook"
+                    >${this.tagToHumanReadable(tag)}
+                    <span class="tag stainless"
+                      >${this.matchCount(tag)}</span
+                    ></vaadin-checkbox
+                  >
+                `
+              )}
+            </vaadin-checkbox-group>
+          </vaadin-details>
         </div>
         <ul class="recipes-list">
           ${repeat(
             recipes.filter((recipe) =>
-              recipe.howDoI.toLowerCase().includes(this.filter)
+              this.recipeMatches(recipe, this.filter, this.filterTags)
             ),
             (recipe) => recipe.url,
             (recipe) =>
@@ -230,7 +352,12 @@ export class RecipesListView extends LitElement {
                 </p>
                 <div class="recipe-tags">
                   ${recipe.tags?.map(
-                    (tag) => html`<span class="tag water">${tag}</span> `
+                    (tag) =>
+                      html`<span
+                        class="tag water"
+                        @click="${() => this.setFilterTag(tag)}"
+                        >${this.tagToHumanReadable(tag)}</span
+                      > `
                   )}
                 </div>
               </li>`
@@ -239,8 +366,47 @@ export class RecipesListView extends LitElement {
       </div>
     `;
   }
+  tagToHumanReadable(tag: Tag): string {
+    return capitalCase(tag).replace(/ /g, "");
+  }
+  matchCount(tag: Tag): number {
+    return recipes.filter((recipe) =>
+      this.recipeMatches(recipe, this.filter, [...this.filterTags, tag])
+    ).length;
+  }
 
-  doUpdateFilter() {
-    this.filter = this.filterField?.value.toLowerCase() || "";
+  setFilterTag(tag: Tag) {
+    this.filterTags = [tag];
+  }
+
+  recipeMatches(
+    recipe: RecipeInfo,
+    filter: string,
+    filterTags: Tag[]
+  ): boolean {
+    const summary = recipe.howDoI.toLowerCase();
+    const description = (recipe.description || "").toLowerCase();
+    if (!summary.includes(filter) && !description.includes(filter)) {
+      return false;
+    }
+    return this.recipeHasTags(recipe, filterTags);
+  }
+
+  tagFilterChange(e: CustomEvent) {
+    this.filterTags = e.detail.value;
+  }
+
+  updateFilter(e: CustomEvent) {
+    const value = e.detail.value;
+    this.filter = value.toLowerCase();
+  }
+
+  recipeHasTags(recipe: RecipeInfo, tags: Tag[]) {
+    for (const includeTag of tags) {
+      if (!recipe.tags?.includes(includeTag)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
