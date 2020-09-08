@@ -14,6 +14,7 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.internal.MessageDigestUtil;
@@ -37,6 +38,9 @@ import org.apache.commons.io.IOUtils;
 @Metadata(howdoI = "Take a photo from my phone", description = "You can use your phone camera with an HTML5 attribute")
 public class CameraView extends Recipe {
 
+    private Component previousPhoto;
+    private Paragraph photoName;
+
     public CameraView() {
         MemoryBuffer buffer = new MemoryBuffer();
         Upload upload = new Upload(buffer);
@@ -44,9 +48,12 @@ public class CameraView extends Recipe {
         // You can use the capture html5 attribute
         // https://caniuse.com/html-media-capture
         upload.getElement().setAttribute("capture", "environment");
-        // If you don't compress the image, don't forget to increase the upload limit or you will have an error
-        // For a spring boot application the default is 10MB, you can set it in application.properties:
+        // If you don't compress the image, don't forget to increase the upload limit and request size or you will have an error
+        // For a spring boot application the default request size is 10MB
+        // and the default upload size is 1MB
+        // you can set it in application.properties:
         // spring.servlet.multipart.max-request-size=30MB
+        // spring.servlet.multipart.max-file-size=30MB
         Div output = new Div();
 
         upload.addSucceededListener(
@@ -77,8 +84,7 @@ public class CameraView extends Recipe {
                         ImageReader reader = readers.next();
                         try {
                             reader.setInput(in);
-                            image.setWidth(reader.getWidth(0) + "px");
-                            image.setHeight(reader.getHeight(0) + "px");
+                            image.setMaxWidth("100%");
                         } finally {
                             reader.dispose();
                         }
@@ -101,9 +107,15 @@ public class CameraView extends Recipe {
     }
 
     private void showOutput(String text, Component content, HasComponents outputContainer) {
-        HtmlComponent p = new HtmlComponent(Tag.P);
-        p.getElement().setText(text);
-        outputContainer.add(p);
-        outputContainer.add(content);
+        if (photoName != null) {
+            outputContainer.remove(photoName);
+        }
+        if (previousPhoto != null) {
+            outputContainer.remove(previousPhoto);
+        }
+        photoName = new Paragraph(text);
+        outputContainer.add(photoName);
+        previousPhoto = content;
+        outputContainer.add(previousPhoto);
     }
 }
