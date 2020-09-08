@@ -31,7 +31,9 @@ export const recipeToRoute = (
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPE_SCRIPT", ...(recipeInfo.tags || [])].map((tag) => "" + tag),
+    tags: ["Tag.TYPE_SCRIPT", ...(recipeInfo.tags || [])].map(
+      (tag) => "" + tag
+    ),
   });
   return {
     path: recipeInfo.url,
@@ -148,7 +150,8 @@ const routesTS = routesJson
     /"actionString": "(.*)"/g,
     'action: async() => { await import("$1");}'
   )
-  .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1");
+  .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1")
+  .replace(/Tag.TYPE_SCRIPT/g, "Tag.TYPESCRIPT");
 
 const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
 
