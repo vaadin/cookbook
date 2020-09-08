@@ -10,7 +10,8 @@
     }
   },
   "lint-staged": {
-    "frontend/**": "prettier --write"
+    "frontend/**": "prettier --write",
+    "src/main/java/**/*.java": "prettier --write"
   },
   "dependencies": {
     "@polymer/iron-icon": "3.0.1",
@@ -75,6 +76,7 @@
     "lit-element": "2.3.1",
     "lit-html": "1.2.1",
     "prettier": "^2.1.1",
+    "prettier-plugin-java": "^0.8.2",
     "progress-webpack-plugin": "0.0.24",
     "raw-loader": "4.0.0",
     "script-ext-html-webpack-plugin": "2.1.4",
@@ -157,6 +159,6 @@
       "lit-html": "1.2.1",
       "@types/validator": "10.11.3"
     },
-    "hash": "c9c18d4b422a2526fb7cdeb0b44dcfdaa4fddf65b1ddb0ba85a2c0e77a148c62"
+    "hash": "87990785f94e6bfd0bda22f4d7729610adb9c22d469f1749e79a6e68cac4b789"
   }
 }
