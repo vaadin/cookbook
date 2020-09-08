@@ -31,6 +31,9 @@ public class RecipeInfo {
     public RecipeInfo(Class<? extends Recipe> recipeClass, String url, String howDoI, String description,
             List<String> sourceFiles, Tag[] tags) {
         this.url = url;
+        if (howDoI.toLowerCase().startsWith("how do i ")) {
+            howDoI = howDoI.substring("how do i ".length());
+        }
         this.howDoI = firstToLower(howDoI);
         this.description = description;
         this.sourceFiles = sourceFiles;
