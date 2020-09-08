@@ -150,7 +150,7 @@ const routesTS = routesJson
     /"actionString": "(.*)"/g,
     'action: async() => { await import("$1");}'
   )
-  .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1")
+  .replace(/"Tag.([A-Za-z_]*)"/g, "Tag.$1")
   .replace(/Tag.TYPE_SCRIPT/g, "Tag.TYPESCRIPT");
 
 const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
