@@ -309,7 +309,9 @@ export class RecipesListView extends LitElement {
         <div class="recipes-list-tags">
           <!--TODO: collapse when viewport is small, and show selected ones in the summary (“All” or “Java, TypeScript, Lorem” if a subset is selected) -->
           <vaadin-details theme="reverse cookbook" opened>
-            <h6 slot="summary">Tags<span class="selected-tags">: All</span></h6>
+            <h6 slot="summary">
+              Filter<span class="selected-tags">: All</span>
+            </h6>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
               ${this.tags.map(
                 (tag) => html`
