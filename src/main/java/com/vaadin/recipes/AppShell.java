@@ -11,20 +11,17 @@ import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import com.vaadin.recipes.recipe.Recipe;
-
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.slf4j.LoggerFactory;
 
 @PWA(name = "Recipes", shortName = "recipes")
 @Push
 public class AppShell implements AppShellConfigurator {
-
     private static final String TS_RECIPE_INFO_JSON = "ts-recipe-info.json";
     private Map<String, RecipeInfo> tsRecipes = new HashMap<>();
 
@@ -71,8 +68,10 @@ public class AppShell implements AppShellConfigurator {
     }
 
     private RecipeInfo findServerSideRecipe(VaadinRequest request) {
-        Optional<NavigationState> target = request.getService().getRouter()
-                .resolveNavigationTarget(request.getPathInfo(), request.getParameterMap());
+        Optional<NavigationState> target = request
+            .getService()
+            .getRouter()
+            .resolveNavigationTarget(request.getPathInfo(), request.getParameterMap());
 
         if (!target.isPresent()) {
             return null;
@@ -109,5 +108,4 @@ public class AppShell implements AppShellConfigurator {
         settings.setPageTitle(AllRecipes.getTitle(recipeInfo));
         settings.addMetaTag("description", AllRecipes.getDescription(recipeInfo));
     }
-
 }

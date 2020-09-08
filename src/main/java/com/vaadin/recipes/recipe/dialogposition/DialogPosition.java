@@ -12,25 +12,30 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
 import org.apache.commons.lang3.StringUtils;
 
 @Route("dialog-position")
 @Metadata(howdoI = "Re-open a dialog in the same position", tags = { Tag.USABILITY })
 public class DialogPosition extends Recipe {
-
     private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
     private final MyDialog myDialog = new MyDialog();
-    private final Button resetPosition = new Button("reset Position", buttonClickEvent -> myDialog.setPosition(INITIAL_POSITION));
+    private final Button resetPosition = new Button(
+        "reset Position",
+        buttonClickEvent -> myDialog.setPosition(INITIAL_POSITION)
+    );
 
-    private MyDialog.Position lastPosition ;
+    private MyDialog.Position lastPosition;
 
     public DialogPosition() {
-
-        myDialog.add(new VerticalLayout(
-            new H4("My Dialog"),
-            new Span("Keep left mouse clicked and move dialog around. After closing the dialog and you can reopen it at the same location again."),
-            new Button("close", this::closeDialog)));
+        myDialog.add(
+            new VerticalLayout(
+                new H4("My Dialog"),
+                new Span(
+                    "Keep left mouse clicked and move dialog around. After closing the dialog and you can reopen it at the same location again."
+                ),
+                new Button("close", this::closeDialog)
+            )
+        );
         myDialog.setDraggable(true);
         myDialog.setModal(false);
         myDialog.setWidth("600px");
@@ -47,10 +52,12 @@ public class DialogPosition extends Recipe {
     }
 
     private void closeDialog(ClickEvent<Button> buttonClickEvent) {
-        myDialog.getPosition(position -> {
-            lastPosition = position;
-            myDialog.close();
-        });
+        myDialog.getPosition(
+            position -> {
+                lastPosition = position;
+                myDialog.close();
+            }
+        );
     }
 
     @Override
@@ -60,7 +67,6 @@ public class DialogPosition extends Recipe {
     }
 
     public static class MyDialog extends Dialog {
-
         private static final String SET_PROPERTY_IN_OVERLAY_JS = "this.$.overlay.$.overlay.style[$0]=$1";
 
         public void setPosition(Position position) {
@@ -70,21 +76,27 @@ public class DialogPosition extends Recipe {
         }
 
         private void enablePositioning(boolean positioningEnabled) {
-            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "align-self", positioningEnabled ? "flex-start" : "unset");
-            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "position", positioningEnabled ? "absolute" : "relative");
+            getElement()
+                .executeJs(SET_PROPERTY_IN_OVERLAY_JS, "align-self", positioningEnabled ? "flex-start" : "unset");
+            getElement()
+                .executeJs(SET_PROPERTY_IN_OVERLAY_JS, "position", positioningEnabled ? "absolute" : "relative");
         }
 
         public void getPosition(SerializableConsumer<Position> consumer) {
-            getElement().executeJs("return [" +
-                        "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" +
-                    "]")
-                    .then(String.class, s -> {
+            getElement()
+                .executeJs(
+                    "return [" + "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" + "]"
+                )
+                .then(
+                    String.class,
+                    s -> {
                         String[] split = StringUtils.split(s, ',');
                         if (split.length == 2 && split[0] != null && split[1] != null) {
                             Position position = new Position(split[0], split[1]);
                             consumer.accept(position);
                         }
-                    });
+                    }
+                );
         }
 
         public static class Position {

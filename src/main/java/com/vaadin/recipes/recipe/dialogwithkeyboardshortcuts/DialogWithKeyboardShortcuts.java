@@ -16,6 +16,7 @@ import com.vaadin.recipes.recipe.Tag;
 @Route("dialog-with-keyboard-shortcuts")
 @Metadata(howdoI = "Show a dialog where Enter submits and Esc closes", tags = { Tag.KEYBOARD })
 public class DialogWithKeyboardShortcuts extends Recipe {
+
     public DialogWithKeyboardShortcuts() {
         add(new Button("Show dialog", event -> showDialog()));
     }
@@ -30,16 +31,19 @@ public class DialogWithKeyboardShortcuts extends Recipe {
         dialog.setCloseOnEsc(true);
         cancelButton.addClickListener(event -> dialog.close());
 
-        okButton.addClickListener(event -> {
-            Notification.show("Accepted");
-            dialog.close();
-        });
+        okButton.addClickListener(
+            event -> {
+                Notification.show("Accepted");
+                dialog.close();
+            }
+        );
         okButton.addClickShortcut(Key.ENTER);
 
         // Prevent click shortcut of the OK button from also triggering when
         // another button is focused
-        ShortcutRegistration shortcutRegistration = Shortcuts.addShortcutListener(buttons, () -> {
-        }, Key.ENTER).listenOn(buttons);
+        ShortcutRegistration shortcutRegistration = Shortcuts
+            .addShortcutListener(buttons, () -> {}, Key.ENTER)
+            .listenOn(buttons);
         shortcutRegistration.setEventPropagationAllowed(false);
         shortcutRegistration.setBrowserDefaultAllowed(true);
 

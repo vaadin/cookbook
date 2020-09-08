@@ -21,7 +21,7 @@ public class SplitButtonBar extends Recipe {
         setWidthFull();
     }
 
-    public HorizontalLayout withWrapperLayout(){
+    public HorizontalLayout withWrapperLayout() {
         Button delete = new Button("Delete");
         Button cancel = new Button("Cancel");
         Button save = new Button("Save");
@@ -34,7 +34,7 @@ public class SplitButtonBar extends Recipe {
         return buttonLayout;
     }
 
-    public HorizontalLayout withMarginLeft(){
+    public HorizontalLayout withMarginLeft() {
         Button delete = new Button("Delete");
         Button cancel = new Button("Cancel");
         Button save = new Button("Save");
@@ -46,7 +46,7 @@ public class SplitButtonBar extends Recipe {
         return buttonLayout;
     }
 
-    public HorizontalLayout withSpacerElement(){
+    public HorizontalLayout withSpacerElement() {
         Button delete = new Button("Delete");
         Div spacer = new Div();
         Button cancel = new Button("Cancel");

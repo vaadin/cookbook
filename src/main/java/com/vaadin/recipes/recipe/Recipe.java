@@ -7,9 +7,7 @@ import com.vaadin.recipes.data.RecipeInfo;
 
 public class Recipe extends VerticalLayout implements HasDynamicTitle {
 
-    public Recipe() {
-
-    }
+    public Recipe() {}
 
     @Override
     public String getPageTitle() {

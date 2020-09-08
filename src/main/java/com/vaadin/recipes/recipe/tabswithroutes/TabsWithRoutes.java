@@ -7,7 +7,6 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.*;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +46,15 @@ public class TabsWithRoutes extends Recipe implements RouterLayout, BeforeEnterO
     }
 
     private static class RouteTabs extends Tabs implements BeforeEnterObserver {
-
         private final Map<RouterLink, Tab> routerLinkTabMap = new HashMap<>();
 
         public void add(RouterLink routerLink) {
             routerLink.setHighlightCondition(HighlightConditions.sameLocation());
-            routerLink.setHighlightAction((link, shouldHighlight) -> {
-                if (shouldHighlight) setSelectedTab(routerLinkTabMap.get(routerLink));
-            });
+            routerLink.setHighlightAction(
+                (link, shouldHighlight) -> {
+                    if (shouldHighlight) setSelectedTab(routerLinkTabMap.get(routerLink));
+                }
+            );
             routerLinkTabMap.put(routerLink, new Tab(routerLink));
             add(routerLinkTabMap.get(routerLink));
         }
