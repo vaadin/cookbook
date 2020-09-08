@@ -328,7 +328,9 @@ export class RecipesListView extends LitElement {
                     ?checked=${this.filterTags.includes(tag)}
                     theme="cookbook"
                     >${this.tagToHumanReadable(tag)}
-                    <span class="tag stainless"
+                    <span
+                      class="tag stainless"
+                      ?hidden=${this.matchCount(tag) === 0}
                       >${this.matchCount(tag)}</span
                     ></vaadin-checkbox
                   >
