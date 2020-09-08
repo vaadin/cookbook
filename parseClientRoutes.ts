@@ -31,7 +31,7 @@ export const recipeToRoute = (
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPESCRIPT", ...(recipeInfo.tags || [])].map((tag) => "" + tag),
+    tags: ["Tag.TYPE_SCRIPT", ...(recipeInfo.tags || [])].map((tag) => "" + tag),
   });
   return {
     path: recipeInfo.url,

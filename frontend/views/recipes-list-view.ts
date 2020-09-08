@@ -317,7 +317,7 @@ export class RecipesListView extends LitElement {
                     value="${tag}"
                     ?checked=${this.filterTags.includes(tag)}
                     theme="cookbook"
-                    >${capitalCase(tag).replace(/ /g, "")}
+                    >${this.tagToHumanReadable(tag)}
                     <span class="tag stainless"
                       >${this.matchCount(tag)}</span
                     ></vaadin-checkbox
@@ -354,7 +354,7 @@ export class RecipesListView extends LitElement {
                       html`<span
                         class="tag water"
                         @click="${() => this.setFilterTag(tag)}"
-                        >${tag}</span
+                        >${this.tagToHumanReadable(tag)}</span
                       > `
                   )}
                 </div>
@@ -363,6 +363,9 @@ export class RecipesListView extends LitElement {
         </ul>
       </div>
     `;
+  }
+  tagToHumanReadable(tag: Tag): string {
+    return capitalCase(tag).replace(/ /g, "");
   }
   matchCount(tag: Tag): number {
     return recipes.filter((recipe) =>
