@@ -1,6 +1,7 @@
 import "@vaadin/vaadin-checkbox";
 import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
 import "@vaadin/vaadin-details";
+import { DetailsElement } from "@vaadin/vaadin-details";
 import "@vaadin/vaadin-text-field";
 import {
   css,
@@ -102,6 +103,11 @@ export class RecipesListView extends LitElement {
     Tag.USABILITY,
     Tag.LAYOUT,
   ];
+
+  firstUpdated() {
+    const details = this.querySelector(".tag-filter") as DetailsElement;
+    details.opened = window.matchMedia("(min-width: 600px)").matches;
+  }
 
   createRenderRoot() {
     return this;
@@ -216,6 +222,12 @@ export class RecipesListView extends LitElement {
           float: right;
         }
 
+        .recipes-list-tags vaadin-checkbox .tag-count {
+          font-weight: 700;
+          font-size: var(--text-size-xs);
+          color: var(--color-stainless-darker);
+        }
+
         .recipes-list {
           list-style: none;
           margin: 0;
@@ -307,10 +319,12 @@ export class RecipesListView extends LitElement {
 
       <div class="recipes-list-container container-fluid">
         <div class="recipes-list-tags">
-          <!--TODO: collapse when viewport is small, and show selected ones in the summary (“All” or “Java, TypeScript, Lorem” if a subset is selected) -->
-          <vaadin-details theme="reverse cookbook" opened>
+          <vaadin-details theme="reverse cookbook" opened class="tag-filter">
             <h6 slot="summary">
-              Filter<span class="selected-tags">: All</span>
+              Filter<span class="selected-tags">
+                ${this.filterTags.length > 0 ? ": " : ""}
+                ${this.filterTags.map(this.tagToHumanReadable).join(", ")}
+              </span>
             </h6>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
               ${this.tags.map(
@@ -320,7 +334,9 @@ export class RecipesListView extends LitElement {
                     ?checked=${this.filterTags.includes(tag)}
                     theme="cookbook"
                     >${this.tagToHumanReadable(tag)}
-                    <span class="tag stainless"
+                    <span
+                      class="tag-count"
+                      ?hidden=${this.matchCount(tag) === 0}
                       >${this.matchCount(tag)}</span
                     ></vaadin-checkbox
                   >
