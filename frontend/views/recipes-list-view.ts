@@ -222,6 +222,12 @@ export class RecipesListView extends LitElement {
           float: right;
         }
 
+        .recipes-list-tags vaadin-checkbox .tag-count {
+          font-weight: 700;
+          font-size: var(--text-size-xs);
+          color: var(--color-stainless-darker);
+        }
+
         .recipes-list {
           list-style: none;
           margin: 0;
@@ -329,7 +335,7 @@ export class RecipesListView extends LitElement {
                     theme="cookbook"
                     >${this.tagToHumanReadable(tag)}
                     <span
-                      class="tag stainless"
+                      class="tag-count"
                       ?hidden=${this.matchCount(tag) === 0}
                       >${this.matchCount(tag)}</span
                     ></vaadin-checkbox
