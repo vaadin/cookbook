@@ -8,6 +8,7 @@ import {
   registerStyles,
 } from "@vaadin/vaadin-themable-mixin/register-styles";
 import { capitalCase } from "change-case";
+import { debounce } from "ts-debounce";
 import { customElement, html, LitElement, property } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
@@ -415,6 +416,11 @@ export class RecipesListView extends LitElement {
   updateFilter(e: CustomEvent) {
     const value = e.detail.value;
     this.filter = value.toLowerCase();
+    debounce(this.logSearch, 1000);
+  }
+
+  logSearch() {
+    ga("send", "event", "cookbook", "search", this.filter);
   }
 
   recipeHasTags(recipe: RecipeInfo, tags: Tag[]) {
