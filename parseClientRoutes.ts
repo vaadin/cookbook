@@ -141,7 +141,7 @@ writeIfChanged(
     routes.map((route) => route.info),
     null,
     2
-  ).replace(/"Tag.([A-Za-z]*)"/g, '"$1"')
+  ).replace(/"Tag.([A-Za-z_]*)"/g, '"$1"')
 );
 
 const routesJson = JSON.stringify(routes, null, 2);
