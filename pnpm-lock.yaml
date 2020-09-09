@@ -2,6 +2,7 @@ dependencies:
   '@polymer/iron-icon': 3.0.1
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0
+  '@types/google.analytics': 0.0.40
   '@vaadin/flow-frontend': 'link:target/flow-frontend'
   '@vaadin/form': 'link:target/flow-frontend/form'
   '@vaadin/router': 1.7.2
@@ -48,6 +49,7 @@ dependencies:
   date-fns: 2.16.0
   leaflet: 1.6.0
   lit-element: 2.3.1
+  ts-debounce: 2.0.1
 devDependencies:
   '@types/validator': 10.11.3
   awesome-typescript-loader: 5.2.1_typescript@3.8.3
@@ -1136,6 +1138,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==
+  /@types/google.analytics/0.0.40:
+    dev: false
+    resolution:
+      integrity: sha512-R3HpnLkqmKxhUAf8kIVvDVGJqPtaaZlW4yowNwjOZUTmYUQEgHh8Nh5wkSXKMroNAuQM8gbXJHmNbbgA8tdb7Q==
   /@types/json-schema/7.0.6:
     dev: true
     resolution:
@@ -6936,6 +6942,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-LmhELZ9k7HILjMieZEOsbKqVACk=
+  /ts-debounce/2.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-+TztZrH7GnAD5CKxUohIAqIVHLrtivsYT7tZCLeRTCaBMSsfgYwprhA00kB/m0ezvYheOXJQqPfarAvgoayb7A==
   /tslib/1.13.0:
     resolution:
       integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
@@ -7526,6 +7536,7 @@ specifiers:
   '@polymer/iron-icon': 3.0.1
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0
+  '@types/google.analytics': 0.0.40
   '@types/validator': 10.11.3
   '@vaadin/flow-frontend': ./target/flow-frontend
   '@vaadin/form': ./target/flow-frontend/form
@@ -7587,6 +7598,7 @@ specifiers:
   raw-loader: 4.0.0
   script-ext-html-webpack-plugin: 2.1.4
   terser: 4.6.7
+  ts-debounce: ^2.0.1
   typescript: 3.8.3
   validator: 12.0.0
   webpack: 4.42.0

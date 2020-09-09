@@ -17,6 +17,7 @@
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-list": "3.1.0",
     "@polymer/polymer": "3.2.0",
+    "@types/google.analytics": "0.0.40",
     "@vaadin/flow-frontend": "./target/flow-frontend",
     "@vaadin/form": "./target/flow-frontend/form",
     "@vaadin/router": "1.7.2",
@@ -62,7 +63,8 @@
     "change-case": "^4.1.1",
     "date-fns": "2.16.0",
     "leaflet": "1.6.0",
-    "lit-element": "2.3.1"
+    "lit-element": "2.3.1",
+    "ts-debounce": "^2.0.1"
   },
   "devDependencies": {
     "@types/validator": "10.11.3",
