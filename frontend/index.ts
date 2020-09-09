@@ -4,6 +4,9 @@ import { tsRecipeRoutes } from "./ts-routes";
 import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "./generated/RecipeEndpoint";
 
+import "./views/recipes-list-view";
+import "./views/recipe-view";
+
 const { serverSideRoutes } = new Flow({
   imports: () => import("../target/frontend/generated-flow-imports"),
 });
@@ -14,7 +17,6 @@ const routes: Route[] = [
     component: "recipes-list-view",
     action: async (_context, _commands) => {
       await initRecipes();
-      await import("./views/recipes-list-view");
     },
   },
   {
@@ -22,7 +24,6 @@ const routes: Route[] = [
     component: "recipe-view",
     action: async (_context, _commands) => {
       await initRecipes();
-      await import("./views/recipe-view");
     },
     children: [
       ...tsRecipeRoutes,
