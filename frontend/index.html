@@ -38,48 +38,6 @@
     </script>
     <!-- End Google Analytics -->
 
-    <!-- TODO: remove duplicate stylesheets when taking vaadin.com Header-as-a-service (HaaS) into use  -->
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/custom-properties.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/reset.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/layout.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/2-components/fields.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/2-components/links.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/2-components/tag.css"
-    />
-
-    <!-- Defer heavy CSS until after initial load -->
-    <link
-      rel="stylesheet"
-      href="https://cdn2.hubspot.net/hubfs/1840687/Design%20System/icons/css/line-awesome.min.css"
-      media="print"
-      onload="this.media='all'"
-    />
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/typography.css"
-      media="print"
-      onload="this.media='all'"
-    />
-
     <!-- index.ts is included here automatically (either by the dev server or during the build) -->
     <style>
       html {
@@ -131,5 +89,29 @@
       </div>
     </div>
     <div id="outlet"></div>
+
+    <script>
+      // Loading CSS here so they don't block the bundle download
+      // TODO: remove duplicate stylesheets when taking vaadin.com Header-as-a-service (HaaS) into use
+      const designSystemCSS = [
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/custom-properties.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/reset.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/layout.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/fields.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/links.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/tag.css",
+        "https://cdn2.hubspot.net/hubfs/1840687/Design%20System/icons/css/line-awesome.min.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/typography.css",
+      ];
+
+      designSystemCSS
+        .map((url) => {
+          const link = document.createElement("link");
+          link.setAttribute("rel", "stylesheet");
+          link.setAttribute("href", url);
+          return link;
+        })
+        .forEach((link) => document.head.append(link));
+    </script>
   </body>
 </html>
