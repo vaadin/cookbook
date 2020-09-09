@@ -8,7 +8,7 @@ import { Context } from "@vaadin/router";
 @customElement("recipe-view")
 export class RecipeView extends LitElement {
   @property({ type: Object })
-  recipe: RecipeInfo = { howDoI: "", url: "", tags: [] };
+  recipe: RecipeInfo = { howDoI: "", description: "", url: "", tags: [] };
 
   static get styles() {
     return css`

@@ -13,7 +13,8 @@ import java.util.stream.Stream;
 
 @Route("dynamic-grid-row-background-color")
 @Metadata(
-    howdoI = "Set the grid row bg color depending on data",
+    howdoI = "Set grid row background color dynamically",
+    description = "Learn how to change the row background color of a Vaadin grid, based on any dynamic data.",
     sourceFiles = { "recipe/dynamicgridrowbackgroundcolor/dynamic-grid-row-background-color.css" },
     tags = { Tag.THEME, Tag.GRID }
 )

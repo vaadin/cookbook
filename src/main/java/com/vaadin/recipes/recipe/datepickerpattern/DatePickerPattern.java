@@ -14,7 +14,8 @@ import java.time.LocalDate;
 
 @Route("date-picker-pattern")
 @Metadata(
-    howdoI = "Use a custom date format based on a pattern text with DatePicker",
+    howdoI = "Use a custom date format with DatePicker",
+    description = "Define custom patterns for parsing manually entered dates in Vaadin DatePicker.",
     sourceFiles = { "recipe/date-picker-pattern/date-picker-pattern.js" }
 )
 public class DatePickerPattern extends Recipe {

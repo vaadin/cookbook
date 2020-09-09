@@ -20,7 +20,10 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Route("notice-closed")
-@Metadata(howdoI = "Notice when a user closes their browser tab")
+@Metadata(
+    howdoI = "Notice when a user closes their browser tab",
+    description = "Use the Beacon API to get notified when a user closes a tab in a Vaadin application so you can run cleanup tasks."
+)
 public class NoticeClosed extends Recipe {
 
     public static class BeaconEvent extends ComponentEvent<UI> {

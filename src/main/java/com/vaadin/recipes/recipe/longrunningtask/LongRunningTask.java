@@ -14,6 +14,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Route("long-running-task")
 @Metadata(
     howdoI = "Show a progress bar while a long task is running",
+    description = "Learn how to display a progress bar while a long-running background process and update the UI asynchronously when it completes.",
     sourceFiles = { "BackendService.java" },
     tags = { Tag.PUSH, Tag.USABILITY }
 )

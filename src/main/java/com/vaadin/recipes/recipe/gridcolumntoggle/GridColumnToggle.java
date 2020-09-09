@@ -16,7 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Route("grid-column-toggle")
-@Metadata(howdoI = "Show a popup to toggle grid columns", tags = { Tag.GRID })
+@Metadata(
+    howdoI = "Show a menu to toggle the visibility of grid columns",
+    description = "Add a dropdown menu to allow your users to toggle the visibility of Vaadin grid columns.",
+    tags = { Tag.GRID }
+)
 public class GridColumnToggle extends Recipe {
     private final Map<Column<?>, String> toggleableColumns = new HashMap<>();
 

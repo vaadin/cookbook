@@ -14,7 +14,11 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("dialog-with-keyboard-shortcuts")
-@Metadata(howdoI = "Show a dialog where Enter submits and Esc closes", tags = { Tag.KEYBOARD })
+@Metadata(
+    howdoI = "Show a dialog where Enter submits and Esc closes",
+    description = "Improve UX with keyboard shortcuts for confirming or dismissing a dialog. Code example using the Vaadin Java component API.",
+    tags = { Tag.KEYBOARD }
+)
 public class DialogWithKeyboardShortcuts extends Recipe {
 
     public DialogWithKeyboardShortcuts() {
