@@ -52,7 +52,10 @@ public class AppShell implements AppShellConfigurator {
         if (recipeInfo != null) {
             setRouteMeta(settings, recipeInfo);
         } else {
-            LoggerFactory.getLogger(getClass()).warn("No recipe info found for {}", request.getPathInfo());
+            String pathInfo = request.getPathInfo();
+            if (pathInfo != null && !"/".equals(pathInfo)) {
+                LoggerFactory.getLogger(getClass()).warn("No recipe info found for {}", request.getPathInfo());
+            }
         }
     }
 
