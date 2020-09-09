@@ -14,7 +14,7 @@ import com.vaadin.recipes.recipe.Tag;
 @Route("warning-when-leaving-dirty-form")
 @Metadata(
     howdoI = "Warn user when leaving a modified form",
-    description = "Learn how to ask users for confirmation before leaving a dirty form in a Vaadin.",
+    description = "Learn how to ask users for confirmation before leaving a dirty form in a Vaadin application.",
     tags = { Tag.USABILITY }
 )
 public class WarningWhenLeavingDirtyForm extends Recipe implements BeforeLeaveObserver {

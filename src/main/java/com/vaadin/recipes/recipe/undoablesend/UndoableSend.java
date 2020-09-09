@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Route("undoable-send")
 @Metadata(
     howdoI = "Send with undo button",
-    description = "Don't regret, undo. Learn how to create undoable actions in Vaadin apps.",
+    description = "Don't regret, undo. Learn how to create actions that can be undone in Vaadin apps.",
     tags = { Tag.PUSH }
 )
 public class UndoableSend extends Recipe {
