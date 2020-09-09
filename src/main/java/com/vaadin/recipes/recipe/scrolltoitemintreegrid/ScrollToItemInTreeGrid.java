@@ -11,13 +11,13 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
+import com.vaadin.recipes.recipe.Tag;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 @Route("scroll-to-item-in-tree-grid")
-@Metadata(howdoI = "Scroll to a specific item when expanding nodes")
+@Metadata(howdoI = "Scroll to a specific item when expanding nodes", tags = { Tag.GRID })
 public class ScrollToItemInTreeGrid extends Recipe {
 
     public static class ScrollTreeGrid<T> extends TreeGrid<T> {
@@ -42,9 +42,9 @@ public class ScrollToItemInTreeGrid extends Recipe {
          *
          * @param item the item where to scroll to
          */
-        public void scrollToItem(T item){
+        public void scrollToItem(T item) {
             int index = getIndexForItem(item);
-            if(index>=0){
+            if (index >= 0) {
                 this.getElement().executeJs("this.scrollWhenReady($0, true);", index);
             }
         }
@@ -70,16 +70,20 @@ public class ScrollToItemInTreeGrid extends Recipe {
         }
 
         private void initScrollWhenReady() {
-            runBeforeClientResponse(ui -> getElement().executeJs("this.scrollWhenReady = function(index, firstCall){" +
-                    "if(this.loading || firstCall) {var that = this; setTimeout(function(){that.scrollWhenReady(index, false);}, 200);}" +
-                    "        else {this.scrollToIndex(index);}" +
-                    "};"));
+            runBeforeClientResponse(
+                ui ->
+                    getElement()
+                        .executeJs(
+                            "this.scrollWhenReady = function(index, firstCall){" +
+                            "if(this.loading || firstCall) {var that = this; setTimeout(function(){that.scrollWhenReady(index, false);}, 200);}" +
+                            "        else {this.scrollToIndex(index);}" +
+                            "};"
+                        )
+            );
         }
 
-
         private void runBeforeClientResponse(SerializableConsumer<UI> command) {
-            getElement().getNode().runWhenAttached(ui -> ui
-                    .beforeClientResponse(this, context -> command.accept(ui)));
+            getElement().getNode().runWhenAttached(ui -> ui.beforeClientResponse(this, context -> command.accept(ui)));
         }
     }
 
@@ -90,7 +94,7 @@ public class ScrollToItemInTreeGrid extends Recipe {
         private String name;
         private Person parent;
 
-        public Person(){}
+        public Person() {}
 
         public Person(String name, Person parent) {
             this.name = name;
@@ -117,13 +121,12 @@ public class ScrollToItemInTreeGrid extends Recipe {
         public String toString() {
             return name;
         }
-
     }
 
     /** Demo
      *
      */
-    public ScrollToItemInTreeGrid(){
+    public ScrollToItemInTreeGrid() {
         ScrollTreeGrid<Person> grid = new ScrollTreeGrid<>();
         grid.addHierarchyColumn(p -> p.getName()).setHeader("Name");
         Person grandDad = new Person("Granddad", null);
@@ -133,8 +136,8 @@ public class ScrollToItemInTreeGrid extends Recipe {
         people.add(dad);
         Person firstChild = new Person("First Child", dad);
         people.add(firstChild);
-        for(int i=2;i<100;i++){
-            Person child = new Person("Child "+i, dad);
+        for (int i = 2; i < 100; i++) {
+            Person child = new Person("Child " + i, dad);
             people.add(child);
         }
         Person lastChild = new Person("Last Child", dad);
@@ -142,8 +145,24 @@ public class ScrollToItemInTreeGrid extends Recipe {
         people.forEach(p -> grid.getTreeData().addItem(p.getParent(), p));
         add(grid);
         HorizontalLayout buttons = new HorizontalLayout();
-        buttons.add(new Button("Expand and scroll to first", e -> {grid.expand(grandDad, dad); grid.scrollToItem(firstChild);}));
-        buttons.add(new Button("Expand and scroll to last", e -> {grid.expand(grandDad,dad); grid.scrollToItem(lastChild);}));
+        buttons.add(
+            new Button(
+                "Expand and scroll to first",
+                e -> {
+                    grid.expand(grandDad, dad);
+                    grid.scrollToItem(firstChild);
+                }
+            )
+        );
+        buttons.add(
+            new Button(
+                "Expand and scroll to last",
+                e -> {
+                    grid.expand(grandDad, dad);
+                    grid.scrollToItem(lastChild);
+                }
+            )
+        );
         add(buttons);
     }
 }

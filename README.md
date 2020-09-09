@@ -39,10 +39,12 @@ public class RecipeNameGoesHere extends Recipe {
 
 5. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipe-name-goes-here
 
-6. Commit and create a PR
-7. Wait for 1-2 days for somebody to react to the PR
-8. Fix any potential comments
-9. :tada:
+6. If you created multiple files (Java or CSS), refer to them using the `sourceFiles` attribute of `@Metadata`
+7. If your recipe needs push, add `tag={Tag.PUSH}` to `@Metadata`. Add any other suitable tags also.
+8. Commit and create a PR
+9. Wait for 1-2 days for somebody to react to the PR
+10. Fix any potential comments
+11. :tada:
 
 ## Contributing a TS based recipe
 
@@ -74,11 +76,11 @@ export class RecipeNameGoesHere extends Recipe {
 }
 ```
 
-Add any additional source files to the `sourceFiles` array. Files should be relative to the same folder.
-
 5. Code the recipe and test it. Start the project using `mvn` and you find your recipe at http://localhost:8080/recipe-name-goes-here
 
-6. Commit and create a PR
-7. Wait for 1-2 days for somebody to react to the PR
-8. Fix any potential comments
-9. :tada:
+6. If you created multiple files (TS or CSS), refer to them using the `sourceFiles` attribute of `@recipeInfo`
+7. Add any suitable tags to the `tags` part of `@recipeInfo`
+8. Commit and create a PR
+9. Wait for 1-2 days for somebody to react to the PR
+10. Fix any potential comments
+11. :tada:

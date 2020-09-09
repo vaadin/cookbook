@@ -1,15 +1,13 @@
 package com.vaadin.recipes.endpoints;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
 import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 @AnonymousAllowed

@@ -18,6 +18,5 @@ public class Util {
 
     public static String getSimpleName(String fullName) {
         return new File(fullName).getName();
-
     }
 }

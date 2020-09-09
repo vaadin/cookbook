@@ -1,8 +1,11 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
 import { Route, Router } from "@vaadin/router";
-import { recipes } from "./all-recipes";
-import { MainView } from "./views/main-view";
 import { tsRecipeRoutes } from "./ts-routes";
+import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
+import * as RecipeEndpoint from "./generated/RecipeEndpoint";
+
+import "./views/recipes-list-view";
+import "./views/recipe-view";
 
 const { serverSideRoutes } = new Flow({
   imports: () => import("../target/frontend/generated-flow-imports"),
@@ -10,20 +13,19 @@ const { serverSideRoutes } = new Flow({
 
 const routes: Route[] = [
   {
-    path: "",
-    component: "main-view",
+    path: "/",
+    component: "recipes-list-view",
     action: async (_context, _commands) => {
-      await import("./views/main-view");
-      updateCurrentRecipe(_context.pathname);
+      await initRecipes();
+    },
+  },
+  {
+    path: "",
+    component: "recipe-view",
+    action: async (_context, _commands) => {
+      await initRecipes();
     },
     children: [
-      {
-        path: "",
-        component: "intro-view",
-        action: async () => {
-          await import("./views/intro-view");
-        },
-      },
       ...tsRecipeRoutes,
       ...serverSideRoutes, // IMPORTANT: this must be the last entry in the array
     ],
@@ -33,17 +35,14 @@ const routes: Route[] = [
 export const router = new Router(document.querySelector("#outlet"));
 router.setRoutes(routes);
 
-export const updateCurrentRecipe = (path?: string) => {
-  if (!path) {
-    path = router.location.pathname;
-  }
+export const recipes: RecipeInfo[] = [];
 
-  if (path.includes("-")) {
-    const tag = path.substr(path.lastIndexOf("/") + 1);
-    const recipe = recipes.find((recipe) => recipe.url == tag);
-    if (recipe) {
-      const mainView = document.querySelector("main-view")! as MainView;
-      mainView.recipe = recipe;
-    }
+async function initRecipes() {
+  if (recipes.length === 0) {
+    recipes.push(...tsRecipeRoutes.map((route) => route.info));
+    recipes.push(...(await RecipeEndpoint.list()));
+    recipes.sort((a, b) =>
+      a.howDoI < b.howDoI ? -1 : a.howDoI == b.howDoI ? 0 : 1
+    );
   }
-};
+}
