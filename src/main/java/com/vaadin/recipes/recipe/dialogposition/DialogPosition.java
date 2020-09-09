@@ -12,102 +12,121 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
 import org.apache.commons.lang3.StringUtils;
 
 @Route("dialog-position")
-@Metadata(howdoI = "Re-open a dialog in the same position", description = "Learn how to save a dialog position so you can re-open it in the same place using the Vaadin Java component API.", tags = {
-    Tag.USABILITY })
+@Metadata(
+    howdoI = "Re-open a dialog in the same position",
+    description = "Learn how to save a dialog position so you can re-open it in the same place using the Vaadin Java component API.",
+    tags = { Tag.USABILITY }
+)
 public class DialogPosition extends Recipe {
-  private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
-  private final MyDialog myDialog = new MyDialog();
-  private final Button resetPosition = new Button("reset Position",
-      buttonClickEvent -> myDialog.setPosition(INITIAL_POSITION));
+    private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
+    private final MyDialog myDialog = new MyDialog();
+    private final Button resetPosition = new Button(
+        "reset Position",
+        buttonClickEvent -> myDialog.setPosition(INITIAL_POSITION)
+    );
 
-  private MyDialog.Position lastPosition;
+    private MyDialog.Position lastPosition;
 
-  public DialogPosition() {
-    myDialog.add(new VerticalLayout(new H4("My Dialog"), new Span(
-        "Keep left mouse clicked and move dialog around. After closing the dialog and you can reopen it at the same location again."),
-        new Button("close", this::closeDialog)));
-    myDialog.setDraggable(true);
-    myDialog.setModal(false);
-    myDialog.setWidth("600px");
-    myDialog.addOpenedChangeListener(event -> resetPosition.setEnabled(event.isOpened()));
+    public DialogPosition() {
+        myDialog.add(
+            new VerticalLayout(
+                new H4("My Dialog"),
+                new Span(
+                    "Keep left mouse clicked and move dialog around. After closing the dialog and you can reopen it at the same location again."
+                ),
+                new Button("close", this::closeDialog)
+            )
+        );
+        myDialog.setDraggable(true);
+        myDialog.setModal(false);
+        myDialog.setWidth("600px");
+        myDialog.addOpenedChangeListener(event -> resetPosition.setEnabled(event.isOpened()));
 
-    add(new Button("open dialog", this::openDialog));
-    resetPosition.setEnabled(false);
-    add(resetPosition);
-  }
-
-  private void openDialog(ClickEvent<Button> buttonClickEvent) {
-    myDialog.open();
-    myDialog.setPosition(lastPosition != null ? lastPosition : INITIAL_POSITION);
-  }
-
-  private void closeDialog(ClickEvent<Button> buttonClickEvent) {
-    myDialog.getPosition(position -> {
-      lastPosition = position;
-      myDialog.close();
-    });
-  }
-
-  @Override
-  protected void onDetach(DetachEvent detachEvent) {
-    super.onDetach(detachEvent);
-    myDialog.close();
-  }
-
-  public static class MyDialog extends Dialog {
-    private static final String SET_PROPERTY_IN_OVERLAY_JS = "this.$.overlay.$.overlay.style[$0]=$1";
-
-    public void setPosition(Position position) {
-      enablePositioning(true);
-      getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "left", position.getLeft());
-      getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "top", position.getTop());
+        add(new Button("open dialog", this::openDialog));
+        resetPosition.setEnabled(false);
+        add(resetPosition);
     }
 
-    private void enablePositioning(boolean positioningEnabled) {
-      getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "align-self", positioningEnabled ? "flex-start" : "unset");
-      getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "position", positioningEnabled ? "absolute" : "relative");
+    private void openDialog(ClickEvent<Button> buttonClickEvent) {
+        myDialog.open();
+        myDialog.setPosition(lastPosition != null ? lastPosition : INITIAL_POSITION);
     }
 
-    public void getPosition(SerializableConsumer<Position> consumer) {
-      getElement()
-          .executeJs("return [" + "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" + "]")
-          .then(String.class, s -> {
-            String[] split = StringUtils.split(s, ',');
-            if (split.length == 2 && split[0] != null && split[1] != null) {
-              Position position = new Position(split[0], split[1]);
-              consumer.accept(position);
+    private void closeDialog(ClickEvent<Button> buttonClickEvent) {
+        myDialog.getPosition(
+            position -> {
+                lastPosition = position;
+                myDialog.close();
             }
-          });
+        );
     }
 
-    public static class Position {
-      private String top;
-      private String left;
-
-      public Position(String top, String left) {
-        this.top = top;
-        this.left = left;
-      }
-
-      public String getTop() {
-        return top;
-      }
-
-      public void setTop(String top) {
-        this.top = top;
-      }
-
-      public String getLeft() {
-        return left;
-      }
-
-      public void setLeft(String left) {
-        this.left = left;
-      }
+    @Override
+    protected void onDetach(DetachEvent detachEvent) {
+        super.onDetach(detachEvent);
+        myDialog.close();
     }
-  }
+
+    public static class MyDialog extends Dialog {
+        private static final String SET_PROPERTY_IN_OVERLAY_JS = "this.$.overlay.$.overlay.style[$0]=$1";
+
+        public void setPosition(Position position) {
+            enablePositioning(true);
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "left", position.getLeft());
+            getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "top", position.getTop());
+        }
+
+        private void enablePositioning(boolean positioningEnabled) {
+            getElement()
+                .executeJs(SET_PROPERTY_IN_OVERLAY_JS, "align-self", positioningEnabled ? "flex-start" : "unset");
+            getElement()
+                .executeJs(SET_PROPERTY_IN_OVERLAY_JS, "position", positioningEnabled ? "absolute" : "relative");
+        }
+
+        public void getPosition(SerializableConsumer<Position> consumer) {
+            getElement()
+                .executeJs(
+                    "return [" + "this.$.overlay.$.overlay.style['top'], this.$.overlay.$.overlay.style['left']" + "]"
+                )
+                .then(
+                    String.class,
+                    s -> {
+                        String[] split = StringUtils.split(s, ',');
+                        if (split.length == 2 && split[0] != null && split[1] != null) {
+                            Position position = new Position(split[0], split[1]);
+                            consumer.accept(position);
+                        }
+                    }
+                );
+        }
+
+        public static class Position {
+            private String top;
+            private String left;
+
+            public Position(String top, String left) {
+                this.top = top;
+                this.left = left;
+            }
+
+            public String getTop() {
+                return top;
+            }
+
+            public void setTop(String top) {
+                this.top = top;
+            }
+
+            public String getLeft() {
+                return left;
+            }
+
+            public void setLeft(String left) {
+                this.left = left;
+            }
+        }
+    }
 }

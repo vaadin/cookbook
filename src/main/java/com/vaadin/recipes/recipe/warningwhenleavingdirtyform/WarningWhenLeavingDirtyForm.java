@@ -12,48 +12,51 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("warning-when-leaving-dirty-form")
-@Metadata(howdoI = "Warn user when leaving a modified form", description = "Learn how to ask users for confirmation before leaving a dirty form in a Vaadin.", tags = {
-    Tag.USABILITY })
+@Metadata(
+    howdoI = "Warn user when leaving a modified form",
+    description = "Learn how to ask users for confirmation before leaving a dirty form in a Vaadin.",
+    tags = { Tag.USABILITY }
+)
 public class WarningWhenLeavingDirtyForm extends Recipe implements BeforeLeaveObserver {
-  private TextField firstName = new TextField("First Name");
-  private TextField lastName = new TextField("Last Name");
-  private Binder<Person> binder = new Binder<>(Person.class);
+    private TextField firstName = new TextField("First Name");
+    private TextField lastName = new TextField("Last Name");
+    private Binder<Person> binder = new Binder<>(Person.class);
 
-  public WarningWhenLeavingDirtyForm() {
-    add(firstName, lastName);
-    binder.bindInstanceFields(this);
-  }
-
-  @Override
-  public void beforeLeave(BeforeLeaveEvent event) {
-    if (binder.hasChanges()) {
-      final ContinueNavigationAction action = event.postpone();
-      final ConfirmDialog dialog = new ConfirmDialog();
-      dialog.setText("Are you sure you want to leave? You have unsaved data.");
-      dialog.setConfirmButton("Stay", e -> dialog.close());
-      dialog.setCancelButton("Leave", e -> action.proceed());
-      dialog.setCancelable(true);
-      dialog.open();
-    }
-  }
-
-  public static class Person {
-    private String firstName, lastName;
-
-    public String getFirstName() {
-      return firstName;
+    public WarningWhenLeavingDirtyForm() {
+        add(firstName, lastName);
+        binder.bindInstanceFields(this);
     }
 
-    public void setFirstName(String firstName) {
-      this.firstName = firstName;
+    @Override
+    public void beforeLeave(BeforeLeaveEvent event) {
+        if (binder.hasChanges()) {
+            final ContinueNavigationAction action = event.postpone();
+            final ConfirmDialog dialog = new ConfirmDialog();
+            dialog.setText("Are you sure you want to leave? You have unsaved data.");
+            dialog.setConfirmButton("Stay", e -> dialog.close());
+            dialog.setCancelButton("Leave", e -> action.proceed());
+            dialog.setCancelable(true);
+            dialog.open();
+        }
     }
 
-    public String getLastName() {
-      return lastName;
-    }
+    public static class Person {
+        private String firstName, lastName;
 
-    public void setLastName(String lastName) {
-      this.lastName = lastName;
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
     }
-  }
 }
