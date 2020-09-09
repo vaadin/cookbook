@@ -7,7 +7,7 @@ import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
   url: "shortcut-listener",
   howDoI: "Listen for keyboard shortcuts",
   description:
-    "Show how you can react to various shortcut keys in different scopes of a view",
+    "Show how to react to various shortcut keys with modifier keys and scopes.",
   tags: [Tag.KEYBOARD],
 })
 @customElement("shortcut-listener")

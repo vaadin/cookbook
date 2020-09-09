@@ -8,6 +8,8 @@ import { Recipe, recipeInfo } from "../recipe";
 @recipeInfo({
   url: "circular-progress-indicator",
   howDoI: "Show progress as a circular indicator",
+  description:
+    "Learn to create a circular progress indicator component with LitElement in a Vaadin clien-side view.",
   sourceFiles: ["circular-progress-indicator-component.ts"],
 })
 @customElement("circular-progress-indicator")

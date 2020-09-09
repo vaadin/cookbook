@@ -32,7 +32,10 @@ mkdir src/main/java/com/vaadin/recipes/recipe/recipenamegoeshere/
 
 ```
 @Route("recipe-name-goes-here")
-@Metadata(howdoI = "Short (< 50) character explanation")
+@Metadata(
+  howdoI = "Short (< 50) character explanation",
+  description = "150-160 character description that is shown on the listing page and Google search results."
+)
 public class RecipeNameGoesHere extends Recipe {
 }
 ```
@@ -64,7 +67,8 @@ import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
   url: "recipe-name-goes-here",
-  howDoI: "Short (< 50) character explanation"
+  howDoI: "Short (< 50) character explanation",
+  description: "150-160 character description that is shown on the listing page and Google search results."
 })
 @customElement("recipe-name-goes-here")
 export class RecipeNameGoesHere extends Recipe {
