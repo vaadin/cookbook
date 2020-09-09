@@ -37,23 +37,18 @@
       ga("create", "UA-658457-8", "auto");
     </script>
     <!-- End Google Analytics -->
+
     <!-- TODO: remove duplicate stylesheets when taking vaadin.com Header-as-a-service (HaaS) into use  -->
-    <link
-      rel="stylesheet"
-      href="https://cdn2.hubspot.net/hubfs/1840687/Design%20System/icons/css/line-awesome.min.css"
-    />
     <link
       rel="stylesheet"
       href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/custom-properties.css"
     />
+
     <link
       rel="stylesheet"
       href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/reset.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/typography.css"
-    />
+
     <link
       rel="stylesheet"
       href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/layout.css"
@@ -70,6 +65,21 @@
       rel="stylesheet"
       href="https://vaadin.com/frontend/design-system/src/assets/css/2-components/tag.css"
     />
+
+    <!-- Defer heavy CSS until after initial load -->
+    <link
+      rel="stylesheet"
+      href="https://cdn2.hubspot.net/hubfs/1840687/Design%20System/icons/css/line-awesome.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/typography.css"
+      media="print"
+      onload="this.media='all'"
+    />
+
     <!-- index.ts is included here automatically (either by the dev server or during the build) -->
     <style>
       html {
