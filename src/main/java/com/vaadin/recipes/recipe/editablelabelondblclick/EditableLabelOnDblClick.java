@@ -1,4 +1,4 @@
-package com.vaadin.recipes.recipe.editablelabel;
+package com.vaadin.recipes.recipe.editablelabelondblclick;
 
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.textfield.TextField;
@@ -12,9 +12,9 @@ import com.vaadin.recipes.recipe.Tag;
         howdoI = "create an editable Label when double-clicked", 
         description = "Create a Label that can turn into a text field for editing on double-click.",
         tags = { Tag.JAVA })
-public class EditableLabel extends Recipe {
+public class EditableLabelOnDblClick extends Recipe {
 
-    public EditableLabel() {
+    public EditableLabelOnDblClick() {
         String initialContent = "Double-click me to edit ...";
         Label label = new Label(initialContent);
         TextField textField = new TextField();
