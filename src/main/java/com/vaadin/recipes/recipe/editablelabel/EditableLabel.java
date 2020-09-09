@@ -7,10 +7,10 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
-@Route("editable-label")
+@Route("editable-label-on-dblclick")
 @Metadata(
-        howdoI = "create an editable Label",
-        description = "Create a Label that can turn into a text field for editing on double click.",
+        howdoI = "create an editable Label when double-clicked", 
+        description = "Create a Label that can turn into a text field for editing on double-click.",
         tags = { Tag.JAVA })
 public class EditableLabel extends Recipe {
 
