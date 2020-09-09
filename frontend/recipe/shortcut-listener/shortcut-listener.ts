@@ -29,7 +29,7 @@ export class ShortcutListener extends Recipe {
     }
 
     @media (max-width: 600px) {
-      :host {
+      .contents {
         grid-template-columns: 1fr;
       }
     }

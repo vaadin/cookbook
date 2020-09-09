@@ -97,6 +97,12 @@ const headerTemplate: (data: any) => TemplateResult = (
       margin-bottom: var(--space-xs);
       padding-top: var(--space-sm);
     }
+
+    @media (max-width: 600px) {
+      .recipe-view-back-link {
+        margin-left: 0;
+      }
+    }
   </style>
   <div class="container-fluid">
     <a href="/" class="recipe-view-back-link">
