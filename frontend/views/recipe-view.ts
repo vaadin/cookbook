@@ -39,6 +39,7 @@ export class RecipeView extends LitElement {
   }
 
   async onAfterEnter(context: Context) {
+    window.scrollTo(0, 0);
     const tag = context.pathname.split("/")[1];
     const recipe = recipes.find((recipe) => recipe.url == tag);
     if (recipe) {
