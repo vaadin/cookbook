@@ -21,9 +21,9 @@ module.exports = merge(flowDefaults, {
       compiler.hooks.beforeCompile.tapAsync(
         "GenerateRouteInfo",
         (compilation, done) => {
-          const parseClientRoutes = spawn("node", [
+          const parseClientRoutes = spawn(process.execPath, [
             path.resolve(__dirname, "parseClientRoutes.js"),
-            "frontend/recipe/**/*.ts",
+            path.resolve(__dirname, "frontend/recipe/**/*.ts"),
           ]);
 
           parseClientRoutes.stdout.on("data", (data) => {
