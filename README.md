@@ -31,6 +31,10 @@ mkdir src/main/java/com/vaadin/recipes/recipe/recipenamegoeshere/
 4. Create a Java file in the folder with the following
 
 ```
+import com.vaadin.flow.router.Route;
+import com.vaadin.recipes.recipe.Metadata;
+import com.vaadin.recipes.recipe.Recipe;
+
 @Route("recipe-name-goes-here")
 @Metadata(
   howdoI = "Short (< 50) character explanation",
