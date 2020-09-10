@@ -13,4 +13,5 @@ public enum Tag {
     PERFORMANCE,
     USABILITY,
     LAYOUT,
+    FORM,
 }
