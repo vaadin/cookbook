@@ -413,14 +413,25 @@ export class RecipesListView extends LitElement {
     this.filterTags = e.detail.value;
   }
 
+  logSearch() {
+    if (!this.filter) return;
+
+    if (
+      location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1"
+    ) {
+      console.log(`Search event: "${this.filter}". GA disabled locally.`);
+    } else {
+      ga("send", "event", "cookbook", "search", this.filter);
+    }
+  }
+
+  private debouncedLog = debounce(this.logSearch, 1000);
+
   updateFilter(e: CustomEvent) {
     const value = e.detail.value;
     this.filter = value.toLowerCase();
-    debounce(this.logSearch, 1000);
-  }
-
-  logSearch() {
-    ga("send", "event", "cookbook", "search", this.filter);
+    this.debouncedLog();
   }
 
   recipeHasTags(recipe: RecipeInfo, tags: Tag[]) {
