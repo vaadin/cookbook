@@ -3,7 +3,9 @@ package com.vaadin.recipes.recipe.livedata;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.ChartType;
 import com.vaadin.flow.component.charts.model.ListSeries;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -26,7 +28,13 @@ public class LiveData extends Recipe {
         var currentPrice = new Span();
         var chart = new Chart(ChartType.LINE);
         header.add(currentPrice);
-        add(header, chart);
+        var info = new Paragraph("The service in this demo sends 30 data points. ");
+        var link = new Anchor(
+            "/client-side-view-displaying-live-data",
+            "See this example using the client-side TypeScript API."
+        );
+        info.add(link);
+        add(header, info, chart);
 
         // Configure chart
         var series = new ListSeries(ticker);

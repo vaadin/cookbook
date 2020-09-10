@@ -26,6 +26,13 @@ export class ShortcutListener extends Recipe {
   render() {
     return html`
       <h2>${this.ticker} - $${this.currentPrice}</h2>
+      <p>
+        The backend in this demo sends 30 data points.
+        <a href="/show-real-time-updating-data"
+          >See this example using the server-side Java API.</a
+        >
+      </p>
+
       <vaadin-chart>
         <vaadin-chart-series
           title=${this.ticker}
