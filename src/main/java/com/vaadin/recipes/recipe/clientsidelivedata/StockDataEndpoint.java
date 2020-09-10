@@ -12,7 +12,7 @@ import reactor.core.publisher.Flux;
 public class StockDataEndpoint {
 
     @GetMapping(path = "/stock-price", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> streamFlux() {
+    public Flux<String> getStockPrices() {
         Random random = new Random();
         return Flux
             .<String>generate(
