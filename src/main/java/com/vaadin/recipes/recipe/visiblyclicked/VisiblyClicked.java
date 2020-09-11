@@ -5,7 +5,6 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.*;
@@ -51,7 +50,7 @@ public class VisiblyClicked extends Recipe {
     UI.getCurrent().getElement().appendChild(new Element("style").setText(".click-animation {animation:remoteclick .6s }"));
     UI.getCurrent().getElement().appendChild(new Element("style").setText("@keyframes remoteclick {from {background-color:#BBBBBB} to {background-color:#EEEEEE}}"));
 
-    Button buttonMain = new PButton("Click me or press Shift-F2)" );
+    Button buttonMain = new PButton("Click me or press Shift-F2");
     buttonMain.addClickShortcut(Key.F2, KeyModifier.SHIFT);
     buttonMain.addClickListener(e->{Notification.show("F2 Button Clicked");});
 
