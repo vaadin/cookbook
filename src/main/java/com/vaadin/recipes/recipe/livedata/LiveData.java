@@ -3,6 +3,7 @@ package com.vaadin.recipes.recipe.livedata;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.ChartType;
 import com.vaadin.flow.component.charts.model.ListSeries;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
@@ -13,6 +14,7 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("show-real-time-updating-data")
+@JsModule("@vaadin/vaadin-charts/theme/vaadin-chart-default-theme")
 @Metadata(
     howdoI = "Show real-time updating content",
     description = "Learn how to automatically update the UI with data from a reactive backend.",
@@ -27,6 +29,8 @@ public class LiveData extends Recipe {
         var header = new H2(ticker + " – ");
         var currentPrice = new Span();
         var chart = new Chart(ChartType.LINE);
+        chart.getConfiguration().getChart().setStyledMode(true);
+
         header.add(currentPrice);
         var info = new Paragraph("The service in this demo sends 30 data points. ");
         var link = new Anchor(
