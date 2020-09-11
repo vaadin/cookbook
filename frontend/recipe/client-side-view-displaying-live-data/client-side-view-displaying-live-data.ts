@@ -1,3 +1,4 @@
+import "@vaadin/vaadin-charts/src/vaadin-chart-series";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 import { recipeInfo, Recipe } from "../recipe";
 import { customElement, html, internalProperty } from "lit-element";
