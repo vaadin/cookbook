@@ -22,7 +22,7 @@ export class ShortcutListener extends Recipe {
   @internalProperty()
   private currentPrice = "";
   @internalProperty()
-  private priceHistory: number[] = [];
+  private priceHistory: number[][] = [];
 
   render() {
     return html`
@@ -54,7 +54,12 @@ export class ShortcutListener extends Recipe {
     // Listen for incoming data and update state
     priceSource.addEventListener("message", (e) => {
       this.currentPrice = JSON.parse(e.data);
-      this.priceHistory = [...this.priceHistory, parseFloat(this.currentPrice)];
+
+      // The price history array contains pairs of [x,y] values
+      this.priceHistory = [
+        ...this.priceHistory,
+        [this.priceHistory.length, parseFloat(this.currentPrice)],
+      ];
     });
 
     // The backend only sends 30 points, close after that
