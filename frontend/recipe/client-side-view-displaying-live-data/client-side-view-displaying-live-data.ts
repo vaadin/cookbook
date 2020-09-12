@@ -16,7 +16,7 @@ import "@vaadin/vaadin-charts";
   tags: [Tag.PUSH],
 })
 @customElement("client-side-view-displaying-live-data")
-export class ShortcutListener extends Recipe {
+export class LiveDataView extends Recipe {
   @internalProperty()
   private ticker = "FOO";
   @internalProperty()
