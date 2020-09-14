@@ -105,10 +105,14 @@
             <artifactId>exampledata</artifactId>
             <version>1.1.0</version>
         </dependency>
-
         <dependency>
-          <groupId>io.projectreactor</groupId>
-          <artifactId>reactor-core</artifactId>
+            <groupId>org.vaadin.olli</groupId>
+            <artifactId>file-download-wrapper</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
         </dependency>
 
         <dependency>
