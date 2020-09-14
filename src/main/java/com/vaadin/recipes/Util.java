@@ -8,7 +8,7 @@ public class Util {
         return javaClass.getName().replace(".", "/") + ".java";
     }
 
-    public static String getSourceFile(Class<?> recipeClass, String name) {
+    public static String getSourceOrResourceFile(Class<?> recipeClass, String name) {
         return recipeClass.getPackage().getName().replace(".", "/") + "/" + name;
     }
 
