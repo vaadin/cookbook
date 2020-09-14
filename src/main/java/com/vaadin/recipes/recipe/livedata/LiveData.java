@@ -28,9 +28,9 @@ import reactor.core.Disposable;
 )
 public class LiveData extends Recipe {
 
-    private String sticker = "FOO";
+    private String ticker = "FOO";
     private Span currentPrice = new Span();
-    private ListSeries series = new ListSeries(sticker);
+    private ListSeries series = new ListSeries(ticker);
 
     private StockDataService service;
     private Disposable subscription;
@@ -38,7 +38,7 @@ public class LiveData extends Recipe {
     LiveData(StockDataService service) {
         this.service = service;
         // Setup UI components
-        var header = new H2(sticker + " – ");
+        var header = new H2(ticker + " – ");
         var chart = new Chart(ChartType.LINE);
         chart.getConfiguration().getChart().setStyledMode(true);
 
@@ -61,7 +61,7 @@ public class LiveData extends Recipe {
         UI ui = attachEvent.getUI();
 
         // Hook up to service for live updates
-        subscription = service.getStockPrice(sticker).subscribe(price -> {
+        subscription = service.getStockPrice(ticker).subscribe(price -> {
             ui.access(() -> {
                 currentPrice.setText("$" + price);
                 series.addData(price);
