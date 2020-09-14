@@ -1,3 +1,4 @@
+import "@vaadin/vaadin-charts/src/vaadin-chart-series";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 import { recipeInfo, Recipe } from "../recipe";
 import { customElement, html, internalProperty } from "lit-element";
@@ -15,13 +16,13 @@ import "@vaadin/vaadin-charts";
   tags: [Tag.PUSH],
 })
 @customElement("client-side-view-displaying-live-data")
-export class ShortcutListener extends Recipe {
+export class LiveDataView extends Recipe {
   @internalProperty()
   private ticker = "FOO";
   @internalProperty()
   private currentPrice = "";
   @internalProperty()
-  private priceHistory: number[] = [];
+  private priceHistory: number[][] = [];
 
   render() {
     return html`
@@ -53,7 +54,12 @@ export class ShortcutListener extends Recipe {
     // Listen for incoming data and update state
     priceSource.addEventListener("message", (e) => {
       this.currentPrice = JSON.parse(e.data);
-      this.priceHistory = [...this.priceHistory, parseFloat(this.currentPrice)];
+
+      // The price history array contains pairs of [x,y] values
+      this.priceHistory = [
+        ...this.priceHistory,
+        [this.priceHistory.length, parseFloat(this.currentPrice)],
+      ];
     });
 
     // The backend only sends 30 points, close after that
