@@ -14,4 +14,5 @@ public enum Tag {
     USABILITY,
     LAYOUT,
     DOWNLOAD,
+    FORM,
 }
