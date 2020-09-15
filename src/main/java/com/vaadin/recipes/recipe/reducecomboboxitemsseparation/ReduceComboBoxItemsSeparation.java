@@ -11,6 +11,7 @@ import com.vaadin.recipes.recipe.Tag;
 @Metadata(
         howdoI = "reduce spacing between ComboBox items",
         description = "Create a CombBox component with little separation between items.",
+        sourceFiles = { "recipe/reduce-combobox-items-separation/vaadin-combo-box-item-styles.css" },
         tags = { Tag.THEME })
 @CssImport(
         themeFor = "vaadin-combo-box-item",
