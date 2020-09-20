@@ -1,16 +1,13 @@
 package com.vaadin.recipes.recipe.cssfromjava;
 
-import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
 
 @Route("css-from-java")
 @Metadata(
@@ -20,22 +17,23 @@ import com.vaadin.recipes.recipe.Tag;
 public class CssFromJava extends Recipe {
 
     public CssFromJava() {
+        // While this is an easy way to try out small style changes during development,
+        // we recommend using a separate stylesheet and @CssImport for maintainability.
+        Element styleElement = new Element("style").setText(".addlater {color:firebrick;}");
 
-      Element styleElement = new Element("style").setText(".addlater {color:firebrick}");
-
-      Span span1 = new Span("Fire Brick");
-      span1.addClassName("addlater");
-      Span span2 = new Span("Fire Brick");
-      span2.addClassName("addlater");
-      Span span3 = new Span("Fire Brick");
-      span3.addClassName("addlater");
+        Span span1 = new Span("Fire Brick");
+        span1.addClassName("addlater");
+        Span span2 = new Span("Fire Brick");
+        span2.addClassName("addlater");
+        Span span3 = new Span("Fire Brick");
+        span3.addClassName("addlater");
 
         Button buttonMain = new Button("Click to add fire brick");
         buttonMain.addClickListener(
             e -> {
-              if (UI.getCurrent().getElement().indexOfChild(styleElement) < 0) {
-                UI.getCurrent().getElement().appendChild(styleElement);
-              }
+                if (UI.getCurrent().getElement().indexOfChild(styleElement) < 0) {
+                    UI.getCurrent().getElement().appendChild(styleElement);
+                }
             }
         );
 
