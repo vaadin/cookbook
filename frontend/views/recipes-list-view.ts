@@ -182,7 +182,6 @@ export class RecipesListView extends LitElement {
           position: sticky;
           top: var(--recipes-list-view-header-height);
           z-index: 1000;
-          background-color: var(--color-alloy-lighter);
           max-height: calc(100vh - var(--recipes-list-view-header-height));
           overflow: auto;
           padding: var(--space-xs) 0;
