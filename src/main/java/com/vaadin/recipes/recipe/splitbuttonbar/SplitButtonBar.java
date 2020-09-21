@@ -3,15 +3,19 @@ package com.vaadin.recipes.recipe.splitbuttonbar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("split-button-bar")
-@Metadata(howdoI = "split a button bar into left and right groups")
+@Metadata(
+    howdoI = "Split a button layout into left and right groups",
+    description = "Learn how to use Vaadin HorizontalLayout to group contents into left and right groups.",
+    tags = { Tag.LAYOUT }
+)
 public class SplitButtonBar extends Recipe {
 
     public SplitButtonBar() {
@@ -21,7 +25,7 @@ public class SplitButtonBar extends Recipe {
         setWidthFull();
     }
 
-    public HorizontalLayout withWrapperLayout(){
+    public HorizontalLayout withWrapperLayout() {
         Button delete = new Button("Delete");
         Button cancel = new Button("Cancel");
         Button save = new Button("Save");
@@ -34,7 +38,7 @@ public class SplitButtonBar extends Recipe {
         return buttonLayout;
     }
 
-    public HorizontalLayout withMarginLeft(){
+    public HorizontalLayout withMarginLeft() {
         Button delete = new Button("Delete");
         Button cancel = new Button("Cancel");
         Button save = new Button("Save");
@@ -46,7 +50,7 @@ public class SplitButtonBar extends Recipe {
         return buttonLayout;
     }
 
-    public HorizontalLayout withSpacerElement(){
+    public HorizontalLayout withSpacerElement() {
         Button delete = new Button("Delete");
         Div spacer = new Div();
         Button cancel = new Button("Cancel");

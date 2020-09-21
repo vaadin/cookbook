@@ -27,11 +27,19 @@ export const recipeToRoute = (
   const absoluteSourceFiles = [
     recipeInfo.url + ".ts",
     ...(recipeInfo.sourceFiles || []),
-  ].map((relativePath) => folder + relativePath);
+  ].map((sourceFile) => {
+    if (sourceFile.includes(".java")) {
+      return sourceFile;
+    } else {
+      return folder + sourceFile;
+    }
+  });
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPESCRIPT", ...(recipeInfo.tags || [])].map((tag) => "" + tag),
+    tags: ["Tag.TYPE_SCRIPT", ...(recipeInfo.tags || [])].map(
+      (tag) => "" + tag
+    ),
   });
   return {
     path: recipeInfo.url,
@@ -139,7 +147,7 @@ writeIfChanged(
     routes.map((route) => route.info),
     null,
     2
-  ).replace(/"Tag.([A-Za-z]*)"/g, '"$1"')
+  ).replace(/"Tag.([A-Za-z_]*)"/g, '"$1"')
 );
 
 const routesJson = JSON.stringify(routes, null, 2);
@@ -148,7 +156,8 @@ const routesTS = routesJson
     /"actionString": "(.*)"/g,
     'action: async() => { await import("$1");}'
   )
-  .replace(/"Tag.([A-Za-z]*)"/g, "Tag.$1");
+  .replace(/"Tag.([A-Za-z_]*)"/g, "Tag.$1")
+  .replace(/Tag.TYPE_SCRIPT/g, "Tag.TYPESCRIPT");
 
 const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
 

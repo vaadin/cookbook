@@ -1,13 +1,5 @@
 package com.vaadin.recipes.recipe.gridcsvexport;
 
-import java.io.StringWriter;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -23,12 +15,23 @@ import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
+import com.vaadin.recipes.recipe.Tag;
+import java.io.StringWriter;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Metadata(howdoI = "Export grid data as CSV")
+@Metadata(
+    howdoI = "Export grid data as CSV",
+    description = "Export the contents of a Vaadin Grid as CSV so your users can download and save it. Using the Java component API. ",
+    tags = { Tag.GRID, Tag.CSV }
+)
 public class GridCsvExport extends Recipe {
 
     public static class Person {
@@ -77,12 +80,14 @@ public class GridCsvExport extends Recipe {
 
         TextArea resultField = new TextArea();
         resultField.setWidth("100%");
-        Button exportButton = new Button("Export as CSV", e -> {
-            this.export(grid, resultField);
-        });
+        Button exportButton = new Button(
+            "Export as CSV",
+            e -> {
+                this.export(grid, resultField);
+            }
+        );
         add(exportButton);
         add(resultField);
-
     }
 
     private void export(Grid<Person> grid, TextArea result) {
@@ -102,17 +107,21 @@ public class GridCsvExport extends Recipe {
 
     private Query<Person, String> createQuery(Grid<Person> grid) {
         List<GridSortOrder<Person>> gridSort = grid.getSortOrder();
-        List<QuerySortOrder> sortOrder = gridSort.stream()
-                .map(order -> order.getSorted().getSortOrder(order.getDirection())).flatMap(orders -> orders)
-                .collect(Collectors.toList());
+        List<QuerySortOrder> sortOrder = gridSort
+            .stream()
+            .map(order -> order.getSorted().getSortOrder(order.getDirection()))
+            .flatMap(orders -> orders)
+            .collect(Collectors.toList());
 
         BinaryOperator<SerializableComparator<Person>> operator = (comparator1, comparator2) -> {
             return comparator1.thenComparing(comparator2)::compare;
         };
-        SerializableComparator<Person> inMemorySorter = gridSort.stream()
-                .map(order -> order.getSorted().getComparator(order.getDirection())).reduce(operator).orElse(null);
+        SerializableComparator<Person> inMemorySorter = gridSort
+            .stream()
+            .map(order -> order.getSorted().getComparator(order.getDirection()))
+            .reduce(operator)
+            .orElse(null);
 
         return new Query<Person, String>(0, Integer.MAX_VALUE, sortOrder, inMemorySorter, null);
-
     }
 }

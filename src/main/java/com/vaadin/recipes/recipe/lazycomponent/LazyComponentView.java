@@ -5,14 +5,17 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
+import com.vaadin.recipes.recipe.Tag;
 import java.util.Random;
 
 @Route("lazy-component-view")
-@Metadata(howdoI = "lazily initialize components", sourceFiles = { "LazyContainer.java",
-        "recipe/lazy-component-view/loader-placeholder-styles.css" })
+@Metadata(
+    howdoI = "Lazily initialize components",
+    description = "Learn how to defer the initialization of components until they have loaded their data using the Vaadin Java component API. ",
+    sourceFiles = { "LazyContainer.java", "recipe/lazy-component-view/loader-placeholder-styles.css" },
+    tags = { Tag.PERFORMANCE }
+)
 public class LazyComponentView extends Recipe {
-
     private Div div1 = buildDiv();
     private Div div2 = buildDiv();
     private Div div3 = buildDiv();
@@ -27,8 +30,7 @@ public class LazyComponentView extends Recipe {
         LazyContainer<Div> lazyContainer4 = new LazyContainer<>(div4, this::loadDiv);
         LazyContainer<Div> lazyContainer5 = new LazyContainer<>(div5, this::loadDiv);
         LazyContainer<Div> lazyContainer6 = new LazyContainer<>(div6, this::loadDiv);
-        add(lazyContainer1,lazyContainer2,lazyContainer3,
-            lazyContainer4,lazyContainer5,lazyContainer6);
+        add(lazyContainer1, lazyContainer2, lazyContainer3, lazyContainer4, lazyContainer5, lazyContainer6);
     }
 
     private static Div buildDiv() {

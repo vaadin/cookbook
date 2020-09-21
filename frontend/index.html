@@ -3,26 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="google-site-verification" content="vyAh4OVPhguDpAXWzOn41GRLH_-7yJbsl71CTMpI8HI" />
-    <title>Recipes</title>
+    <meta
+      name="google-site-verification"
+      content="vyAh4OVPhguDpAXWzOn41GRLH_-7yJbsl71CTMpI8HI"
+    />
+    <title>Vaadin Cookbook - code snippets for common tasks</title>
+    <meta
+      name="description"
+      content="Find ready to use solutions and code snippets for common development problems and UX patterns. Includes Vaadin examples in Java and TypeScript."
+    />
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+
+      ga("create", "UA-658457-8", "auto");
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- index.ts is included here automatically (either by the dev server or during the build) -->
     <style>
+      html {
+        background-color: var(--color-alloy-lighter);
+      }
+
       body {
         margin: 0;
-        width: 100vw;
-        height: 100vh;
       }
 
-      #outlet {
-        height: 100%;
+      .vcom-header {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        background-color: var(--color-charcoal-darker);
+        min-height: var(--mainViewMenuHeight);
+      }
+
+      .vcom-header .vcom-link {
+        display: block;
+        width: 110px;
+        height: 25px;
+        background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNTAgMzQuNjciPjx0aXRsZT52YWFkaW5sb2dvPC90aXRsZT48cGF0aCBkPSJNMTQ5Ljk1IDE3LjMzYTIgMiAwIDAgMC0xLjItMS44NmgtLjA4TDEzNS40OCA4LjNhMi4yOCAyLjI4IDAgMCAwLTMuNDIgMiAyLjIzIDIuMjMgMCAwIDAgMS41NiAyLjE3bDkuMTEgNC44OS05LjEgNC44OGEyLjIzIDIuMjMgMCAwIDAtMS41NyAyLjE3IDIuMjggMi4yOCAwIDAgMCAzLjQyIDJsMTMuMTktNy4xM2guMDZhMiAyIDAgMCAwIDEuMjMtMS44N20tMTkuNi0uMDlhMS44MiAxLjgyIDAgMCAwLTEuODItMS44MmgtLjQ0YTEuNzMgMS43MyAwIDAgMS0xLjcyLTEuNzNWNC40NEE0LjQzIDQuNDMgMCAwIDAgMTIxLjk1IDBoLTMuNDFhMS43IDEuNyAwIDAgMC0uODQgMy4xOSAxLjcgMS43IDAgMCAwIC44My4yMmgxLjA3YTEuNzMgMS43MyAwIDAgMSAxLjczIDEuNzN2OC40NmEzLjY1IDMuNjUgMCAwIDAgMy4xIDMuNjEgNS4zOCA1LjM4IDAgMCAwIC45LjA5di4wOGE1LjM4IDUuMzggMCAwIDAtLjkuMDkgMy42NSAzLjY1IDAgMCAwLTMuMSAzLjYxdjguNDVhMS43MyAxLjczIDAgMCAxLTEuNzMgMS43M2gtMS4wN2ExLjcgMS43IDAgMCAwLS44My4yMiAxLjcgMS43IDAgMCAwIC44NCAzLjE5aDMuNDFhNC40MyA0LjQzIDAgMCAwIDQuNDMtNC40NFYyMC45YTEuNzMgMS43MyAwIDAgMSAxLjcyLTEuNzNoLjQ0YTEuODIgMS44MiAwIDAgMCAxLjgyLTEuODJ6IiBmaWxsPSIjMDBiNGYwIi8+PHBhdGggZD0iTTUxIDcuNjRBOS44NyA5Ljg3IDAgMSAwIDU2IDI2YTIuNTQgMi41NCAwIDAgMCA0LjgxLTEuMTR2LTcuMzVBOS44NyA5Ljg3IDAgMCAwIDUxIDcuNjR6bTAgMTQuNjRhNC43NyA0Ljc3IDAgMSAxIDQuNzctNC43N0E0Ljc3IDQuNzcgMCAwIDEgNTEgMjIuMjh6TTE5IDEwLjE2YTIuNTQgMi41NCAwIDAgMC00LjgtMS4wOWwtNC43MSA5Ljg2LTQuNzEtOS44NnYtLjA1bC0uMDctLjEzLS4wNi0uMS0uMDctLjEtLjA4LS4xMS0uMDktLjA4LS4xLS4xMS0uMDctLjA3LS4xMS0uMUw0IDguMTZsLS4xLS4wOEwzLjg0IDhoLS4xbC0uMTMtLjA3aC0uMDhsLS4xNS0uMDZIMS44M2wtLjE3LjA1aC0uMDdsLS4xOC4wN0wxLjIgOGgtLjA3TDEgOC4xMWwtLjA4LjA2LS4xMS4wOS0uMDguMDctLjA5LjEtLjA3LjA4LS4wOS4xMS0uMDcuMDgtLjA5LjEzdi4wN2wtLjEyLjE1di4wNmwtLjA3LjE3di4wNkwwIDkuNTF2MS41OWwuMDcuMTYgNyAxNC42MWEyLjU0IDIuNTQgMCAwIDAgNC42Mi4wNWw3LTE0LjY2YTIuNTMgMi41MyAwIDAgMCAuMzEtMS4xem0xMC4yMi0yLjUyQTkuODcgOS44NyAwIDEgMCAzNC4yOCAyNmEyLjU0IDIuNTQgMCAwIDAgNC44MS0xLjE0di03LjM1YTkuODcgOS44NyAwIDAgMC05Ljg3LTkuODd6bTAgMTQuNjRBNC43NyA0Ljc3IDAgMSAxIDM0IDE3LjUxYTQuNzcgNC43NyAwIDAgMS00Ljc4IDQuNzd6TTgyLjQyIDE3VjIuODhhMi41NCAyLjU0IDAgMCAwLTUuMDggMHY2QTkuODcgOS44NyAwIDEgMCA3Ny42MSAyNmEyLjU0IDIuNTQgMCAwIDAgNC44MS0xLjE0di03LjM4YzAtLjE3LjAxLS4zMiAwLS40OHptLTkuODYgNS4zYTQuNzcgNC43NyAwIDEgMSA0Ljc3LTQuNzcgNC43NyA0Ljc3IDAgMCAxLTQuNzYgNC43NXoiIGZpbGw9IiNmOGY4ZjgiLz48Y2lyY2xlIGN4PSI4OC45NSIgY3k9IjIuODgiIHI9IjIuNTQiIGZpbGw9IiNmOGY4ZjgiLz48cGF0aCBkPSJNODkgNy42NGEyLjU0IDIuNTQgMCAwIDAtMi41NCAyLjU0djE0LjY3YTIuNTQgMi41NCAwIDEgMCA1LjA4IDBWMTAuMThBMi41NCAyLjU0IDAgMCAwIDg5IDcuNjR6bTE2Ljc0LjU1YTcuNzkgNy43OSAwIDAgMC00Ljg0IDEuNjggMi41NCAyLjU0IDAgMCAwLTUuMDYuMzF2MTQuNjdhMi41NCAyLjU0IDAgMCAwIDUuMDggMHYtNy43MmEzLjc4IDMuNzggMCAxIDEgNy41NyAwdjcuNzJhMi41NCAyLjU0IDAgMCAwIDUuMDggMFYxNmE3LjgzIDcuODMgMCAwIDAtNy44My03LjgxeiIgZmlsbD0iI2Y4ZjhmOCIvPjwvc3ZnPg==)
+          no-repeat;
+        background-size: 100%;
+      }
+
+      .visually-hidden {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+      }
+
+      [hidden] {
+        display: none !important;
       }
     </style>
-    <custom-style>
-      <style include="lumo-color lumo-typography"></style>
-    </custom-style>
-    <!-- index.ts is included here automatically (either by the dev server or during the build) -->
   </head>
 
-  <body theme="light">
+  <body>
+    <div class="vcom-header">
+      <div class="container-fluid" style="width: 100%">
+        <a href="https://vaadin.com" class="vcom-link">
+          <span class="visually-hidden">Vaadin</span>
+        </a>
+      </div>
+    </div>
     <div id="outlet"></div>
+
+    <script>
+      // Loading CSS here so they don't block the bundle download
+      // TODO: remove duplicate stylesheets when taking vaadin.com Header-as-a-service (HaaS) into use
+      const designSystemCSS = [
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/custom-properties.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/reset.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/layout.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/fields.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/links.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/2-components/tag.css",
+        "https://cdn2.hubspot.net/hubfs/1840687/Design%20System/icons/css/line-awesome.min.css",
+        "https://vaadin.com/frontend/design-system/src/assets/css/1-foundation/typography.css",
+      ];
+
+      designSystemCSS
+        .map((url) => {
+          const link = document.createElement("link");
+          link.setAttribute("rel", "stylesheet");
+          link.setAttribute("href", url);
+          return link;
+        })
+        .forEach((link) => document.head.append(link));
+    </script>
   </body>
 </html>

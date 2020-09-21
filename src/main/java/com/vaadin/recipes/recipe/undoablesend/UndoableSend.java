@@ -9,17 +9,19 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
+import com.vaadin.recipes.recipe.Tag;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @Route("undoable-send")
-@Metadata(howdoI = "Send with undo button")
+@Metadata(
+    howdoI = "Send with undo button",
+    description = "Don't regret, undo. Learn how to create actions that can be undone in Vaadin apps.",
+    tags = { Tag.PUSH }
+)
 public class UndoableSend extends Recipe {
-
-    private static final Executor executor =
-            CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS);
+    private static final Executor executor = CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS);
 
     public UndoableSend() {
         TextField messageField = new TextField("Message to send");

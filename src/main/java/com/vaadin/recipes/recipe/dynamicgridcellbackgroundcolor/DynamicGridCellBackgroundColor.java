@@ -1,21 +1,27 @@
 package com.vaadin.recipes.recipe.dynamicgridcellbackgroundcolor;
 
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.router.Route;
+import com.vaadin.recipes.recipe.Metadata;
+import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import java.time.Month;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.router.Route;
-import com.vaadin.recipes.recipe.Metadata;
-import com.vaadin.recipes.recipe.Recipe;
-
 @Route("dynamic-grid-cell-background-color")
-@Metadata(howdoI = "Set the grid cell bg color depending on data", sourceFiles = {
-    "recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css"})
-@CssImport(themeFor="vaadin-grid", value="./recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css")
+@Metadata(
+    howdoI = "Set grid cell background color dynamically",
+    description = "Learn how to change the cell background color of a Vaadin grid, based on any dynamic data.",
+    sourceFiles = { "recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css" },
+    tags = { Tag.THEME, Tag.GRID }
+)
+@CssImport(
+    themeFor = "vaadin-grid",
+    value = "./recipe/dynamicgridcellbackgroundcolor/dynamic-grid-cell-background-color.css"
+)
 public class DynamicGridCellBackgroundColor extends Recipe {
     private Random r = new Random();
 
@@ -26,12 +32,13 @@ public class DynamicGridCellBackgroundColor extends Recipe {
         expensesGrid.setHeightByRows(true);
         add(expensesGrid);
 
-        expensesGrid.getColumnByKey("expense").setClassNameGenerator(monthlyExpense ->
-            monthlyExpense.getExpense() > 500 ? "warn" : null);
+        expensesGrid
+            .getColumnByKey("expense")
+            .setClassNameGenerator(monthlyExpense -> monthlyExpense.getExpense() > 500 ? "warn" : null);
     }
 
     private MonthlyExpense generateMonthlyExpense(Month month) {
-        return new MonthlyExpense(month.toString(), 100 + r.nextInt(1000-100));
+        return new MonthlyExpense(month.toString(), 100 + r.nextInt(1000 - 100));
     }
 
     public static class MonthlyExpense {

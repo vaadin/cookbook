@@ -1,11 +1,10 @@
 package com.vaadin.recipes.recipe.userlocalegridnumbers;
 
+import com.vaadin.flow.i18n.I18NProvider;
+import com.vaadin.flow.spring.annotation.SpringComponent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import com.vaadin.flow.i18n.I18NProvider;
-import com.vaadin.flow.spring.annotation.SpringComponent;
 
 @SpringComponent
 public class ApplicationI18NProvider implements I18NProvider {

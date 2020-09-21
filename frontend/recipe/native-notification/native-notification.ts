@@ -13,7 +13,6 @@ import "@vaadin/vaadin-button/vaadin-button";
 })
 @customElement("native-notification")
 export class NativeNotification extends Recipe {
-
   @property()
   private error?: string;
 
@@ -23,25 +22,33 @@ export class NativeNotification extends Recipe {
   render() {
     return html`
       <div class="flex-column">
-        <vaadin-text-field label="Title"
-          @value-changed=${this.onTitleChanged}></vaadin-text-field>
-        <vaadin-text-area label="Body"
-          @value-changed=${this.onBodyChanged}></vaadin-text-area>
+        <vaadin-text-field
+          label="Title"
+          @value-changed=${this.onTitleChanged}
+        ></vaadin-text-field>
+        <vaadin-text-area
+          label="Body"
+          @value-changed=${this.onBodyChanged}
+        ></vaadin-text-area>
       </div>
       <vaadin-button @click=${this.showNotification}>
         Show Notification
       </vaadin-button>
 
-      ${this.error ? html`
-        <p>The user has not allowed this page to show notifications:
-        ${this.error}</p>
-      ` : nothing}
+      ${this.error
+        ? html`
+            <p>
+              The user has not allowed this page to show notifications:
+              ${this.error}
+            </p>
+          `
+        : nothing}
     `;
   }
 
   async showNotification() {
-    if (!('Notification' in window)) {
-      this.error = 'This browser does not support native notifications.'
+    if (!("Notification" in window)) {
+      this.error = "This browser does not support native notifications.";
       return;
     }
 
@@ -52,8 +59,12 @@ export class NativeNotification extends Recipe {
       // Safari uses the deprecated .requestPermission(callback) API
       // Other browsers use the standard .requestPermission() => Promise API
       let permissionCallback: NotificationPermissionCallback;
-      const permissionSafari = new Promise<NotificationPermission>(r => permissionCallback = r);
-      const permissionModern = Notification.requestPermission(permissionCallback!);
+      const permissionSafari = new Promise<NotificationPermission>(
+        (r) => (permissionCallback = r)
+      );
+      const permissionModern = Notification.requestPermission(
+        permissionCallback!
+      );
 
       // If `permissionModern` is defined use it (Safari would return `undefined`).
       // Otherwise fallback to the callback-based API.
@@ -64,13 +75,15 @@ export class NativeNotification extends Recipe {
       case "granted":
         // For how to add icon, badge, image, actions and more
         // see https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
-        const notification = new Notification(this._title, { body: this._body });
-        notification.onclick = e => console.log("clicked", e);
+        const notification = new Notification(this._title, {
+          body: this._body,
+        });
+        notification.onclick = (e) => console.log("clicked", e);
         this.error = undefined;
         break;
       case "denied":
       case "default":
-          this.error = permission;
+        this.error = permission;
     }
   }
 

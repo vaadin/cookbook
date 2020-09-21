@@ -1,10 +1,5 @@
 package com.vaadin.recipes.recipe.noticeclosedtab;
 
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.Objects;
-import java.util.UUID;
-
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -19,11 +14,20 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import java.io.IOException;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.util.UUID;
 
 @Route("notice-closed")
-@Metadata(howdoI = "Notice when a user closes their browser tab")
+@Metadata(
+    howdoI = "Notice when a user closes their browser tab",
+    description = "Use the Beacon API to get notified when a user closes a tab in a Vaadin application so you can run cleanup tasks."
+)
 public class NoticeClosed extends Recipe {
+
     public static class BeaconEvent extends ComponentEvent<UI> {
+
         public BeaconEvent(UI source, boolean fromClient) {
             super(source, fromClient);
         }
@@ -44,7 +48,7 @@ public class NoticeClosed extends Recipe {
 
         @Override
         public boolean synchronizedHandleRequest(VaadinSession session, VaadinRequest request, VaadinResponse response)
-                throws IOException {
+            throws IOException {
             ComponentUtil.fireEvent(ui, new BeaconEvent(ui, true));
             return true;
         }
@@ -65,9 +69,12 @@ public class NoticeClosed extends Recipe {
             // ./beacon/<random uuid>
             String relativeBeaconPath = "." + beaconHandler.beaconPath;
 
-            ui.getElement().executeJs(
+            ui
+                .getElement()
+                .executeJs(
                     "window.addEventListener('unload', function() {navigator.sendBeacon && navigator.sendBeacon($0)})",
-                    relativeBeaconPath);
+                    relativeBeaconPath
+                );
 
             VaadinSession session = ui.getSession();
             session.addRequestHandler(beaconHandler);
@@ -98,24 +105,31 @@ public class NoticeClosed extends Recipe {
 
         addLogMessage("Attached " + uiId);
 
-        Registration beaconRegistration = BeaconHandler.addBeaconListener(ui, beaconEvent -> {
-            addLogMessage("Browser close event for " + uiId);
-        });
+        Registration beaconRegistration = BeaconHandler.addBeaconListener(
+            ui,
+            beaconEvent -> {
+                addLogMessage("Browser close event for " + uiId);
+            }
+        );
 
         // Polling only needed for the demo
         ui.setPollInterval(1000);
-        Registration pollRegistration = ui.addPollListener(pollEvent -> {
-            refreshLog();
-        });
+        Registration pollRegistration = ui.addPollListener(
+            pollEvent -> {
+                refreshLog();
+            }
+        );
 
-        addDetachListener(detachEvent -> {
-            detachEvent.unregisterListener();
-            beaconRegistration.remove();
+        addDetachListener(
+            detachEvent -> {
+                detachEvent.unregisterListener();
+                beaconRegistration.remove();
 
-            // Polling only needed for the demo
-            ui.setPollInterval(-1);
-            pollRegistration.remove();
-        });
+                // Polling only needed for the demo
+                ui.setPollInterval(-1);
+                pollRegistration.remove();
+            }
+        );
     }
 
     private void addLogMessage(String message) {

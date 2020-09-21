@@ -8,13 +8,18 @@ import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Route("long-running-task")
-@Metadata(howdoI = "Show a progress bar while a long task is running", sourceFiles = { "BackendService.java" })
+@Metadata(
+    howdoI = "Show a progress bar while a long task is running",
+    description = "Learn how to display a progress bar while a long-running background process and update the UI asynchronously when it completes.",
+    sourceFiles = { "BackendService.java" },
+    tags = { Tag.PUSH, Tag.USABILITY }
+)
 // @Push (add it here or in your AppShellConfigurator implementation)
 public class LongRunningTask extends Recipe {
-
     private final BackendService backendService;
 
     private Button button = new Button("Start long-running task");
@@ -42,27 +47,35 @@ public class LongRunningTask extends Recipe {
         message.setText("Please wait...");
         UI ui = UI.getCurrent(); // get the instance before running a new thread
 
-        backendService.longRunningTask().addCallback(new ListenableFutureCallback<>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                ui.access(() -> {
-                    // setup for error
-                    button.setEnabled(true);
-                    progressBar.setVisible(false);
-                    message.setText("Error.");
-                });
-            }
+        backendService
+            .longRunningTask()
+            .addCallback(
+                new ListenableFutureCallback<>() {
 
-            @Override
-            public void onSuccess(Void result) {
-                ui.access(() -> {
-                    // setup for task completed
-                    button.setEnabled(true);
-                    progressBar.setVisible(false);
-                    message.setText("Task completed.");
-                });
-            }
-        });
+                    @Override
+                    public void onFailure(Throwable ex) {
+                        ui.access(
+                            () -> {
+                                // setup for error
+                                button.setEnabled(true);
+                                progressBar.setVisible(false);
+                                message.setText("Error.");
+                            }
+                        );
+                    }
+
+                    @Override
+                    public void onSuccess(Void result) {
+                        ui.access(
+                            () -> {
+                                // setup for task completed
+                                button.setEnabled(true);
+                                progressBar.setVisible(false);
+                                message.setText("Task completed.");
+                            }
+                        );
+                    }
+                }
+            );
     }
-
 }
