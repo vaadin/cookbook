@@ -20,7 +20,7 @@ import com.vaadin.recipes.recipe.Recipe;
 @CssImport(value = "./recipe/large-upload-area/file.css", include = "lumo-badge")
 @Metadata(
     howdoI = "Create a large upload drop area",
-    sourceFiles = { "recipe/large-upload-area/large-upload-area.css" },
+    sourceFiles = { "recipe/large-upload-area/large-upload-area.css", "recipe/large-upload-area/file.css" },
     description = "Let users drag and drop files from the desktop on a large area in the application."
 )
 public class LargeUploadArea extends Recipe {
