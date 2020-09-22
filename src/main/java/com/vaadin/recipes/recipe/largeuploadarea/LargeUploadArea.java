@@ -4,17 +4,15 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import java.io.IOException;
-import java.io.InputStream;
 
 @Route("large-upload-area")
 @CssImport(value = "./recipe/large-upload-area/large-upload-area.css", themeFor = "vaadin-upload")
@@ -62,6 +60,16 @@ public class LargeUploadArea extends Recipe {
                 fileNameSpan.setText(event.getFileName());
                 droppedFile.add(deleteBadge, fileNameSpan);
                 fileContainerLayout.add(droppedFile);
+            }
+        );
+        upload.addFileRejectedListener(
+            event -> {
+                Notification notification = new Notification();
+                notification.setDuration(3000);
+                notification.setPosition(Notification.Position.MIDDLE);
+                notification.setText("Upload failed: " + event.getErrorMessage());
+                notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                notification.open();
             }
         );
         upload.getElement().appendChild(verticalLayout.getElement());
