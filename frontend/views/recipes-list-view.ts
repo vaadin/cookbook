@@ -123,6 +123,7 @@ export class RecipesListView extends LitElement {
           display: block;
           --recipes-filter-column-width: 200px;
           --recipes-list-view-header-height: 80px;
+          background-color: var(--color-alloy-lighter);
         }
 
         .recipes-list-view-header {
