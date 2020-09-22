@@ -1,0 +1,11 @@
+:host([theme~="custom-upload"]) {
+  border: 0;
+}
+
+:host([theme~="custom-upload"]) [part="primary-buttons"] {
+  display: none;
+}
+
+:host([theme~="custom-upload"]) slot[name="file-list"] {
+  display: none;
+}
