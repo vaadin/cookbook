@@ -1,6 +1,5 @@
 package com.vaadin.recipes.recipe.recursiveselecttree;
 
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
@@ -15,7 +14,9 @@ import com.vaadin.recipes.recipe.treegridsubtreehighlight.DepartmentData;
     howdoI = "select recursively an item and all its children in a treeGrid",
     description = "How to select recursively an item and all its children in a tree",
     sourceFiles = {
-        "../treegridsubtreehighlight/Department.java", "../treegridsubtreehighlight/DepartmentData.java"
+        "RecursiveSelectTreeGrid.java",
+        "../treegridsubtreehighlight/Department.java",
+        "../treegridsubtreehighlight/DepartmentData.java",
     },
     tags = { Tag.JAVA, Tag.GRID }
 )
