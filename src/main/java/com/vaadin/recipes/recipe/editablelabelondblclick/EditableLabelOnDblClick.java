@@ -1,6 +1,6 @@
 package com.vaadin.recipes.recipe.editablelabelondblclick;
 
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -9,14 +9,14 @@ import com.vaadin.recipes.recipe.Tag;
 
 @Route("editable-label-on-dblclick")
 @Metadata(
-        howdoI = "create an editable Label when double-clicked", 
-        description = "Create a Label that can turn into a text field for editing on double-click.",
+        howdoI = "create an editable label when double-clicked",
+        description = "Create a text label that can turn into a text field for editing on double-click.",
         tags = { Tag.JAVA })
 public class EditableLabelOnDblClick extends Recipe {
 
     public EditableLabelOnDblClick() {
         String initialContent = "Double-click me to edit ...";
-        Label label = new Label(initialContent);
+        Span label = new Span(initialContent);
         TextField textField = new TextField();
         textField.setValue(initialContent);
 
