@@ -9,8 +9,8 @@ import com.vaadin.recipes.recipe.Tag;
 
 @Route("always-editable-label")
 @Metadata(
-        howdoI = "Create an always-editable Span",
-        description = "Create a component with text label that is always in editable mode.",
+        howdoI = "Create an always-editable label",
+        description = "Create a component with a text label that is always in editable mode.",
         tags = { Tag.JAVA })
 public class AlwaysEditableLabel extends Recipe {
 
