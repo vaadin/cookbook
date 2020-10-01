@@ -243,11 +243,12 @@ export class RecipesListView extends LitElement {
         }
 
         .recipe-title {
+          margin-top: var(--space-md);
           margin-bottom: 0;
         }
 
         .recipe:first-child .recipe-title {
-          padding-top: var(--space-xs);
+          margin-top: var(--space-xs);
         }
 
         p.recipe-description {
