@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("display-version")
 @Metadata(
-        howdoI = "Show application and Vaadin versions in UI",
-        description = "150-160 character description that is shown on the listing page and Google search results.",
+        howdoI = "Show application Java and Vaadin versions in UI",
+        description = "Using Spring Boot application.properties and Maven build to automatically expand project, Vaadin and Java versions and build time into properties and display in UI.",
         sourceFiles = "AppVersions.java"
 
 )
