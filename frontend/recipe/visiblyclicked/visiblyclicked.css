@@ -1,0 +1,12 @@
+@keyframes remoteclick {
+  from {
+    background-color: #bbbbbb;
+  }
+  to {
+    background-color: #eeeeee;
+  }
+}
+
+.click-animation {
+  animation: remoteclick 0.6s;
+}

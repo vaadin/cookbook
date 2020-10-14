@@ -4,14 +4,24 @@ import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.router.*;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.HighlightConditions;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import java.util.HashMap;
 import java.util.Map;
 
 @Route("tabs-with-routes")
-@Metadata(howdoI = "Bind tabs to routes")
+@Metadata(
+    howdoI = "Bind tabs to routes",
+    description = "Learn how to associate tabs with routes in a Vaadin project using the Java component API."
+)
 public class TabsWithRoutes extends Recipe implements RouterLayout, BeforeEnterObserver {
 
     public TabsWithRoutes() {

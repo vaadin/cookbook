@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route("grid-dnd-reorder-rows")
-@Metadata(howdoI = "Drag and drop rows to reorder a Grid", tags = { Tag.GRID })
+@Metadata(
+    howdoI = "Drag and drop rows to reorder a Grid",
+    description = "Learn how to enable drag and drop reordering of rows in a Vaadin Java grid. ",
+    tags = { Tag.GRID }
+)
 public class GridDndReorderRows extends Recipe {
     private Person draggedItem;
     private List<Person> gridItems;

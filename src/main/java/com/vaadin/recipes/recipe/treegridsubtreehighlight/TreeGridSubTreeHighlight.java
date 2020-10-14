@@ -8,7 +8,8 @@ import com.vaadin.recipes.recipe.Recipe;
 
 @Route("treegrid-subtree-highlight")
 @Metadata(
-    howdoI = "How do I highlight the sub tree of the selected parent node",
+    howdoI = "Highlight the subtree of a selected parent node",
+    description = "How to highlight the sub-tree of a highlighted row in a Vaadin TreeGrid.",
     sourceFiles = {
         "Department.java", "DepartmentData.java", "recipe/treegridsubtreehighlight/treegrid-subtree-highlight.css",
     }

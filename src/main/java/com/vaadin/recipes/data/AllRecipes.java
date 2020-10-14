@@ -29,8 +29,8 @@ public class AllRecipes {
         List<String> sourceFiles = new ArrayList<>();
         sourceFiles.add(Util.getSourceFile(recipeClass));
         for (String additionalFile : recipe.sourceFiles()) {
-            if (additionalFile.endsWith(".java")) {
-                sourceFiles.add(Util.getSourceFile(recipeClass, additionalFile));
+            if (recipeClass.getResource(additionalFile) != null) {
+                sourceFiles.add(Util.getSourceOrResourceFile(recipeClass, additionalFile));
             } else {
                 sourceFiles.add(Util.getFrontendFile(additionalFile));
             }

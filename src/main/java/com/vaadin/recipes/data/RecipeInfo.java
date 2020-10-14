@@ -8,14 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotBlank;
 
 public class RecipeInfo {
     @JsonIgnore
     private Class<? extends Recipe> recipeClass;
 
+    @NotBlank
     private String howDoI;
 
-    @Nullable
+    @NotBlank
     private String description;
 
     private String url;

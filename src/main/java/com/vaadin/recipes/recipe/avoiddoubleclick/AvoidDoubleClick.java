@@ -9,7 +9,11 @@ import com.vaadin.recipes.recipe.Tag;
 import elemental.json.JsonValue;
 
 @Route("avoid-double-click")
-@Metadata(howdoI = "Avoid double-clicks on a Button", tags = { Tag.USABILITY })
+@Metadata(
+    howdoI = "Avoid double-clicks on a Button",
+    description = "Prevent accidental double submits of forms and other double clicks on buttons with this Vaadin Java code snippet.",
+    tags = { Tag.USABILITY }
+)
 public class AvoidDoubleClick extends Recipe {
 
     public AvoidDoubleClick() {

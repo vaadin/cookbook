@@ -15,7 +15,11 @@ import com.vaadin.recipes.recipe.Tag;
 import org.apache.commons.lang3.StringUtils;
 
 @Route("dialog-position")
-@Metadata(howdoI = "Re-open a dialog in the same position", tags = { Tag.USABILITY })
+@Metadata(
+    howdoI = "Re-open a dialog in the same position",
+    description = "Learn how to save a dialog position so you can re-open it in the same place using the Vaadin Java component API.",
+    tags = { Tag.USABILITY }
+)
 public class DialogPosition extends Recipe {
     private static final MyDialog.Position INITIAL_POSITION = new MyDialog.Position("0px", "0px");
     private final MyDialog myDialog = new MyDialog();

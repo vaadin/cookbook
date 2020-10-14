@@ -15,7 +15,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Route("notify-users")
-@Metadata(howdoI = "Show a notification to active users", tags = { Tag.PUSH })
+@Metadata(
+    howdoI = "Show a notification to active users",
+    description = "Learn how to send a notification to all active users in your Vaadin application. Includes subscription handling code. ",
+    tags = { Tag.PUSH }
+)
 public class NotifyUsers extends Recipe {
     private static final Set<SerializableConsumer<String>> subscribers = new HashSet<>();
 

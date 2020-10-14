@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @Route("scroll-into-view")
 @Metadata(
     howdoI = "Scroll a component into view",
-    description = "Learn how to scroll a component into view in a Vaadin app."
+    description = "Learn how to scroll a component into view in a Vaadin Java app."
 )
 public class ScrollIntoViewView extends Recipe {
 

@@ -27,7 +27,11 @@ import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
-@Metadata(howdoI = "Export grid data as CSV", tags = { Tag.GRID, Tag.CSV })
+@Metadata(
+    howdoI = "Export grid data as CSV",
+    description = "Export the contents of a Vaadin Grid as CSV so your users can download and save it. Using the Java component API. ",
+    tags = { Tag.GRID, Tag.CSV }
+)
 public class GridCsvExport extends Recipe {
 
     public static class Person {

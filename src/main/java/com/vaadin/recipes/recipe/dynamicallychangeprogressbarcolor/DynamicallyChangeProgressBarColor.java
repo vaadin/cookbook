@@ -11,6 +11,7 @@ import com.vaadin.recipes.recipe.allowusertopickacolor.ColorPicker;
 @Route("dynamically-change-progressbar-color")
 @Metadata(
     howdoI = "Dynamically set the progress bar color",
+    description = "A code snippet for changing the color of a Vaadin progress bar through the Java component API.",
     sourceFiles = { "recipe/dynamicallychangeprogressbarcolor/dynamically-change-progressbar-color.css" },
     tags = { Tag.THEME }
 )

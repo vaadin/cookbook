@@ -27,7 +27,13 @@ export const recipeToRoute = (
   const absoluteSourceFiles = [
     recipeInfo.url + ".ts",
     ...(recipeInfo.sourceFiles || []),
-  ].map((relativePath) => folder + relativePath);
+  ].map((sourceFile) => {
+    if (sourceFile.includes(".java")) {
+      return sourceFile;
+    } else {
+      return folder + sourceFile;
+    }
+  });
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
@@ -141,7 +147,7 @@ writeIfChanged(
     routes.map((route) => route.info),
     null,
     2
-  ).replace(/"Tag.([A-Za-z]*)"/g, '"$1"')
+  ).replace(/"Tag.([A-Za-z_]*)"/g, '"$1"')
 );
 
 const routesJson = JSON.stringify(routes, null, 2);
