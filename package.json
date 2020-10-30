@@ -17,6 +17,7 @@
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-list": "3.1.0",
     "@polymer/polymer": "3.2.0",
+    "@types/google.analytics": "0.0.40",
     "@vaadin/flow-frontend": "./target/flow-frontend",
     "@vaadin/form": "./target/flow-frontend/form",
     "@vaadin/router": "1.7.2",
@@ -160,6 +161,6 @@
       "lit-html": "1.2.1",
       "@types/validator": "10.11.3"
     },
-    "hash": "7aeaed20d92710ecda17ebe527660336e92d4221107d538e0f5a6bb9f40f1ce6"
+    "hash": "e931d62c48c99ddd98c499fdab3aaab678161c328aaafc89199d042b9ab2cf17"
   }
 }
