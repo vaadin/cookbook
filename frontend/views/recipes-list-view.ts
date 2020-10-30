@@ -333,7 +333,7 @@ export class RecipesListView extends LitElement {
             </h6>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
               ${this.tags.map(
-      (tag) => html`
+                (tag) => html`
                   <vaadin-checkbox
                     value="${tag}"
                     ?checked=${this.filterTags.includes(tag)}
@@ -346,23 +346,23 @@ export class RecipesListView extends LitElement {
                     ></vaadin-checkbox
                   >
                 `
-    )}
+              )}
             </vaadin-checkbox-group>
           </vaadin-details>
         </div>
         <ul class="recipes-list">
           ${repeat(
-      recipes.filter((recipe) =>
-        this.recipeMatches(recipe, this.filter, this.filterTags)
-      ),
-      (recipe) => recipe.url,
-      (recipe) =>
-        html` <li class="recipe">
+            recipes.filter((recipe) =>
+              this.recipeMatches(recipe, this.filter, this.filterTags)
+            ),
+            (recipe) => recipe.url,
+            (recipe) =>
+              html` <li class="recipe">
                 <h5 class="recipe-title">
                   <a href="${recipe.url}"
                     >${recipe.howDoI
-            .trim()
-            .replace(/^\w/, (c) => c.toUpperCase())}</a
+                      .trim()
+                      .replace(/^\w/, (c) => c.toUpperCase())}</a
                   >
                 </h5>
                 <p
@@ -373,16 +373,16 @@ export class RecipesListView extends LitElement {
                 </p>
                 <div class="recipe-tags">
                   ${recipe.tags?.map(
-              (tag) =>
-                html`<span
+                    (tag) =>
+                      html`<span
                         class="tag water"
                         @click="${() => this.setFilterTag(tag)}"
                         >${this.tagToHumanReadable(tag)}</span
                       > `
-            )}
+                  )}
                 </div>
               </li>`
-    )}
+          )}
         </ul>
       </div>
     `;
@@ -425,6 +425,8 @@ export class RecipesListView extends LitElement {
       location.hostname === "127.0.0.1"
     ) {
       console.log(`Search event: "${this.filter}". GA disabled locally.`);
+    } else {
+      ga("send", "event", "cookbook", "search", this.filter);
     }
   }
 
