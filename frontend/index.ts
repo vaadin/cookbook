@@ -1,5 +1,5 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
-import { Route, Router, RouterLocation } from "@vaadin/router";
+import { Route, Router } from "@vaadin/router";
 import { tsRecipeRoutes } from "./ts-routes";
 import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "./generated/RecipeEndpoint";
@@ -47,14 +47,10 @@ async function initRecipes() {
   }
 }
 
-// Log page updates to GA
-function sendPageview(e: CustomEvent) {
-  const routerLocation = e.detail.location as RouterLocation;
-  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-    console.log("Location changed. GA disabled locally.", routerLocation);
-  } else {
-    ga("set", "page", routerLocation.pathname);
-    ga("send", "pageview");
+function sendPageview() {
+  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    // Let vaadin.com HaaS know that the page has changed
+    window.dispatchEvent(new Event('on-location-change'));
   }
 }
 window.addEventListener(
