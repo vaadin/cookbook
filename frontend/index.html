@@ -1,79 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="google-site-verification"
-      content="vyAh4OVPhguDpAXWzOn41GRLH_-7yJbsl71CTMpI8HI"
-    />
-    <title>Vaadin Cookbook - code snippets for common tasks</title>
-    <meta
-      name="description"
-      content="Find ready to use solutions and code snippets for common development problems and UX patterns. Includes Vaadin examples in Java and TypeScript."
-    />
-    <meta
-      property="og:image"
-      content="https://cookbook.vaadin.com/images/vaadin-cookbook-featured.png"
-    />
 
-    <!-- index.ts is included here automatically (either by the dev server or during the build) -->
-    <style>
-      html {
-        background-color: var(--color-alloy-lighter);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="vyAh4OVPhguDpAXWzOn41GRLH_-7yJbsl71CTMpI8HI" />
+  <title>Vaadin Cookbook - code snippets for common tasks</title>
+  <meta name="description"
+    content="Find ready to use solutions and code snippets for common development problems and UX patterns. Includes Vaadin examples in Java and TypeScript." />
+  <meta property="og:image" content="https://cookbook.vaadin.com/images/vaadin-cookbook-featured.png" />
 
-      body {
-        margin: 0;
-      }
+  <!-- index.ts is included here automatically (either by the dev server or during the build) -->
+  <style>
+    html {
+      background-color: var(--color-alloy-lighter);
+    }
 
-      #haas-container {
-        background-color: var(--color-charcoal-darker);
-        height: var(--mainViewMenuHeight);
-        position: relative;
-        z-index: 9999;
-      }
+    body {
+      margin: 0;
+    }
 
-      [hidden] {
-        display: none !important;
-      }
-    </style>
-  </head>
+    #haas-container {
+      background-color: var(--color-charcoal-darker);
+      height: var(--mainViewMenuHeight);
+      position: relative;
+      z-index: 9999;
+    }
 
-  <body>
-    <div id="haas-container"></div>
-    <div id="outlet"></div>
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
 
-    <!-- Vaadin.com Header-as-a-Service -->
-    <script>
-      const haasCSS = [
-        "https://cdn.vaadin.com/vaadin-design-system/latest/assets/icons/css/line-awesome.min.css",
-        "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap",
-        "https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/haas-bundle.css",
-        "https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/2-components/fields.css",
-      ];
+<body>
+  <div id="haas-container"></div>
+  <div id="outlet"></div>
 
-      // Preload
-      haasCSS
-        .map((url) => {
-          const link = document.createElement("link");
-          link.setAttribute("rel", "preload");
-          link.setAttribute("as", "style");
-          link.setAttribute("href", url);
-          return link;
-        })
-        .forEach((link) => document.head.append(link));
+  <!-- Vaadin.com Header-as-a-Service -->
+  <script>
+    const haasCSS = [
+      "https://cdn.vaadin.com/vaadin-design-system/latest/assets/icons/css/line-awesome.min.css",
+      "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap",
+      "https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/haas-bundle.css",
+      "https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/2-components/fields.css",
+    ];
 
-      // Import
-      haasCSS
-        .map((url) => {
-          const link = document.createElement("link");
-          link.setAttribute("rel", "stylesheet");
-          link.setAttribute("href", url);
-          return link;
-        })
-        .forEach((link) => document.head.append(link));
-    </script>
-    <script type="text/javascript" src="https://preview.vaadin.com/vaadincom/haas-service/haas-loader.js" defer="true"></script>
-  </body>
+    // Preload
+    haasCSS
+      .map((url) => {
+        const link = document.createElement("link");
+        link.setAttribute("rel", "preload");
+        link.setAttribute("as", "style");
+        link.setAttribute("href", url);
+        return link;
+      })
+      .forEach((link) => document.head.append(link));
+
+    // Import
+    haasCSS
+      .map((url) => {
+        const link = document.createElement("link");
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("href", url);
+        return link;
+      })
+      .forEach((link) => document.head.append(link));
+  </script>
+  <script type="text/javascript" src="https://preview.vaadin.com/vaadincom/haas-service/haas-loader.js"
+    defer="true"></script>
+</body>
+
 </html>
