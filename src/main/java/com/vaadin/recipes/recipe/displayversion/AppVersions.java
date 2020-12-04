@@ -1,37 +1,15 @@
 package com.vaadin.recipes.recipe.displayversion;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 
 /** Load properties from application.properties.
  *
- * Properties are automatically filled in Maven build using resource filtering.
- *
- * In <code>pom.xml</code>
- * <pre>
- *     <build>
- *         <resources>
- *             <resource>
- *                 <directory>src/main/resources</directory>
- *                 <filtering>true</filtering>
- *             </resource>
- * </pre>
- *
- * and in <code>application.properties</code>
- * <pre>
- * app.version=@project.version@
- * app.build-time=@maven.build.timestamp@
- * app.vaadin.version=@vaadin.version@
- * app.java.version=@java.version@
- * </pre>
- *
- * @link https://docs.spring.io/spring-boot/docs/2.1.11.RELEASE/reference/html/howto-properties-and-configuration.html
+ * This uses properties in Spring via Java configuration.
  */
 @PropertySource(value = {"classpath:application.properties"})
-@Component
+@Configuration
 public class AppVersions {
 
     @Value("${app.version}")
