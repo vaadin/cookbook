@@ -1,6 +1,7 @@
 package com.vaadin.recipes.recipe.displayversion;
 
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Metadata(
     howdoI = "Show application Java and Vaadin versions in UI",
     description = "Using Spring Boot application.properties and Maven build to automatically expand project, Vaadin and Java versions and build time into properties and display in UI.",
-    sourceFiles = { "AppVersions.java", "application.properties" }
+    sourceFiles = { "AppVersions.java", "pom.xml", "application.properties" }
 )
 public class DisplayVersion extends Recipe {
 
@@ -21,18 +22,19 @@ public class DisplayVersion extends Recipe {
      * @see AppVersions
      */
     public DisplayVersion(@Autowired AppVersions versions) {
-        add(
-            new Text(
-                "Cookbook " +
-                versions.getVersion() +
+         TextArea info = new TextArea(null,
+                "Cookbook build info." +
+                "\nVersion: " + versions.getVersion() +
                 ". " +
-                "Built with Vaadin " +
+                "\nVaadin: " +
                 versions.getVaadinVersion() +
-                " and Java " +
+                "\nJava: " +
                 versions.getJavaVersion() +
-                " at " +
-                versions.getBuildTime()
-            )
-        );
+                "\nBuilt time: " +
+                versions.getBuildTime(),
+                    (String)null);
+         info.setWidth("300px");
+         info.setReadOnly(true);
+         add(info);
     }
 }
