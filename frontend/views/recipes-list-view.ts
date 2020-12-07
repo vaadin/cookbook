@@ -420,13 +420,17 @@ export class RecipesListView extends LitElement {
   logSearch() {
     if (!this.filter) return;
 
-    if (
-      location.hostname === "localhost" ||
-      location.hostname === "127.0.0.1"
-    ) {
-      console.log(`Search event: "${this.filter}". GA disabled locally.`);
+    if ("haas" in window) {
+      //@ts-ignore
+      window.haas.tracker.gtm.triggerGAEvent(
+        "send",
+        "event",
+        "cookbook",
+        "search",
+        this.filter
+      );
     } else {
-      ga("send", "event", "cookbook", "search", this.filter);
+      console.log(`Search event: "${this.filter}". GA disabled locally.`);
     }
   }
 
