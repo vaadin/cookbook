@@ -7,23 +7,22 @@ import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@Route("filetree")
+@Route("file-tree")
 @Metadata(
-        howdoI = "Let a TreeGrid show folders and its subfolders recursively",
-        description = "This recipe shows how to create a TreeGrid from a file system's folders in a simple, straight-forward fashion."
+    howdoI = "Show files and folders recursively in a TreeGrid",
+    description = "Learn how to display file system folders easily using a Vaadin TreeGrid."
 )
 public class FileTree extends Recipe {
-
-    private static final File rootFile = new File(System.getProperty("user.home")+File.separator+"Desktop");
+    private static final File rootFile = new File(System.getProperty("user.home") + File.separator + "Desktop");
 
     private static class Tree<T> extends TreeGrid<T> {
+
         Tree(ValueProvider<T, ?> valueProvider) {
             Column<T> only = addHierarchyColumn(valueProvider);
             only.setAutoWidth(true);
@@ -33,22 +32,31 @@ public class FileTree extends Recipe {
     public FileTree() {
         Tree<File> filesTree = new Tree<>(File::getName);
         filesTree.setItems(Collections.singleton(rootFile), this::getFiles);
-        filesTree.getColumns().stream().findFirst().ifPresent(fileColumn -> {
-            fileColumn.setComparator(Comparator.naturalOrder());
-            GridSortOrder<File> sortOrder = new GridSortOrder<>(fileColumn, SortDirection.ASCENDING);
-            filesTree.sort(Collections.singletonList(sortOrder));
-            filesTree.setWidthFull();
-            filesTree.setHeight("300px");
-            filesTree.asSingleSelect().addValueChangeListener(event -> {
-                File file = event.getValue();
-                if (file != null && file.isFile()) { // deselecting: file == null
-                    // don't do anything
+        filesTree
+            .getColumns()
+            .stream()
+            .findFirst()
+            .ifPresent(
+                fileColumn -> {
+                    fileColumn.setComparator(Comparator.naturalOrder());
+                    GridSortOrder<File> sortOrder = new GridSortOrder<>(fileColumn, SortDirection.ASCENDING);
+                    filesTree.sort(Collections.singletonList(sortOrder));
+                    filesTree.setWidthFull();
+                    filesTree.setHeight("300px");
+                    filesTree
+                        .asSingleSelect()
+                        .addValueChangeListener(
+                            event -> {
+                                File file = event.getValue();
+                                if (file != null && file.isFile()) { // deselecting: file == null
+                                    // don't do anything
+                                } else {
+                                    // do something
+                                }
+                            }
+                        );
                 }
-                else{
-                    // do something
-                }
-            });
-        });
+            );
 
         this.add(filesTree);
         setSizeFull();
