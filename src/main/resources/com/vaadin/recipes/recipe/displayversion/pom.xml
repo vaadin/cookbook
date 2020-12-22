@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.vaadin.exampe</groupId>
+    <artifactId>mavenproject1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- You can define custom propertied here. -->
+    <properties>
+        <vaadin.version>17.0.1</vaadin.version>
+    </properties>
+
+    <!-- Other project configuration goes here -->
+
+    <build>
+        <resources>
+            <!--
+                 We filter the files for variables to replace them
+                 in application.properties with build time values.
+
+                 See Spring Boot documentation for details:
+                 https://docs.spring.io/spring-boot/docs/2.1.11.RELEASE/reference/html/howto-properties-and-configuration.html
+            -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <!-- Other build configuration goes here -->
+
+    </build>
+
+</project>
+

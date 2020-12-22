@@ -17,6 +17,7 @@ import java.util.Locale;
 @Route("user-locale-grid-numbers")
 @Metadata(
     howdoI = "Show numbers in a grid according to the user's locale",
+    description = "Learn how to format numbers in a Vaadin Grid column based on user locales.",
     sourceFiles = "ApplicationI18NProvider.java",
     tags = { Tag.GRID }
 )

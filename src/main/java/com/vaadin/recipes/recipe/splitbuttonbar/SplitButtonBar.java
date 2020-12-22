@@ -11,7 +11,11 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("split-button-bar")
-@Metadata(howdoI = "split a button bar into left and right groups", tags = { Tag.LAYOUT })
+@Metadata(
+    howdoI = "Split a button layout into left and right groups",
+    description = "Learn how to use Vaadin HorizontalLayout to group contents into left and right groups.",
+    tags = { Tag.LAYOUT }
+)
 public class SplitButtonBar extends Recipe {
 
     public SplitButtonBar() {

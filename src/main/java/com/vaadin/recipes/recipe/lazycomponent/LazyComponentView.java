@@ -10,7 +10,8 @@ import java.util.Random;
 
 @Route("lazy-component-view")
 @Metadata(
-    howdoI = "lazily initialize components",
+    howdoI = "Lazily initialize components",
+    description = "Learn how to defer the initialization of components until they have loaded their data using the Vaadin Java component API. ",
     sourceFiles = { "LazyContainer.java", "recipe/lazy-component-view/loader-placeholder-styles.css" },
     tags = { Tag.PERFORMANCE }
 )

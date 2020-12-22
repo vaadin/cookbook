@@ -9,7 +9,10 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
 @Route("button-popup")
-@Metadata(howdoI = "show a popup next to a button when it is clicked")
+@Metadata(
+    howdoI = "Show a popup next to a button when it is clicked",
+    description = "Code snippet for showing a dialog next to a button for context-sensitive help or actions. Uses the Vaadin Java API. "
+)
 public class ButtonPopupPositionView extends Recipe {
     private Button button = new Button("open dialog", this::openDialog);
     private Dialog dialog = new Dialog(new Span("dialog opened"));

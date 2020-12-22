@@ -2,7 +2,7 @@
 name: Recipe
 about: Common end-user problem that developers need to solve
 title: 'How do I '
-labels: ''
+labels: 'recipe'
 assignees: ''
 
 ---

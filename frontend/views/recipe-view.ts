@@ -1,14 +1,15 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 import { render, TemplateResult } from "lit-html";
-import { recipes } from "../";
+import { recipes, router } from "..";
 import "../code-viewer";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
-import { Context } from "@vaadin/router";
 
 @customElement("recipe-view")
 export class RecipeView extends LitElement {
   @property({ type: Object })
-  recipe: RecipeInfo = { howDoI: "", url: "", tags: [] };
+  recipe: RecipeInfo = { howDoI: "", description: "", url: "", tags: [] };
+
+  routeListener = this.onRouteChange.bind(this);
 
   static get styles() {
     return css`
@@ -38,18 +39,36 @@ export class RecipeView extends LitElement {
     `;
   }
 
-  async onAfterEnter(context: Context) {
-    const tag = context.pathname.split("/")[1];
+  onRouteChange(e: any) {
+    this.onPathChange(e.detail.location.pathname);
+  }
+
+  onPathChange(pathname: string) {
+    window.scrollTo(0, 0);
+    const tag = pathname.split("/")[1];
     const recipe = recipes.find((recipe) => recipe.url == tag);
     if (recipe) {
       this.recipe = recipe;
       this.renderLightDom();
-      const example = this.querySelector(":not([slot])");
-      example?.classList.add("container-fluid");
-      if (example?.nodeName.startsWith("flow-container-root")) {
-        example.classList.add("flow-example");
-      }
     }
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    // Using vaadin-router-location-changed as "onAfterEnter" is not invoked when only the child view changes
+    window.addEventListener(
+      "vaadin-router-location-changed",
+      this.routeListener
+    );
+    this.onPathChange(router.location.pathname);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener(
+      "vaadin-router-location-changed",
+      this.routeListener
+    );
   }
 
   render() {
@@ -95,6 +114,12 @@ const headerTemplate: (data: any) => TemplateResult = (
     .recipe-view-title {
       margin-bottom: var(--space-xs);
       padding-top: var(--space-sm);
+    }
+
+    @media (max-width: 600px) {
+      .recipe-view-back-link {
+        margin-left: 0;
+      }
     }
   </style>
   <div class="container-fluid">

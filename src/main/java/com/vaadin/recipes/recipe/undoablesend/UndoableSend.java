@@ -15,7 +15,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @Route("undoable-send")
-@Metadata(howdoI = "Send with undo button", tags = { Tag.PUSH })
+@Metadata(
+    howdoI = "Send with undo button",
+    description = "Don't regret, undo. Learn how to create actions that can be undone in Vaadin apps.",
+    tags = { Tag.PUSH }
+)
 public class UndoableSend extends Recipe {
     private static final Executor executor = CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS);
 

@@ -17,7 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route("scroll-to-item-in-tree-grid")
-@Metadata(howdoI = "Scroll to a specific item when expanding nodes", tags = { Tag.GRID })
+@Metadata(
+    howdoI = "Scroll a TreeGrid to an item and expand nodes",
+    description = "Code example for scrolling to a specific item in a TreeGrid, expanding nodes as needed.",
+    tags = { Tag.GRID }
+)
 public class ScrollToItemInTreeGrid extends Recipe {
 
     public static class ScrollTreeGrid<T> extends TreeGrid<T> {
@@ -37,8 +41,10 @@ public class ScrollToItemInTreeGrid extends Recipe {
             initScrollWhenReady();
         }
 
-        /** The method for scrolling to an item. Takes into account lazy loading nature of grid and does the scroll
-         * operation only until the grid has finished loading data
+        /**
+         * The method for scrolling to an item. Takes into account lazy loading nature
+         * of grid and does the scroll operation only until the grid has finished
+         * loading data
          *
          * @param item the item where to scroll to
          */
@@ -49,8 +55,10 @@ public class ScrollToItemInTreeGrid extends Recipe {
             }
         }
 
-        /** This is a method for getting the row index of an item in a treegrid. This works but is prone to break in the future versions due to
-         * its usage of reflection to access private methods to get access to the index.
+        /**
+         * This is a method for getting the row index of an item in a treegrid. This
+         * works but is prone to break in the future versions due to its usage of
+         * reflection to access private methods to get access to the index.
          *
          * @param <T>
          */
@@ -63,7 +71,7 @@ public class ScrollToItemInTreeGrid extends Recipe {
                 HierarchyMapper<T, ?> mapper = (HierarchyMapper) getHierarchyMapper.invoke(dataCommunicator);
                 return mapper.getIndex(item);
             } catch (Exception e) {
-                //TODO: handle
+                // TODO: handle
                 e.printStackTrace();
             }
             return -1;
@@ -87,7 +95,8 @@ public class ScrollToItemInTreeGrid extends Recipe {
         }
     }
 
-    /** Data entiry to use in the treegrid
+    /**
+     * Data entiry to use in the treegrid
      *
      */
     public static class Person {
@@ -123,7 +132,8 @@ public class ScrollToItemInTreeGrid extends Recipe {
         }
     }
 
-    /** Demo
+    /**
+     * Demo
      *
      */
     public ScrollToItemInTreeGrid() {

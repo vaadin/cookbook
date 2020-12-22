@@ -12,7 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Route("tabsheet")
-@Metadata(howdoI = "create TabSheet", description = "An example of how to change contents based on selected tab.")
+@Metadata(
+    howdoI = "create a TabSheet component",
+    description = "Learn how to change content based on the selected tab in a Vaadin Java app."
+)
 public class TabSheetView extends Recipe {
     /**
      * Contents of the TabSheet.
@@ -47,8 +50,10 @@ public class TabSheetView extends Recipe {
     }
 
     /**
-     * Builds contents to be displayed and the corresponding tabs.
-     * Uses the first articles from <a href="https://www.un.org/en/universal-declaration-human-rights/index.html">the Universal Declaration of Human Rights</a>.
+     * Builds contents to be displayed and the corresponding tabs. Uses the first
+     * articles from <a href=
+     * "https://www.un.org/en/universal-declaration-human-rights/index.html">the
+     * Universal Declaration of Human Rights</a>.
      */
     private void buildContentAndTabs() {
         final String[] data = new String[] {

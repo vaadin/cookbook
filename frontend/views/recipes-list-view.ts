@@ -8,6 +8,7 @@ import {
   registerStyles,
 } from "@vaadin/vaadin-themable-mixin/register-styles";
 import { capitalCase } from "change-case";
+import { debounce } from "ts-debounce";
 import { customElement, html, LitElement, property } from "lit-element";
 import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
@@ -102,6 +103,8 @@ export class RecipesListView extends LitElement {
     Tag.PERFORMANCE,
     Tag.USABILITY,
     Tag.LAYOUT,
+    Tag.DOWNLOAD,
+    Tag.FORM,
   ];
 
   firstUpdated() {
@@ -120,6 +123,7 @@ export class RecipesListView extends LitElement {
           display: block;
           --recipes-filter-column-width: 200px;
           --recipes-list-view-header-height: 80px;
+          background-color: var(--color-alloy-lighter);
         }
 
         .recipes-list-view-header {
@@ -239,11 +243,12 @@ export class RecipesListView extends LitElement {
         }
 
         .recipe-title {
+          margin-top: var(--space-md);
           margin-bottom: 0;
         }
 
         .recipe:first-child .recipe-title {
-          padding-top: var(--space-xs);
+          margin-top: var(--space-xs);
         }
 
         p.recipe-description {
@@ -412,9 +417,29 @@ export class RecipesListView extends LitElement {
     this.filterTags = e.detail.value;
   }
 
+  logSearch() {
+    if (!this.filter) return;
+
+    if ("haas" in window) {
+      //@ts-ignore
+      window.haas.tracker.gtm.triggerGAEvent(
+        "send",
+        "event",
+        "cookbook",
+        "search",
+        this.filter
+      );
+    } else {
+      console.log(`Search event: "${this.filter}". GA disabled locally.`);
+    }
+  }
+
+  private debouncedLog = debounce(this.logSearch, 1000);
+
   updateFilter(e: CustomEvent) {
     const value = e.detail.value;
     this.filter = value.toLowerCase();
+    this.debouncedLog();
   }
 
   recipeHasTags(recipe: RecipeInfo, tags: Tag[]) {

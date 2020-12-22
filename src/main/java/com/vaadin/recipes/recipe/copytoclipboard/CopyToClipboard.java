@@ -12,7 +12,7 @@ import com.vaadin.recipes.recipe.Recipe;
 @Route("copy-to-clipboard")
 @Metadata(
     howdoI = "Copy text to clipboard",
-    description = "How to copy text to the user's clipboard when clicking a button",
+    description = "Learn how to copy any text content, like a text area, to the clipboard with a button click using Vaadin's Java component API.",
     sourceFiles = { "recipe/copytoclipboard/copytoclipboard.js" }
 )
 @JsModule("./recipe/copytoclipboard/copytoclipboard.js")

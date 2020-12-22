@@ -1,17 +1,7 @@
 package com.vaadin.recipes.recipe.camera;
 
-import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
-import com.vaadin.flow.component.Html;
-import com.vaadin.flow.component.HtmlComponent;
-import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
@@ -25,8 +15,6 @@ import com.vaadin.recipes.recipe.Recipe;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Iterator;
 import javax.imageio.ImageIO;
@@ -35,9 +23,11 @@ import javax.imageio.stream.ImageInputStream;
 import org.apache.commons.io.IOUtils;
 
 @Route("camera")
-@Metadata(howdoI = "Take a photo from my phone", description = "You can use your phone camera with an HTML5 attribute")
+@Metadata(
+    howdoI = "Take a photo with my phone",
+    description = "Let users capture and upload pictures with the camera on their mobile device. Customize the Vaadin upload component to capture photos."
+)
 public class CameraView extends Recipe {
-
     private Component previousPhoto;
     private Paragraph photoName;
 
@@ -48,7 +38,8 @@ public class CameraView extends Recipe {
         // You can use the capture html5 attribute
         // https://caniuse.com/html-media-capture
         upload.getElement().setAttribute("capture", "environment");
-        // If you don't compress the image, don't forget to increase the upload limit and request size or you will have an error
+        // If you don't compress the image, don't forget to increase the upload limit
+        // and request size or you will have an error
         // For a spring boot application the default request size is 10MB
         // and the default upload size is 1MB
         // you can set it in application.properties:

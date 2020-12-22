@@ -7,7 +7,8 @@ import leafletStyles from "leaflet/dist/leaflet.css";
 @recipeInfo({
   url: "leaflet-map",
   howDoI: "Show a map",
-  description: "Show how you show a map around a given position.",
+  description:
+    "Learn how to show a map around a given position with a Vaadin TypeScript client-side view.",
 })
 @customElement("leaflet-map")
 export class LeafletMap extends Recipe {
