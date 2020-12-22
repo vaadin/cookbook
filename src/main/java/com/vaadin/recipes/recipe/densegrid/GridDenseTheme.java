@@ -6,16 +6,15 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
+import java.time.LocalDate;
+import java.util.Collection;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
-import java.time.LocalDate;
-import java.util.Collection;
-
 @Route("grid-dense-theme")
 @Metadata(
-    howdoI = "Create a dense grid",
-    description = "Create a dense grid with compact rows",
+    howdoI = "Show a Vaadin Grid with compact row styling",
+    description = "Use CSS to create a Grid with compact rows to show dense data. ",
     tags = { Tag.GRID, Tag.THEME }
 )
 @CssImport(themeFor = "vaadin-grid", value = "recipe/densegrid/densegrid.css")
