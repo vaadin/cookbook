@@ -10,9 +10,13 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("sort-with-renderer")
-@Metadata(howdoI = "Enable sorting for a Grid column with a custom renderer", description = "When using a custom renderer for a Grid with in-memory items , it might be necessary to customize how sorting is applied for that column.", tags = {
-        Tag.GRID, Tag.JAVA })
+@Metadata(
+    howdoI = "Enable sorting for a Grid column with a custom renderer",
+    description = "When using a custom renderer for a Grid with in-memory items , it might be necessary to customize how sorting is applied for that column.",
+    tags = { Tag.GRID }
+)
 public class SortWithRenderer extends Recipe {
+
     public SortWithRenderer() {
         Grid<Integer> gridWithoutRenderer = createExampleGrid();
         gridWithoutRenderer.addColumn(number -> number).setHeader("Without comparator").setSortable(true);
@@ -20,15 +24,21 @@ public class SortWithRenderer extends Recipe {
 
         Grid<Integer> stringGrid = createExampleGrid();
         stringGrid.addColumn(number -> "Value: " + number).setSortable(true).setHeader("Without comparator");
-        stringGrid.addColumn(number -> "Value: " + number).setSortable(true).setHeader("With comparator")
-                .setComparator(number -> number);
+        stringGrid
+            .addColumn(number -> "Value: " + number)
+            .setSortable(true)
+            .setHeader("With comparator")
+            .setComparator(number -> number);
         add("Rendered as a string. Without custom comparator, sorting will use alphabetic order.", stringGrid);
 
         Grid<Integer> rendererGrid = createExampleGrid();
         NumberRenderer<Integer> numberRenderer = new NumberRenderer<>(number -> number, "Value: %d");
         rendererGrid.addColumn(numberRenderer).setSortable(true).setHeader("Without comparator");
-        rendererGrid.addColumn(numberRenderer).setSortable(true).setHeader("With comparator")
-                .setComparator(number -> number);
+        rendererGrid
+            .addColumn(numberRenderer)
+            .setSortable(true)
+            .setHeader("With comparator")
+            .setComparator(number -> number);
         add("Rendered using NumberRenderer. Without custom comparator, nothing is sorted.", rendererGrid);
     }
 

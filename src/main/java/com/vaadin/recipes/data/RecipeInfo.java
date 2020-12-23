@@ -5,8 +5,10 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotBlank;
 
@@ -47,8 +49,10 @@ public class RecipeInfo {
         this.sourceFiles = sourceFiles;
         this.recipeClass = recipeClass;
         this.tags = new ArrayList<>();
-        this.tags.add(Tag.JAVA);
-        this.tags.addAll(Arrays.asList(tags));
+        Set<Tag> uniqueTags = new LinkedHashSet<>();
+        uniqueTags.add(Tag.JAVA);
+        uniqueTags.addAll(Arrays.asList(tags));
+        this.tags.addAll(uniqueTags);
     }
 
     private static String firstToLower(String howDoI) {
