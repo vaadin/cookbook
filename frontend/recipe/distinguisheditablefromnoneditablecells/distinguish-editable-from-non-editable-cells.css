@@ -3,13 +3,14 @@
 */
 
 [part~="editable-cell"] {
-    background-color: var(--lumo-tint-5pct);
+  background-color: var(--lumo-contrast-5pct);
 }
 
 [part~="editable-cell"]:hover {
-    background-color: var(--lumo-tint-10pct);
+  background-color: var(--lumo-contrast-10pct);
 }
 
-[part~="editable-cell"]  ::slotted(vaadin-grid-cell-content) {
-    // cell content styles
+[part~="editable-cell"] ::slotted(vaadin-grid-cell-content) {
+  /* cell content styles */
+  font-weight: bold;
 }

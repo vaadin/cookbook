@@ -7,45 +7,40 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
 import java.util.Arrays;
 import java.util.List;
 
 @Route("distinguish-editable-from-non-editable-cells")
 @Metadata(
-        howdoI = "Distinguish editable from non editable cells",
-        description = "How to distinguish editable cells from non editable cells using GridPro",
-        sourceFiles = { "recipe/distinguisheditablefromnoneditablecells/distinguish-editable-from-non-editable-cells.css" },
-        tags = {Tag.THEME, Tag.GRID, Tag.USABILITY}
+    howdoI = "Distinguish editable from non editable cells in a Vaadin Grid",
+    description = "How to distinguish editable cells from non editable cells using Grid Pro",
+    sourceFiles = { "recipe/distinguisheditablefromnoneditablecells/distinguish-editable-from-non-editable-cells.css" },
+    tags = { Tag.THEME, Tag.GRID, Tag.USABILITY }
 )
 @CssImport(
-        themeFor = "vaadin-grid-pro",
-        value = "./recipe/distinguisheditablefromnoneditablecells/distinguish-editable-from-non-editable-cells.css"
+    themeFor = "vaadin-grid-pro",
+    value = "./recipe/distinguisheditablefromnoneditablecells/distinguish-editable-from-non-editable-cells.css"
 )
 public class DistinguishEditableFromNonEditableCells extends Recipe {
 
     public DistinguishEditableFromNonEditableCells() {
-
         GridPro<ChangeMe> grid = new GridPro<>();
         grid.setItems(new ListDataProvider<>(createData()));
 
         // Column "editable"
-        grid.addEditColumn(ChangeMe::getEditable)
-                .text(ChangeMe::setEditable)
-                .setHeader("Editable");
+        grid.addEditColumn(ChangeMe::getEditable).text(ChangeMe::setEditable).setHeader("Editable");
 
         // Column "non editable"
-        grid.addColumn(ChangeMe::getNonEditable)
-                .setHeader("Non editable");
+        grid.addColumn(ChangeMe::getNonEditable).setHeader("Non editable");
 
         add(grid);
     }
 
     private List<ChangeMe> createData() {
         return Arrays.asList(
-                new ChangeMe("Editable 1", "Non Editable 1"),
-                new ChangeMe("Editable 2", "Non Editable 2"),
-                new ChangeMe("Editable 3", "Non Editable 3")
+            new ChangeMe("Editable 1", "Non Editable 1"),
+            new ChangeMe("Editable 2", "Non Editable 2"),
+            new ChangeMe("Editable 3", "Non Editable 3")
         );
     }
 
