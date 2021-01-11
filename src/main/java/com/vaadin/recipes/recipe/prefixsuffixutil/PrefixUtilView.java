@@ -7,14 +7,13 @@ import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
 
 @Route("prefix-util")
 @Metadata(
     howdoI = "Add prefix to components with input fields",
     description = "Some components do have prefix slot, but do not have Java API yet to add the components to them. This recipe shows how to add components to those slots.",
     sourceFiles = { "PrefixSuffixUtil.java" },
-    tags = { Tag.JAVA }
+    tags = {}
 )
 public class PrefixUtilView extends Recipe {
     DatePicker datePicker = new DatePicker();
