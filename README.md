@@ -105,7 +105,6 @@ or by launching the `Application` class from an IDE.
 
 If you want to run the project on a different port than 8080, you can do
 ```
-
 PORT=9090 mvn
 ```
 
