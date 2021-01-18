@@ -16,8 +16,8 @@ import com.vaadin.recipes.recipe.Tag;
 
 @Route("scrollable-dialog")
 @Metadata(
-	howdoI = "Create a scrollable dialog",
-	description = "A scrollable dialog with a fixed header and footer.",
+	howdoI = "Make a scrollable dialog with a fixed header & footer",
+	description = "Learn how to create a scrollable dialog with a fixed header and footer.",
 	sourceFiles = {
 		"recipe/scrollabledialog/scrollable-dialog.css",
 		"recipe/scrollabledialog/scrollable-dialog-renderer.css"
