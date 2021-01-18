@@ -12,7 +12,7 @@ import com.vaadin.recipes.recipe.Recipe;
 @Metadata(
     howdoI = "Add prefix to components with input fields",
     description = "Some components do have prefix slot, but do not have Java API yet to add the components to them. This recipe shows how to add components to those slots.",
-    sourceFiles = { "PrefixSuffixUtil.java" },
+    sourceFiles = { "PrefixUtil.java" },
     tags = {}
 )
 public class PrefixUtilView extends Recipe {
