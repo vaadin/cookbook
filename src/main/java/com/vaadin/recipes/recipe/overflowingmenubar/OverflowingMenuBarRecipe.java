@@ -2,7 +2,6 @@ package com.vaadin.recipes.recipe.overflowingmenubar;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
@@ -44,8 +43,8 @@ public class OverflowingMenuBarRecipe extends Recipe {
         this.add(new Div(new Text("This shrinks the MenuBar when needed and grows it back.")));
         final var menuBar = createMenuBar();
         menuBar.addThemeName(ButtonVariant.LUMO_SUCCESS.getVariantName());
-        // 3 em is to accommodate the overflow button (triple dot)
-        menuBar.setMinWidth(3, Unit.EM); // <-- !!! needed to change min-width from `auto` so it could shrink !!!
+        // size is to accommodate the overflow button (triple dot), for LARGE variant --lumo-size-l would be needed
+        menuBar.setMinWidth("var(--lumo-size-m)"); // <-- ! needed to change min-width from `auto` so it could shrink !
 
         final HorizontalLayout toolbar = createFullWidthHorizontalLayout(menuBar);
         toolbar.expand(menuBar); // <-- flex-grow so it could grow when upsizing
