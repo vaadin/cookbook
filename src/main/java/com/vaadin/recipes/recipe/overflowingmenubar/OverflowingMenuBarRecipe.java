@@ -58,6 +58,7 @@ public class OverflowingMenuBarRecipe extends Recipe {
         final var toolbar = new HorizontalLayout(menuBar);
         toolbar.add(createOtherFields());
         toolbar.setWidthFull(); // <--
+        toolbar.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         return toolbar;
     }
 
