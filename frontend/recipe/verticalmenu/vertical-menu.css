@@ -1,0 +1,3 @@
+:host([theme~="menu-vertical"]) [part="container"]  {
+   flex-direction: column;
+}

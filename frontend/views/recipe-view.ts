@@ -135,7 +135,9 @@ const headerTemplate: (data: any) => TemplateResult = (
     <p class="paragraph-sm" ?hidden=${recipe.description?.length === 0}>
       ${recipe.description}
     </p>
-    ${recipe.tags?.map((tag) => html`<span class="tag">${tag}</span> `)}
+    <span class="tag-group">
+      ${recipe.tags?.map((tag) => html`<span class="tag">${tag}</span> `)}
+    </span>
   </div>
 `;
 

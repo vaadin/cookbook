@@ -18,7 +18,7 @@ import com.vaadin.recipes.recipe.treegridsubtreehighlight.DepartmentData;
         "../treegridsubtreehighlight/Department.java",
         "../treegridsubtreehighlight/DepartmentData.java",
     },
-    tags = { Tag.JAVA, Tag.GRID }
+    tags = { Tag.GRID }
 )
 public class TreeGridRecursiveSelectionView extends Recipe {
 

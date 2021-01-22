@@ -1,0 +1,16 @@
+/*
+   Also see https://github.com/vaadin/vaadin-grid-pro-flow/issues/70
+*/
+
+[part~="editable-cell"] {
+  background-color: var(--lumo-contrast-5pct);
+}
+
+[part~="editable-cell"]:hover {
+  background-color: var(--lumo-contrast-10pct);
+}
+
+[part~="editable-cell"] ::slotted(vaadin-grid-cell-content) {
+  /* cell content styles */
+  font-weight: bold;
+}

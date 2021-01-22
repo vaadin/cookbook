@@ -1,0 +1,9 @@
+:host([theme~="scrollable-dialog"]) {
+    z-index: 9999;
+}
+:host([theme~="scrollable-dialog"]) [part="overlay"] {
+    display: flex;
+}
+:host([theme~="scrollable-dialog"]) [part="content"] {
+    padding: 0;
+}

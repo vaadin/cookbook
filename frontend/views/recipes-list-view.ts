@@ -371,7 +371,7 @@ export class RecipesListView extends LitElement {
                 >
                   ${recipe.description}
                 </p>
-                <div class="recipe-tags">
+                <div class="recipe-tags tag-group">
                   ${recipe.tags?.map(
                     (tag) =>
                       html`<span
