@@ -1,0 +1,5 @@
+[dragover='on-top'] [part~='cell'].drop-on-top-disabled::after,
+[dragover='above'] [part~='cell'].drop-above-disabled::after,
+[dragover='below'] [part~='cell'].drop-below-disabled::after {
+  display: none !important;
+}
