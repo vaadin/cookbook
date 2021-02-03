@@ -51,6 +51,7 @@ public class RecipeInfo {
         this.tags = new ArrayList<>();
         Set<Tag> uniqueTags = new LinkedHashSet<>();
         uniqueTags.add(Tag.JAVA);
+        uniqueTags.add(Tag.FLOW);
         uniqueTags.addAll(Arrays.asList(tags));
         this.tags.addAll(uniqueTags);
     }
