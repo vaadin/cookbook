@@ -95,6 +95,8 @@ export class RecipesListView extends LitElement {
   tags: Tag[] = [
     Tag.JAVA,
     Tag.TYPESCRIPT,
+    Tag.FLOW,
+    Tag.FUSION,
     Tag.KEYBOARD,
     Tag.PUSH,
     Tag.GRID,
