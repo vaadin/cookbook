@@ -29,19 +29,19 @@ public class HandleDataBaseErrorInGrid extends Recipe {
         grid.setWidth("100%");
         add(grid);
 
-        // Create lazy DataProvider using the PersonService
+        // Create lazy DataProvider using the PersonService.
         GridLazyDataView<Person> dataView = grid.setItems(q -> {
-            // Use try - catch to get potential database error
+            // Use try - catch to get potential database error.
             try {
                 return service.fetchPersons(q.getOffset(), q.getLimit());
             } catch (DatabaseException e) {
                 List<Person> persons = new ArrayList<>();
-                // Feed Grid with dummy data to avoid client side exception
+                // Feed Grid with dummy data to avoid client side exception.
                 for (int i = 0; i < q.getLimit(); i++) {
                     Person person = new Person();
                     persons.add(person);
                 }
-                // Show an error to user
+                // Show an error to user.
                 Notification
                         .show("Error loading data, scroll to retry!", 2000,
                                 Position.MIDDLE)
