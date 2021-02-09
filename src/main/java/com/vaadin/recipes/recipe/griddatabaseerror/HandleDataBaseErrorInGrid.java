@@ -41,6 +41,7 @@ public class HandleDataBaseErrorInGrid extends Recipe {
                     Person person = new Person();
                     persons.add(person);
                 }
+                // Show an error to user
                 Notification
                         .show("Error loading data, scroll to retry!", 2000,
                                 Position.MIDDLE)
