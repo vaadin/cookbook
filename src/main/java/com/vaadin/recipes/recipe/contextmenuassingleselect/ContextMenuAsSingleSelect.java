@@ -16,7 +16,8 @@ import java.util.StringJoiner;
 @Route("contextmenu-as-single-select")
 @Metadata(
         howdoI = "Use a contextmenu as bindable single-select-field",
-        description = "Implement AbstractCompositeField and wrap a ContextMenu-Component to use it as a kind of single-select like ListBox, Select etc."
+        description = "Implement AbstractCompositeField and wrap a ContextMenu-Component to use it as a kind of single-select like ListBox, Select etc.",
+        sourceFiles = { "SingleSelectContextMenu.java" }
 )
 public class ContextMenuAsSingleSelect extends Recipe {
 
@@ -43,6 +44,10 @@ public class ContextMenuAsSingleSelect extends Recipe {
                 .bind(AnyBindableBean::getPerson, AnyBindableBean::setPerson);
 
         binder.setBean(bean);
+
+        singleSelectContextMenu.addValueChangeListener(valueChangeEvent -> {
+           targetButton.setText(valueChangeEvent.getValue().getName());
+        });
 
         binder.addValueChangeListener(valueChangeEvent -> {
             Notification.show("Value: " + valueChangeEvent.getValue().toString());
