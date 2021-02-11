@@ -24,6 +24,7 @@ import org.apache.commons.lang3.RandomStringUtils;
     howdoI = "Show a meaningful message instead of an empty Grid",
     description = "Provide a meaningful message when a Grid would show an empty data set potentially confusing a user with its appearance.",
     sourceFiles = "recipe/gridmessagewhenempty/grid-message-when-empty.css"
+    tags = { Tag.GRID }
 )
 @CssImport("./recipe/gridmessagewhenempty/grid-message-when-empty.css")
 public class GridMessageWhenEmpty extends Recipe {
