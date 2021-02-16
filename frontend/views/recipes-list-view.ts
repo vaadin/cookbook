@@ -107,6 +107,7 @@ export class RecipesListView extends LitElement {
     Tag.LAYOUT,
     Tag.DOWNLOAD,
     Tag.FORM,
+    Tag.ACCESSIBILITY
   ];
 
   firstUpdated() {
