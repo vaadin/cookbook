@@ -14,6 +14,7 @@ import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
