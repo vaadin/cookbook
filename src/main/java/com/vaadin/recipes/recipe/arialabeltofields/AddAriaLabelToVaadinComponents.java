@@ -52,19 +52,23 @@ public class AddAriaLabelToVaadinComponents extends Recipe {
         dateTimePicker.getElement()
                 .executeJs("this.querySelector('[slot=\"date-picker\"]').shadowRoot.querySelector('[part=\"text-field\"]').setAttribute('aria-label', 'Event date')");
         // ... or even deeper
+        // this also means that this is not robust for the possible future updates of the component
         dateTimePicker.getElement()
                 .executeJs("this.querySelector('[slot=\"time-picker\"]').shadowRoot.querySelector('vaadin-combo-box-light')" +
                         ".querySelector('[role=\"application\"]').setAttribute('aria-label', 'Event time')");
 
         Checkbox checkbox = new Checkbox("CheckBox example");
+        // here we have public focusElement property
         checkbox.getElement()
                 .executeJs("this.focusElement.setAttribute('aria-label', 'Task completed')");
 
         Upload upload = new Upload();
+        // need to get button element from the shadow dom
         upload.getElement()
                 .executeJs("this.shadowRoot.querySelector('[part=\"upload-button\"]').shadowRoot.querySelector('button').setAttribute('aria-label', 'Upload resume')");
 
         Button saveButton = new Button("S");
+        // using shorthand query selector for getting element which id is `button`
         saveButton.getElement()
                 .executeJs("this.$.button.setAttribute('aria-label', 'Save')");
 
