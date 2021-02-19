@@ -1,13 +1,5 @@
 package com.vaadin.recipes.recipe.formtabs;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
@@ -27,11 +19,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Route("form-tabs")
-@Metadata(howdoI = "Divide a form into tabs", description = "A form that is divided into tabs so that each tab shows the validation status of the fields in that tab.", tags = {
-        Tag.JAVA, Tag.FORM })
+@Metadata(
+    howdoI = "Divide a form into tabs",
+    description = "A form that is divided into tabs so that each tab shows the validation status of the fields in that tab.",
+    tags = { Tag.FORM }
+)
 public class FormTabs extends Recipe {
+
     public static class Person {
         private String name;
         private String address;
@@ -87,22 +90,30 @@ public class FormTabs extends Recipe {
         showTab(tabs.getSelectedTab());
 
         BinderValidationStatusHandler<Person> defaultValidationHandler = binder.getValidationStatusHandler();
-        binder.setValidationStatusHandler(statusChange -> {
-            defaultValidationHandler.statusChange(statusChange);
+        binder.setValidationStatusHandler(
+            statusChange -> {
+                defaultValidationHandler.statusChange(statusChange);
 
-            statusChange.getFieldValidationStatuses().forEach(status -> {
-                if (status.isError()) {
-                    fieldsWithErrors.add(status.getField());
-                } else {
-                    fieldsWithErrors.remove(status.getField());
-                }
-            });
+                statusChange
+                    .getFieldValidationStatuses()
+                    .forEach(
+                        status -> {
+                            if (status.isError()) {
+                                fieldsWithErrors.add(status.getField());
+                            } else {
+                                fieldsWithErrors.remove(status.getField());
+                            }
+                        }
+                    );
 
-            Set<Tab> partsWithErrors = fieldsWithErrors.stream().map(field -> findTabContaining((Component) field))
+                Set<Tab> partsWithErrors = fieldsWithErrors
+                    .stream()
+                    .map(field -> findTabContaining((Component) field))
                     .collect(Collectors.toSet());
 
-            parts.keySet().forEach(tab -> setTabErrorIcon(tab, partsWithErrors.contains(tab)));
-        });
+                parts.keySet().forEach(tab -> setTabErrorIcon(tab, partsWithErrors.contains(tab)));
+            }
+        );
     }
 
     private static void setTabErrorIcon(Tab tab, boolean partHasErrors) {
@@ -148,8 +159,12 @@ public class FormTabs extends Recipe {
         if (candidates.contains(component)) {
             return component;
         } else {
-            return findRoot(candidates, component.getParent()
-                    .orElseThrow(() -> new IllegalStateException("Component is not a descendant of any candidate")));
+            return findRoot(
+                candidates,
+                component
+                    .getParent()
+                    .orElseThrow(() -> new IllegalStateException("Component is not a descendant of any candidate"))
+            );
         }
     }
 }

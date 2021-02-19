@@ -95,6 +95,8 @@ export class RecipesListView extends LitElement {
   tags: Tag[] = [
     Tag.JAVA,
     Tag.TYPESCRIPT,
+    Tag.FLOW,
+    Tag.FUSION,
     Tag.KEYBOARD,
     Tag.PUSH,
     Tag.GRID,
@@ -105,6 +107,7 @@ export class RecipesListView extends LitElement {
     Tag.LAYOUT,
     Tag.DOWNLOAD,
     Tag.FORM,
+    Tag.ACCESSIBILITY
   ];
 
   firstUpdated() {
@@ -371,7 +374,7 @@ export class RecipesListView extends LitElement {
                 >
                   ${recipe.description}
                 </p>
-                <div class="recipe-tags">
+                <div class="recipe-tags tag-group">
                   ${recipe.tags?.map(
                     (tag) =>
                       html`<span
@@ -420,13 +423,17 @@ export class RecipesListView extends LitElement {
   logSearch() {
     if (!this.filter) return;
 
-    if (
-      location.hostname === "localhost" ||
-      location.hostname === "127.0.0.1"
-    ) {
-      console.log(`Search event: "${this.filter}". GA disabled locally.`);
+    if ("haas" in window) {
+      //@ts-ignore
+      window.haas.tracker.gtm.triggerGAEvent(
+        "send",
+        "event",
+        "cookbook",
+        "search",
+        this.filter
+      );
     } else {
-      ga("send", "event", "cookbook", "search", this.filter);
+      console.log(`Search event: "${this.filter}". GA disabled locally.`);
     }
   }
 
