@@ -6,6 +6,7 @@ import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import java.time.LocalDate;
 import java.util.List;
 import org.vaadin.artur.exampledata.DataType;
@@ -13,8 +14,9 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-template-renderer-interaction")
 @Metadata(
-    howdoI = "Add the template renderer in grid.",
-    description = "This recipe shows how to use TemplateRenderer in Grid, populate data in the element and handling events."
+    howdoI = "Add template renderer in grid and handle events",
+    description = "This recipe shows how to use TemplateRenderer in Grid, populate data in the element and handle events.",
+    tags = { Tag.GRID, Tag.PERFORMANCE, Tag.TYPE_SCRIPT }
 )
 public class GridTemplateRendererInteraction extends Recipe {
 
