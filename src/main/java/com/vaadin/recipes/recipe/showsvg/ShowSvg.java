@@ -19,9 +19,9 @@ import java.nio.charset.StandardCharsets;
 @Route("show-svg")
 @Metadata(
     howdoI = "Show inline svg from any resource",
-    description = "Recipe creates an element containing inline svg." +
-            "Examples used from here: https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_circle",
-    sourceFiles = { "Svg.java", "recipe/showsvg/showsvg.css" }
+    description = "Recipe creates an element containing inline svg. " +
+            "Example used from here: https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_circle",
+    sourceFiles = { "SvgWrapper.java", "recipe/showsvg/showsvg.css" }
 )
 @CssImport("./recipe/showsvg/showsvg.css")
 public class ShowSvg extends Recipe {
@@ -36,6 +36,7 @@ public class ShowSvg extends Recipe {
                 "  Sorry, your browser does not support inline SVG.  \n" +
                 "</svg> ");
 
+        // class 'styled-svg' overrides stroke and fill, see showsvg.css
         styleSvg.addClassName("styled-svg");
         styleSvg.getStyle().set("stroke", "red").set("fill", "green");
 

@@ -2,6 +2,7 @@ package com.vaadin.recipes.recipe.showsvg;
 
 import com.vaadin.flow.component.html.Div;
 
+// wrapper is needed as element to set svg-code as 'innerHTML'
 public class SvgWrapper extends Div {
 
     public SvgWrapper(String svgContent) {
