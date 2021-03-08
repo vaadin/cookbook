@@ -1,0 +1,4 @@
+.styled-svg > svg > * {
+    fill: inherit;
+    stroke: inherit;
+}
