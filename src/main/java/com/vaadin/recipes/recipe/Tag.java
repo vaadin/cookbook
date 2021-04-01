@@ -17,4 +17,6 @@ public enum Tag {
     LAYOUT,
     DOWNLOAD,
     FORM,
+    ACCESSIBILITY,
+    WAIARIA
 }

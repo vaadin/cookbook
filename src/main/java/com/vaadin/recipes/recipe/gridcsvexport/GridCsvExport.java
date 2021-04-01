@@ -6,7 +6,9 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridSortOrder;
+import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
@@ -20,6 +22,7 @@ import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -63,6 +66,8 @@ public class GridCsvExport extends Recipe {
         }
     }
 
+    private GridListDataView<Person> dataView;
+
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 123);
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
@@ -74,8 +79,9 @@ public class GridCsvExport extends Recipe {
     public GridCsvExport() {
         // Setup a grid with random data
         Grid<Person> grid = new Grid<>(Person.class);
-        grid.setItems(createExamplePersons(100));
-
+        dataView = grid.setItems(createExamplePersons(100));
+        grid.setSelectionMode(SelectionMode.MULTI);
+        
         add(grid);
 
         TextArea resultField = new TextArea();
@@ -92,8 +98,16 @@ public class GridCsvExport extends Recipe {
 
     private void export(Grid<Person> grid, TextArea result) {
         // Fetch all data from the grid in the current sorted order
-        Stream<Person> persons = ((DataProvider<Person, String>) grid.getDataProvider()).fetch(createQuery(grid));
-
+        Stream<Person> persons = null;
+        Set<Person> selection = grid.asMultiSelect().getValue();
+        if (selection != null && selection.size() > 0) {
+            persons = selection.stream();
+        } else {
+            persons = dataView.getItems();
+            // Alternative approach without DataView
+            // persons = ((DataProvider<Person, String>) grid.getDataProvider()).fetch(createQuery(grid));
+        }
+        
         StringWriter output = new StringWriter();
         StatefulBeanToCsv<Person> writer = new StatefulBeanToCsvBuilder<Person>(output).build();
         try {
@@ -105,6 +119,9 @@ public class GridCsvExport extends Recipe {
         result.setValue(output.toString());
     }
 
+    /*
+     * This method is needed if using Vaadin 14, which does not have DataView API yet
+     */
     private Query<Person, String> createQuery(Grid<Person> grid) {
         List<GridSortOrder<Person>> gridSort = grid.getSortOrder();
         List<QuerySortOrder> sortOrder = gridSort
