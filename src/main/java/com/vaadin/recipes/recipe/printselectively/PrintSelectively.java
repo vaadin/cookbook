@@ -13,7 +13,7 @@ import com.vaadin.recipes.recipe.Tag;
 @Metadata(
     howdoI = "Print a subset of components",
     description = "Specify the printable components",
-    tags = { Tag.FLOW }
+    tags = { Tag.FLOW }, sourceFiles = "shared-styles.css"
 )
 @CssImport(value = "./recipe/print-selectively/shared-styles.css")
 public class PrintSelectively extends Recipe {
