@@ -92,7 +92,7 @@ public class MapInGridAndBinder extends Recipe {
             // If editor is open already, lets close it
             if (grid.getEditor().isOpen()
                     && grid.getEditor().getItem().equals(item)) {
-                grid.getEditor().save();
+                grid.getEditor().closeEditor();
             } else {
                 grid.getEditor().editItem(item);
                 // Tip: Find the field from the colum and focus it for better UX
