@@ -9,16 +9,12 @@ import java.util.Objects;
 import java.util.Random;
 
 import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.Binder.Binding;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -99,6 +95,10 @@ public class MapInGridAndBinder extends Recipe {
                 grid.getEditor().save();
             } else {
                 grid.getEditor().editItem(item);
+                // Tip: Find the field from the colum and focus it for better UX
+                IntegerField field = (IntegerField) event.getColumn()
+                        .getEditorComponent();
+                field.focus();
             }
         });
 
