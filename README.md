@@ -92,3 +92,20 @@ export class RecipeNameGoesHere extends Recipe {
 9. Wait for 1-2 days for somebody to react to the PR
 10. Fix any potential comments
 11. :tada:
+
+
+
+## Running the project
+
+In most cases you can run the project using
+```
+mvn
+```
+or by launching the `Application` class from an IDE.
+
+If you want to run the project on a different port than 8080, you can do
+```
+PORT=9090 mvn
+```
+
+

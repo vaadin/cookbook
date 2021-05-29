@@ -14,6 +14,7 @@ import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,7 @@ import org.apache.commons.lang3.RandomStringUtils;
     howdoI = "Show a meaningful message instead of an empty Grid",
     description = "Provide a meaningful message when a Grid would show an empty data set potentially confusing a user with its appearance.",
     sourceFiles = "recipe/gridmessagewhenempty/grid-message-when-empty.css"
+    , tags = { Tag.GRID, Tag.USABILITY }
 )
 @CssImport("./recipe/gridmessagewhenempty/grid-message-when-empty.css")
 public class GridMessageWhenEmpty extends Recipe {
