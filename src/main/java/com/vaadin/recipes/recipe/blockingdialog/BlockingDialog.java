@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 @Metadata(
         howdoI = "Simulate a blocking dialog as is known from Swing programming or Eclipse RCP",
         description = "From classic Java programming, often a dialog is shown blocking the rest of the program execution until a user decision is made. In Vaadin, as you cannot block the application server's http response thread, this has to be simulated blocking the UI, and letting another thread execute the continuation code.",
-        tags = { Tag.JAVA }
+        tags = {Tag.JAVA}
 )
 
 public class BlockingDialog extends Recipe {
@@ -34,34 +34,29 @@ public class BlockingDialog extends Recipe {
 
             CompletableFuture<Boolean> future = new CompletableFuture<>();
             dialog.add(new Span(question));
-            dialog.add(new Button("yes", e -> future.complete(true) ));
-            dialog.add(new Button("no", e -> future.complete(false) ));
-            dialog.setModal(true); // in fact, the extra indirection through a command that is re-executed a number of times would allow for non-modality, too.
-            dialog.setCloseOnEsc(false); // allowing to remove the yes/np buttons would keep the user-code un-executed forever, leaking memory and possibly other resources.
-            dialog.setCloseOnOutsideClick(false); // allowing to remove the yes/no buttons would keep the user-code un-executed forever, leaking memory and possibly other resources.
+            dialog.add(new Button("yes", e -> future.complete(true)));
+            dialog.add(new Button("no", e -> future.complete(false)));
+            dialog.setModal(true);
+            dialog.setCloseOnEsc(false); // allowing to remove the yes/no buttons without having clicked them would keep the user-code un-executed forever, leaking a Thread, its memory and possibly other resources
+            dialog.setCloseOnOutsideClick(false); // same reason as above
 
             // functional identity mapping with a little side effect
             future.thenApply(value -> {
                 dialog.close();
-                synchronized (dialog) {
-                    dialog.notify();
-                }
                 return value;
             });
 
             UI ui = UI.getCurrent(); // in the UI thread, get the UI instance
             new Thread(() -> { // create a worker thread to run the continuation as we will have to release the UI thread
                 UI.setCurrent(ui); // in case the command uses 'UI.getCurrent()' assign the parent thread's UI to this new child thread.
-                synchronized (dialog) {
-                    try {
-                        Boolean answer = future.get(); // wait for the user to complete the 'Boolean' future (that is, make a decision)
-                        ui.access(() -> {
-                            consumer.accept(answer);
-                            ui.push();
-                        });
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Boolean answer = future.get(); // wait for the user to complete the 'Boolean' future (that is, make a decision)
+                    ui.access(() -> { // lock the UI and...
+                        consumer.accept(answer); // ...execute the user's code.
+                        // depending on your use case, you may want to 'ui.push()' here
+                    });
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
                 }
             }).start(); // one may consider instead using a thread pool, see ExecutorService for example.
 
@@ -69,7 +64,7 @@ public class BlockingDialog extends Recipe {
         }
     }
 
-    public BlockingDialog(){
+    public BlockingDialog() {
 
         // Consider the implicit Consumer<Boolean> below as the user code that can in principle be arbitrarily complex.
         // In Swing, it would be all the application code following the user's decision -- the 'continuation'.
@@ -78,8 +73,7 @@ public class BlockingDialog extends Recipe {
         Button openDialog = new Button("Open a seemingly *blocking* dialog", event -> YesNoDecider.yesNo("Would you like to save the world?", answer -> {
             if (answer) {
                 Notification.show("Brilliant. Welcome to the league of super heroes. We will get in touch soon, with your first assignment.");
-            }
-            else {
+            } else {
                 Notification.show("I understand. We all have a dayjob. Never mind.");
             }
         }));
