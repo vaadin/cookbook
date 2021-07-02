@@ -1,6 +1,7 @@
 package com.vaadin.recipes.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vaadin.fusion.Nonnull;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class RecipeInfo {
     @JsonIgnore
     private Class<? extends Recipe> recipeClass;
 
-    @NotBlank
+    @Nonnull
     private String howDoI;
 
     @NotBlank
@@ -28,7 +29,7 @@ public class RecipeInfo {
     private List<String> sourceFiles;
 
     @Nullable
-    private List<Tag> tags;
+    private List<@Nonnull Tag> tags;
 
     public RecipeInfo() {}
 
