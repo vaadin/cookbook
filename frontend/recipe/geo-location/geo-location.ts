@@ -11,10 +11,10 @@ import { nothing } from "lit-html";
 @customElement("geo-location")
 export class GeoLocation extends Recipe {
   @property({ type: Object })
-  private position?: Position;
+  private position?: GeolocationPosition;
 
   @property({ type: Object })
-  private error?: PositionError;
+  private error?: GeolocationPositionError;
 
   private watchId = -1;
 
@@ -87,11 +87,11 @@ export class GeoLocation extends Recipe {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition
     this.watchId = navigator.geolocation.watchPosition(
-      (position: Position) => {
+      (position: GeolocationPosition) => {
         this.position = position;
         this.error = undefined;
       },
-      (error: PositionError) => {
+      (error: GeolocationPositionError) => {
         this.position = undefined;
         this.error = error;
       },
