@@ -1,7 +1,8 @@
 package com.vaadin.recipes.endpoints;
 
-import com.vaadin.flow.server.connect.Endpoint;
-import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import com.vaadin.fusion.Endpoint;
+import com.vaadin.fusion.Nonnull;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import java.io.IOException;
@@ -14,10 +15,12 @@ import org.apache.commons.io.IOUtils;
 @Endpoint
 public class RecipeEndpoint {
 
-    public List<RecipeInfo> list() {
+    @Nonnull
+    public List<@Nonnull RecipeInfo> list() {
         return AllRecipes.getRecipes();
     }
 
+    @Nonnull
     public String getSource(String fullPath) throws IOException {
         InputStream stream = getClass().getClassLoader().getResourceAsStream(fullPath);
         if (stream != null) {

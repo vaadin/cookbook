@@ -14,7 +14,6 @@ import com.vaadin.recipes.recipe.Tag;
 public class TextFieldLabelLeft extends Recipe {
 
     public TextFieldLabelLeft() {
-//        setHeight("100px");
         TextField textFieldLeft = new TextField("Label left");
         TextField textFieldRight = new TextField("Label right");
         TextField textField = new TextField("Label top");

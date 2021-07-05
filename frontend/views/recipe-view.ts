@@ -89,7 +89,7 @@ export class RecipeView extends LitElement {
       headerSlot.classList.add("recipe-view-header");
       this.appendChild(headerSlot);
     }
-    render(headerTemplate(this.recipe), headerSlot);
+    render(headerTemplate(this.recipe), headerSlot as HTMLElement);
 
     let codeSlot = this.querySelector("[slot=code]");
     if (!codeSlot) {
@@ -98,7 +98,7 @@ export class RecipeView extends LitElement {
       codeSlot.classList.add("recipe-view-code", "container-fluid");
       this.appendChild(codeSlot);
     }
-    render(codeTemplate(this.recipe), codeSlot);
+    render(codeTemplate(this.recipe), codeSlot as HTMLElement);
   }
 }
 
