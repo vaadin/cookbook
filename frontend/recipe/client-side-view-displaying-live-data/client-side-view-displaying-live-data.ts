@@ -1,7 +1,7 @@
 import "@vaadin/vaadin-charts/src/vaadin-chart-series";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 import { recipeInfo, Recipe } from "../recipe";
-import { customElement, html, internalProperty } from "lit-element";
+import { customElement, html, state } from "lit-element";
 
 import "@vaadin/vaadin-charts";
 
@@ -17,11 +17,11 @@ import "@vaadin/vaadin-charts";
 })
 @customElement("client-side-view-displaying-live-data")
 export class LiveDataView extends Recipe {
-  @internalProperty()
+  @state()
   private ticker = "FOO";
-  @internalProperty()
+  @state()
   private currentPrice = "";
-  @internalProperty()
+  @state()
   private priceHistory: number[][] = [];
 
   render() {

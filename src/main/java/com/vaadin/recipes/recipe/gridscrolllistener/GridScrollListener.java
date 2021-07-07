@@ -12,12 +12,13 @@ import elemental.json.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("grid-scroll-listener")
-@Metadata(
-        howdoI = "Listen grid scroll events",
-        description = "Code example for showing how to add a scroll listener to a Grid. Server is notified with grid index and new scrollTop value.",
-        tags = {Tag.GRID}
-)
+// Fixme: This recipe depends on internal outerscroller API that has changed and does not work
+// @Route("grid-scroll-listener")
+// @Metadata(
+//         howdoI = "Listen grid scroll events",
+//         description = "Code example for showing how to add a scroll listener to a Grid. Server is notified with grid index and new scrollTop value.",
+//         tags = {Tag.GRID}
+// )
 public class GridScrollListener extends Recipe {
 
     private final Grid<Patient> grid;
