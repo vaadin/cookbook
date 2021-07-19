@@ -1,0 +1,53 @@
+:host([theme~="weekend-highlight"]) [aria-label~="Saturday"] {
+	background: var(--lumo-contrast-5pct);
+    color: var(--lumo-secondary-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label~="Sunday"] { 
+	background: var(--lumo-contrast-5pct);
+    color: var(--lumo-secondary-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="1 January"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="6 January"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="1 May"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="19 June"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="20 June"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="14 February"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="6 December"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="24 December"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="25 December"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="26 December"] { 
+	color: var(--lumo-error-text-color);
+}
+
+:host([theme~="weekend-highlight"]) [aria-label^="31 December"] { 
+	color: var(--lumo-error-text-color);
+}

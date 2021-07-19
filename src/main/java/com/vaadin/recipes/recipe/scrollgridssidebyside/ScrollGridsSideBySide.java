@@ -11,13 +11,14 @@ import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("scroll-grids-side-by-side")
-@Metadata(
-        howdoI = "Scroll two Grids synchronously",
-        description = "Code example for scrolling two grids synchronously. The use case could be side by side comparison of grids.",
-        sourceFiles = {"recipe/scrollgridssidebyside/grid-sync.js"},
-        tags = {Tag.GRID}
-)
+// Fixme: This recipe depends on internal outerscroller API that has changed and does not work
+// @Route("scroll-grids-side-by-side")
+// @Metadata(
+//         howdoI = "Scroll two Grids synchronously",
+//         description = "Code example for scrolling two grids synchronously. The use case could be side by side comparison of grids.",
+//         sourceFiles = {"recipe/scrollgridssidebyside/grid-sync.js"},
+//         tags = {Tag.GRID}
+// )
 @JsModule("./recipe/scrollgridssidebyside/grid-sync.js")
 public class ScrollGridsSideBySide extends Recipe {
 
