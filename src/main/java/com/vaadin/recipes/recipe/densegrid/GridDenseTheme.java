@@ -15,6 +15,8 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 @Metadata(
     howdoI = "Show a Vaadin Grid with compact row styling",
     description = "Use CSS to create a Grid with compact rows to show dense data. ",
+    sourceFiles = {
+        "recipe/densegrid/densegrid.css" }
     tags = { Tag.GRID, Tag.THEME }
 )
 @CssImport(themeFor = "vaadin-grid", value = "recipe/densegrid/densegrid.css")
