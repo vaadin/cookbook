@@ -32,7 +32,7 @@ public class CustomLayout extends Html {
         // Ensure the element is removed from the DOM when it's detached
         child.addDetachListener(detachEvent -> {
             detachEvent.unregisterListener();
-            getElement().executeJs("this.querySelector('[location=\"'+$0+'\"]').lastChild.remove()", location);
+            getElement().executeJs("this.querySelector && this.querySelector('[location=\"'+$0+'\"]').lastChild.remove()", location);
 
             // Also clear the bookkeeping
             locations.remove(location, child);
