@@ -70,6 +70,7 @@ public class GridArrowSelection extends Recipe {
     }
 
     public static class Person {
+        
         private String firstName, lastName;
         private LocalDate birthDate;
 
