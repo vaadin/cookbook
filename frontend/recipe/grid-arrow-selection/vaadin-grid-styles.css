@@ -1,0 +1,5 @@
+/* hide the focus ring that would normally be displayed around the active cell
+due to keyboard navigation as it results in a flickery look and feel*/
+:host([navigating]) [part~="cell"]:focus::before {
+  content: none;
+}
