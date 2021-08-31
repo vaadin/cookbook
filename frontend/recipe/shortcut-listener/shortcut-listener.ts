@@ -1,5 +1,5 @@
 import "@vaadin/vaadin-text-field";
-import { css, customElement, html, internalProperty } from "lit-element";
+import { css, customElement, html, state } from "lit-element";
 import { Recipe, recipeInfo } from "../recipe";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 
@@ -12,11 +12,11 @@ import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 })
 @customElement("shortcut-listener")
 export class ShortcutListener extends Recipe {
-  @internalProperty()
+  @state()
   private value = "";
-  @internalProperty()
+  @state()
   private values: string[] = [];
-  @internalProperty()
+  @state()
   private keylog: string[] = [];
 
   static styles = css`

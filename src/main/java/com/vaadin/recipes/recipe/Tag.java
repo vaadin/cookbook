@@ -18,5 +18,6 @@ public enum Tag {
     DOWNLOAD,
     FORM,
     ACCESSIBILITY,
-    WAIARIA
+    WAIARIA,
+    BINDER
 }
