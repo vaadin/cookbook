@@ -149,7 +149,8 @@ export class CodeViewer extends LitElement {
     return code
       .substring(code.indexOf("import"))
       .replace(code.substring(code.indexOf("@Metadata"), code.indexOf("public class")), "")
-      .replace("extends Recipe", "extends VerticalLayout");
+      .replace("extends Recipe", "extends VerticalLayout")
+      .replace("import com.vaadin.recipes.recipe.Recipe;", "");
   }
 
   forceRefresh() {
