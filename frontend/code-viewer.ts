@@ -105,7 +105,7 @@ export class CodeViewer extends LitElement {
           removes the markers lit-html uses to track slots */
       unsafeHTML(
         `<pre><code class="language-${this.language}">${this.escapeHtml(
-          this.contents
+          this.removeMetaInfoFromCode(this.contents)
         )}
         </code></pre>`
       )}
@@ -143,6 +143,13 @@ export class CodeViewer extends LitElement {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  removeMetaInfoFromCode(code: string) {
+    return code
+      .substring(code.indexOf("import"))
+      .replace(code.substring(code.indexOf("@Metadata"), code.indexOf("public class")), "")
+      .replace("extends Recipe", "extends VerticalLayout");
   }
 
   forceRefresh() {
