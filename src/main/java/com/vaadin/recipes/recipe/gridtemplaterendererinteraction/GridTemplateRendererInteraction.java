@@ -9,6 +9,7 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,8 +35,7 @@ public class GridTemplateRendererInteraction extends Recipe {
         generator.setData(Person::setEmail, DataType.EMAIL);
         generator.setData(Person::setBirthday, DataType.DATE_OF_BIRTH);
         List<Person> personList = generator.create(100);
-        disabledMap = personList.stream()
-                .collect(Collectors.toMap(person -> person.getId(), person -> Boolean.FALSE));
+        disabledMap = new HashMap<>();
 
         Grid<Person> personGrid = new Grid<>();
 
@@ -61,7 +61,7 @@ public class GridTemplateRendererInteraction extends Recipe {
                                     String.format("button-example-%d", person.getId())
                                 );
                             disabledMap.put(person.getId(), Boolean.TRUE);
-                            
+
                             UI.getCurrent().access(() -> personGrid.getDataProvider().refreshItem(person));
                         }
                     )
