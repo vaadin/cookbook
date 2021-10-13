@@ -1,5 +1,6 @@
 package com.vaadin.recipes.recipe.gridtemplaterendererinteraction;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
@@ -8,7 +9,11 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
@@ -20,6 +25,8 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 )
 public class GridTemplateRendererInteraction extends Recipe {
 
+    private final Map<Long, Boolean> disabledMap ;
+
     public GridTemplateRendererInteraction() {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 423524l);
 
@@ -28,6 +35,7 @@ public class GridTemplateRendererInteraction extends Recipe {
         generator.setData(Person::setEmail, DataType.EMAIL);
         generator.setData(Person::setBirthday, DataType.DATE_OF_BIRTH);
         List<Person> personList = generator.create(100);
+        disabledMap = new HashMap<>();
 
         Grid<Person> personGrid = new Grid<>();
 
@@ -39,18 +47,17 @@ public class GridTemplateRendererInteraction extends Recipe {
             .addColumn(
                 TemplateRenderer
                     .<Person>of(
-                        "<vaadin-button id='button-example-[[item.id]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
+                        "<vaadin-button disabled='[[item.disabled]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
                     )
-                    .withProperty("id", Person::getId)
+                    .withProperty("disabled", person -> disabledMap.get(person.getId()))
                     .withEventHandler(
                         "onClick",
                         person -> {
                             Notification.show(String.format("Clicked on %s", person.getName()));
-                            getElement()
-                                .executeJs(
-                                    "this.getRootNode().getElementById($0).setAttribute('disabled','disabled')",
-                                    String.format("button-example-%d", person.getId())
-                                );
+
+                            disabledMap.put(person.getId(), Boolean.TRUE);
+
+                            personGrid.getDataProvider().refreshItem(person);
                         }
                     )
             )
