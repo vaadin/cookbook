@@ -62,7 +62,7 @@ public class GridTemplateRendererInteraction extends Recipe {
                                 );
                             disabledMap.put(person.getId(), Boolean.TRUE);
 
-                            UI.getCurrent().access(() -> personGrid.getDataProvider().refreshItem(person));
+                            personGrid.getDataProvider().refreshItem(person);
                         }
                     )
             )
