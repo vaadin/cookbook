@@ -47,19 +47,14 @@ public class GridTemplateRendererInteraction extends Recipe {
             .addColumn(
                 TemplateRenderer
                     .<Person>of(
-                        "<vaadin-button id='button-example-[[item.id]]' disabled='[[item.disabled]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
+                        "<vaadin-button disabled='[[item.disabled]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
                     )
-                    .withProperty("id", Person::getId)
                     .withProperty("disabled", person -> disabledMap.get(person.getId()))
                     .withEventHandler(
                         "onClick",
                         person -> {
                             Notification.show(String.format("Clicked on %s", person.getName()));
-                            getElement()
-                                .executeJs(
-                                    "this.getRootNode().getElementById($0).setAttribute('disabled','disabled')",
-                                    String.format("button-example-%d", person.getId())
-                                );
+
                             disabledMap.put(person.getId(), Boolean.TRUE);
 
                             personGrid.getDataProvider().refreshItem(person);
