@@ -20,38 +20,42 @@
     <link
       rel="preload"
       as="style"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/icons/css/line-awesome.min.css"
+      href="https://cdn.vaadin.com/website/antlers/v2/assets/icons/css/line-awesome.min.css"
     />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap"
     />
     <link
       rel="preload"
       as="style"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/haas-bundle.css"
+      href="https://cdn.vaadin.com/website/hubspot-theme/v2/haas/css/haas.css"
     />
     <link
       rel="preload"
       as="style"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/2-components/fields.css"
+      href="https://cdn.vaadin.com/website/antlers/v2/assets/css/2-components/fields.css"
     />
     <link
       rel="stylesheet"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/icons/css/line-awesome.min.css"
+      href="https://cdn.vaadin.com/website/antlers/v2/assets/icons/css/line-awesome.min.css"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap"
+      href="https://cdn.vaadin.com/website/antlers/v2/assets/css/website-bundle.css"
     />
     <link
       rel="stylesheet"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/haas-bundle.css"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap"
     />
     <link
       rel="stylesheet"
-      href="https://cdn.vaadin.com/vaadin-design-system/latest/assets/css/2-components/fields.css"
+      href="https://cdn.vaadin.com/website/hubspot-theme/v2/haas/css/haas.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.vaadin.com/website/antlers/v2/assets/css/2-components/fields.css"
     />
 
     <script>
@@ -63,7 +67,7 @@
         const s = document.createElement("script");
         s.type = "text/javascript";
         s.src =
-          "https://vaadin.com/vaadincom/haas-service/haas-loader.js?linkBaseHref=https://vaadin.com";
+          "https://vaadin.com/vaadincom/haas-service/v2/haas-loader.js?linkBaseHref=https://vaadin.com";
         s.defer = true;
         document.head.appendChild(s);
       }
@@ -79,11 +83,12 @@
         margin: 0;
       }
 
-      #haas-container {
-        background-color: var(--color-charcoal-darker);
-        height: var(--mainViewMenuHeight);
-        position: relative;
+      .haas-main-container {
         z-index: 9999;
+      }
+
+      .haas-wrapper {
+        background-color: var(--color-white);
       }
 
       [hidden] {
