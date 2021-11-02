@@ -151,8 +151,8 @@ export class CodeViewer extends LitElement {
     code = this.removeMetadataTag(code);
     return code
       .substring(code.indexOf("import"))
-        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Recipe;\r\n"), "")
-        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Metadata;\r\n"), "")
+        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Recipe;"), "")
+        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Metadata;"), "")
         .replace("extends Recipe", "extends VerticalLayout");
       ;
   }
@@ -173,8 +173,7 @@ export class CodeViewer extends LitElement {
         }
       }
     }
-
-    return code.replace(code.slice(startIdx, endIdx) + "\r\n", "");
+    return code.replace(code.slice(startIdx, endIdx), "");
   }
 
   forceRefresh() {
