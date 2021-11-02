@@ -17,6 +17,8 @@ import com.vaadin.recipes.recipe.Recipe;
 @CssImport(themeFor = "vaadin-grid", value = "./recipe/treegridsubtreehighlight/treegrid-subtree-highlight.css")
 public class TreeGridSubTreeHighlight extends Recipe {
 
+    private TreeGrid<Department> grid;
+
     public TreeGridSubTreeHighlight() {
         this.setSizeFull();
         createBasicTreeGridUsage();
@@ -25,7 +27,7 @@ public class TreeGridSubTreeHighlight extends Recipe {
     private void createBasicTreeGridUsage() {
         DepartmentData departmentData = new DepartmentData();
 
-        TreeGrid<Department> grid = new TreeGrid<>();
+        grid = new TreeGrid<>();
 
         grid.setItems(departmentData.getRootDepartments(), departmentData::getChildDepartments);
         grid.addHierarchyColumn(Department::getName).setHeader("Department Name");
@@ -35,7 +37,8 @@ public class TreeGridSubTreeHighlight extends Recipe {
             .asSingleSelect()
             .addValueChangeListener(
                 event -> {
-                    grid.getDataProvider().refreshAll();
+                    refreshChildItems(event.getOldValue());
+                    refreshChildItems(event.getValue());
                 }
             );
 
@@ -49,7 +52,15 @@ public class TreeGridSubTreeHighlight extends Recipe {
                 } else return null;
             }
         );
-        grid.setHeightByRows(true);
+        grid.setAllRowsVisible(true);
         add(grid);
+    }
+
+    private void refreshChildItems(Department department) {
+        if (department != null) {
+            grid.getTreeData().getChildren(department).forEach(child -> {
+                grid.getDataProvider().refreshItem(child, false);
+            });
+         }
     }
 }
