@@ -105,7 +105,7 @@ export class CodeViewer extends LitElement {
           removes the markers lit-html uses to track slots */
       unsafeHTML(
         `<pre><code class="language-${this.language}">${this.escapeHtml(
-          this.contents
+          this.removeMetaInfoFromCode(this.contents)
         )}
         </code></pre>`
       )}
@@ -143,6 +143,38 @@ export class CodeViewer extends LitElement {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  removeMetaInfoFromCode(code: string) {
+    if (!code)
+      return '';
+    code = this.removeMetadataTag(code);
+    return code
+      .substring(code.indexOf("import"))
+        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Recipe;"), "")
+        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Metadata;"), "")
+        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Tag;"), "")
+        .replace("extends Recipe", "extends VerticalLayout");
+      ;
+  }
+
+  removeMetadataTag(code: string): string {
+    const metaLen = "@Metadata".length;
+    const startIdx = code.indexOf("@Metadata");
+    let endIdx = -1;
+    let openBrackets = 0;
+    for (let i = startIdx + metaLen; i < code.length; i++) {
+      if(code.charAt(i)=='(') {
+        ++openBrackets;
+      } else if (code.charAt(i)==')') {
+        --openBrackets;
+        if (openBrackets == 0) {
+          endIdx = i + 1;
+          break;
+        }
+      }
+    }
+    return code.replace(code.slice(startIdx, endIdx), "");
   }
 
   forceRefresh() {
