@@ -148,15 +148,19 @@ export class CodeViewer extends LitElement {
   removeMetaInfoFromCode(code: string) {
     if (!code)
       return '';
+
+    code = code.substring(code.indexOf("import")); // remove package
+    code = code.replace("extends Recipe", "extends VerticalLayout");
     code = this.removeMetadataTag(code);
-    return code
-      .substring(code.indexOf("import"))
-        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Recipe;"), "")
-        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Metadata;"), "")
-        .replace(new RegExp("import.*com.vaadin.recipes.recipe.Tag;"), "")
-        .replace("extends Recipe", "extends VerticalLayout");
-      ;
+    code = this.removeMetaImports(code);
+    return code;
   }
+
+  removeMetaImports(code: string): string {
+    return code.split('\n').filter(function(line){
+      return line.indexOf("import com.vaadin.recipes.recipe") == -1;}).join('\n');
+  }
+
 
   removeMetadataTag(code: string): string {
     const metaLen = "@Metadata".length;
@@ -169,7 +173,7 @@ export class CodeViewer extends LitElement {
       } else if (code.charAt(i)==')') {
         --openBrackets;
         if (openBrackets == 0) {
-          endIdx = i + 1;
+          endIdx = code.substring(i).indexOf("\n") + i + 1;
           break;
         }
       }
