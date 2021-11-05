@@ -15,13 +15,10 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("grid-pro-conditional-edit")
-@Metadata(
-    howdoI = "Enable conditional editing of the cells in GridPro and style compact editor field.",
-    description = "It is a common requirement to have conditional editing of cells based of various conditions. You may for example have a property in the bean depending on which it makes sense to not to allow input of the other. Say I have example below of date being needed only if subscribed is true. Thus I want to disable or hide the editor component. Alternative cases could be access right related conditions.",
-    tags = { Tag.GRID }
-)
+@Metadata(howdoI = "Enable conditional editing of the cells in GridPro and style compact editor field.", description = "It is a common requirement to have conditional editing of cells based of various conditions. You may for example have a property in the bean depending on which it makes sense to not to allow input of the other. Say I have example below of date being needed only if subscribed is true. Thus I want to disable or hide the editor component. Alternative cases could be access right related conditions.", tags = {
+        Tag.GRID })
 // Import empty css, the actual styles are coming from GridPro via include
-@CssImport(value="./recipe/gridproconditionaledit/gridproconditionaledit.css", themeFor="vaadin-email-field", include="lumo-grid-pro-editor")
+@CssImport(value = "./recipe/gridproconditionaledit/gridproconditionaledit.css", themeFor = "vaadin-email-field", include = "lumo-grid-pro-editor")
 public class GridProConditionalEdit extends Recipe {
     private GridPro<Person> grid = new GridPro<>();
 
@@ -36,6 +33,7 @@ public class GridProConditionalEdit extends Recipe {
     public GridProConditionalEdit() {
         // Setup a grid with random data
         grid.setItems(createExamplePersons(100));
+        grid.setEditOnClick(true);
         grid.setSelectionMode(SelectionMode.NONE);
 
         grid.addEditColumn(Person::getFirstName)
@@ -48,7 +46,8 @@ public class GridProConditionalEdit extends Recipe {
 
         grid.addEditColumn(Person::isSubscriber)
                 .checkbox((item, newValue) -> item.setSubscriber(newValue))
-                .setResizable(true).setHeader("Subscriber");
+                .setResizable(true).setHeader("Subscriber")
+                .setKey("subscriber");
 
         // Use custom editor
         EmailField emailField = new EmailField();
