@@ -8,11 +8,13 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.splitlayout.SplitLayoutVariant;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
 
 @Route("absolute-layout")
 @Metadata(
     howdoI = "Create AbsoluteLayout that is quite compatible with Vaadin 8",
     description = "Create AbsoluteLayout that is quite compatible with similary named component in Vaadin 8.",
+    tags = { Tag.LAYOUT },
     sourceFiles = { "AbsoluteLayout.java" }
 )
 public class AbsoluteLayoutView extends Recipe {
