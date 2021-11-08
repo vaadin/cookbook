@@ -149,7 +149,7 @@ export class CodeViewer extends LitElement {
     if (!code)
       return '';
 
-    code = code.substring(code.indexOf("import")); // remove package
+    code = code.substring(code.search(/^import/gm)); // remove package
     code = code.replace("extends Recipe", "extends VerticalLayout");
     code = this.removeMetadataTag(code);
     code = this.removeMetaImports(code);
