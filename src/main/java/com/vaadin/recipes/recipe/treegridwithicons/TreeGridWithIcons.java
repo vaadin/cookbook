@@ -31,7 +31,7 @@ public class TreeGridWithIcons extends Recipe {
 		treegrid.addColumn(
 				TemplateRenderer.<FileItem> of("<vaadin-grid-tree-toggle "
 						+ "leaf='[[item.leaf]]' expanded='{{expanded}}' level='[[level]]'>"
-						+ "<iron-icon icon='[[item.icon]]'></iron-icon>&nbsp;&nbsp;"
+						+ "<vaadin-icon icon='[[item.icon]]'></vaadin-icon>&nbsp;&nbsp;"
 						+ "[[item.name]]"
 						+ "</vaadin-grid-tree-toggle>")
 						.withProperty("leaf", item -> !treegrid.getDataCommunicator().hasChildren(item))
