@@ -118,7 +118,7 @@
     "@vaadin/virtual-list": "22.0.0",
     "change-case": "^4.1.1",
     "construct-style-sheets-polyfill": "3.0.4",
-    "date-fns": "2.23.0",
+    "date-fns": "2.16.0",
     "leaflet": "1.6.0",
     "lit": "2.0.0",
     "ts-debounce": "^2.0.1"
@@ -258,7 +258,7 @@
       "@vaadin/virtual-list": "22.0.0",
       "@webcomponents/webcomponentsjs": "^2.2.10",
       "construct-style-sheets-polyfill": "3.0.4",
-      "date-fns": "2.23.0",
+      "date-fns": "2.16.0",
       "lit": "2.0.0"
     },
     "devDependencies": {
@@ -283,6 +283,6 @@
       "workbox-precaching": "6.2.0",
       "workbox-webpack-plugin": "6.2.0"
     },
-    "hash": "a163ae8248e0ec0bdc58042f430f7ea8fd86f72699853c2ba4255610486a738a"
+    "hash": "96614e0e90b9f48be713f20785bd0b13962aaf18f8e596c52e654bf5541a3435"
   }
 }

@@ -1,55 +1,13 @@
 import "@vaadin/tabs";
+import "@vaadin/text-area";
 import { html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html";
-import { getSimpleName } from "./util";
 import { getSource } from "./generated/RecipeEndpoint";
-import "@vaadin/text-area";
-import {
-  registerStyles,
-  css,
-} from "@vaadin/vaadin-themable-mixin/register-styles";
+import prismCss from "./prism.css";
 //@ts-ignore
 import * as Prism from "./prism.js";
-import prismCss from "./prism.css";
-
-registerStyles(
-  "vaadin-tabs",
-  css`
-    :host([theme~="cookbook-code"]) {
-      box-shadow: inset 0 -1px 0 0 var(--color-graphite-darker);
-      color: var(--color-graphite-lighter);
-    }
-
-    [part="forward-button"],
-    [part="back-button"] {
-      color: var(--color-graphite);
-    }
-  `
-);
-
-registerStyles(
-  "vaadin-tab",
-  css`
-    :host([theme~="cookbook-code"]) {
-      color: var(--color-stainless);
-    }
-
-    :host([theme~="cookbook-code"][selected]),
-    :host([theme~="cookbook-code"][active]) {
-      color: var(--color-alloy-lighter);
-    }
-
-    :host([theme~="cookbook-code"][selected]) {
-      border-bottom: 2px solid var(--color-water);
-    }
-
-    :host([theme~="cookbook-code"][selected])::before,
-    :host([theme~="cookbook-code"][selected])::after {
-      display: none !important;
-    }
-  `
-);
+import { getSimpleName } from "./util";
 
 @customElement("code-viewer")
 export class CodeViewer extends LitElement {

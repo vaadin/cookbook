@@ -103,7 +103,7 @@ dependencies:
   '@vaadin/virtual-list': 22.0.0
   change-case: 4.1.2
   construct-style-sheets-polyfill: 3.0.4
-  date-fns: 2.23.0
+  date-fns: 2.16.0
   leaflet: 1.6.0
   lit: 2.0.0
   ts-debounce: 2.3.0
@@ -4535,12 +4535,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
-  /date-fns/2.23.0:
+  /date-fns/2.16.0:
     dev: false
     engines:
       node: '>=0.11'
     resolution:
-      integrity: sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA==
+      integrity: sha512-DWTRyfOA85sZ4IiXPHhiRIOs3fW5U6Msrp+gElXARa6EpoQTXPyHQmh7hr+ssw2nx9FtOQWnAMJKgL5vaJqILw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -9562,7 +9562,7 @@ specifiers:
   compression-webpack-plugin: 4.0.1
   construct-style-sheets-polyfill: 3.0.4
   css-loader: 4.2.1
-  date-fns: 2.23.0
+  date-fns: 2.16.0
   esbuild-loader: 2.15.1
   extra-watch-webpack-plugin: 1.0.3
   extract-loader: 5.1.0

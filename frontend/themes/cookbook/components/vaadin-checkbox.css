@@ -1,0 +1,10 @@
+:host([theme~="cookbook"]) label {
+  display: flex;
+}
+:host([theme~="cookbook"]) [part="label"]:not([empty]) {
+  flex: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-right: 0;
+}
