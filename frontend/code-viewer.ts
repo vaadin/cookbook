@@ -1,15 +1,10 @@
-import "@vaadin/vaadin-tabs";
-import {
-  customElement,
-  html,
-  LitElement,
-  property,
-  unsafeCSS,
-} from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import "@vaadin/tabs";
+import { html, LitElement, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { unsafeHTML } from "lit/directives/unsafe-html";
 import { getSimpleName } from "./util";
 import { getSource } from "./generated/RecipeEndpoint";
-import "@vaadin/vaadin-text-field/vaadin-text-area";
+import "@vaadin/text-area";
 import {
   registerStyles,
   css,

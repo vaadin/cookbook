@@ -1,7 +1,8 @@
-import "@vaadin/vaadin-text-field";
-import { css, customElement, html, state } from "lit-element";
-import { Recipe, recipeInfo } from "../recipe";
+import "@vaadin/text-field";
+import { css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
+import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
   url: "shortcut-listener",

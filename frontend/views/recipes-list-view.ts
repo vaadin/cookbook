@@ -1,16 +1,17 @@
-import "@vaadin/vaadin-checkbox";
-import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
-import "@vaadin/vaadin-details";
-import { DetailsElement } from "@vaadin/vaadin-details";
-import "@vaadin/vaadin-text-field";
+import "@vaadin/checkbox";
+import "@vaadin/checkbox-group";
+import "@vaadin/details";
+import "@vaadin/text-field";
 import {
   css,
   registerStyles,
 } from "@vaadin/vaadin-themable-mixin/register-styles";
+import { Details } from "@vaadin/details";
 import { capitalCase } from "change-case";
+import { html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat";
 import { debounce } from "ts-debounce";
-import { customElement, html, LitElement, property } from "lit-element";
-import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 import Tag from "../generated/com/vaadin/recipes/recipe/Tag";
@@ -111,7 +112,7 @@ export class RecipesListView extends LitElement {
   ];
 
   firstUpdated() {
-    const details = this.querySelector(".tag-filter") as DetailsElement;
+    const details = this.querySelector(".tag-filter") as Details;
     details.opened = window.matchMedia("(min-width: 600px)").matches;
   }
 

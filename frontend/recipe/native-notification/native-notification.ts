@@ -1,9 +1,9 @@
-import { css, customElement, html, property } from "lit-element";
-import { nothing } from "lit-html";
+import "@vaadin/button";
+import "@vaadin/text-area";
+import "@vaadin/text-field";
+import { css, html, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { Recipe, recipeInfo } from "../recipe";
-import "@vaadin/vaadin-text-field/vaadin-text-field";
-import "@vaadin/vaadin-text-field/vaadin-text-area";
-import "@vaadin/vaadin-button/vaadin-button";
 
 @recipeInfo({
   url: "native-notification",

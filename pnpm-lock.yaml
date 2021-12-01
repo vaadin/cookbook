@@ -1306,12 +1306,12 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-PJgg/k3SdLsGb3hhisFvtLOw5ts113klrpLuIPtCJIU+BB24fqq6lf8RWqKJEjzqXR9AEH1rIb5XTqwBHB+kQg==
-  /@discoveryjs/json-ext/0.5.5:
+  /@discoveryjs/json-ext/0.5.6:
     dev: true
     engines:
       node: '>=10.0.0'
     resolution:
-      integrity: sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==
+      integrity: sha512-ws57AidsDvREKrZKYffXddNkyaF14iHNHm8VQnZH6t99E8gczjNN0GpvcGny0imC80yQ0tHz1xVUKk/KFQSUyA==
   /@gar/promisify/1.1.2:
     dev: true
     resolution:
@@ -3860,7 +3860,7 @@ packages:
   /browserslist/3.2.8:
     dependencies:
       caniuse-lite: 1.0.30001283
-      electron-to-chromium: 1.4.5
+      electron-to-chromium: 1.4.7
     dev: true
     hasBin: true
     resolution:
@@ -3868,7 +3868,7 @@ packages:
   /browserslist/4.18.1:
     dependencies:
       caniuse-lite: 1.0.30001283
-      electron-to-chromium: 1.4.5
+      electron-to-chromium: 1.4.7
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -4512,7 +4512,7 @@ packages:
     dependencies:
       boolbase: 1.0.0
       css-what: 5.1.0
-      domhandler: 4.2.2
+      domhandler: 4.3.0
       domutils: 2.8.0
       nth-check: 2.0.1
     dev: true
@@ -4726,7 +4726,7 @@ packages:
   /dom-serializer/1.3.2:
     dependencies:
       domelementtype: 2.2.0
-      domhandler: 4.2.2
+      domhandler: 4.3.0
       entities: 2.2.0
     dev: true
     resolution:
@@ -4742,19 +4742,19 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==
-  /domhandler/4.2.2:
+  /domhandler/4.3.0:
     dependencies:
       domelementtype: 2.2.0
     dev: true
     engines:
       node: '>= 4'
     resolution:
-      integrity: sha512-PzE9aBMsdZO8TK4BnuJwH0QT41wgMbRzuZrHUcpYncEjmQazq8QEaBWgLG7ZyC/DAZKEgglpIA6j4Qn/HmxS3w==
+      integrity: sha512-fC0aXNQXqKSFTr2wDNZDhsEYjCiYsDWl3D01kwt25hm1YIPyDGHvvi3rw+PLqHAl/m71MaiF7d5zvBr0p5UB2g==
   /domutils/2.8.0:
     dependencies:
       dom-serializer: 1.3.2
       domelementtype: 2.2.0
-      domhandler: 4.2.2
+      domhandler: 4.3.0
     dev: true
     resolution:
       integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==
@@ -4786,10 +4786,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-9lt9Zse4hPucPkoP7FHDF0LQAlGyF9JVpnClFLFH3aSSbxmyoqINRpp/9wePWJTUl4KOQwRL72Iw3InHPDkoGw==
-  /electron-to-chromium/1.4.5:
+  /electron-to-chromium/1.4.7:
     dev: true
     resolution:
-      integrity: sha512-YKaB+t8ul5crdh6OeqT2qXdxJGI0fAYb6/X8pDIyye+c3a7ndOCk5gVeKX+ABwivCGNS56vOAif3TN0qJMpEHw==
+      integrity: sha512-UPy2MsQw1OdcbxR7fvwWZH/rXcv+V26+uvQVHx0fGa1kqRfydtfOw+NMGAvZJ63hyaH4aEBxbhSEtqbpliSNWA==
   /elliptic/6.5.4:
     dependencies:
       bn.js: 4.12.0
@@ -5687,7 +5687,7 @@ packages:
   /htmlparser2/6.1.0:
     dependencies:
       domelementtype: 2.2.0
-      domhandler: 4.2.2
+      domhandler: 4.3.0
       domutils: 2.8.0
       entities: 2.2.0
     dev: true
@@ -8989,7 +8989,7 @@ packages:
       integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
   /webpack-cli/4.9.0_714d72df2bebb3ac089d7453aabd5d57:
     dependencies:
-      '@discoveryjs/json-ext': 0.5.5
+      '@discoveryjs/json-ext': 0.5.6
       '@webpack-cli/configtest': 1.1.0_webpack-cli@4.9.0+webpack@4.46.0
       '@webpack-cli/info': 1.4.0_webpack-cli@4.9.0
       '@webpack-cli/serve': 1.6.0_887d3ed7572c86141f71d80cd13e843d
