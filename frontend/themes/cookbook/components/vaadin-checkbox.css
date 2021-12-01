@@ -1,7 +1,7 @@
-:host([theme~="cookbook"]) label {
+:host([theme~="cookbook"]) .vaadin-checkbox-container {
   display: flex;
 }
-:host([theme~="cookbook"]) [part="label"]:not([empty]) {
+:host([theme~="cookbook"]) ::slotted(label:not([empty])) {
   flex: auto;
   display: flex;
   align-items: flex-start;
