@@ -84,6 +84,11 @@ export class RecipesListView extends LitElement {
           flex: auto;
         }
 
+        .recipes-list-view-header-search input {
+          border: 0 !important;
+          background: transparent !important;
+        }
+
         .recipes-list-view-header-search i.las {
           font-size: 1.25em;
           color: var(--color-graphite);
