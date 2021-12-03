@@ -1,13 +1,15 @@
 :host([theme~="dense"]) [part~="cell"] {
-    min-height: var(--lumo-size-xxs);
+  min-height: var(--lumo-size-xxs);
 }
-:host([theme~="dense"])  {
-    font-size: var(--lumo-font-size-xs);
+:host([theme~="dense"]) {
+  font-size: var(--lumo-font-size-xs);
 }
 :host([theme~="dense"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-    padding: 1px var(--lumo-space-s);
+  padding: 1px var(--lumo-space-s);
 }
-:host([theme~="dense"]:not([theme~="no-row-borders"])) [part="row"][first] [part~="cell"]:not([part~="details-cell"]) {
-     border-top: 0;
-     min-height: calc(var(--lumo-size-xxs) - var(--_lumo-grid-border-width));
- }
+:host([theme~="dense"]:not([theme~="no-row-borders"]))
+  [part="row"][first]
+  [part~="cell"]:not([part~="details-cell"]) {
+  border-top: 0;
+  min-height: calc(var(--lumo-size-xxs) - var(--_lumo-grid-border-width));
+}

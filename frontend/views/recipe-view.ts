@@ -1,5 +1,6 @@
-import { css, customElement, html, LitElement, property } from "lit-element";
-import { render, TemplateResult } from "lit-html";
+import { css, html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { render, TemplateResult } from "lit";
 import { recipes, router } from "..";
 import "../code-viewer";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";

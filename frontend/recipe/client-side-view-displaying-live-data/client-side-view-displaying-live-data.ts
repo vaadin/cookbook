@@ -1,9 +1,9 @@
-import "@vaadin/vaadin-charts/src/vaadin-chart-series";
+import "@vaadin/charts";
+import "@vaadin/charts/src/vaadin-chart-series";
+import { html } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
-import { recipeInfo, Recipe } from "../recipe";
-import { customElement, html, state } from "lit-element";
-
-import "@vaadin/vaadin-charts";
+import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
   url: "client-side-view-displaying-live-data",

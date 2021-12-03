@@ -66,7 +66,8 @@ mkdir frontend/recipe/recipe-name-goes-here/
 4. Create a TS file in the folder with the following
 
 ```
-import { customElement, html } from "lit-element";
+import { html } from "lit";
+import { customElement } from "lit/decorators.js";
 import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
@@ -93,19 +94,18 @@ export class RecipeNameGoesHere extends Recipe {
 10. Fix any potential comments
 11. :tada:
 
-
-
 ## Running the project
 
 In most cases you can run the project using
+
 ```
 mvn
 ```
+
 or by launching the `Application` class from an IDE.
 
 If you want to run the project on a different port than 8080, you can do
+
 ```
 PORT=9090 mvn
 ```
-
-
