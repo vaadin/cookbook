@@ -101,14 +101,16 @@ export class CodeViewer extends LitElement {
             >`
         )}
       </vaadin-tabs>
-      ${/*Don't reuse these elements. This is needed because Prism
+      ${
+        /*Don't reuse these elements. This is needed because Prism
           removes the markers lit-html uses to track slots */
-      unsafeHTML(
-        `<pre><code class="language-${this.language}">${this.escapeHtml(
-          this.removeMetaInfoFromCode(this.contents)
-        )}
+        unsafeHTML(
+          `<pre><code class="language-${this.language}">${this.escapeHtml(
+            this.removeMetaInfoFromCode(this.contents)
+          )}
         </code></pre>`
-      )}
+        )
+      }
     `;
   }
 
@@ -146,8 +148,7 @@ export class CodeViewer extends LitElement {
   }
 
   removeMetaInfoFromCode(code: string) {
-    if (!code)
-      return '';
+    if (!code) return "";
 
     code = code.substring(code.search(/^import/gm)); // remove package
     code = code.replace("extends Recipe", "extends VerticalLayout");
@@ -157,10 +158,13 @@ export class CodeViewer extends LitElement {
   }
 
   removeMetaImports(code: string): string {
-    return code.split('\n').filter(function(line){
-      return line.indexOf("import com.vaadin.recipes.recipe") == -1;}).join('\n');
+    return code
+      .split("\n")
+      .filter(function (line) {
+        return line.indexOf("import com.vaadin.recipes.recipe") == -1;
+      })
+      .join("\n");
   }
-
 
   removeMetadataTag(code: string): string {
     const metaLen = "@Metadata".length;
@@ -168,9 +172,9 @@ export class CodeViewer extends LitElement {
     let endIdx = -1;
     let openBrackets = 0;
     for (let i = startIdx + metaLen; i < code.length; i++) {
-      if(code.charAt(i)=='(') {
+      if (code.charAt(i) == "(") {
         ++openBrackets;
-      } else if (code.charAt(i)==')') {
+      } else if (code.charAt(i) == ")") {
         --openBrackets;
         if (openBrackets == 0) {
           endIdx = code.substring(i).indexOf("\n") + i + 1;
