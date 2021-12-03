@@ -1,4 +1,5 @@
-import { customElement, LitElement, property, svg, css } from "lit-element";
+import { LitElement, svg, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement("circular-progress-indicator-component")
 export class CircularProgressIndicatorComponent extends LitElement {

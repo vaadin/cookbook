@@ -1,8 +1,9 @@
-import { css, customElement, html, property, unsafeCSS } from "lit-element";
-import { Recipe, recipeInfo } from "../recipe";
 //@ts-ignore
 import { map, tileLayer } from "leaflet/dist/leaflet-src.esm.js";
 import leafletStyles from "leaflet/dist/leaflet.css";
+import { css, html, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { Recipe, recipeInfo } from "../recipe";
 
 @recipeInfo({
   url: "leaflet-map",

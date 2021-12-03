@@ -1,6 +1,6 @@
-import { css, customElement, html, property } from "lit-element";
+import { css, html, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { Recipe, recipeInfo } from "../recipe";
-import { nothing } from "lit-html";
 
 @recipeInfo({
   url: "geo-location",
