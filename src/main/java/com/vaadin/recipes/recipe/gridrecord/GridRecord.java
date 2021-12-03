@@ -1,0 +1,44 @@
+package com.vaadin.recipes.recipe.gridrecord;
+
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.router.Route;
+import com.vaadin.recipes.recipe.Metadata;
+import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Route("grid-record")
+@Metadata(
+        howdoI = "display java record in a vaadin grid",
+        description = "record types need a separate handling when adding columns to the vaadin grid",
+        tags = {Tag.GRID, Tag.JAVA}
+)
+public class GridRecord extends Recipe {
+
+    private final List<Person> personList = List.of(
+            new Person("Donald Duck", LocalDateTime.of(1952, 06, 25, 0, 0)),
+            new Person("Micky Mouse", LocalDateTime.of(1654, 12, 5, 0, 0)),
+            new Person("Goofy", LocalDateTime.of(2020, 1, 14, 0, 0))
+    );
+
+    public GridRecord() {
+        //would not work alone
+        //Grid<Person> personGrid = new Grid<>(Person.class);
+
+        //would throw an exception java.lang.IllegalArgumentException: Can't resolve property name 'name' from
+        //'Property set for bean com.vaadin.recipes.recipe.gridrecord.GridRecord$Person'
+        //personGrid.addColumn("name");
+
+        //here are possible options
+        Grid<Person> personGrid = new Grid<>();
+        personGrid.addColumn(Person::name).setHeader("Name");
+        personGrid.addColumn(person -> person.birthday).setHeader("Birthday");
+
+        personGrid.setItems(personList);
+        add(personGrid);
+    }
+
+    public record Person(String name, LocalDateTime birthday) {}
+}
