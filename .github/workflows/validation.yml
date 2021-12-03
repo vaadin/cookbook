@@ -15,7 +15,7 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-      
       - uses: actions/setup-java@v2
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
       - uses: stCarolas/setup-maven@v4.2
         with:
