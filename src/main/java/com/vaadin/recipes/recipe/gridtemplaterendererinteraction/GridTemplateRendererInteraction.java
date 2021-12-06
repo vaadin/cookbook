@@ -1,21 +1,19 @@
 package com.vaadin.recipes.recipe.gridtemplaterendererinteraction;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
+import org.vaadin.artur.exampledata.DataType;
+import org.vaadin.artur.exampledata.ExampleDataGenerator;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-template-renderer-interaction")
 @Metadata(
@@ -45,12 +43,12 @@ public class GridTemplateRendererInteraction extends Recipe {
 
         personGrid
             .addColumn(
-                TemplateRenderer
+                LitRenderer
                     .<Person>of(
-                        "<vaadin-button disabled='[[item.disabled]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
+                        "<vaadin-button ?disabled=${item.disabled} title='you can click me once!' @click=${onClick}>click me</vaadin-button>"
                     )
                     .withProperty("disabled", person -> disabledMap.get(person.getId()))
-                    .withEventHandler(
+                    .withFunction(
                         "onClick",
                         person -> {
                             Notification.show(String.format("Clicked on %s", person.getName()));
