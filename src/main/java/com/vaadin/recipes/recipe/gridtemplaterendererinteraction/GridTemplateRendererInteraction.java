@@ -1,9 +1,8 @@
 package com.vaadin.recipes.recipe.gridtemplaterendererinteraction;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -12,20 +11,18 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-template-renderer-interaction")
 @Metadata(
-    howdoI = "Add template renderer in grid and handle events",
+    howdoI = "Add template renderer in Grid and handle events",
     description = "This recipe shows how to use TemplateRenderer in Grid, populate data in the element and handle events.",
     tags = { Tag.GRID, Tag.PERFORMANCE, Tag.TYPE_SCRIPT }
 )
 public class GridTemplateRendererInteraction extends Recipe {
 
-    private final Map<Long, Boolean> disabledMap ;
+    private final Map<Long, Boolean> disabledMap;
 
     public GridTemplateRendererInteraction() {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 423524l);
@@ -45,12 +42,12 @@ public class GridTemplateRendererInteraction extends Recipe {
 
         personGrid
             .addColumn(
-                TemplateRenderer
+                LitRenderer
                     .<Person>of(
-                        "<vaadin-button disabled='[[item.disabled]]' title='you can click me once!' on-click='onClick'>click me</vaadin-button>"
+                        "<vaadin-button ?disabled=${item.disabled} title='you can click me once!' @click=${onClick}>click me</vaadin-button>"
                     )
                     .withProperty("disabled", person -> disabledMap.get(person.getId()))
-                    .withEventHandler(
+                    .withFunction(
                         "onClick",
                         person -> {
                             Notification.show(String.format("Clicked on %s", person.getName()));
@@ -69,6 +66,7 @@ public class GridTemplateRendererInteraction extends Recipe {
     }
 
     public static class Person {
+
         private Long id;
         private String name;
         private String email;
