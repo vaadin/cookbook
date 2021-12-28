@@ -1,0 +1,26 @@
+:host([opening]),
+:host([closing]) {
+    animation-duration: 320ms;
+}
+
+:host([opening]) [part="overlay"] {
+    animation-name: slide-in;
+    animation-duration: 240ms;
+}
+
+:host([closing]) [part="overlay"] {
+    animation-name: slide-out;
+    animation-duration: 240ms;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(calc(100vh - 100%));
+    }
+}
+
+@keyframes slide-out {
+    100% {
+        transform: translateY(calc(100vh - 100%));
+    }
+}
