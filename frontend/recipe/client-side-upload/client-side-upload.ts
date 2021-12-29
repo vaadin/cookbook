@@ -1,8 +1,10 @@
 import "@vaadin/upload";
+import {UploadResponseEvent} from "@vaadin/upload";
 import { html } from "lit";
 import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
 import { Recipe, recipeInfo } from "../recipe";
 import {customElement} from "lit/decorators.js";
+import {Notification} from "@vaadin/notification";
 
 @recipeInfo({
   url: "client-side-upload",
@@ -19,7 +21,16 @@ export class UploadView extends Recipe {
 
   render() {
     return html`
-      <vaadin-upload target="/api/fileupload"></vaadin-upload>
+      <vaadin-upload target="api/fileupload" @upload-response=${this.handleResponse}></vaadin-upload>
     `;
+  }
+
+  handleResponse(e: UploadResponseEvent){
+    console.log(e);
+    if (e.detail.xhr.status == 200) {
+      Notification.show("Upload success!")
+    } else {
+      Notification.show("OOps, something went wrong.")
+    }
   }
 }
