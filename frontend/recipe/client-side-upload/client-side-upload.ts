@@ -29,7 +29,7 @@ export class UploadView extends Recipe {
     if (e.detail.xhr.status == 200) {
       Notification.show("Upload success!")
     } else {
-      Notification.show("OOps, something went wrong.")
+      Notification.show("Oops, something went wrong.")
     }
   }
 }
