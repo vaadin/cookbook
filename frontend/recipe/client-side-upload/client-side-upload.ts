@@ -26,7 +26,6 @@ export class UploadView extends Recipe {
   }
 
   handleResponse(e: UploadResponseEvent){
-    console.log(e);
     if (e.detail.xhr.status == 200) {
       Notification.show("Upload success!")
     } else {
