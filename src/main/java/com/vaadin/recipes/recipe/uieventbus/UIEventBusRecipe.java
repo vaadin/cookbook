@@ -59,7 +59,7 @@ public class UIEventBusRecipe extends Recipe {
             // Register to events from the event bus
             registration =
                 ComponentUtil.addListener(
-                    UI.getCurrent(),
+                    attachEvent.getUI(),
                     ButtonActivateEvent.class,
                     event -> {
                         if (event.getSource() != this) {
