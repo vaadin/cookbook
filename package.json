@@ -133,9 +133,11 @@
     "date-fns": "2.16.0",
     "leaflet": "1.6.0",
     "lit": "2.1.4",
+    "prismjs": "^1.27.0",
     "ts-debounce": "^2.0.1"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.0",
     "@vaadin/application-theme-plugin": "./target/plugins/application-theme-plugin",
     "@vaadin/build-status-plugin": "./target/plugins/build-status-plugin",
     "@vaadin/theme-live-reload-plugin": "./target/plugins/theme-live-reload-plugin",
