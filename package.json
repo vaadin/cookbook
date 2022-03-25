@@ -287,7 +287,7 @@
       "workbox-core": "6.5.0",
       "workbox-precaching": "6.5.0"
     },
-    "hash": "4c7d1676f071a6d98daede94f43e8b4ce6e79d19e48e8dd531f0bd0e6d4381ee"
+    "hash": "d06fdb0a455755ce876f94fa0457fb75db0ea62baf0936d22e1256566d508727"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -408,6 +408,7 @@
     "lit": "$lit",
     "ts-debounce": "$ts-debounce",
     "@hilla/form": "$@hilla/form",
-    "@hilla/frontend": "$@hilla/frontend"
+    "@hilla/frontend": "$@hilla/frontend",
+    "prismjs": "$prismjs"
   }
 }
