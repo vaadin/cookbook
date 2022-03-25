@@ -14,7 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>22.0.0</vaadin.version>
+        <vaadin.version>23.0.2</vaadin.version>
+        <hilla.version>1.0.2</hilla.version>
     </properties>
 
     <parent>
@@ -77,6 +78,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>dev.hilla</groupId>
+                <artifactId>hilla-bom</artifactId>
+                <version>${hilla.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>          
         </dependencies>
     </dependencyManagement>
 
@@ -85,6 +93,10 @@
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.hilla</groupId>
+            <artifactId>hilla</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>

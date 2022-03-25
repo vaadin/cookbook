@@ -19,7 +19,6 @@ import com.vaadin.recipes.recipe.Tag;
 import reactor.core.Disposable;
 
 @Route("show-real-time-updating-data")
-@JsModule("@vaadin/vaadin-charts/theme/vaadin-chart-default-theme")
 @Metadata(
     howdoI = "Show real-time updating content",
     description = "Learn how to automatically update the UI with data from a reactive backend.",
