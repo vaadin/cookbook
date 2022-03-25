@@ -2,7 +2,7 @@ import "@vaadin/tabs";
 import "@vaadin/text-area";
 import { html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { unsafeHTML } from "lit/directives/unsafe-html";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { getSource } from "./generated/RecipeEndpoint";
 import prismCss from "./prism.css";
 //@ts-ignore

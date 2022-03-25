@@ -2,7 +2,7 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "scripts": {
-    "postinstall": "tsc parseClientRoutes.ts"
+    "parseClientRoutes": "tsc parseClientRoutes.ts --outDir target/parser && node target/parser/parseClientRoutes.js 'frontend/recipe/**/*.ts'"
   },
   "husky": {
     "hooks": {
@@ -140,30 +140,19 @@
     "@vaadin/build-status-plugin": "./target/plugins/build-status-plugin",
     "@vaadin/theme-live-reload-plugin": "./target/plugins/theme-live-reload-plugin",
     "@vaadin/theme-loader": "./target/plugins/theme-loader",
-    "chokidar": "^3.5.0",
-    "compression-webpack-plugin": "4.0.1",
-    "css-loader": "5.2.7",
-    "esbuild-loader": "2.15.1",
-    "extra-watch-webpack-plugin": "1.0.3",
-    "extract-loader": "5.1.0",
-    "file-loader": "6.2.0",
-    "fork-ts-checker-webpack-plugin": "6.2.1",
     "glob": "7.1.6",
-    "html-webpack-plugin": "4.5.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.3.0",
-    "lit-css-loader": "0.1.0",
-    "loader-utils": "2.0.0",
+    "mkdirp": "1.0.4",
     "prettier": "^2.1.1",
     "prettier-plugin-java": "^0.8.2",
+    "rollup-plugin-brotli": "3.1.0",
     "typescript": "4.5.3",
-    "webpack": "4.46.0",
-    "webpack-cli": "4.9.2",
-    "webpack-dev-server": "4.7.4",
-    "webpack-merge": "4.2.2",
+    "vite": "v2.8.6",
+    "vite-plugin-checker": "0.3.4",
+    "workbox-build": "6.5.0",
     "workbox-core": "6.5.0",
-    "workbox-precaching": "6.5.0",
-    "workbox-webpack-plugin": "6.5.0"
+    "workbox-precaching": "6.5.0"
   },
   "vaadin": {
     "dependencies": {
@@ -286,28 +275,17 @@
       "lit": "2.1.4"
     },
     "devDependencies": {
-      "chokidar": "^3.5.0",
-      "compression-webpack-plugin": "4.0.1",
-      "css-loader": "5.2.7",
-      "esbuild-loader": "2.15.1",
-      "extra-watch-webpack-plugin": "1.0.3",
-      "extract-loader": "5.1.0",
-      "file-loader": "6.2.0",
-      "fork-ts-checker-webpack-plugin": "6.2.1",
       "glob": "7.1.6",
-      "html-webpack-plugin": "4.5.1",
-      "lit-css-loader": "0.1.0",
-      "loader-utils": "2.0.0",
+      "mkdirp": "1.0.4",
+      "rollup-plugin-brotli": "3.1.0",
       "typescript": "4.5.3",
-      "webpack": "4.46.0",
-      "webpack-cli": "4.9.2",
-      "webpack-dev-server": "4.7.4",
-      "webpack-merge": "4.2.2",
+      "vite": "v2.8.6",
+      "vite-plugin-checker": "0.3.4",
+      "workbox-build": "6.5.0",
       "workbox-core": "6.5.0",
-      "workbox-precaching": "6.5.0",
-      "workbox-webpack-plugin": "6.5.0"
+      "workbox-precaching": "6.5.0"
     },
-    "hash": "f5cd7a257c2170c0dcc59ea782486ca80ba1471d247ca24c8112ad370d88b2c6"
+    "hash": "4c7d1676f071a6d98daede94f43e8b4ce6e79d19e48e8dd531f0bd0e6d4381ee"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -427,7 +405,6 @@
     "leaflet": "$leaflet",
     "lit": "$lit",
     "ts-debounce": "$ts-debounce",
-    "chokidar": "$chokidar",
     "@hilla/form": "$@hilla/form",
     "@hilla/frontend": "$@hilla/frontend"
   }
