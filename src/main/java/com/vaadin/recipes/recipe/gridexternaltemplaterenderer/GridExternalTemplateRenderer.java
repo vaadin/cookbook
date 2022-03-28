@@ -17,8 +17,8 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 @Metadata(
     howdoI = "Add an external template renderer in Grid",
     description = "This recipe shows how to use TemplateRenderer from an external source in Grid and populate data in the element.",
-    sourceFiles = "./recipe/grid-external-template/renderer.js",
-    tags = { Tag.GRID, Tag.PERFORMANCE, Tag.TYPE_SCRIPT }
+    sourceFiles = "recipe/grid-external-template/renderer.js",
+    tags = { Tag.GRID, Tag.PERFORMANCE, Tag.TYPE_SCRIPT, Tag.FLOW }
 )
 public class GridExternalTemplateRenderer extends Recipe {
 
