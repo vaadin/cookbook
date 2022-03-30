@@ -6,7 +6,7 @@ import "@vaadin/text-field";
 import { capitalCase } from "change-case";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { repeat } from "lit/directives/repeat";
+import { repeat } from "lit/directives/repeat.js";
 import { debounce } from "ts-debounce";
 import { recipes } from "../";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";

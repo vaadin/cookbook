@@ -2,12 +2,13 @@ import "@vaadin/tabs";
 import "@vaadin/text-area";
 import { html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { unsafeHTML } from "lit/directives/unsafe-html";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { getSource } from "./generated/RecipeEndpoint";
-import prismCss from "./prism.css";
-//@ts-ignore
-import * as Prism from "./prism.js";
+import * as Prism from "prismjs";
+import "prismjs/components/prism-java.js";
 import { getSimpleName } from "./util";
+// @ts-ignore
+import prismCss from "prismjs/themes/prism-okaidia.css?inline";
 
 @customElement("code-viewer")
 export class CodeViewer extends LitElement {
@@ -87,7 +88,6 @@ export class CodeViewer extends LitElement {
 
     // Wait for LitElement to finish updating the DOM before higlighting
     await this.updateComplete;
-    //@ts-ignore
     Prism.highlightAllUnder(this);
   }
 

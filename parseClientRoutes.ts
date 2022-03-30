@@ -113,7 +113,7 @@ const writeIfChanged = (file, contents) => {
 const tsFileGlobs = args[0];
 const routes: RecipeRouteWithAction[] = [];
 
-const g = path.resolve(__dirname, tsFileGlobs);
+const g = path.resolve(tsFileGlobs);
 debug("Looking for " + g);
 const files = glob.sync(g);
 
@@ -131,14 +131,13 @@ files.forEach((file) => {
     routes.push(r);
   }
 });
-const frontend = path.resolve(__dirname, "frontend");
+const frontend = path.resolve("frontend");
 const recipeInfoJson = path.resolve(
-  __dirname,
   "target",
   "classes",
   "ts-recipe-info.json"
 );
-const routesTsTemplateFile = path.resolve(__dirname, "ts-routes.ts.template");
+const routesTsTemplateFile = path.resolve("ts-routes.ts.template");
 const routesTsFile = path.resolve(frontend, "ts-routes.ts");
 
 writeIfChanged(
