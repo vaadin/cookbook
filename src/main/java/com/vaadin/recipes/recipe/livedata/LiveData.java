@@ -6,7 +6,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.ChartType;
 import com.vaadin.flow.component.charts.model.ListSeries;
-import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
@@ -15,7 +14,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
 import reactor.core.Disposable;
 
 @Route("show-real-time-updating-data")
@@ -60,12 +58,19 @@ public class LiveData extends Recipe {
         UI ui = attachEvent.getUI();
 
         // Hook up to service for live updates
-        subscription = service.getStockPrice(ticker).subscribe(price -> {
-            ui.access(() -> {
-                currentPrice.setText("$" + price);
-                series.addData(price);
-            });
-        });
+        subscription =
+            service
+                .getStockPrice(ticker)
+                .subscribe(
+                    price -> {
+                        ui.access(
+                            () -> {
+                                currentPrice.setText("$" + price);
+                                series.addData(price);
+                            }
+                        );
+                    }
+                );
     }
 
     @Override

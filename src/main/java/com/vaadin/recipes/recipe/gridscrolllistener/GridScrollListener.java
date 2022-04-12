@@ -3,12 +3,8 @@ package com.vaadin.recipes.recipe.gridscrolllistener;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.router.Route;
-import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
 import elemental.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +33,15 @@ public class GridScrollListener extends Recipe {
      * Add client-side scroll listener to grid
      */
     private Grid<Patient> withClientsideScrollListener(Grid<Patient> grid, int gridIdentifier) {
-        grid.getElement().executeJs(
+        grid
+            .getElement()
+            .executeJs(
                 "this.$.outerscroller.addEventListener('scroll', (scrollEvent) => " +
-                        "{requestAnimationFrame(() => $0.$server.onGridScroll({gi: " + gridIdentifier + ", st: this.$.table.scrollTop}))},true)",
-                getElement());
+                "{requestAnimationFrame(() => $0.$server.onGridScroll({gi: " +
+                gridIdentifier +
+                ", st: this.$.table.scrollTop}))},true)",
+                getElement()
+            );
         return grid;
     }
 
@@ -51,7 +52,7 @@ public class GridScrollListener extends Recipe {
     public void onGridScroll(JsonObject scrollEvent) {
         int gridIdentifier = (int) scrollEvent.getNumber("gi");
         int scrollTop = (int) scrollEvent.getNumber("st");
-        scrollTopValueSpan.setText("Grid "+gridIdentifier+" scrollTop="+scrollTop);
+        scrollTopValueSpan.setText("Grid " + gridIdentifier + " scrollTop=" + scrollTop);
     }
 
     /**
@@ -70,6 +71,7 @@ public class GridScrollListener extends Recipe {
      * Example DTO
      */
     public static class Patient {
+
         private int id;
         private String name;
         private double bodyTemp;
