@@ -1,6 +1,8 @@
 # Build stage
 FROM openjdk:17-jdk-slim as build
-RUN apt-get update -qq && apt-get install -qq --no-install-recommends maven
+RUN apt-get update -qq && apt-get install -qq --no-install-recommends maven curl
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
 RUN useradd -m myuser
 WORKDIR /usr/src/app/
 RUN chown myuser:myuser /usr/src/app/
