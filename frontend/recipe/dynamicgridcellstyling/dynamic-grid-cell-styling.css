@@ -1,0 +1,20 @@
+.month {
+  font-weight: 500;
+}
+
+.month.winter {
+  color: blue;
+}
+.month.spring {
+  color: green;
+}
+.month.summer {
+  color: #eeba11;
+}
+.month.fall {
+  color: brown;
+}
+
+.toomuch {
+  color: red;
+}
