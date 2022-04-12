@@ -12,7 +12,7 @@ RUN mvn dependency:go-offline -Pproduction
 
 COPY --chown=myuser:myuser src src
 COPY --chown=myuser:myuser frontend frontend
-COPY --chown=myuser package.json pnpm-lock.yaml parseClientRoutes.ts webpack.config.js ts-routes.ts.template ./
+COPY --chown=myuser package.json package-lock.json parseClientRoutes.ts webpack.config.js ts-routes.ts.template ./
 RUN mvn clean package -DskipTests -Pproduction
 
 # Run stage
