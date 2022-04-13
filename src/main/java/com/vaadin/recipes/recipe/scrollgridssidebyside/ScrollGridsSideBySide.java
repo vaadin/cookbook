@@ -3,11 +3,7 @@ package com.vaadin.recipes.recipe.scrollgridssidebyside;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.router.Route;
-import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +50,12 @@ public class ScrollGridsSideBySide extends Recipe {
     private List<Person> createPeopleBeforeData() {
         List<Person> peopleBefore = new ArrayList<>();
         for (int i = 1; i < 100; i++) {
-            Person person1 = new Person(i, "Person " + i + " (before)", 37 + Math.random(), 70 + (int) (Math.random() * 10));
+            Person person1 = new Person(
+                i,
+                "Person " + i + " (before)",
+                37 + Math.random(),
+                70 + (int) (Math.random() * 10)
+            );
             peopleBefore.add(person1);
         }
         return peopleBefore;
@@ -66,7 +67,12 @@ public class ScrollGridsSideBySide extends Recipe {
     private List<Person> createPeopleAfterData() {
         List<Person> peopleAfter = new ArrayList<>();
         for (int i = 1; i < 100; i++) {
-            Person person2 = new Person(i, "Person " + i + " (after)", 37 - Math.random(), 70 - (int) (Math.random() * 10));
+            Person person2 = new Person(
+                i,
+                "Person " + i + " (after)",
+                37 - Math.random(),
+                70 - (int) (Math.random() * 10)
+            );
             peopleAfter.add(person2);
         }
         return peopleAfter;
@@ -76,6 +82,7 @@ public class ScrollGridsSideBySide extends Recipe {
      * Example DTO
      */
     public static class Person {
+
         private int id;
         private String name;
         private double bodyTemp;

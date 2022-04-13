@@ -8,17 +8,16 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.*;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
 
 @Route("highlight-link-with-default-route")
 @RoutePrefix("highlight-link-with-default-route")
 @Metadata(
-        howdoI = "Let a router-link be highlighted even it's target is the default view set up with @RouteAlias(\"\")",
-        description = "a RouterLink gets highlight-attribute, when navigating to it's target route. " +
-                "But this does not work when navigating to a route by it's default-url @RouteAlias(\"\")." +
-                "This recipe shows how to set a highlight-condition that supports this." +
-                "For testing enter default-url in address-bar: '.../highlight-link-with-default-route/'",
-        sourceFiles = { "recipe/highlight-link-with-default-route/highlight-link-with-default-route.css" }
+    howdoI = "Let a router-link be highlighted even it's target is the default view set up with @RouteAlias(\"\")",
+    description = "a RouterLink gets highlight-attribute, when navigating to it's target route. " +
+    "But this does not work when navigating to a route by it's default-url @RouteAlias(\"\")." +
+    "This recipe shows how to set a highlight-condition that supports this." +
+    "For testing enter default-url in address-bar: '.../highlight-link-with-default-route/'",
+    sourceFiles = { "recipe/highlight-link-with-default-route/highlight-link-with-default-route.css" }
 )
 @CssImport("./recipe/highlight-link-with-default-route/highlight-link-with-default-route.css")
 public class HighlightRouterLinkWithDefaultRoute extends Recipe implements RouterLayout {
@@ -27,7 +26,6 @@ public class HighlightRouterLinkWithDefaultRoute extends Recipe implements Route
     final HorizontalLayout linkContainer = new HorizontalLayout();
 
     public HighlightRouterLinkWithDefaultRoute() {
-
         add(linkContainer);
         add(contentWrapper);
 
@@ -42,21 +40,20 @@ public class HighlightRouterLinkWithDefaultRoute extends Recipe implements Route
         aboutLink.setHighlightCondition(this.buildHighLightConditionFor(AboutView.class));
 
         linkContainer.setSpacing(true);
-        linkContainer.add(homeLink, new Span(" | ") ,aboutLink);
-
+        linkContainer.add(homeLink, new Span(" | "), aboutLink);
     }
 
     private HighlightCondition<RouterLink> buildHighLightConditionFor(Class<?> linkTargetClass) {
         return (link, afterNavigationEvent) -> {
-            return afterNavigationEvent.getActiveChain()
-                    .stream()
-                    .anyMatch(element -> element.getClass() == linkTargetClass);
+            return afterNavigationEvent
+                .getActiveChain()
+                .stream()
+                .anyMatch(element -> element.getClass() == linkTargetClass);
         };
     }
 
     @Override
     public void showRouterLayoutContent(HasElement content) {
-
         contentWrapper.removeAll();
         contentWrapper.getElement().appendChild(content.getElement());
     }

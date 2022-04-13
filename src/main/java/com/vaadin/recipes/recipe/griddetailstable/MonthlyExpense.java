@@ -1,11 +1,11 @@
 package com.vaadin.recipes.recipe.griddetailstable;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
 public class MonthlyExpense {
+
     private String month;
     private Double expenses;
     private int year;
@@ -21,8 +21,7 @@ public class MonthlyExpense {
             list.add(new DailyExpenses(i));
         }
         setDailyExpenses(list);
-        Double sum = list.stream().map(entry -> entry.getAmount()).reduce(0d,
-                Double::sum);
+        Double sum = list.stream().map(entry -> entry.getAmount()).reduce(0d, Double::sum);
         setExpenses(sum);
     }
 
@@ -52,7 +51,6 @@ public class MonthlyExpense {
 
     private void setDailyExpenses(List<DailyExpenses> list) {
         dailyExpenses = list;
-
     }
 
     public List<DailyExpenses> getDailyExpenses() {
@@ -60,6 +58,7 @@ public class MonthlyExpense {
     }
 
     public class DailyExpenses {
+
         private String explanation = "Explanation of the expense";
         private Double amount = 0d;
         private Integer day;
