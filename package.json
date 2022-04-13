@@ -130,9 +130,10 @@
     "@vaadin/virtual-list": "23.0.2",
     "change-case": "^4.1.1",
     "construct-style-sheets-polyfill": "3.0.4",
-    "date-fns": "2.16.0",
+    "date-fns": "2.23.0",
     "leaflet": "1.6.0",
     "lit": "2.1.4",
+    "lumo-css-framework": "3.0.11",
     "prismjs": "^1.27.0",
     "ts-debounce": "^2.0.1"
   },
@@ -273,8 +274,9 @@
       "@vaadin/virtual-list": "23.0.2",
       "@webcomponents/webcomponentsjs": "^2.2.10",
       "construct-style-sheets-polyfill": "3.0.4",
-      "date-fns": "2.16.0",
-      "lit": "2.1.4"
+      "date-fns": "2.23.0",
+      "lit": "2.1.4",
+      "lumo-css-framework": "3.0.11"
     },
     "devDependencies": {
       "glob": "7.1.6",
@@ -287,7 +289,7 @@
       "workbox-core": "6.5.0",
       "workbox-precaching": "6.5.0"
     },
-    "hash": "d06fdb0a455755ce876f94fa0457fb75db0ea62baf0936d22e1256566d508727"
+    "hash": "d600bb58c3f7ac2710359e19fc96266ce217f19cf0ef43482c87848a994253f3"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -409,6 +411,7 @@
     "ts-debounce": "$ts-debounce",
     "@hilla/form": "$@hilla/form",
     "@hilla/frontend": "$@hilla/frontend",
-    "prismjs": "$prismjs"
+    "prismjs": "$prismjs",
+    "lumo-css-framework": "$lumo-css-framework"
   }
 }

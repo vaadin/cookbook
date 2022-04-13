@@ -84,7 +84,7 @@
                 <version>${hilla.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>          
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -121,6 +121,11 @@
             <groupId>org.vaadin.olli</groupId>
             <artifactId>file-download-wrapper</artifactId>
             <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>in.virit</groupId>
+            <artifactId>viritin</artifactId>
+            <version>1.3.0</version>
         </dependency>
         <dependency>
             <groupId>io.projectreactor</groupId>
