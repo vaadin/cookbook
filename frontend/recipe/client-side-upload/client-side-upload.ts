@@ -14,7 +14,7 @@ import {Notification} from "@vaadin/notification";
   sourceFiles: [
     "com/vaadin/recipes/recipe/clientsideupload/FileUploadEndpoint.java",
   ],
-  tags: [Tag.FUSION],
+  tags: [Tag.HILLA],
 })
 @customElement("client-side-upload")
 export class UploadView extends Recipe {

@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
 import { BaseRoute } from "@vaadin/router";
-import Tag from "./frontend/generated/com/vaadin/recipes/recipe/Tag";
+
 const debug = (...theArgs) => {
   // console.log(theArgs);
 };
@@ -37,7 +37,7 @@ export const recipeToRoute = (
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPE_SCRIPT","Tag.FUSION", ...(recipeInfo.tags || [])].map(
+    tags: ["Tag.TYPE_SCRIPT","Tag.HILLA", ...(recipeInfo.tags || [])].map(
       (tag) => "" + tag
     ),
   });

@@ -23,7 +23,7 @@ export class RecipesListView extends LitElement {
     Tag.JAVA,
     Tag.TYPE_SCRIPT,
     Tag.FLOW,
-    Tag.FUSION,
+    Tag.HILLA,
     Tag.KEYBOARD,
     Tag.PUSH,
     Tag.GRID,

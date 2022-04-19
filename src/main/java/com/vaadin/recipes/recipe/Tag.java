@@ -5,7 +5,7 @@ public enum Tag {
     // https://github.com/vaadin/flow/issues/8963 is fixed
     JAVA,
     TYPE_SCRIPT,
-    FUSION,
+    HILLA,
     FLOW,
     KEYBOARD,
     PUSH,
