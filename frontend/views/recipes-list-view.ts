@@ -19,23 +19,7 @@ export class RecipesListView extends LitElement {
   @property({ type: Array })
   filterTags: Tag[] = [];
 
-  tags: Tag[] = [
-    Tag.JAVA,
-    Tag.TYPE_SCRIPT,
-    Tag.FLOW,
-    Tag.FUSION,
-    Tag.KEYBOARD,
-    Tag.PUSH,
-    Tag.GRID,
-    Tag.CSV,
-    Tag.THEME,
-    Tag.PERFORMANCE,
-    Tag.USABILITY,
-    Tag.LAYOUT,
-    Tag.DOWNLOAD,
-    Tag.FORM,
-    Tag.ACCESSIBILITY,
-  ];
+  tags = Tag;
 
   firstUpdated() {
     const details = this.querySelector(".tag-filter") as Details;
@@ -265,7 +249,7 @@ export class RecipesListView extends LitElement {
               </span>
             </h6>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
-              ${this.tags.map(
+              ${Object.values(this.tags).map(
                 (tag) => html`
                   <vaadin-checkbox
                     value="${tag}"
