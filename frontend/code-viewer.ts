@@ -6,6 +6,7 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { getSource } from "./generated/RecipeEndpoint";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-java.js";
+import "prismjs/components/prism-typescript";
 import { getSimpleName } from "./util";
 // @ts-ignore
 import prismCss from "prismjs/themes/prism-okaidia.css?inline";
