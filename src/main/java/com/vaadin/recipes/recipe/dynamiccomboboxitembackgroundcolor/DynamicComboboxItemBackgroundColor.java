@@ -13,7 +13,8 @@ import com.vaadin.recipes.recipe.Tag;
 @Metadata(
     howdoI = "set ComboBox items' background color dynamically",
     description = "Dynamically set the background color of items in the dropdown list of a ComboBox component.",
-    sourceFiles = { "recipe/dynamic-combobox-item-background-color/vaadin-combo-box-item-styles.css" },
+    sourceFiles = { "recipe/dynamic-combobox-item-background-color/vaadin-combo-box-item-styles.css",
+            "recipe/dynamic-combobox-item-background-color/vaadin-combo-box-item-internals-styles.css" },
     tags = { Tag.THEME }
 )
 @CssImport(
