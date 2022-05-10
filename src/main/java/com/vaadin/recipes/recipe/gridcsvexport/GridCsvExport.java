@@ -10,7 +10,6 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.function.SerializableComparator;
@@ -38,6 +37,7 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 public class GridCsvExport extends Recipe {
 
     public static class Person {
+
         private String firstName, lastName;
         private LocalDate birthDate;
 
@@ -81,7 +81,7 @@ public class GridCsvExport extends Recipe {
         Grid<Person> grid = new Grid<>(Person.class);
         dataView = grid.setItems(createExamplePersons(100));
         grid.setSelectionMode(SelectionMode.MULTI);
-        
+
         add(grid);
 
         TextArea resultField = new TextArea();
@@ -107,7 +107,7 @@ public class GridCsvExport extends Recipe {
             // Alternative approach without DataView
             // persons = ((DataProvider<Person, String>) grid.getDataProvider()).fetch(createQuery(grid));
         }
-        
+
         StringWriter output = new StringWriter();
         StatefulBeanToCsv<Person> writer = new StatefulBeanToCsvBuilder<Person>(output).build();
         try {

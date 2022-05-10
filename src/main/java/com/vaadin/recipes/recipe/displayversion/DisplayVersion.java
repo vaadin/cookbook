@@ -1,6 +1,5 @@
 package com.vaadin.recipes.recipe.displayversion;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -22,19 +21,22 @@ public class DisplayVersion extends Recipe {
      * @see AppVersions
      */
     public DisplayVersion(@Autowired AppVersions versions) {
-         TextArea info = new TextArea(null,
-                "Cookbook build info." +
-                "\nVersion: " + versions.getVersion() +
-                ". " +
-                "\nVaadin: " +
-                versions.getVaadinVersion() +
-                "\nJava: " +
-                versions.getJavaVersion() +
-                "\nBuilt time: " +
-                versions.getBuildTime(),
-                    (String)null);
-         info.setWidth("300px");
-         info.setReadOnly(true);
-         add(info);
+        TextArea info = new TextArea(
+            null,
+            "Cookbook build info." +
+            "\nVersion: " +
+            versions.getVersion() +
+            ". " +
+            "\nVaadin: " +
+            versions.getVaadinVersion() +
+            "\nJava: " +
+            versions.getJavaVersion() +
+            "\nBuilt time: " +
+            versions.getBuildTime(),
+            (String) null
+        );
+        info.setWidth("300px");
+        info.setReadOnly(true);
+        add(info);
     }
 }

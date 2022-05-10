@@ -1,0 +1,7 @@
+[part="summary-content"] {
+  min-width: 0;
+}
+
+:host([theme~="cookbook"]) [part="summary"] {
+  padding: 0;
+}

@@ -2,7 +2,6 @@ package com.vaadin.recipes.recipe.gridexcellikecellselection;
 
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Span;
@@ -15,7 +14,6 @@ import com.vaadin.recipes.recipe.Tag;
 import elemental.json.JsonArray;
 import elemental.json.JsonObject;
 import elemental.json.JsonValue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,11 +21,11 @@ import java.util.Objects;
 @Route(value = "grid-excel-like-cell-selection")
 @JavaScript("./recipe/gridexcellikecellselection/gridexcellikecellselection.js")
 @Metadata(
-        howdoI = "Excel like cell selection in a grid",
-        description = "Code example for selecting cells in a grid similar to Excel. Server side gets informed about " +
-                "selected items and columns.",
-        sourceFiles = {"recipe/gridexcellikecellselection/gridexcellikecellselection.js"},
-        tags = {Tag.GRID}
+    howdoI = "Excel like cell selection in a grid",
+    description = "Code example for selecting cells in a grid similar to Excel. Server side gets informed about " +
+    "selected items and columns.",
+    sourceFiles = { "recipe/gridexcellikecellselection/gridexcellikecellselection.js" },
+    tags = { Tag.GRID }
 )
 public class GridExcelLikeCellSelection extends Recipe {
 
@@ -64,43 +62,51 @@ public class GridExcelLikeCellSelection extends Recipe {
 
         // Adds a event listener, that receives the client side fired event to read the selected items and columns.
         // A subclass of Grid could also use a custom @DomEvent annotated event class, e.g. ExcelLikeSelectedCellsEvent
-        grid.getElement().addEventListener("excel-like-selected-cells", event -> {
-            JsonObject eventData = event.getEventData();
-            results.removeAll();
-            results.add(new H3("Selection results"));
+        grid
+            .getElement()
+            .addEventListener(
+                "excel-like-selected-cells",
+                event -> {
+                    JsonObject eventData = event.getEventData();
+                    results.removeAll();
+                    results.add(new H3("Selection results"));
 
-            VerticalLayout items = new VerticalLayout();
+                    VerticalLayout items = new VerticalLayout();
 
-            items.add(new H5("Selected Items"));
+                    items.add(new H5("Selected Items"));
 
-            JsonValue value = eventData.get("event.detail.selectedKeys");
-            if (value instanceof JsonArray) {
-                JsonArray array = (JsonArray) value;
-                for (int i = 0; i < array.length(); i++) {
-                    String key = array.getString(i);
-                    SamplePerson item = grid.getDataCommunicator().getKeyMapper().get(key);
-                    if (item != null) {
-                        items.add(new Span(item.toString()));
+                    JsonValue value = eventData.get("event.detail.selectedKeys");
+                    if (value instanceof JsonArray) {
+                        JsonArray array = (JsonArray) value;
+                        for (int i = 0; i < array.length(); i++) {
+                            String key = array.getString(i);
+                            SamplePerson item = grid.getDataCommunicator().getKeyMapper().get(key);
+                            if (item != null) {
+                                items.add(new Span(item.toString()));
+                            }
+                        }
                     }
-                }
-            }
 
-            VerticalLayout columns = new VerticalLayout();
-            columns.add(new H5("Selected Columns"));
-            value = eventData.get("event.detail.selectedColumns");
-            if (value instanceof JsonArray) {
-                JsonArray array = (JsonArray) value;
-                for (int i = 0; i < array.length(); i++) {
-                    String key = array.getString(i);
-                    columns.add(new Span(key));
-                }
-            }
+                    VerticalLayout columns = new VerticalLayout();
+                    columns.add(new H5("Selected Columns"));
+                    value = eventData.get("event.detail.selectedColumns");
+                    if (value instanceof JsonArray) {
+                        JsonArray array = (JsonArray) value;
+                        for (int i = 0; i < array.length(); i++) {
+                            String key = array.getString(i);
+                            columns.add(new Span(key));
+                        }
+                    }
 
-            results.add(items, columns);
-        }).addEventData("event.detail.selectedKeys").addEventData("event.detail.selectedColumns");
+                    results.add(items, columns);
+                }
+            )
+            .addEventData("event.detail.selectedKeys")
+            .addEventData("event.detail.selectedColumns");
     }
 
     public static class SamplePerson {
+
         public static final List<SamplePerson> ITEMS;
 
         static {
@@ -129,9 +135,11 @@ public class GridExcelLikeCellSelection extends Recipe {
         public String getFirstName() {
             return firstName;
         }
+
         public String getLastName() {
             return lastName;
         }
+
         public String getEmail() {
             return email;
         }
@@ -139,7 +147,6 @@ public class GridExcelLikeCellSelection extends Recipe {
         @Override
         public String toString() {
             return "Person " + id;
-
         }
 
         @Override

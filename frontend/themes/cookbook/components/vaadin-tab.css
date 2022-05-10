@@ -1,0 +1,17 @@
+:host([theme~="cookbook-code"]) {
+  color: var(--color-stainless);
+}
+
+:host([theme~="cookbook-code"][selected]),
+:host([theme~="cookbook-code"][active]) {
+  color: var(--color-alloy-lighter);
+}
+
+:host([theme~="cookbook-code"][selected]) {
+  border-bottom: 2px solid var(--color-water);
+}
+
+:host([theme~="cookbook-code"][selected])::before,
+:host([theme~="cookbook-code"][selected])::after {
+  display: none !important;
+}

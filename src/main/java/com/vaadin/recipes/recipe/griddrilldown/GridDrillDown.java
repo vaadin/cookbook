@@ -1,11 +1,5 @@
 package com.vaadin.recipes.recipe.griddrilldown;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -14,12 +8,16 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.Binder.Binding;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 @Route("grid-drill-down")
 @Metadata(
@@ -44,18 +42,27 @@ public class GridDrillDown extends Recipe {
         grid.getEditor().setBinder(binder);
         grid.getEditor().setBuffered(false);
 
-        int week=1;
-        for (int i=0;i<65;i++) {
+        int week = 1;
+        for (int i = 0; i < 65; i++) {
             final int index = i;
             // add column with value provider and renderer
             TextField textField = new TextField();
-            binder.forField(textField)
+            binder
+                .forField(textField)
                 .withConverter(new StringToIntegerConverter("Not a number"))
                 .bind(list -> list.get(index), (list, value) -> list.set(index, value));
             if ((i % 5) == 0) {
-                grid.addColumn(list -> list.get(index)).setKey(""+i).setHeader("M"+(i/5)).setClassNameGenerator(item -> "month");
+                grid
+                    .addColumn(list -> list.get(index))
+                    .setKey("" + i)
+                    .setHeader("M" + (i / 5))
+                    .setClassNameGenerator(item -> "month");
             } else {
-                grid.addColumn(list -> list.get(index)).setKey(""+i).setHeader("W"+(week)).setEditorComponent(textField);
+                grid
+                    .addColumn(list -> list.get(index))
+                    .setKey("" + i)
+                    .setHeader("W" + (week))
+                    .setEditorComponent(textField);
                 week++;
             }
         }
@@ -64,43 +71,45 @@ public class GridDrillDown extends Recipe {
         // add drill down pattern. Here is simplified example of the idea, uncomment
         // the code to see the effect
         HeaderRow header = grid.prependHeaderRow();
-        for (int i=0;i<65;i++) {
-            if (i%5==0) {
+        for (int i = 0; i < 65; i++) {
+            if (i % 5 == 0) {
                 final int index = i;
-                Button button = new Button("M"+i/5);
+                Button button = new Button("M" + i / 5);
                 button.addThemeVariants(ButtonVariant.LUMO_SMALL);
-                button.addClickListener(event -> {
-                    if (grid.getEditor().isOpen()) {
-                        grid.getEditor().save();
-                        grid.getEditor().closeEditor();
+                button.addClickListener(
+                    event -> {
+                        if (grid.getEditor().isOpen()) {
+                            grid.getEditor().save();
+                            grid.getEditor().closeEditor();
+                        }
+                        if (grid.getColumnByKey("" + (index + 1)).isVisible()) {
+                            grid.getColumnByKey("" + (index + 1)).setVisible(false);
+                            grid.getColumnByKey("" + (index + 2)).setVisible(false);
+                            grid.getColumnByKey("" + (index + 3)).setVisible(false);
+                            grid.getColumnByKey("" + (index + 4)).setVisible(false);
+                        } else {
+                            grid.getColumnByKey("" + (index + 1)).setVisible(true);
+                            grid.getColumnByKey("" + (index + 2)).setVisible(true);
+                            grid.getColumnByKey("" + (index + 3)).setVisible(true);
+                            grid.getColumnByKey("" + (index + 4)).setVisible(true);
+                        }
                     }
-                    if (grid.getColumnByKey(""+(index+1)).isVisible()) {
-                        grid.getColumnByKey(""+(index+1)).setVisible(false);
-                        grid.getColumnByKey(""+(index+2)).setVisible(false);
-                        grid.getColumnByKey(""+(index+3)).setVisible(false);                           
-                        grid.getColumnByKey(""+(index+4)).setVisible(false);                           
-                    } else {                        
-                        grid.getColumnByKey(""+(index+1)).setVisible(true);
-                        grid.getColumnByKey(""+(index+2)).setVisible(true);
-                        grid.getColumnByKey(""+(index+3)).setVisible(true);
-                        grid.getColumnByKey(""+(index+4)).setVisible(true);
-                    }
-                });
-                header.getCell(grid.getColumnByKey(""+i)).setComponent(button);;
+                );
+                header.getCell(grid.getColumnByKey("" + i)).setComponent(button);
             } else {
-                grid.getColumnByKey(""+i).setVisible(false);                   
+                grid.getColumnByKey("" + i).setVisible(false);
             }
         }
 
         // Generate some data
         Random random = new Random();
         List<List<Integer>> items = new ArrayList<>();
-        for (int j=0;j<1000;j++) {
+        for (int j = 0; j < 1000; j++) {
             final List<Integer> values = new ArrayList<>();
             int sum = 0;
-            for (int i=0;i<66;i++) {
-                if (i%5 == 0 && i > 0) {
-                    values.add(i-5,sum);
+            for (int i = 0; i < 66; i++) {
+                if (i % 5 == 0 && i > 0) {
+                    values.add(i - 5, sum);
                     sum = 0;
                 } else {
                     int number = random.nextInt(10000);
@@ -118,28 +127,32 @@ public class GridDrillDown extends Recipe {
         grid.setWidth("100%");
         grid.setSelectionMode(SelectionMode.NONE);
 
-        grid.addItemClickListener(event -> {
-            if (!grid.getEditor().isOpen()) {
-                grid.getEditor().editItem(event.getItem());
-            } else {
-                
+        grid.addItemClickListener(
+            event -> {
+                if (!grid.getEditor().isOpen()) {
+                    grid.getEditor().editItem(event.getItem());
+                } else {}
             }
-        });
+        );
         // Update sum
-        grid.getEditor().addCloseListener(event -> {
-            List<Integer> values = event.getItem();
-            Integer sum = 0;
-            for (int i=0;i<66;i++) {
-                if (i%5 == 0 && i > 0) {
-                    values.set(i-5, sum);
-                    sum = 0;
-                } else if (i > 0) {
-                    Integer number = values.get(i);
-                    sum = sum + number;
+        grid
+            .getEditor()
+            .addCloseListener(
+                event -> {
+                    List<Integer> values = event.getItem();
+                    Integer sum = 0;
+                    for (int i = 0; i < 66; i++) {
+                        if (i % 5 == 0 && i > 0) {
+                            values.set(i - 5, sum);
+                            sum = 0;
+                        } else if (i > 0) {
+                            Integer number = values.get(i);
+                            sum = sum + number;
+                        }
+                    }
+                    dp.refreshItem(values);
                 }
-            }
-            dp.refreshItem(values);
-        });
+            );
 
         return grid;
     }
@@ -147,22 +160,17 @@ public class GridDrillDown extends Recipe {
     private class MyDataProvider<T> extends ListDataProvider<T> {
 
         public MyDataProvider(Collection<T> items) {
-                super(items);
+            super(items);
         }
 
         @Override
         public String getId(T item) {
-        Objects.requireNonNull(item, "Cannot provide an id for a null item.");
-        if (item instanceof List<?>) {
-            if (((List) item).size() == 67)
-                return ((List) item).get(66).toString();
-            else
+            Objects.requireNonNull(item, "Cannot provide an id for a null item.");
+            if (item instanceof List<?>) {
+                if (((List) item).size() == 67) return ((List) item).get(66).toString(); else return item.toString();
+            } else {
                 return item.toString();
-        } else {
-            return item.toString();
+            }
         }
     }
-        
-}
-    
 }

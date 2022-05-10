@@ -1,60 +1,15 @@
-import "@vaadin/vaadin-tabs";
-import {
-  customElement,
-  html,
-  LitElement,
-  property,
-  unsafeCSS,
-} from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { getSimpleName } from "./util";
+import "@vaadin/tabs";
+import "@vaadin/text-area";
+import { html, LitElement, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { getSource } from "./generated/RecipeEndpoint";
-import "@vaadin/vaadin-text-field/vaadin-text-area";
-import {
-  registerStyles,
-  css,
-} from "@vaadin/vaadin-themable-mixin/register-styles";
-//@ts-ignore
-import * as Prism from "./prism.js";
-import prismCss from "./prism.css";
-
-registerStyles(
-  "vaadin-tabs",
-  css`
-    :host([theme~="cookbook-code"]) {
-      box-shadow: inset 0 -1px 0 0 var(--color-graphite-darker);
-      color: var(--color-graphite-lighter);
-    }
-
-    [part="forward-button"],
-    [part="back-button"] {
-      color: var(--color-graphite);
-    }
-  `
-);
-
-registerStyles(
-  "vaadin-tab",
-  css`
-    :host([theme~="cookbook-code"]) {
-      color: var(--color-stainless);
-    }
-
-    :host([theme~="cookbook-code"][selected]),
-    :host([theme~="cookbook-code"][active]) {
-      color: var(--color-alloy-lighter);
-    }
-
-    :host([theme~="cookbook-code"][selected]) {
-      border-bottom: 2px solid var(--color-water);
-    }
-
-    :host([theme~="cookbook-code"][selected])::before,
-    :host([theme~="cookbook-code"][selected])::after {
-      display: none !important;
-    }
-  `
-);
+import * as Prism from "prismjs";
+import "prismjs/components/prism-java.js";
+import "prismjs/components/prism-typescript";
+import { getSimpleName } from "./util";
+// @ts-ignore
+import prismCss from "prismjs/themes/prism-okaidia.css?inline";
 
 @customElement("code-viewer")
 export class CodeViewer extends LitElement {
@@ -101,14 +56,16 @@ export class CodeViewer extends LitElement {
             >`
         )}
       </vaadin-tabs>
-      ${/*Don't reuse these elements. This is needed because Prism
+      ${
+        /*Don't reuse these elements. This is needed because Prism
           removes the markers lit-html uses to track slots */
-      unsafeHTML(
-        `<pre><code class="language-${this.language}">${this.escapeHtml(
-          this.contents
-        )}
+        unsafeHTML(
+          `<pre><code class="language-${this.language}">${this.escapeHtml(
+            this.removeMetaInfoFromCode(this.contents)
+          )}
         </code></pre>`
-      )}
+        )
+      }
     `;
   }
 
@@ -132,7 +89,6 @@ export class CodeViewer extends LitElement {
 
     // Wait for LitElement to finish updating the DOM before higlighting
     await this.updateComplete;
-    //@ts-ignore
     Prism.highlightAllUnder(this);
   }
 
@@ -143,6 +99,44 @@ export class CodeViewer extends LitElement {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  removeMetaInfoFromCode(code: string) {
+    if (!code) return "";
+
+    code = code.substring(code.search(/^import/gm)); // remove package
+    code = code.replace("extends Recipe", "extends VerticalLayout");
+    code = this.removeMetadataTag(code);
+    code = this.removeMetaImports(code);
+    return code;
+  }
+
+  removeMetaImports(code: string): string {
+    return code
+      .split("\n")
+      .filter(function (line) {
+        return line.indexOf("import com.vaadin.recipes.recipe") == -1;
+      })
+      .join("\n");
+  }
+
+  removeMetadataTag(code: string): string {
+    const metaLen = "@Metadata".length;
+    const startIdx = code.indexOf("@Metadata");
+    let endIdx = -1;
+    let openBrackets = 0;
+    for (let i = startIdx + metaLen; i < code.length; i++) {
+      if (code.charAt(i) == "(") {
+        ++openBrackets;
+      } else if (code.charAt(i) == ")") {
+        --openBrackets;
+        if (openBrackets == 0) {
+          endIdx = code.substring(i).indexOf("\n") + i + 1;
+          break;
+        }
+      }
+    }
+    return code.replace(code.slice(startIdx, endIdx), "");
   }
 
   forceRefresh() {

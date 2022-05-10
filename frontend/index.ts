@@ -50,7 +50,7 @@ async function initRecipes() {
 function sendPageview() {
   if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
     // Let vaadin.com HaaS know that the page has changed
-    window.dispatchEvent(new Event('on-location-change'));
+    window.dispatchEvent(new Event("on-location-change"));
   }
 }
 window.addEventListener(

@@ -1,9 +1,9 @@
-import "@vaadin/vaadin-text-field/vaadin-number-field";
-import "@vaadin/vaadin-radio-button";
-import "@vaadin/vaadin-radio-button/vaadin-radio-group";
-import { css, customElement, html, property } from "lit-element";
-import "./circular-progress-indicator-component";
+import "@vaadin/number-field";
+import "@vaadin/radio-group";
+import { css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { Recipe, recipeInfo } from "../recipe";
+import "./circular-progress-indicator-component";
 
 @recipeInfo({
   url: "circular-progress-indicator",

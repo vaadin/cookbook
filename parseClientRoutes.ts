@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
 import { BaseRoute } from "@vaadin/router";
-import Tag from "./frontend/generated/com/vaadin/recipes/recipe/Tag";
+
 const debug = (...theArgs) => {
   // console.log(theArgs);
 };
@@ -37,7 +37,7 @@ export const recipeToRoute = (
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
     sourceFiles: absoluteSourceFiles,
     howDoI: firstToLower(recipeInfo.howDoI),
-    tags: ["Tag.TYPE_SCRIPT","Tag.FUSION", ...(recipeInfo.tags || [])].map(
+    tags: ["Tag.TYPE_SCRIPT","Tag.HILLA", ...(recipeInfo.tags || [])].map(
       (tag) => "" + tag
     ),
   });
@@ -113,7 +113,7 @@ const writeIfChanged = (file, contents) => {
 const tsFileGlobs = args[0];
 const routes: RecipeRouteWithAction[] = [];
 
-const g = path.resolve(__dirname, tsFileGlobs);
+const g = path.resolve(tsFileGlobs);
 debug("Looking for " + g);
 const files = glob.sync(g);
 
@@ -131,14 +131,13 @@ files.forEach((file) => {
     routes.push(r);
   }
 });
-const frontend = path.resolve(__dirname, "frontend");
+const frontend = path.resolve("frontend");
 const recipeInfoJson = path.resolve(
-  __dirname,
   "target",
   "classes",
   "ts-recipe-info.json"
 );
-const routesTsTemplateFile = path.resolve(__dirname, "ts-routes.ts.template");
+const routesTsTemplateFile = path.resolve("ts-routes.ts.template");
 const routesTsFile = path.resolve(frontend, "ts-routes.ts");
 
 writeIfChanged(

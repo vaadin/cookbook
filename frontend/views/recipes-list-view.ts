@@ -1,89 +1,16 @@
-import "@vaadin/vaadin-checkbox";
-import "@vaadin/vaadin-checkbox/vaadin-checkbox-group";
-import "@vaadin/vaadin-details";
-import { DetailsElement } from "@vaadin/vaadin-details";
-import "@vaadin/vaadin-text-field";
-import {
-  css,
-  registerStyles,
-} from "@vaadin/vaadin-themable-mixin/register-styles";
+import "@vaadin/checkbox";
+import "@vaadin/checkbox-group";
+import "@vaadin/details";
+import { Details } from "@vaadin/details";
+import "@vaadin/text-field";
 import { capitalCase } from "change-case";
+import { html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat.js";
 import { debounce } from "ts-debounce";
-import { customElement, html, LitElement, property } from "lit-element";
-import { repeat } from "lit-html/directives/repeat";
 import { recipes } from "../";
 import RecipeInfo from "../generated/com/vaadin/recipes/data/RecipeInfo";
 import Tag from "../generated/com/vaadin/recipes/recipe/Tag";
-
-registerStyles(
-  "vaadin-text-field",
-  css`
-    :host([theme~="vcom"]) {
-      --lumo-font-family: var(--font-main), Verdana, sans‑serif;
-    }
-
-    :host([theme~="vcom"].form-field) {
-      margin-bottom: 0 !important;
-    }
-
-    :host([theme~="vcom"]) [part="input-field"] {
-      height: var(--field-height);
-      font-family: var(--font-main), Verdana, sans‑serif;
-      font-size: 1rem;
-      line-height: 1.1;
-      background: var(--field-background-color);
-      border: 1px solid var(--field-border-color);
-      color: var(--field-value-color);
-      padding: var(--space-xs);
-      border-radius: var(--roundness-sm);
-      transition: all 0.2s ease-in;
-    }
-
-    :host([theme~="vcom"]) [part="input-field"]::after {
-      display: none;
-    }
-
-    :host([theme~="vcom"]) [part="input-field"]:hover {
-      background-color: var(--field-background-color-hover);
-      border-color: var(--field-border-color-hover);
-    }
-
-    :host([theme~="vcom"][focused]) [part="input-field"] {
-      border-color: var(--field-border-color-active);
-      box-shadow: var(--elevation-sm);
-    }
-  `
-);
-
-registerStyles(
-  "vaadin-details",
-  css`
-    [part="summary-content"] {
-      min-width: 0;
-    }
-
-    :host([theme~="cookbook"]) [part="summary"] {
-      padding: 0;
-    }
-  `
-);
-
-registerStyles(
-  "vaadin-checkbox",
-  css`
-    :host([theme~="cookbook"]) label {
-      display: flex;
-    }
-
-    :host([theme~="cookbook"]) [part="label"]:not([empty]) {
-      flex: auto;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-right: 0;
-    }
-  `
-);
 
 @customElement("recipes-list-view")
 export class RecipesListView extends LitElement {
@@ -92,26 +19,10 @@ export class RecipesListView extends LitElement {
   @property({ type: Array })
   filterTags: Tag[] = [];
 
-  tags: Tag[] = [
-    Tag.JAVA,
-    Tag.TYPE_SCRIPT,
-    Tag.FLOW,
-    Tag.FUSION,
-    Tag.KEYBOARD,
-    Tag.PUSH,
-    Tag.GRID,
-    Tag.CSV,
-    Tag.THEME,
-    Tag.PERFORMANCE,
-    Tag.USABILITY,
-    Tag.LAYOUT,
-    Tag.DOWNLOAD,
-    Tag.FORM,
-    Tag.ACCESSIBILITY
-  ];
+  tags = Tag;
 
   firstUpdated() {
-    const details = this.querySelector(".tag-filter") as DetailsElement;
+    const details = this.querySelector(".tag-filter") as Details;
     details.opened = window.matchMedia("(min-width: 600px)").matches;
   }
 
@@ -134,7 +45,6 @@ export class RecipesListView extends LitElement {
           position: -webkit-sticky;
           position: sticky;
           top: 0;
-          z-index: 1000;
           height: var(--recipes-list-view-header-height);
         }
 
@@ -155,6 +65,11 @@ export class RecipesListView extends LitElement {
 
         .recipes-list-view-header-search {
           flex: auto;
+        }
+
+        .recipes-list-view-header-search input {
+          border: 0 !important;
+          background: transparent !important;
         }
 
         .recipes-list-view-header-search i.las {
@@ -185,7 +100,6 @@ export class RecipesListView extends LitElement {
           position: -webkit-sticky;
           position: sticky;
           top: var(--recipes-list-view-header-height);
-          z-index: 1000;
           background-color: var(--color-alloy-lighter);
           max-height: calc(100vh - var(--recipes-list-view-header-height));
           overflow: auto;
@@ -335,7 +249,7 @@ export class RecipesListView extends LitElement {
               </span>
             </h6>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
-              ${this.tags.map(
+              ${Object.values(this.tags).map(
                 (tag) => html`
                   <vaadin-checkbox
                     value="${tag}"
