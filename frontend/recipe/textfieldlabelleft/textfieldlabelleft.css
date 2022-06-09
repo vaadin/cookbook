@@ -1,5 +1,5 @@
-:host([theme~="label-left"]) {
-  height: 55px;
+:host([theme~="label-left"])::before{
+  height: 100%;
 }
 
 :host([theme~="label-left"]) [part="label"] {
@@ -8,17 +8,17 @@
   overflow: unset;
 }
 
-:host([theme~="label-left"]) [part="input-field"] {
+:host([theme~="label-left"]) ::slotted(input) {
   flex-grow: 1 !important;
 }
 
-:host([theme~="label-left"]) .vaadin-text-field-container {
+:host([theme~="label-left"]) .vaadin-field-container {
   flex-direction: row !important;
   align-items: baseline;
 }
 
-:host([theme~="label-right"]) {
-  height: 55px;
+:host([theme~="label-right"])::before{
+  height: 100%;
 }
 
 :host([theme~="label-right"]) [part="label"] {
@@ -27,11 +27,52 @@
   overflow: unset;
 }
 
-:host([theme~="label-right"]) [part="input-field"] {
+:host([theme~="label-right"]) ::slotted(input) {
   flex-grow: 1 !important;
 }
 
-:host([theme~="label-right"]) .vaadin-text-field-container {
+:host([theme~="label-right"]) .vaadin-field-container {
   flex-direction: row-reverse !important;
   align-items: baseline;
 }
+
+
+/* Priort to Vaadin 22 use these styles instead */
+
+/* :host([theme~="label-left"]) { */
+/*   height: 55px; */
+/* } */
+
+/* :host([theme~="label-left"]) [part="label"] { */
+/*   padding-right: 5px; */
+/*   align-self: baseline !important; */
+/*   overflow: unset; */
+/* } */
+
+/* :host([theme~="label-left"]) [part="input-field"] { */
+/*   flex-grow: 1 !important; */
+/* } */
+
+/* :host([theme~="label-left"]) .vaadin-text-field-container { */
+/*   flex-direction: row !important; */
+/*   align-items: baseline; */
+/* } */
+
+/* :host([theme~="label-right"]) { */
+/*   height: 55px; */
+/* } */
+
+/* :host([theme~="label-right"]) [part="label"] { */
+/*   padding-left: 5px; */
+/*   align-self: baseline !important; */
+/*   overflow: unset; */
+/* } */
+
+/* :host([theme~="label-right"]) [part="input-field"] { */
+/*   flex-grow: 1 !important; */
+/* } */
+
+/* :host([theme~="label-right"]) .vaadin-text-field-container { */
+/*   flex-direction: row-reverse !important; */
+/*   align-items: baseline; */
+/* } */
