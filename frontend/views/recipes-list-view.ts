@@ -4,6 +4,7 @@ import "@vaadin/details";
 import { Details } from "@vaadin/details";
 import "@vaadin/text-field";
 import { capitalCase } from "change-case";
+import { replaceQueryParameter } from "Frontend/util";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
@@ -21,6 +22,14 @@ export class RecipesListView extends LitElement {
 
   tags = Tag;
 
+  constructor() {
+    super();
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get("search");
+    if (searchParam && searchParam.length > 1) {
+      this.filter = searchParam;
+    }
+  }
   firstUpdated() {
     const details = this.querySelector(".tag-filter") as Details;
     details.opened = window.matchMedia("(min-width: 600px)").matches;
@@ -220,6 +229,7 @@ export class RecipesListView extends LitElement {
             @value-changed="${this.updateFilter}"
             placeholder="How do I..."
             theme="vcom"
+            value=${this.filter}
             class="recipes-list-view-header-search form-field"
           >
             <i class="las la-search" aria-hidden="true" slot="prefix"></i>
@@ -356,6 +366,8 @@ export class RecipesListView extends LitElement {
   updateFilter(e: CustomEvent) {
     const value = e.detail.value;
     this.filter = value.toLowerCase();
+
+    replaceQueryParameter("search",this.filter);
     this.debouncedLog();
   }
 
