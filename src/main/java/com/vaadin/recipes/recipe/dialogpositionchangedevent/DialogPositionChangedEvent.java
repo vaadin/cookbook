@@ -62,12 +62,11 @@ public class DialogPositionChangedEvent extends Recipe {
             // You can extend it with a "mousemove" listener to get position-changed
             // events everytime the mouse is moved around. But beware, this will lead
             // to a massive amount of events fired.
+            // You may also extract this JS code into a separate file.
             getElement().executeJs("" +
-                    "let pxFromStyle = (str) => str.substring(0, str.length - 2);" +
-                    "" +
                     "let vaadinOverlay = this.$.overlay;" +
                     "let overlay = vaadinOverlay.$.overlay;" +
-                    "console.warn(this, overlay);" +
+                    "" +
                     "overlay.addEventListener('mousedown', e => {" +
                     "	let oRect = overlay.getBoundingClientRect();" +
                     "	this.__tmp_position_currentX = oRect.x;" +
