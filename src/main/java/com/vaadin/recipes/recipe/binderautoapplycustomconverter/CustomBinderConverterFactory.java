@@ -1,7 +1,6 @@
 package com.vaadin.recipes.recipe.binderautoapplycustomconverter;
 
 import java.time.Duration;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
@@ -14,7 +13,8 @@ import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
 @Route("custom-binder-converter-factory")
-@Metadata(howdoI = "Automatically apply custom converters with Binder", description = "When using Binder.bindInstanceFields() Vaadin automatically applies out-of-the-box converters when model and presentation data types do not match. This recipe shows how to create a Binder instance that supports also custom converters.",
+@Metadata(howdoI = "Automatically apply custom converters with Binder",
+        description = "When using Binder.bindInstanceFields() Vaadin automatically apply converters when model and presentation data types do not match. This recipe shows how to create a Binder instance that also supports custom converters.",
         sourceFiles = "CustomBinder.java",
         tags = Tag.BINDER)
 public class CustomBinderConverterFactory extends Recipe {
@@ -23,6 +23,7 @@ public class CustomBinderConverterFactory extends Recipe {
 
     public CustomBinderConverterFactory() {
         time = new TextField("Time");
+        time.setPlaceholder("1h 30m 10s");
 
         // Create instance of the custom binder and bind instance fields
         // custom converter will be automatically applied for time field
@@ -40,7 +41,7 @@ public class CustomBinderConverterFactory extends Recipe {
 
         HorizontalLayout form = new HorizontalLayout();
         form.setDefaultVerticalComponentAlignment(Alignment.END);
-        add(time, new Span("Time syntax: Nh Nm Ns (e.g. 1h 23m 10s or 97m)"), saveButton,  new Hr());
+        add(time, new Span("Time syntax: Nh Nm Ns (e.g. 1h 23m 10s or 97m)"), saveButton, new Hr());
     }
 
     public static class Data {
