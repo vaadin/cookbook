@@ -11,7 +11,7 @@ import com.vaadin.recipes.recipe.treegridsubtreehighlight.DepartmentData;
 
 @Route("tree-grid-recursive-selection")
 @Metadata(
-    howdoI = "select recursively an item and all its children in a treeGrid",
+    howdoI = "select recursively an item and all its children in a TreeGrid",
     description = "How to select recursively an item and all its children in a tree",
     sourceFiles = {
         "RecursiveSelectTreeGrid.java",
