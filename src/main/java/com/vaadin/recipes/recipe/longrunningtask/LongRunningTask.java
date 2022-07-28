@@ -18,8 +18,11 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
     sourceFiles = { "BackendService.java" },
     tags = { Tag.PUSH, Tag.USABILITY }
 )
-// @Push (add it here or in your AppShellConfigurator implementation)
 public class LongRunningTask extends Recipe {
+    
+    // Make sure to add @Push to your AppShellConfigurator implementation.
+    // For more details, see https://vaadin.com/docs/latest/advanced/server-push/.
+    
     private final BackendService backendService;
 
     private Button button = new Button("Start long-running task");
