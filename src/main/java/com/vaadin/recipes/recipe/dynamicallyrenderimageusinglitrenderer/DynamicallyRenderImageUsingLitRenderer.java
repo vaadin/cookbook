@@ -1,9 +1,7 @@
 package com.vaadin.recipes.recipe.dynamicallyrenderimageusinglitrenderer;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.upload.Upload;
-import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
@@ -22,42 +20,43 @@ import java.util.Base64;
 )
 public class DynamicallyRenderImageUsingLitRenderer extends Recipe {
 
-    public DynamicallyRenderImageUsingLitRenderer() {
-        Person joe = new Person(null); //initially no image is set
-        Grid<Person> grid = new Grid<>();
-        grid.setItems(Arrays.asList(joe));
+    public DynamicallyRenderImageUsingLitRenderer() throws IOException {
+        // The images here are read from the resources' folder. But the example would also work if the
+        // images were dynamically obtained from other source (for example, if uploaded by the user).
+        byte[] imageOne = getClass().getResourceAsStream("/images/image-one.png").readAllBytes();
+        byte[] imageTwo = getClass().getResourceAsStream("/images/image-two.png").readAllBytes();
+
+        Foo foo = new Foo(imageOne);
+        Grid<Foo> grid = new Grid<>();
+        grid.setItems(Arrays.asList(foo));
 
         grid.addColumn(
-                LitRenderer.<Person>of("<img src=${item.image} />")
-                        .withProperty("image", person -> {
-                            if (person.getImage() == null) {
+                LitRenderer.<Foo>of("<img src=${item.image} />")
+                        .withProperty("image", pojo -> {
+                            if (pojo.getImage() == null) {
                                 return "";
                             }
-                            return "data:image;base64," + Base64.getEncoder().encodeToString(person.getImage());
+                            return "data:image;base64," + Base64.getEncoder().encodeToString(pojo.getImage());
                         })
         ).setHeader("Image");
 
-        MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
-        Upload upload = new Upload(buffer);
-        upload.addSucceededListener(event -> {
-            String fileName = event.getFileName();
-            byte[] imageBytes;
-            try {
-                imageBytes = buffer.getInputStream(fileName).readAllBytes();
-                joe.setImage(imageBytes);
-                grid.getDataProvider().refreshItem(joe);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+        Button toggleButton = new Button("Replace image in Grid", e -> {
+            if (foo.getImage() == imageOne) {
+                foo.setImage(imageTwo);
+            } else {
+                foo.setImage(imageOne);
             }
+            grid.getDataProvider().refreshItem(foo);
         });
 
-        add(new H3("Upload an image to update the Grid using LitRenderer"), upload, grid);
+        add(toggleButton, grid);
     }
 
-    public static class Person {
+    public static class Foo {
         private byte[] image;
 
-        public Person(byte[] image) {
+        public Foo(byte[] image) {
             this.image = image;
         }
 
