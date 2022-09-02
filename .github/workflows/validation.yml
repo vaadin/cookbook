@@ -21,4 +21,6 @@ jobs:
         with:
           maven-version: 3.8.3
       - name: Compile and Install
+        env:
+          VAADIN_OFFLINE_KEY: ${{ secrets.VAADIN_OFFLINE_KEY }}
         run: mvn -B -e -V clean install -Pproduction
