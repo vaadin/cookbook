@@ -19,17 +19,17 @@ import java.util.HashMap;
 public class MapMarkerDragDrop extends Recipe {
     public MapMarkerDragDrop() {
         CustomMap map = new CustomMap();
-        map.setCenter(new Coordinate(-441077.2276714613, 5166904.667008546));
+        map.setCenter(new Coordinate(-3.9622641509434, 42.03954321121262));
         map.addThemeVariants(MapVariant.BORDERLESS);
         add(map);
 
         // Add markers for cities
         HashMap<MarkerFeature, String> cities = new HashMap<>();
-        cities.put(new MarkerFeature(Coordinate.fromLonLat(13.404954, 52.520008)), "Berlin");
-        cities.put(new MarkerFeature(Coordinate.fromLonLat(114.162813, 22.279328)), "Hong Kong");
-        cities.put(new MarkerFeature(Coordinate.fromLonLat(37.617298, 55.755825)), "Moscow");
-        cities.put(new MarkerFeature(Coordinate.fromLonLat(-74.005974, 40.712776)), "New York");
-        cities.put(new MarkerFeature(Coordinate.fromLonLat(-43.2093727, -22.9110137)), "Rio de Janeiro");
+        cities.put(new MarkerFeature(new Coordinate(13.404954, 52.520008)), "Berlin");
+        cities.put(new MarkerFeature(new Coordinate(114.162813, 22.279328)), "Hong Kong");
+        cities.put(new MarkerFeature(new Coordinate(37.617298, 55.755825)), "Moscow");
+        cities.put(new MarkerFeature(new Coordinate(-74.005974, 40.712776)), "New York");
+        cities.put(new MarkerFeature(new Coordinate(-43.2093727, -22.9110137)), "Rio de Janeiro");
         cities.keySet().forEach(map.getFeatureLayer()::addFeature);
 
         // Register event listener for when markers are dropped after a translate interaction
