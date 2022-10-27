@@ -1,0 +1,6 @@
+/* Define a new theme variant for buttons, named 'link', which only
+   applies to the 'label' slot.                       */
+:host([theme~="link"]) [part="label"] {
+  text-decoration: underline;
+  cursor: pointer;
+}
