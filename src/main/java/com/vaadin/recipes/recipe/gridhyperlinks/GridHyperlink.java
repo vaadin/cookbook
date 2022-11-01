@@ -1,5 +1,9 @@
 package com.vaadin.recipes.recipe.gridhyperlinks;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import org.vaadin.artur.exampledata.DataType;
+import org.vaadin.artur.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
@@ -8,19 +12,13 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
-import java.time.LocalDate;
-import java.util.Collection;
 
 @Route("grid-hyperlink")
 @Metadata(
-        howdoI = "Put hyperlinks into grid cells",
-        description = "Typically used in drill-down scenario. Uses LitRenderer to create the hyperlink.",
-        sourceFiles = {"recipe/gridhyperlink/button-hyperlink.css" },
-        tags = {Tag.GRID, Tag.PERFORMANCE}
-)
+        howdoI = "Put hyperlinks into Vaadin Grid cells",
+        description = "Learn how to display links in Grid cells. Uses LitRenderer to create the hyperlink for improved performance.",
+        sourceFiles = {"recipe/gridhyperlink/button-hyperlink.css"},
+        tags = {Tag.GRID, Tag.PERFORMANCE})
 @CssImport(themeFor = "vaadin-button", value = "recipe/gridhyperlink/button-hyperlink.css")
 public class GridHyperlink extends Recipe {
 
@@ -37,15 +35,14 @@ public class GridHyperlink extends Recipe {
     public GridHyperlink() {
         Grid<Person> grid = new Grid<>(Person.class, false);
         grid.setItems(createExamplePersons(100));
-
         grid.addColumn(
                 LitRenderer.<Person>of(LIT_TEMPLATE_HTML)
                         .withProperty("id", Person::getId)
                         .withFunction("clickHandler", person -> {
                             // Do whatever. For example navigate to other view.
                             Notification.show("Link was clicked for Person #" + person.getId());
-                        })
-        ).setHeader("Id").setSortable(true);
+                        }))
+                .setHeader("Id").setSortable(true);
         grid.addColumn(Person::getFirstName).setHeader("First name").setSortable(true);
         grid.addColumn(Person::getLastName).setHeader("Last name").setSortable(true);
 
