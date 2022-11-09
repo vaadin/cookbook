@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class RecipeInfo {
     @JsonIgnore
