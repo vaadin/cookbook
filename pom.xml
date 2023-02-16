@@ -120,7 +120,7 @@
         <dependency>
             <groupId>org.vaadin.olli</groupId>
             <artifactId>file-download-wrapper</artifactId>
-            <version>5.0.0</version>
+            <version>6.0.0</version>
         </dependency>
         <dependency>
             <groupId>in.virit</groupId>
