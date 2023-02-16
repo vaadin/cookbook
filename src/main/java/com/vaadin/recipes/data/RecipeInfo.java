@@ -1,17 +1,20 @@
 package com.vaadin.recipes.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.hilla.Nonnull;
-import com.vaadin.recipes.recipe.Recipe;
-import com.vaadin.recipes.recipe.Tag;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vaadin.recipes.recipe.Recipe;
+import com.vaadin.recipes.recipe.Tag;
+
+import dev.hilla.Nonnull;
+import jakarta.validation.constraints.NotBlank;
 
 public class RecipeInfo {
     @JsonIgnore
