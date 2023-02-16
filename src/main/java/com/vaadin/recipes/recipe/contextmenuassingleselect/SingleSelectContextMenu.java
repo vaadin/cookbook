@@ -1,14 +1,22 @@
 package com.vaadin.recipes.recipe.contextmenuassingleselect;
 
-import com.vaadin.flow.component.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.vaadin.flow.component.AbstractCompositeField;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasTheme;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.data.binder.HasItems;
 import com.vaadin.flow.dom.Element;
 
-import java.util.*;
-
-public  class SingleSelectContextMenu<T> extends AbstractCompositeField<ContextMenu, SingleSelectContextMenu<T>, T> implements HasItems<T>, HasElement, HasTheme {
+public  class SingleSelectContextMenu<T> extends AbstractCompositeField<ContextMenu, SingleSelectContextMenu<T>, T> implements HasItems<T>, HasTheme {
 
     private final ContextMenu contextMenu = new ContextMenu();
 

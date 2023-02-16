@@ -39,9 +39,9 @@ public class VisiblyClicked extends Recipe {
 
             // this method takes care of click() and shortcutkey presses
             @Override
-            public void fireEvent(ComponentEvent componentEvent) {
+            protected void fireEvent(ComponentEvent<?> componentEvent) {
                 if (componentEvent instanceof ClickEvent) {
-                    ClickEvent clickEvent = (ClickEvent) componentEvent;
+                    ClickEvent<?> clickEvent = (ClickEvent<?>) componentEvent;
                     if (!clickEvent.isFromClient()) {
                         programmaticClickAnimation();
                     }

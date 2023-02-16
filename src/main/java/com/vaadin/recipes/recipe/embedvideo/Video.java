@@ -1,6 +1,9 @@
 package com.vaadin.recipes.recipe.embedvideo;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.HtmlContainer;
+import com.vaadin.flow.component.PropertyDescriptor;
+import com.vaadin.flow.component.PropertyDescriptors;
+import com.vaadin.flow.component.Tag;
 
 @Tag("video")
 public class Video extends HtmlContainer {

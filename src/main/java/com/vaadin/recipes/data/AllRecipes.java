@@ -62,13 +62,12 @@ public class AllRecipes {
         for (BeanDefinition beanDef : provider.findCandidateComponents(Application.class.getPackage().getName())) {
             String beanName = beanDef.getBeanClassName();
             try {
-                Class<?> cls = Class.forName(beanName);
+                Class cls = Class.forName(beanName);
                 if (!Recipe.class.isAssignableFrom(cls)) {
                     throw new IllegalStateException("Recipe " + cls.getName() + " must extend Recipe");
                 }
                 addRecipe((Class<? extends Recipe>) cls);
             } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

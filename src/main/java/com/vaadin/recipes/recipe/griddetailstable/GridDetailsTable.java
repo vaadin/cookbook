@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -25,9 +25,8 @@ public class GridDetailsTable extends Recipe {
         setHeight("500px");
         grid.setItems(getData());
         grid.setColumns("year", "month", "expenses");
-        // Create a TemplateRenderer, which is Div where we will add the Table
-        grid.setItemDetailsRenderer(TemplateRenderer.<MonthlyExpense> of(
-                "<div style=\"border: 1px solid gray; width: 100%;\"inner-h-t-m-l=\"[[item.html]]\"></div>")
+        grid.setItemDetailsRenderer(LitRenderer.<MonthlyExpense> of(
+                "<div style=\"border: 1px solid gray; width: 100%;\" .innerHTML=\"${item.html}\"></div>")
                 .withProperty("html",
                         // Generate Table for the DailyExpenses of the selected
                         // month

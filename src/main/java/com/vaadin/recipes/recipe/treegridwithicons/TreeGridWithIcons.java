@@ -42,7 +42,7 @@ public class TreeGridWithIcons extends Recipe {
 		treegrid.addColumn(item -> Optional.ofNullable(item.getSize()).map(size -> size / 1024 + " KB").orElse(null)).setHeader("Size");
 
 
-		treegrid.setHeightByRows(true);
+		treegrid.setAllRowsVisible(true);
 		treegrid.expandRecursively(data.getRootFiles(), 2);
 		add(treegrid);
     }
