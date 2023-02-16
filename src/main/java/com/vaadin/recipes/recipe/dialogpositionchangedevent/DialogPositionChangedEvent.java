@@ -39,18 +39,8 @@ public class DialogPositionChangedEvent extends Recipe {
 
     public static class CustomDialog extends Dialog {
 
-        private int x;
-        private int y;
-
         public CustomDialog() {
             registerClientSidePositionChangedListener();
-
-            addPositionChangedListener(event -> {
-                if (isDraggable() && event.isFromClient()) {
-                    x = event.getX();
-                    y = event.getY();
-                }
-            });
         }
 
         public Registration addPositionChangedListener(ComponentEventListener<PositionChangedEvent> listener) {

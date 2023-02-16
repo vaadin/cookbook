@@ -68,10 +68,9 @@ public class ScrollToItemInTreeGrid extends Recipe {
             try {
                 getHierarchyMapper = HierarchicalDataCommunicator.class.getDeclaredMethod("getHierarchyMapper");
                 getHierarchyMapper.setAccessible(true);
-                HierarchyMapper<T, ?> mapper = (HierarchyMapper) getHierarchyMapper.invoke(dataCommunicator);
+                HierarchyMapper<T, ?> mapper = (HierarchyMapper<T,?>) getHierarchyMapper.invoke(dataCommunicator);
                 return mapper.getIndex(item);
             } catch (Exception e) {
-                // TODO: handle
                 e.printStackTrace();
             }
             return -1;

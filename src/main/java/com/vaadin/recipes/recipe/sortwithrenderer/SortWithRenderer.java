@@ -45,7 +45,7 @@ public class SortWithRenderer extends Recipe {
     private Grid<Integer> createExampleGrid() {
         Grid<Integer> grid = new Grid<>();
 
-        grid.setHeightByRows(true);
+        grid.setAllRowsVisible(true);
         grid.setItems(2, 100, 30);
 
         return grid;

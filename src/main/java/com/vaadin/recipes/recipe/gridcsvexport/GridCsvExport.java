@@ -1,5 +1,14 @@
 package com.vaadin.recipes.recipe.gridcsvexport;
 
+import java.io.StringWriter;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import org.vaadin.artur.exampledata.DataType;
+import org.vaadin.artur.exampledata.ExampleDataGenerator;
+
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -7,26 +16,12 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
-import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.data.provider.Query;
-import com.vaadin.flow.data.provider.QuerySortOrder;
-import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import java.io.StringWriter;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-csv-export")
 @Metadata(
@@ -104,8 +99,6 @@ public class GridCsvExport extends Recipe {
             persons = selection.stream();
         } else {
             persons = dataView.getItems();
-            // Alternative approach without DataView
-            // persons = ((DataProvider<Person, String>) grid.getDataProvider()).fetch(createQuery(grid));
         }
 
         StringWriter output = new StringWriter();
@@ -119,26 +112,4 @@ public class GridCsvExport extends Recipe {
         result.setValue(output.toString());
     }
 
-    /*
-     * This method is needed if using Vaadin 14, which does not have DataView API yet
-     */
-    private Query<Person, String> createQuery(Grid<Person> grid) {
-        List<GridSortOrder<Person>> gridSort = grid.getSortOrder();
-        List<QuerySortOrder> sortOrder = gridSort
-            .stream()
-            .map(order -> order.getSorted().getSortOrder(order.getDirection()))
-            .flatMap(orders -> orders)
-            .collect(Collectors.toList());
-
-        BinaryOperator<SerializableComparator<Person>> operator = (comparator1, comparator2) -> {
-            return comparator1.thenComparing(comparator2)::compare;
-        };
-        SerializableComparator<Person> inMemorySorter = gridSort
-            .stream()
-            .map(order -> order.getSorted().getComparator(order.getDirection()))
-            .reduce(operator)
-            .orElse(null);
-
-        return new Query<Person, String>(0, Integer.MAX_VALUE, sortOrder, inMemorySorter, null);
-    }
 }

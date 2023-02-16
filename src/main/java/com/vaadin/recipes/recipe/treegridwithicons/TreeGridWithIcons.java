@@ -3,7 +3,7 @@ package com.vaadin.recipes.recipe.treegridwithicons;
 import java.util.Optional;
 
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -29,10 +29,10 @@ public class TreeGridWithIcons extends Recipe {
 		treegrid.setItems(data.getRootFiles(), data::getChildFiles);
 
 		treegrid.addColumn(
-				TemplateRenderer.<FileItem> of("<vaadin-grid-tree-toggle "
-						+ "leaf='[[item.leaf]]' expanded='{{expanded}}' level='[[level]]'>"
-						+ "<vaadin-icon icon='[[item.icon]]'></vaadin-icon>&nbsp;&nbsp;"
-						+ "[[item.name]]"
+				LitRenderer.<FileItem> of("<vaadin-grid-tree-toggle "
+						+ "leaf=${item.leaf} .expanded=${model.expanded} .level=${model.level}>"
+						+ "<vaadin-icon icon='${item.icon}'></vaadin-icon>&nbsp;&nbsp;"
+						+ "${item.name}"
 						+ "</vaadin-grid-tree-toggle>")
 						.withProperty("leaf", item -> !treegrid.getDataCommunicator().hasChildren(item))
 				.withProperty("icon", FileItem::getIcon)
@@ -42,7 +42,7 @@ public class TreeGridWithIcons extends Recipe {
 		treegrid.addColumn(item -> Optional.ofNullable(item.getSize()).map(size -> size / 1024 + " KB").orElse(null)).setHeader("Size");
 
 
-		treegrid.setHeightByRows(true);
+		treegrid.setAllRowsVisible(true);
 		treegrid.expandRecursively(data.getRootFiles(), 2);
 		add(treegrid);
     }

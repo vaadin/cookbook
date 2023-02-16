@@ -130,7 +130,7 @@ public class FocusableLayout extends Recipe {
         add(hLayout);
     }
 
-    public class MyLayout extends FlexLayout implements Focusable {
+    public class MyLayout extends FlexLayout implements Focusable<MyLayout> {
 
         public MyLayout() {
             this.setTabIndex(0);

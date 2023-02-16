@@ -1,14 +1,14 @@
 package com.vaadin.recipes.recipe.gridrowheight;
 
+import java.util.Set;
+
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
-import java.util.Set;
 
 @Route("grid-row-height")
 @Metadata(
@@ -32,8 +32,8 @@ public class GridRowHeight extends Recipe {
 
         grid = new Grid<>();
         grid.addColumn(
-                TemplateRenderer.
-                    <HeightData>of("<div style='height: [[item.height]]px;'>[[item.name]]</div>")
+                LitRenderer.
+                    <HeightData>of("<div style='height: ${item.height}px;'>${item.name}</div>")
                     .withProperty("name", HeightData::getName)
                     .withProperty("height", HeightData::getHeight))
                 .setHeader("Name");

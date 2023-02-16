@@ -1,5 +1,14 @@
 package com.vaadin.recipes.recipe.gridexternaltemplaterenderer;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import org.vaadin.artur.exampledata.DataType;
+import org.vaadin.artur.exampledata.ExampleDataGenerator;
+
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.renderer.LitRenderer;
@@ -7,10 +16,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import java.time.LocalDate;
-import java.util.*;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-external-template-renderer")
 @JsModule("./recipe/grid-external-template/renderer.js")
@@ -22,8 +27,6 @@ import org.vaadin.artur.exampledata.ExampleDataGenerator;
 )
 public class GridExternalTemplateRenderer extends Recipe {
 
-    private final Map<Long, Boolean> disabledMap;
-
     public GridExternalTemplateRenderer() {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 423524l);
 
@@ -33,7 +36,6 @@ public class GridExternalTemplateRenderer extends Recipe {
         generator.setData(Person::setBirthday, DataType.DATE_OF_BIRTH);
         List<Person> personList = generator.create(100);
         personList.stream().forEach(this::generatePhoneNumberList);
-        disabledMap = new HashMap<>();
 
         Grid<Person> personGrid = new Grid<>();
 
