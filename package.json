@@ -140,7 +140,7 @@
     "@vaadin/virtual-list": "23.2.8",
     "change-case": "^4.1.1",
     "construct-style-sheets-polyfill": "3.1.0",
-    "date-fns": "2.16.0",
+    "date-fns": "2.29.3",
     "leaflet": "1.6.0",
     "lit": "2.3.0",
     "lumo-css-framework": "3.0.11",
@@ -296,7 +296,7 @@
       "@vaadin/virtual-list": "23.2.8",
       "@webcomponents/webcomponentsjs": "^2.2.10",
       "construct-style-sheets-polyfill": "3.1.0",
-      "date-fns": "2.16.0",
+      "date-fns": "2.29.3",
       "lit": "2.3.0",
       "lumo-css-framework": "3.0.11",
       "proj4": "2.8.0"
@@ -317,7 +317,7 @@
       "workbox-core": "6.5.0",
       "workbox-precaching": "6.5.0"
     },
-    "hash": "2e23d6284814756a4498453ac06938c52cd9dba30d448d1630087f0ca44e8d01"
+    "hash": "6fcc2d7221d8f807dac88c123f4e57db23f1fb4abb859cb923559d9e8cea69f8"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
