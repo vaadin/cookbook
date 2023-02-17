@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
     description = "This sample shows, how you can inform the server about JavaScript errors in the browser. You may for instance log them in your server log" +
             " to allow better tracing of user issues."
 )
-@JsModule("recipe/log-browser-errors/log-browser-errors.js")
+@JsModule("./recipe/log-browser-errors/log-browser-errors.js")
 public class LogBrowserErrors extends Recipe {
 
     private final Pre output;
@@ -49,6 +49,20 @@ public class LogBrowserErrors extends Recipe {
                 """);
 
         // Here starts the test playground area.
+        output = new Pre();
+        output.setWidthFull();
+        output.getStyle()
+                .set("border", "1px dashed lightgray")
+                .set("background-color", "whitesmoke")
+                .set("color", "var(--lumo-text-color)")
+                .set("font-size", "0.8rem")
+                .set("overflow-y", "auto");
+        output.setMaxHeight("300px");
+
+        Button clear = new Button("Clear Log", event -> {
+            Notification.show("Log cleared");
+            output.removeAll();
+        });
 
         Button button1 = new Button("Throw Error in Inline Script", e ->
                 getElement().executeJs("throw new Error('This is a test message inside an inline script, " +
@@ -59,15 +73,7 @@ public class LogBrowserErrors extends Recipe {
                 getElement().executeJs("window.Vaadin.Flow.logBrowserErrors.throwError()")
         );
 
-        output = new Pre();
-        output.setWidthFull();
-        output.getStyle()
-                .set("border", "1px dashed lightgray")
-                .set("background-color", "whitesmoke")
-                .set("font-size", "0.8rem")
-                .set("overflow-y", "auto");
-
-        add(new HorizontalLayout(button1, button2), output);
+        add(new HorizontalLayout(clear, button1, button2), output);
     }
 
     /**
