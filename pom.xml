@@ -14,8 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>24.0.0</vaadin.version>
-        <hilla.version>2.0.0</hilla.version>
+        <vaadin.version>24.0.1</vaadin.version>
+        <hilla.version>2.0.1</hilla.version>
     </properties>
 
     <parent>
