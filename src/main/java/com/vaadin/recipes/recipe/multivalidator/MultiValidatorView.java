@@ -34,7 +34,7 @@ public class MultiValidatorView extends Recipe {
 
         uniTextField = new TextField("Uni Text Field");
         uniTextField.setValueChangeMode(ValueChangeMode.LAZY);
-        uniTextField.addValueChangeListener(this::onValueChange);
+        uniTextField.addValueChangeListener(this::onUniValueChange);
 
         multiTextField = new TextField("Multi Text Field");
         multiTextField.setValueChangeMode(ValueChangeMode.LAZY);
@@ -67,7 +67,7 @@ public class MultiValidatorView extends Recipe {
                 .bind(Record::getText, Record::setText);
     }
 
-    private void onValueChange(AbstractField.ComponentValueChangeEvent<TextField, String> event) {
+    private void onUniValueChange(AbstractField.ComponentValueChangeEvent<TextField, String> event) {
         if (event.isFromClient()) {
             multiTextField.setValue(event.getSource().getValue());
         }
