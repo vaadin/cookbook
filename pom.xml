@@ -14,14 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>24.0.0.beta2</vaadin.version>
-        <hilla.version>2.0.0.beta2</hilla.version>
+        <vaadin.version>24.0.0</vaadin.version>
+        <hilla.version>2.0.0</hilla.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.4</version>
     </parent>
 
     <repositories>
@@ -205,9 +205,9 @@
                 It also creates webpack.config.js if not exists yet.
             -->
             <plugin>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
+                <groupId>dev.hilla</groupId>
+                <artifactId>hilla-maven-plugin</artifactId>
+                <version>${hilla.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -227,13 +227,6 @@
                 <vaadin.productionMode>true</vaadin.productionMode>
             </properties>
 
-            <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>flow-server-production-mode</artifactId>
-                </dependency>
-            </dependencies>
-
             <build>
                 <plugins>
                     <plugin>
@@ -244,15 +237,14 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
+                        <groupId>dev.hilla</groupId>
+                        <artifactId>hilla-maven-plugin</artifactId>
+                        <version>${hilla.version}</version>
                         <executions>
                             <execution>
                                 <goals>
                                     <goal>build-frontend</goal>
                                 </goals>
-                                <phase>compile</phase>
                             </execution>
                         </executions>
                     </plugin>
