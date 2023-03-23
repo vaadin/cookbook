@@ -2,8 +2,8 @@ name: Cookbook Validation
 on:
   push:
     branches: ['main']
-  pull_request:
-    branches: ['main']
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
 concurrency:
   group: ${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
@@ -11,7 +11,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions-cool/check-user-permission@main
+        id: checkUser
+        with:
+          username: ${{github.triggering_actor}}
+          require: 'write'
+      - name: Fail on external workflow triggering
+        if: ${{ steps.checkUser.outputs.require-result != 'true' }}
+        run: |
+          echo "🚫 **${{ github.actor }}** is an external contributor, a **${{ github.repository }}** team member has to review this changes and re-run this build" \
+            | tee -a $GITHUB_STEP_SUMMARY && exit 1
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
