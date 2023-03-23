@@ -4,16 +4,19 @@ on:
     branches: ['main']
   pull_request:
     branches: ['main']
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-      
+          restore-keys: ${{ runner.os }}-maven-
       - uses: actions/setup-java@v3
         with:
           java-version: '17'
