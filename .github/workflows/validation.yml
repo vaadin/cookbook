@@ -1,8 +1,9 @@
 name: Cookbook Validation
 on:
+  push:
+    branches: ['main']
   pull_request:
-    branches:
-      - master
+    branches: ['main']
 jobs:
   build:
     runs-on: ubuntu-latest 
