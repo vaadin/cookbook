@@ -8,5 +8,7 @@ window.applyTheme = () => {
 };
 window
   .matchMedia("(prefers-color-scheme: dark)")
-  .addListener(window.applyTheme);
+  .addEventListener('change', function () {
+      window.applyTheme()
+  });
 window.applyTheme();
