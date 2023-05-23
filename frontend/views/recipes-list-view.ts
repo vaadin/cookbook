@@ -265,7 +265,8 @@ export class RecipesListView extends LitElement {
                     value="${tag}"
                     ?checked=${this.filterTags.includes(tag)}
                     theme="cookbook"
-                    >${this.tagToHumanReadable(tag)}
+                    label=${this.tagToHumanReadable(tag)}
+                    >
                     <span
                       class="tag-count"
                       ?hidden=${this.matchCount(tag) === 0}
