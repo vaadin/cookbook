@@ -1,6 +1,3 @@
-:host([theme~="cookbook"]) .vaadin-checkbox-container {
-  display: flex;
-}
 :host([theme~="cookbook"]) ::slotted(label:not([empty])) {
   flex: auto;
   display: flex;
