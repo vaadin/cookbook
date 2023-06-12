@@ -17,7 +17,7 @@ import com.vaadin.recipes.recipe.Recipe;
 @Route("large-upload-area")
 @CssImport(value = "./recipe/large-upload-area/large-upload-area.css", themeFor = "vaadin-upload")
 @JsModule("@vaadin/vaadin-lumo-styles/badge.js")
-@CssImport(value = "./recipe/large-upload-area/file.css", include = "lumo-badge")
+@CssImport(value = "./recipe/large-upload-area/file.css")
 @Metadata(
     howdoI = "Create a large upload drop area",
     sourceFiles = { "recipe/large-upload-area/large-upload-area.css", "recipe/large-upload-area/file.css" },
