@@ -44,7 +44,8 @@ public class TreeGridWithIcons extends Recipe {
                                         } else {
                                             treeGrid.expand(List.of(item), true);
                                         }
-                                    }))
+                                    }
+                                }))
 			.setHeader("Name");
 		treegrid.addColumn(FileItem::getLastModified).setHeader("Last Modified");
 		treegrid.addColumn(item -> Optional.ofNullable(item.getSize()).map(size -> size / 1024 + " KB").orElse(null)).setHeader("Size");
