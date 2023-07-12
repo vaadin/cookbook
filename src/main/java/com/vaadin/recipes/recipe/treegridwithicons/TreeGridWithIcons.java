@@ -43,7 +43,7 @@ public class TreeGridWithIcons extends Recipe {
     public class IconTreeGrid extends TreeGrid<FileItem> {
 
         public IconTreeGrid() {
-            addColumn(LitRenderer.<FileItem> of("<vaadin-grid-tree-toggle "
+            addColumn(LitRenderer.<FileItem> of("<vaadin-grid-tree-toggle @click=${onClick} "
                     + "leaf=${item.leaf} .expanded=${model.expanded} .level=${model.level}>"
                     + "<vaadin-icon icon='${item.icon}'></vaadin-icon>&nbsp;&nbsp;"
                     + "${item.name}" + "</vaadin-grid-tree-toggle>")
