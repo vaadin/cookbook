@@ -3,12 +3,16 @@ package com.vaadin.recipes.recipe.treegridwithicons;
 import java.util.List;
 import java.util.Optional;
 
+import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
+@Uses(Icon.class)
+@Uses(TreeGrid.class)
 @Route("tree-grid-with-icons")
 @Metadata(
   howdoI = "Display icons in TreeGrid hierarchy column",
