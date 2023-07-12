@@ -37,6 +37,14 @@ public class TreeGridWithIcons extends Recipe {
 						.withProperty("leaf", item -> !treegrid.getDataCommunicator().hasChildren(item))
 				.withProperty("icon", FileItem::getIcon)
 				.withProperty("name", FileItem::getName))
+                                .withFunction("onClick", item -> {
+                                    if (treeGrid.getDataCommunicator().hasChildren(item)) {
+                                        if (isExpanded(item)) {
+                                            treeGrid.collapse(List.of(item), true);
+                                        } else {
+                                            treeGrid.expand(List.of(item), true);
+                                        }
+                                    })
 			.setHeader("Name");
 		treegrid.addColumn(FileItem::getLastModified).setHeader("Last Modified");
 		treegrid.addColumn(item -> Optional.ofNullable(item.getSize()).map(size -> size / 1024 + " KB").orElse(null)).setHeader("Size");
