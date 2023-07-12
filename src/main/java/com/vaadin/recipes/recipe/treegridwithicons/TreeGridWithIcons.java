@@ -1,5 +1,6 @@
 package com.vaadin.recipes.recipe.treegridwithicons;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.vaadin.flow.component.treegrid.TreeGrid;
@@ -38,11 +39,11 @@ public class TreeGridWithIcons extends Recipe {
 				.withProperty("icon", FileItem::getIcon)
 				.withProperty("name", FileItem::getName)
                                 .withFunction("onClick", item -> {
-                                    if (treeGrid.getDataCommunicator().hasChildren(item)) {
+                                    if (treegrid.getDataCommunicator().hasChildren(item)) {
                                         if (isExpanded(item)) {
-                                            treeGrid.collapse(List.of(item), true);
+                                            treegrid.collapse(List.of(item), true);
                                         } else {
-                                            treeGrid.expand(List.of(item), true);
+                                            treegrid.expand(List.of(item), true);
                                         }
                                     }
                                 }))
