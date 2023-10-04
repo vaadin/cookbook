@@ -236,11 +236,18 @@ export class RecipesListView extends LitElement {
           </vaadin-text-field>
 
           <div class="recipes-list-view-header-links">
-            <a
+          <a
+            href="https://github.com/vaadin/cookbook/issues/new?assignees=&labels=help+wanted%2C+recipe&projects=&template=recipe.md&title=How+do+I+"
+            class="link-with-arrow">
+            <span>Missing a recipe? Ask us.</span>
+            <div class="icon-wrapper">
+              <i class="las la-arrow-right" aria-hidden="true"></i>
+            </div>
+        </a> <br />
+        <a
               href="https://github.com/vaadin/cookbook#vaadin-cookbook"
-              class="link-with-arrow"
-            >
-              <span>Submit a recipe</span>
+              class="link-with-arrow">
+              <span>Submit a new recipe</span>
               <div class="icon-wrapper">
                 <i class="las la-arrow-right" aria-hidden="true"></i>
               </div>
