@@ -33,7 +33,7 @@ public class MapInGridAndBinder extends Recipe {
         IntegerField field = new IntegerField("Columns ");
         field.setMin(5);
         field.setMax(25);
-        field.setHasControls(true);
+        field.setStepButtonsVisible(true);
         VerticalLayout container = new VerticalLayout();
         container.setSizeFull();
         add(field, container);
@@ -153,9 +153,10 @@ public class MapInGridAndBinder extends Recipe {
         public String getId(T item) {
             Objects.requireNonNull(item,
                     "Cannot provide an id for a null item.");
-            if (item instanceof Map<?, ?>) {
-                if (((Map<String, ?>) item).get("id") != null)
-                    return ((Map<String, ?>) item).get("id").toString();
+            if (item instanceof Map) {
+                Map<?, ?> map = (Map<?, ?>) item;
+                if (map.get("id") != null)
+                    return map.get("id").toString();
                 else
                     return item.toString();
             } else {

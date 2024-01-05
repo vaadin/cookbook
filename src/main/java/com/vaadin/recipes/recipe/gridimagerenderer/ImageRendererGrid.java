@@ -1,16 +1,18 @@
 package com.vaadin.recipes.recipe.gridimagerenderer;
 
+import java.time.LocalDate;
+import java.util.Base64;
+import java.util.Collection;
+
+import org.vaadin.artur.exampledata.DataType;
+import org.vaadin.artur.exampledata.ExampleDataGenerator;
+
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import java.time.LocalDate;
-import java.util.Base64;
-import java.util.Collection;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @Route("grid-image-renderer")
 @Metadata(
@@ -80,9 +82,9 @@ public class ImageRendererGrid extends Recipe {
         grid.setColumns("birthDate", "firstName", "lastName");
         grid.setItems(createExamplePersons(100));
         grid.addColumn(
-            TemplateRenderer
+            LitRenderer
                 .<Person>of(
-                    "<div><img style='height: 80px; width: 80px;' src='[[item.imagedata]]' alt='[[item.name]]'/></div>"
+                    "<div><img style='height: 80px; width: 80px;' src=${item.imagedata} alt=${item.name}></div>"
                 )
                 .withProperty("imagedata", item -> getImageAsBase64(item.getImage()))
                 .withProperty("name", item -> item.getFirstName() + " " + item.getLastName())

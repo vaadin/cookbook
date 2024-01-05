@@ -1,13 +1,18 @@
 package com.vaadin.recipes.recipe.treegridwithicons;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
+@Uses(Icon.class)
+@Uses(TreeGrid.class)
 @Route("tree-grid-with-icons")
 @Metadata(
   howdoI = "Display icons in TreeGrid hierarchy column",
@@ -22,29 +27,43 @@ public class TreeGridWithIcons extends Recipe {
     }
 
     private void createBasicTreeGridUsage() {
-		FileItemData data = new FileItemData();
+        FileItemData data = new FileItemData();
 
-		TreeGrid<FileItem> treegrid = new TreeGrid<>();
+        IconTreeGrid treegrid = new IconTreeGrid();
 
-		treegrid.setItems(data.getRootFiles(), data::getChildFiles);
+        treegrid.setItems(data.getRootFiles(), data::getChildFiles);
 
-		treegrid.addColumn(
-				TemplateRenderer.<FileItem> of("<vaadin-grid-tree-toggle "
-						+ "leaf='[[item.leaf]]' expanded='{{expanded}}' level='[[level]]'>"
-						+ "<vaadin-icon icon='[[item.icon]]'></vaadin-icon>&nbsp;&nbsp;"
-						+ "[[item.name]]"
-						+ "</vaadin-grid-tree-toggle>")
-						.withProperty("leaf", item -> !treegrid.getDataCommunicator().hasChildren(item))
-				.withProperty("icon", FileItem::getIcon)
-				.withProperty("name", FileItem::getName))
-			.setHeader("Name");
-		treegrid.addColumn(FileItem::getLastModified).setHeader("Last Modified");
-		treegrid.addColumn(item -> Optional.ofNullable(item.getSize()).map(size -> size / 1024 + " KB").orElse(null)).setHeader("Size");
+        treegrid.addColumn(FileItem::getLastModified)
+                .setHeader("Last Modified");
+        treegrid.addColumn(item -> Optional.ofNullable(item.getSize())
+                .map(size -> size / 1024 + " KB").orElse(null))
+                .setHeader("Size");
 
-
-		treegrid.setHeightByRows(true);
-		treegrid.expandRecursively(data.getRootFiles(), 2);
-		add(treegrid);
+        treegrid.setAllRowsVisible(true);
+        treegrid.expandRecursively(data.getRootFiles(), 2);
+        add(treegrid);
     }
 
+    public class IconTreeGrid extends TreeGrid<FileItem> {
+
+        public IconTreeGrid() {
+            addColumn(LitRenderer.<FileItem> of("<vaadin-grid-tree-toggle @click=${onClick} "
+                    + ".leaf=${item.leaf} .expanded=${model.expanded} .level=${model.level}>"
+                    + "<vaadin-icon icon='${item.icon}'></vaadin-icon>&nbsp;&nbsp;"
+                    + "${item.name}" + "</vaadin-grid-tree-toggle>")
+                    .withProperty("leaf",
+                            item -> !getDataCommunicator().hasChildren(item))
+                    .withProperty("icon", FileItem::getIcon)
+                    .withProperty("name", FileItem::getName)
+                    .withFunction("onClick", item -> {
+                        if (getDataCommunicator().hasChildren(item)) {
+                            if (isExpanded(item)) {
+                                collapse(List.of(item), true);
+                            } else {
+                                expand(List.of(item), true);
+                            }
+                        }
+                    })).setHeader("Name");
+        }
+    }
 }

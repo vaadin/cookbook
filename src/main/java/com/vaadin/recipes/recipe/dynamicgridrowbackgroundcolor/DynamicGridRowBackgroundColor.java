@@ -29,7 +29,7 @@ public class DynamicGridRowBackgroundColor extends Recipe {
         Grid<MonthlyExpense> expensesGrid = new Grid<>(MonthlyExpense.class);
         expensesGrid.setColumns("month", "expense");
         expensesGrid.setItems(Stream.of(Month.values()).map(this::generateMonthlyExpense).collect(Collectors.toList()));
-        expensesGrid.setHeightByRows(true);
+        expensesGrid.setAllRowsVisible(true);
         add(expensesGrid);
 
         expensesGrid.setClassNameGenerator(monthlyExpense -> monthlyExpense.getExpense() > 500 ? "warn" : null);

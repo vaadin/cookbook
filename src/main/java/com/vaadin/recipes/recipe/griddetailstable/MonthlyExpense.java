@@ -2,14 +2,12 @@ package com.vaadin.recipes.recipe.griddetailstable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MonthlyExpense {
 
     private String month;
     private Double expenses;
     private int year;
-    private Random random = new Random();
     private List<DailyExpenses> dailyExpenses;
 
     public MonthlyExpense(String month, int year) {

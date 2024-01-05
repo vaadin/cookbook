@@ -164,9 +164,10 @@ public class GridDrillDown extends Recipe {
         }
 
         @Override
+        @SuppressWarnings("rawtypes")
         public String getId(T item) {
             Objects.requireNonNull(item, "Cannot provide an id for a null item.");
-            if (item instanceof List<?>) {
+            if (item instanceof List) {
                 if (((List) item).size() == 67) return ((List) item).get(66).toString(); else return item.toString();
             } else {
                 return item.toString();

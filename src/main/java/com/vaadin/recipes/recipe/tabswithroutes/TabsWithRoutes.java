@@ -32,7 +32,7 @@ public class TabsWithRoutes extends Recipe implements RouterLayout, BeforeEnterO
     }
 
     @Route(value = "tabs-with-routes/a", layout = TabsWithRoutes.class)
-    private static class ViewA extends Div {
+    public static class ViewA extends Div {
 
         public ViewA() {
             add(new Text("Content of A"));
@@ -40,7 +40,7 @@ public class TabsWithRoutes extends Recipe implements RouterLayout, BeforeEnterO
     }
 
     @Route(value = "tabs-with-routes/b", layout = TabsWithRoutes.class)
-    private static class ViewB extends Div implements HasUrlParameter<String> {
+    public static class ViewB extends Div implements HasUrlParameter<String> {
 
         @Override
         public void setParameter(BeforeEvent beforeEvent, String s) {

@@ -39,7 +39,7 @@ public class ScrollIntoViewView extends Recipe {
         // Add call for scrolling to the last component
         scrollButton.addClickListener(
             e -> {
-                lastComponent.getElement().callJsFunction("scrollIntoView");
+                lastComponent.scrollIntoView();
             }
         );
 

@@ -1,6 +1,10 @@
 package com.vaadin.recipes.recipe.mapmarkerdragdrop;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.DomEvent;
+import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.map.Map;
 import com.vaadin.flow.component.map.configuration.Coordinate;
@@ -8,6 +12,7 @@ import com.vaadin.flow.component.map.configuration.feature.MarkerFeature;
 import com.vaadin.flow.component.map.configuration.layer.VectorLayer;
 import com.vaadin.flow.component.map.configuration.source.VectorSource;
 import com.vaadin.flow.shared.Registration;
+
 import elemental.json.JsonArray;
 
 @JsModule("./recipe/map-marker-drag-drop/map-marker-drag-drop.js")

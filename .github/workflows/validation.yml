@@ -1,26 +1,42 @@
 name: Cookbook Validation
 on:
-  pull_request:
-    branches:
-      - master
+  push:
+    branches: ['main']
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - uses: actions-cool/check-user-permission@main
+        id: checkUser
+        with:
+          username: ${{github.triggering_actor}}
+          require: 'write'
+      - name: Fail on external workflow triggering
+        if: ${{ steps.checkUser.outputs.require-result != 'true' }}
+        run: |
+          echo "🚫 **${{ github.actor }}** is an external contributor, a **${{ github.repository }}** team member has to review this changes and re-run this build" \
+            | tee -a $GITHUB_STEP_SUMMARY && exit 1
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-      
-      - uses: actions/setup-java@v2
+          restore-keys: ${{ runner.os }}-maven-
+      - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
-      - uses: stCarolas/setup-maven@v4.2
+      - uses: stCarolas/setup-maven@v4.5
         with:
-          maven-version: 3.8.3
+          maven-version: 3.8.7
       - name: Compile and Install
         env:
           VAADIN_OFFLINE_KEY: ${{ secrets.VAADIN_OFFLINE_KEY }}
-        run: mvn -B -e -V clean install -Pproduction
+        run: mvn -ntp -B -e -V clean install -Pproduction

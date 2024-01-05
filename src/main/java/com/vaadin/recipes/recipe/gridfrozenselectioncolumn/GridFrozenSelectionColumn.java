@@ -2,6 +2,7 @@ package com.vaadin.recipes.recipe.gridfrozenselectioncolumn;
 
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -15,8 +16,7 @@ import java.util.Collection;
 @Route(value = "grid-frozen-selection-column")
 @Metadata(
         howdoI = "Freeze a grid's selection (checkbox) column",
-        description = "The Java API is currently lacking an easy-to-use way of freezing a grid's selection (checkbox)" +
-                " column, even though it is possible using JavaScript.",
+        description = "The Java API has a new easy-to-use way of freezing a grid's selection (checkbox)",
         tags = { Tag.GRID }
 )
 public class GridFrozenSelectionColumn extends Recipe {
@@ -24,13 +24,11 @@ public class GridFrozenSelectionColumn extends Recipe {
     private Grid<Person> grid = new Grid<>(Person.class);
     
     public GridFrozenSelectionColumn() {
-        grid.addAttachListener(e ->
-            grid.getElement().executeJs("this.querySelector('vaadin-grid-flow-selection-column').frozen = true")
-        );
         grid.setColumns("birthDate", "firstName", "lastName");
         grid.setItems(createExamplePersons(100));
-        grid.setSelectionMode(Grid.SelectionMode.MULTI);
-
+        ((GridMultiSelectionModel<?>) grid
+          .setSelectionMode(Grid.SelectionMode.MULTI))
+          .setSelectionColumnFrozen(true);
         // Overflow for demo purposes
         for (Grid.Column<Person> column : grid.getColumns()) {
             column.setAutoWidth(true);

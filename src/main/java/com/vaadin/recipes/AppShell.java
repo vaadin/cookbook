@@ -38,7 +38,6 @@ public class AppShell implements AppShellConfigurator {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

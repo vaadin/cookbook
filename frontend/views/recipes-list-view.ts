@@ -236,11 +236,18 @@ export class RecipesListView extends LitElement {
           </vaadin-text-field>
 
           <div class="recipes-list-view-header-links">
-            <a
+          <a
+            href="https://github.com/vaadin/cookbook/issues/new?assignees=&labels=help+wanted%2C+recipe&projects=&template=recipe.md&title=How+do+I+"
+            class="link-with-arrow">
+            <span>Missing a recipe? Ask us.</span>
+            <div class="icon-wrapper">
+              <i class="las la-arrow-right" aria-hidden="true"></i>
+            </div>
+        </a> <br />
+        <a
               href="https://github.com/vaadin/cookbook#vaadin-cookbook"
-              class="link-with-arrow"
-            >
-              <span>Submit a recipe</span>
+              class="link-with-arrow">
+              <span>Submit a new recipe</span>
               <div class="icon-wrapper">
                 <i class="las la-arrow-right" aria-hidden="true"></i>
               </div>
@@ -252,12 +259,14 @@ export class RecipesListView extends LitElement {
       <div class="recipes-list-container container-fluid">
         <div class="recipes-list-tags">
           <vaadin-details theme="reverse cookbook" opened class="tag-filter">
-            <h6 slot="summary">
-              Filter<span class="selected-tags">
-                ${this.filterTags.length > 0 ? ": " : ""}
-                ${this.filterTags.map(this.tagToHumanReadable).join(", ")}
-              </span>
-            </h6>
+            <vaadin-details-summary slot="summary">
+              <h6>
+                Filter<span class="selected-tags">
+                  ${this.filterTags.length > 0 ? ": " : ""}
+                  ${this.filterTags.map(this.tagToHumanReadable).join(", ")}
+                </span>
+              </h6>
+            </vaadin-details-summary>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
               ${Object.values(this.tags).map(
                 (tag) => html`
@@ -265,13 +274,13 @@ export class RecipesListView extends LitElement {
                     value="${tag}"
                     ?checked=${this.filterTags.includes(tag)}
                     theme="cookbook"
-                    >${this.tagToHumanReadable(tag)}
+                    ><label slot="label">${this.tagToHumanReadable(tag)}
                     <span
                       class="tag-count"
                       ?hidden=${this.matchCount(tag) === 0}
                       >${this.matchCount(tag)}</span
                     ></vaadin-checkbox
-                  >
+                  ></label>
                 `
               )}
             </vaadin-checkbox-group>
