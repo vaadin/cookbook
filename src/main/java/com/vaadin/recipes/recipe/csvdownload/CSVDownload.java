@@ -20,7 +20,7 @@ import org.vaadin.olli.FileDownloadWrapper;
 @Metadata(
     howdoI = "Download text area contents as a file",
     description = "Shows how to allow the user to download a file generated from the contents of a TextArea.",
-    tags = { Tag.DOWNLOAD }
+    tags = { Tag.DOWNLOAD }, addons = {"FileDownloadWrapper;https://vaadin.com/directory/component/file-download-wrapper"}
 )
 public class CSVDownload extends Recipe {
 
