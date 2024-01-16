@@ -1,7 +1,8 @@
 package com.vaadin.recipes.recipe.showsvg;
 
+import com.vaadin.flow.component.Svg;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -17,15 +18,15 @@ import com.vaadin.recipes.recipe.Recipe;
 public class ShowSvg extends Recipe {
 
     public ShowSvg() {
-        add(new Label("styled example"));
+        add(new Paragraph("A css styled SVG example"));
 
         // e. g. load svg code from file, classpath, ...
-        SvgWrapper styleSvg = new SvgWrapper(
-            "<svg height=\"100\" width=\"100\">\n" +
-            "  <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />\n" +
-            "  Sorry, your browser does not support inline SVG.  \n" +
-            "</svg> "
-        );
+        Svg styleSvg = new Svg("""
+                <svg height="100" width="100">
+                  <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+                  Sorry, your browser does not support inline SVG.
+                </svg>
+        """);
 
         // class 'styled-svg' overrides stroke and fill, see showsvg.css
         styleSvg.addClassName("styled-svg");
