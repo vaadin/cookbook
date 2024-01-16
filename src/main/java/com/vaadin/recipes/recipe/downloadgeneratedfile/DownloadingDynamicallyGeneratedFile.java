@@ -15,7 +15,7 @@ import org.vaadin.firitin.components.DynamicFileDownloader;
 @Metadata(
         howdoI = "Offer a dynamic / generated file for download",
         description = "Shows how to allow the user to download a file generated on the server.",
-        tags = { Tag.DOWNLOAD }
+        tags = { Tag.DOWNLOAD }, addons = "Viritin;https://vaadin.com/directory/component/flow-viritin"
 )
 public class DownloadingDynamicallyGeneratedFile extends Recipe {
 
