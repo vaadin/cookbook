@@ -106,6 +106,10 @@ export class CodeViewer extends LitElement {
 
     code = code.substring(code.search(/^import/gm)); // remove package
     code = code.replace("extends Recipe", "extends VerticalLayout");
+    // add VerticalLayout import if needed
+    if(!code.includes("import com.vaadin.flow.component.orderedlayout.VerticalLayout")) {
+        code = "import com.vaadin.flow.component.orderedlayout.VerticalLayout\n" + code;
+    }
     code = this.removeMetadataTag(code);
     code = this.removeMetaImports(code);
     return code;
