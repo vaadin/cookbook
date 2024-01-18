@@ -268,7 +268,7 @@ export class RecipesListView extends LitElement {
               </h6>
             </vaadin-details-summary>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
-              ${Object.values(this.tags).map(
+              ${Object.values(this.tags).sort().map(
                 (tag) => html`
                   <vaadin-checkbox
                     value="${tag}"
