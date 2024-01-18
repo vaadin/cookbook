@@ -324,7 +324,7 @@ export class RecipesListView extends LitElement {
     `;
   }
   tagToHumanReadable(tag: Tag): string {
-    return capitalCase(tag).replace(/ /g, "");
+    return capitalCase(tag).replace(/ /g, "").replace("Flow","Vaadin Flow");
   }
   matchCount(tag: Tag): number {
     return recipes.filter((recipe) =>
