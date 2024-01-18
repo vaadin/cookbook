@@ -27,6 +27,11 @@ import java.util.stream.Stream;
     tags = {Tag.JAVA, Tag.FLOW})
 public class DatePickerI18NExample extends Recipe {
 
+  // Note, you can find a Date/DateTimePicker components working
+  // this way out of the box from Viritin and SuperFields add-on.
+  // https://vaadin.com/directory/flow-viritin
+  // https://vaadin.com/directory/component/superfields
+
   enum YearFormat {
     DEFAULT, LONG, SHORT
   }
