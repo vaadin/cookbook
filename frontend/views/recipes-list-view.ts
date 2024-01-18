@@ -268,7 +268,7 @@ export class RecipesListView extends LitElement {
               </h6>
             </vaadin-details-summary>
             <vaadin-checkbox-group @value-changed=${this.tagFilterChange}>
-              ${Object.values(this.tags).map(
+              ${Object.values(this.tags).sort().map(
                 (tag) => html`
                   <vaadin-checkbox
                     value="${tag}"
@@ -324,7 +324,7 @@ export class RecipesListView extends LitElement {
     `;
   }
   tagToHumanReadable(tag: Tag): string {
-    return capitalCase(tag).replace(/ /g, "");
+    return capitalCase(tag).replace(/ /g, "").replace("Flow","Vaadin Flow");
   }
   matchCount(tag: Tag): number {
     return recipes.filter((recipe) =>
