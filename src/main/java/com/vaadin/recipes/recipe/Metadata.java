@@ -2,6 +2,7 @@ package com.vaadin.recipes.recipe;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.net.URI;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Metadata {
@@ -16,4 +17,9 @@ public @interface Metadata {
     String[] sourceFiles() default {};
 
     Tag[] tags() default {};
+
+    /**
+     * @return NAME;URL
+     */
+    String[] addons() default {};
 }
