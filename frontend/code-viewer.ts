@@ -61,7 +61,7 @@ export class CodeViewer extends LitElement {
           removes the markers lit-html uses to track slots */
         unsafeHTML(
           `<pre><code class="language-${this.language}">${this.escapeHtml(
-            this.removeMetaInfoFromCode(this.contents)
+            this.removeMetaInfoFromCode(this.contents, this.language)
           )}
         </code></pre>`
         )
@@ -101,11 +101,17 @@ export class CodeViewer extends LitElement {
       .replace(/'/g, "&#039;");
   }
 
-  removeMetaInfoFromCode(code: string) {
+  removeMetaInfoFromCode(code: string, language: string) {
     if (!code) return "";
 
     code = code.substring(code.search(/^import/gm)); // remove package
-    code = code.replace("extends Recipe", "extends VerticalLayout");
+    if(language == "java") {
+        code = code.replace("extends Recipe", "extends VerticalLayout");
+        // add VerticalLayout import if needed
+        if(!code.includes("import com.vaadin.flow.component.orderedlayout.VerticalLayout")) {
+            code = "import com.vaadin.flow.component.orderedlayout.VerticalLayout\n" + code;
+        }
+    }
     code = this.removeMetadataTag(code);
     code = this.removeMetaImports(code);
     return code;

@@ -2,11 +2,11 @@ package com.vaadin.recipes.recipe.localstorage;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.page.WebStorage;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import org.vaadin.firitin.util.WebStorage;
 
 @Route("localstorage")
 @Metadata(
@@ -20,7 +20,9 @@ public class LocalStorage extends Recipe {
     private Div stored = new Div();
 
     public LocalStorage() {
-        // Uses the web storage helper from
+        // Latest Vaadin versions include built-in WebStorage support.
+        // With older versions, use the web storage helper (with exactly
+        // the same API) from
         // https://vaadin.com/directory/component/flow-viritin
 
         TextField name = new TextField("Your name");
