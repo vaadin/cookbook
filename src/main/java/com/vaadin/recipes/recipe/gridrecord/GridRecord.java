@@ -18,6 +18,8 @@ import java.util.List;
 )
 public class GridRecord extends Recipe {
 
+    public record Person(String name, LocalDate birthday) {}
+
     private final List<Person> personList = List.of(
         new Person("Donald Duck", LocalDate.of(1952, 06, 25)),
         new Person("Micky Mouse", LocalDate.of(1654, 12, 5)),
@@ -49,5 +51,4 @@ public class GridRecord extends Recipe {
         add(personGrid);
     }
 
-    public record Person(String name, LocalDate birthday) {}
 }
