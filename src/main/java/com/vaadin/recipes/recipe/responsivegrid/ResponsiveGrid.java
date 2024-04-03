@@ -2,6 +2,7 @@ package com.vaadin.recipes.recipe.responsivegrid;
 
 import java.util.Collection;
 
+import com.vaadin.flow.component.page.Page;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
@@ -38,14 +39,15 @@ public class ResponsiveGrid extends Recipe {
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
         // Add browser window listener to observe width change
-        getUI().ifPresent(ui -> listener = ui.getPage().addBrowserWindowResizeListener(event -> {
+        Page page = attachEvent.getUI().getPage();
+        listener = page.addBrowserWindowResizeListener(event -> {
                 adjustVisibleGridColumns(grid, event.getWidth());
-        }));
+        });
         // Adjust Grid according to initial width of the screen
-        getUI().ifPresent(ui -> ui.getPage().retrieveExtendedClientDetails(receiver -> {
+        page.retrieveExtendedClientDetails(receiver -> {
             int browserWidth = receiver.getBodyClientWidth();
                 adjustVisibleGridColumns(grid, browserWidth);
-        }));
+        });
     }
  
     
