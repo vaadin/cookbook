@@ -1,16 +1,16 @@
+import { BaseRoute } from "@vaadin/router";
+import * as fs from "fs";
+import { glob } from "glob";
+import * as path from "path";
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
-import { BaseRoute } from "@vaadin/router";
+
 
 const debug = (...theArgs) => {
   // console.log(theArgs);
 };
 debug("Running");
 
-const glob = require("glob");
-const path = require("path");
-
-const fs = require("fs");
 
 const args = process.argv.slice(2);
 export const firstToLower = (text: string) => {
