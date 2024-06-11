@@ -1,20 +1,18 @@
 package com.vaadin.recipes.recipe.scrolltoitemintreegrid;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataCommunicator;
-import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
-import com.vaadin.flow.data.provider.hierarchy.HierarchyMapper;
-import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import java.lang.reflect.Method;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Route("scroll-to-item-in-tree-grid")
 @Metadata(
@@ -24,73 +22,47 @@ import java.util.List;
 )
 public class ScrollToItemInTreeGrid extends Recipe {
 
-    public static class ScrollTreeGrid<T> extends TreeGrid<T> {
-
-        public ScrollTreeGrid(Class<T> beanType) {
-            super(beanType);
-            initScrollWhenReady();
-        }
-
-        public ScrollTreeGrid() {
-            super();
-            initScrollWhenReady();
-        }
-
-        public ScrollTreeGrid(HierarchicalDataProvider<T, ?> dataProvider) {
-            super(dataProvider);
-            initScrollWhenReady();
-        }
+    private static class ScrollTreeGrid<T> extends TreeGrid<T> {
 
         /**
-         * The method for scrolling to an item. Takes into account lazy loading nature
-         * of grid and does the scroll operation only until the grid has finished
-         * loading data
-         *
-         * @param item the item where to scroll to
+         * @param item the item where to scroll to.
          */
-        public void scrollToItem(T item) {
-            int index = getIndexForItem(item);
-            if (index >= 0) {
-                this.getElement().executeJs("this.scrollWhenReady($0, true);", index);
+        public void scrollToItemAndExpand(T item) {
+
+            select(item);
+
+            ArrayList<T> items = new ArrayList<>();
+            ArrayList<Integer> indices = new ArrayList<>();
+
+            items.add(item);
+
+            T parent;
+            do {
+                //T current = items.getLast(); // later Java versions
+                T current = items.get(items.size()-1);
+
+                parent = getTreeData().getParent(current); // this can be considered back-end access
+
+                int index = getTreeData().getChildren(parent).indexOf(current);
+                indices.add(index);
+
+                Notification.show("Item '" + current + "' has parent '" + parent + "'.");
+                if (parent != null) {
+                    items.add(parent);
+                }
             }
-        }
+            while (parent != null);
+            // items now has all the items from 'item' up to a root item (which it could be itself).
 
-        /**
-         * This is a method for getting the row index of an item in a treegrid. This
-         * works but is prone to break in the future versions due to its usage of
-         * reflection to access private methods to get access to the index.
-         *
-         * @param <T>
-         */
-        private int getIndexForItem(T item) {
-            HierarchicalDataCommunicator<T> dataCommunicator = super.getDataCommunicator();
-            Method getHierarchyMapper = null;
-            try {
-                getHierarchyMapper = HierarchicalDataCommunicator.class.getDeclaredMethod("getHierarchyMapper");
-                getHierarchyMapper.setAccessible(true);
-                HierarchyMapper<T, ?> mapper = (HierarchyMapper<T,?>) getHierarchyMapper.invoke(dataCommunicator);
-                return mapper.getIndex(item);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return -1;
-        }
+            //expand(items.reversed()); // later Java versions
+            List<T> shallowItemsCopy = items.subList(0, items.size());
+            Collections.reverse(shallowItemsCopy);
+            expand(shallowItemsCopy);
 
-        private void initScrollWhenReady() {
-            runBeforeClientResponse(
-                ui ->
-                    getElement()
-                        .executeJs(
-                            "this.scrollWhenReady = function(index, firstCall){" +
-                            "if(this.loading || firstCall) {var that = this; setTimeout(function(){that.scrollWhenReady(index, false);}, 200);}" +
-                            "        else {this.scrollToIndex(index);}" +
-                            "};"
-                        )
-            );
-        }
-
-        private void runBeforeClientResponse(SerializableConsumer<UI> command) {
-            getElement().getNode().runWhenAttached(ui -> ui.beforeClientResponse(this, context -> command.accept(ui)));
+            // int[] in = indices.reversed().stream().mapToInt(Integer::intValue).toArray(); // later Java versions
+            List<Integer> shallowIndicesCopy = indices.subList(0, indices.size());
+            Collections.reverse(shallowIndicesCopy);
+            scrollToIndex(shallowIndicesCopy.stream().mapToInt(Integer::intValue).toArray());
         }
     }
 
@@ -126,6 +98,18 @@ public class ScrollToItemInTreeGrid extends Recipe {
         }
 
         @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Person person)) return false;
+			return Objects.equals(name, person.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(name);
+        }
+
+        @Override
         public String toString() {
             return name;
         }
@@ -158,8 +142,7 @@ public class ScrollToItemInTreeGrid extends Recipe {
             new Button(
                 "Expand and scroll to first",
                 e -> {
-                    grid.expand(grandDad, dad);
-                    grid.scrollToItem(firstChild);
+                    grid.scrollToItemAndExpand(firstChild);
                 }
             )
         );
@@ -167,8 +150,16 @@ public class ScrollToItemInTreeGrid extends Recipe {
             new Button(
                 "Expand and scroll to last",
                 e -> {
-                    grid.expand(grandDad, dad);
-                    grid.scrollToItem(lastChild);
+                    grid.scrollToItemAndExpand(lastChild);
+                }
+            )
+        );
+        buttons.add(
+            new Button(
+                "Expand and scroll to Child 42",
+                e -> {
+                    // note that we have engineered Person equality to solely depend on the name
+                    grid.scrollToItemAndExpand(new Person("Child 42", null));
                 }
             )
         );
