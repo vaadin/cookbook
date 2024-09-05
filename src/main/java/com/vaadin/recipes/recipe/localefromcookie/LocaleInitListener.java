@@ -13,7 +13,7 @@ import com.vaadin.flow.server.VaadinServiceInitListener;
 import jakarta.servlet.http.Cookie;
 
 /*
- * In a regular application, this could be simpler as as @Bean method in Application.java 
+ * In a regular application, this could be simpler as a @Bean method in Application.java 
  */
 @Component
 public class LocaleInitListener implements VaadinServiceInitListener {
