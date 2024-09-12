@@ -41,8 +41,8 @@ public class DatePickerI18NExample extends Recipe {
     DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
 
     i18n.setMonthNames(List.of(dfs.getMonths()));
-    i18n.setWeekdays(List.of(dfs.getWeekdays()));
-    i18n.setWeekdaysShort(List.of(dfs.getShortWeekdays()));
+    i18n.setWeekdays(List.of(dfs.getWeekdays()).stream().skip(1).toList());
+    i18n.setWeekdaysShort(List.of(dfs.getShortWeekdays()).stream().skip(1).toList());
     i18n.setDateFormat(getPattern(locale, yearFormat));
 
     DayOfWeek firstDayOfWeek = WeekFields.of(locale).getFirstDayOfWeek();
