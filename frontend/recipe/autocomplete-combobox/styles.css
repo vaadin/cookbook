@@ -1,0 +1,8 @@
+vaadin-combo-box::part(toggle-button) {
+  display: none;
+}
+
+.mark {
+	background-color:yellow;
+	color: var(--color-base-text);
+}
