@@ -14,14 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>24.3.2</vaadin.version>
-        <hilla.version>2.5.5</hilla.version>
+        <vaadin.version>24.3.20</vaadin.version>
+        <hilla.version>2.5.8</hilla.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.12</version>
     </parent>
 
     <repositories>
