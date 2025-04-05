@@ -36,7 +36,9 @@ jobs:
       - uses: stCarolas/setup-maven@v4.5
         with:
           maven-version: 3.8.7
+      - name: Install prokey
+        run: |
+          mkdir -p ~/.vaadin/
+          echo '{"username":"'`echo ${{secrets.TB_LICENSE}} | cut -d / -f1`'","proKey":"'`echo ${{secrets.TB_LICENSE}} | cut -d / -f2`'"}' > ~/.vaadin/proKey
       - name: Compile and Install
-        env:
-          VAADIN_OFFLINE_KEY: ${{ secrets.VAADIN_OFFLINE_KEY }}
         run: mvn -ntp -B -e -V clean install -Pproduction
