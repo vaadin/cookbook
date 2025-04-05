@@ -124,7 +124,7 @@
     "typescript": "5.3.3",
     "vite": "5.0.6",
     "vite-plugin-checker": "0.6.2",
-    "workbox-build": "7.0.0",
+    "workbox-build": "7.3.0",
     "workbox-core": "7.0.0",
     "workbox-precaching": "7.0.0"
   },
@@ -232,7 +232,7 @@
       "typescript": "5.3.3",
       "vite": "5.0.6",
       "vite-plugin-checker": "0.6.2",
-      "workbox-build": "7.0.0",
+      "workbox-build": "7.3.0",
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
