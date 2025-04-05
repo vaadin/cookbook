@@ -30,6 +30,9 @@ public class LocaleInitListener implements VaadinServiceInitListener {
     }
 
     static Optional<Cookie> findCookie(VaadinRequest request) {
+        if (request.getCookies() == null) {
+            return Optional.empty();
+        }
         return Stream.of(request.getCookies()).filter(cookie -> cookie.getName()
                 .equals(LocaleInitListener.COOKIE_NAME)).findAny();
     }
