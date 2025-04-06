@@ -1,16 +1,14 @@
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
-import { BaseRoute } from "@vaadin/router";
+import { Route } from "@vaadin/router";
+import {glob} from "glob";
+import path from "path";
+import fs from "fs";
 
 const debug = (...theArgs) => {
-  // console.log(theArgs);
+  console.log(theArgs);
 };
 debug("Running");
-
-const glob = require("glob");
-const path = require("path");
-
-const fs = require("fs");
 
 const args = process.argv.slice(2);
 export const firstToLower = (text: string) => {
@@ -28,7 +26,7 @@ export const recipeToRoute = (
     recipeInfo.url + ".ts",
     ...(recipeInfo.sourceFiles || []),
   ].map((sourceFile) => {
-    if (sourceFile.includes(".java")) {
+    if (sourceFile?.includes(".java")) {
       return sourceFile;
     } else {
       return folder + sourceFile;
@@ -42,8 +40,11 @@ export const recipeToRoute = (
     ),
   });
   return {
-    path: recipeInfo.url,
+    path: recipeInfo.url || "",
     component: recipeInfo.url,
+    action: async () => {
+      await import(`./recipe/${recipeInfo.url}/${recipeInfo.url}`);
+    },
     actionString: `./recipe/${recipeInfo.url}/${recipeInfo.url}`,
     info: modifiedRecipeInfo,
   };
@@ -94,10 +95,10 @@ const visit = (
   return route;
 };
 
-interface RecipeRouteWithAction extends BaseRoute {
+type RecipeRouteWithAction = Route & {
   info: RecipeInfo;
   actionString: string;
-}
+};
 
 const writeIfChanged = (file, contents) => {
   debug("Checking if write is needed for ", file);
