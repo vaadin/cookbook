@@ -1,10 +1,10 @@
 package com.vaadin.recipes.recipe.gridproconditionaledit;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.gridpro.GridPro;
@@ -23,12 +23,12 @@ public class GridProConditionalEdit extends Recipe {
     private GridPro<Person> grid = new GridPro<>();
 
     private Collection<Person> createExamplePersons(int count) {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, 123);
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
-        return generator.create(count);
+        return generator.create(count, 123);
     }
+
 
     public GridProConditionalEdit() {
         // Setup a grid with random data

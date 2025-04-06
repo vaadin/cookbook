@@ -1,12 +1,12 @@
 package com.vaadin.recipes.recipe.gridimagerenderer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Collection;
 
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.router.Route;
@@ -70,12 +70,13 @@ public class ImageRendererGrid extends Recipe {
     }
 
     private Collection<Person> createExamplePersons(int count) {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 123);
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setBirthDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count);
+        return generator.create(count, 123);
     }
+
 
     public ImageRendererGrid() {
         // Setup a grid with random data

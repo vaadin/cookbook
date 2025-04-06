@@ -1,10 +1,10 @@
 package com.vaadin.recipes.recipe.gridprobinder;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.gridpro.GridPro;
@@ -33,11 +33,11 @@ public class GridProBinder extends Recipe {
 
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, 123);
+                Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setEmail, DataType.EMAIL);
-        return generator.create(count);
+        return generator.create(count, 123);
     }
 
     public GridProBinder() {
@@ -132,7 +132,7 @@ public class GridProBinder extends Recipe {
 
     // Convenience solution for missing required indicator
     public class  MyTextField extends TextField {
-    
+
         @Override
         public void setRequiredIndicatorVisible(boolean visible) {
             super.setRequiredIndicatorVisible(visible);

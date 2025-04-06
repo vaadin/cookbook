@@ -1,8 +1,8 @@
 package com.vaadin.recipes.endpoints;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import dev.hilla.Endpoint;
-import dev.hilla.Nonnull;
+import com.vaadin.hilla.Endpoint;
+import com.vaadin.hilla.Nonnull;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import java.io.IOException;

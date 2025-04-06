@@ -1,11 +1,11 @@
 package com.vaadin.recipes.recipe.gridconditionalselect;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
@@ -25,11 +25,11 @@ public class GridConditionalSelect extends Recipe {
 
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, 123);
+                Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setBirthDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count);
+        return generator.create(count, 123);
     }
 
     public GridConditionalSelect() {
@@ -54,7 +54,7 @@ public class GridConditionalSelect extends Recipe {
 
         Checkbox checkbox = new Checkbox("Enable selection by clicking row");
 
-        // For convenience you could set also click listener to do the selection        
+        // For convenience you could set also click listener to do the selection
         grid.addItemClickListener(event -> {
             Person item = event.getItem();
             if (!checkbox.getValue() || canSelect(item)) {

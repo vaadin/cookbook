@@ -14,7 +14,7 @@ import elemental.json.JsonObject;
 import elemental.json.JsonString;
 import elemental.json.JsonValue;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 @Route("log-browser-errors")
 @Metadata(
@@ -36,7 +36,7 @@ public class LogBrowserErrors extends Recipe {
                  // Depending on your architecture, you may need to unregister this listener later on.
                  window.addEventListener('error', event => {
                      const {message, filename, lineno: line, colno: col, error } = event;
-         
+
                      this.$server.onLogFromClient(message.toString(), {
                          filename,
                          line,

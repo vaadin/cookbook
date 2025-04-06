@@ -1,16 +1,16 @@
 package com.vaadin.recipes.recipe.responsivegrid;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-import com.vaadin.flow.component.page.Page;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
-
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.recipes.recipe.Metadata;
@@ -49,15 +49,15 @@ public class ResponsiveGrid extends Recipe {
                 adjustVisibleGridColumns(grid, browserWidth);
         });
     }
- 
-    
+
+
     @Override
     protected void onDetach(DetachEvent detachEvent) {
         // Listener needs to be eventually removed in order to avoid resource leak
         listener.remove();
         super.onDetach(detachEvent);
     }
-        
+
     private Grid<Person> createGrid() {
         Grid<Person> grid = new Grid<>();
         grid.addComponentColumn(item -> {
@@ -91,13 +91,13 @@ public class ResponsiveGrid extends Recipe {
 
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, 123);
+                Person.class, LocalDateTime.now());
         generator.setData(Person::setName, DataType.FULL_NAME);
         generator.setData(Person::setTitle, DataType.OCCUPATION);
         generator.setData(Person::setEmail, DataType.EMAIL);
         generator.setData(Person::setDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count);
-    }    
+        return generator.create(count, 123);
+    }
 
 
 }

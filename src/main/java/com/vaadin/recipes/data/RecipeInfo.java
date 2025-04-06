@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vaadin.hilla.Nonnull;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
-import dev.hilla.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 
 public class RecipeInfo {

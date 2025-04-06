@@ -1,5 +1,7 @@
 package com.vaadin.recipes.recipe.gridfrozenselectioncolumn;
 
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridMultiSelectionModel;
@@ -7,10 +9,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import org.vaadin.artur.exampledata.DataType;
-import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Route(value = "grid-frozen-selection-column")
@@ -22,7 +23,7 @@ import java.util.Collection;
 public class GridFrozenSelectionColumn extends Recipe {
 
     private Grid<Person> grid = new Grid<>(Person.class);
-    
+
     public GridFrozenSelectionColumn() {
         grid.setColumns("birthDate", "firstName", "lastName");
         grid.setItems(createExamplePersons(100));
@@ -39,17 +40,17 @@ public class GridFrozenSelectionColumn extends Recipe {
     }
 
     private Collection<Person> createExamplePersons(int count) {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 123);
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setBirthDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count);
+        return generator.create(count, 123);
     }
 
     public static class Person {
         private String firstName, lastName;
         private LocalDate birthDate;
-        
+
         public LocalDate getBirthDate() {
             return birthDate;
         }
