@@ -1,0 +1,10 @@
+:host {
+    display: block;
+    background-color: var(--color-charcoal);
+    font-size: var(--text-size-sm);
+    border-radius: var(--roundness-lg);
+}
+
+pre[class*='language-'] {
+    background: transparent;
+}

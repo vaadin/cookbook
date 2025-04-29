@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding-bottom: var(--space-lg);
+}
+
+::slotted([slot='header']) {
+  background-color: var(--color-white);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+::slotted(:not([slot]).container-fluid) {
+  display: block;
+  min-height: 100px;
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+
+::slotted(.flow-example) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-view-back-link {
+  font-weight: 600;
+  text-decoration: none !important;
+  margin-left: -1.25em;
+}
+.recipe-view-title {
+  margin-bottom: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+@media (max-width: 600px) {
+  .recipe-view-back-link {
+    margin-left: 0;
+  }
+}

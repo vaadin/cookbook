@@ -1,12 +1,12 @@
-import { LitElement, svg, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { LitElement, svg, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-@customElement("circular-progress-indicator-component")
+@customElement('circular-progress-indicator-component')
 export class CircularProgressIndicatorComponent extends LitElement {
   @property({ type: Number })
-  value: number = 0;
+  accessor value: number = 0;
   @property({ type: String })
-  color: string = "blue";
+  accessor color: string = 'blue';
 
   static get styles() {
     return css`

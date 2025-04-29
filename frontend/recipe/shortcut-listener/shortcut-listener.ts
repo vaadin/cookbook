@@ -1,24 +1,38 @@
-import "@vaadin/text-field";
-import { css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import Tag from "../../generated/com/vaadin/recipes/recipe/Tag";
-import { Recipe, recipeInfo } from "../recipe";
+import '@vaadin/text-field';
+import { css, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import type { DetailedHTMLProps } from 'react';
+import Tag from '../../generated/com/vaadin/recipes/recipe/Tag';
+import { Recipe, recipeInfo } from '../recipe';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shortcut-listener': ShortcutListener;
+  }
+}
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'shortcut-listener': DetailedHTMLProps<HTMLAttributes<ShortcutListener>, ShortcutListener>;
+    }
+  }
+}
 
 @recipeInfo({
-  url: "shortcut-listener",
-  howDoI: "Listen for keyboard shortcuts",
-  description:
-    "Learn how to react to various shortcut keys with modifier keys and scopes.",
+  url: 'shortcut-listener',
+  howDoI: 'Listen for keyboard shortcuts',
+  description: 'Learn how to react to various shortcut keys with modifier keys and scopes.',
   tags: [Tag.KEYBOARD],
 })
-@customElement("shortcut-listener")
+@customElement('shortcut-listener')
 export class ShortcutListener extends Recipe {
   @state()
-  private value = "";
+  accessor #value = '';
   @state()
-  private values: string[] = [];
+  accessor #values: string[] = [];
   @state()
-  private keylog: string[] = [];
+  accessor #keylog: string[] = [];
 
   static styles = css`
     .contents {
@@ -49,7 +63,7 @@ export class ShortcutListener extends Recipe {
 
   constructor() {
     super();
-    this.addEventListener("keyup", this.elementWideListener);
+    this.addEventListener('keyup', this.elementWideListener);
   }
 
   render() {
@@ -59,28 +73,22 @@ export class ShortcutListener extends Recipe {
           <p>Press <strong>enter</strong> to submit value</p>
           <!-- 'input' fires on every keystroke.
              'change' fires on blur -->
-          <vaadin-text-field
-            .value=${this.value}
-            @input=${this.updateValue}
-          ></vaadin-text-field>
+          <vaadin-text-field .value=${this.#value} @input=${this.updateValue}></vaadin-text-field>
         </div>
 
         <div class="scope" @keyup=${this.shiftEnterListener}>
           <p>Press <strong>shift + enter</strong> to submit value</p>
-          <vaadin-text-field
-            .value=${this.value}
-            @input=${this.updateValue}
-          ></vaadin-text-field>
+          <vaadin-text-field .value=${this.#value} @input=${this.updateValue}></vaadin-text-field>
         </div>
 
         <div>
           <h3>Keys pressed</h3>
-          <textarea .value=${this.keylog.join("\n")}></textarea>
+          <textarea .value=${this.#keylog.join('\n')}></textarea>
         </div>
         <div>
           <h3>Submitted values</h3>
           <ul class="values">
-            ${this.values.map((val) => html` <li>${val}</li> `)}
+            ${this.#values.map((val) => html` <li>${val}</li> `)}
           </ul>
         </div>
       </div>
@@ -90,27 +98,27 @@ export class ShortcutListener extends Recipe {
   // See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
   // for keys
   elementWideListener(e: KeyboardEvent) {
-    this.keylog = [e.key, ...this.keylog];
+    this.#keylog = [e.key, ...this.#keylog];
   }
 
   enterListener(e: KeyboardEvent) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.submitValue();
     }
   }
 
   shiftEnterListener(e: KeyboardEvent) {
-    if (e.key === "Enter" && e.getModifierState("Shift")) {
+    if (e.key === 'Enter' && e.getModifierState('Shift')) {
       this.submitValue();
     }
   }
 
   updateValue(e: { target: HTMLInputElement }) {
-    this.value = e.target.value;
+    this.#value = e.target.value;
   }
 
   submitValue() {
-    this.values = [...this.values, this.value];
-    this.value = "";
+    this.#values = [...this.#values, this.#value];
+    this.#value = '';
   }
 }

@@ -1,14 +1,29 @@
-import { css, html, nothing } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { Recipe, recipeInfo } from "../recipe";
+import { css, html, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import type { DetailedHTMLProps } from 'react';
+import { Recipe, recipeInfo } from '../recipe';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'geo-location': GeoLocation;
+  }
+}
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'geo-location': DetailedHTMLProps<HTMLAttributes<GeoLocation>, GeoLocation>;
+    }
+  }
+}
 
 @recipeInfo({
-  url: "geo-location",
-  howDoI: "Get the position (geo location) of the user",
+  url: 'geo-location',
+  howDoI: 'Get the position (geo location) of the user',
   description:
-    "Show how you watch the geo location of the user and keep track of the coordinates, altitude, direction and speed.",
+    'Show how you watch the geo location of the user and keep track of the coordinates, altitude, direction and speed.',
 })
-@customElement("geo-location")
+@customElement('geo-location')
 export class GeoLocation extends Recipe {
   @property({ type: Object })
   private position?: GeolocationPosition;
@@ -24,34 +39,25 @@ export class GeoLocation extends Recipe {
         <h2>Position</h2>
         ${this.position
           ? html`
-              <p>
-                Latitude: ${this.position?.coords.latitude} [±
-                ${this.position?.coords.accuracy} meters]
-              </p>
-              <p>
-                Longitude: ${this.position?.coords.longitude} [±
-                ${this.position?.coords.accuracy} meters]
-              </p>
+              <p>Latitude: ${this.position?.coords.latitude} [± ${this.position?.coords.accuracy} meters]</p>
+              <p>Longitude: ${this.position?.coords.longitude} [± ${this.position?.coords.accuracy} meters]</p>
               <p>
                 Altitude:
                 ${this.position?.coords.altitude
                   ? html`
-                      ${this.position?.coords.altitude} meters [±
-                      ${this.position?.coords.altitudeAccuracy} meters]
+                      ${this.position?.coords.altitude} meters [± ${this.position?.coords.altitudeAccuracy} meters]
                     `
-                  : "not available"}
+                  : 'not available'}
               </p>
               <p>
                 Heading to:
-                ${this.position?.coords.heading
-                  ? html` ${this.position?.coords.heading} `
-                  : "not available"}
+                ${this.position?.coords.heading ? html` ${this.position?.coords.heading} ` : 'not available'}
               </p>
               <p>
                 Speed:
                 ${this.position?.coords.speed
                   ? html` ${this.position?.coords.speed} meters per second `
-                  : "not available"}
+                  : 'not available'}
               </p>
               <p>Updated at: ${new Date(this.position?.timestamp!)}</p>
             `
@@ -69,8 +75,7 @@ export class GeoLocation extends Recipe {
         : nothing}
 
       <div class="next-step">
-        See the <a href="leaflet-map">showing a map</a> recipe to see how to
-        show a location on a map.
+        See the <a href="leaflet-map">showing a map</a> recipe to see how to show a location on a map.
       </div>
     `;
   }
@@ -95,7 +100,7 @@ export class GeoLocation extends Recipe {
         this.position = undefined;
         this.error = error;
       },
-      options
+      options,
     );
   }
 

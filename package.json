@@ -2,7 +2,7 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "scripts": {
-    "parseClientRoutes": "tsc parseClientRoutes.ts --outDir target/parser && node target/parser/parseClientRoutes.js \"frontend/recipe/**/*.ts\""
+    "parseClientRoutes": "tsx parseClientRoutes.ts \"frontend/recipe/**/*.ts\""
   },
   "husky": {
     "hooks": {
@@ -99,6 +99,7 @@
     "lit": "3.2.1",
     "prismjs": "^1.30.0",
     "proj4": "2.15.0",
+    "react": "^19.1.0",
     "ts-debounce": "^2.0.1",
     "ts-node": "^10.9.2"
   },
@@ -108,6 +109,7 @@
     "@rollup/plugin-replace": "6.0.2",
     "@rollup/pluginutils": "5.1.4",
     "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
     "@vaadin/hilla-generator-cli": "24.7.1",
     "@vaadin/hilla-generator-core": "24.7.1",
     "@vaadin/hilla-generator-plugin-backbone": "24.7.1",
@@ -121,13 +123,18 @@
     "@vaadin/hilla-generator-utils": "24.7.1",
     "@vitejs/plugin-react": "4.3.4",
     "async": "3.2.6",
+    "cssnano": "^7.0.6",
     "glob": "11.0.1",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-java": "^2.6.7",
     "rollup-plugin-brotli": "3.1.0",
     "rollup-plugin-visualizer": "5.14.0",
     "strip-css-comments": "5.0.0",
     "transform-ast": "2.4.4",
+    "tsc-template": "^0.2.3",
     "tsx": "^4.19.3",
-    "typescript": "5.7.3",
+    "typescript": "5.8.3",
     "vite": "6.2.3",
     "vite-plugin-checker": "0.8.0",
     "workbox-build": "7.3.0",

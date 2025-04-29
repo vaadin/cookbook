@@ -4,8 +4,8 @@ import { tsRecipeRoutes } from "./ts-routes";
 import RecipeInfo from "./generated/com/vaadin/recipes/data/RecipeInfo";
 import * as RecipeEndpoint from "./generated/RecipeEndpoint";
 
-import "./views/recipes-list-view";
-import "./views/recipe-view";
+import "Frontend/views/_shared/recipes-list-view.js";
+import "Frontend/views/_shared/recipe-view.js";
 
 const { serverSideRoutes } = new Flow({
   imports: () => import("Frontend/generated/flow/generated-flow-imports.js"),

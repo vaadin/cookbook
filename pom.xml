@@ -184,9 +184,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <react.enable>false</react.enable>
-                </configuration>
             </plugin>
         </plugins>
     </build>

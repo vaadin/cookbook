@@ -1,16 +1,17 @@
-import { UserConfigFn } from 'vite';
+import { type UserConfigFn, type Plugin } from 'vite';
+import { constructCss } from './construct-css.plugin.js';
 import { overrideVaadinConfig } from './vite.generated';
 import { execSync } from 'child_process';
 
 const customConfig: UserConfigFn = (env) => ({
   // Here you can add custom Vite parameters
   // https://vitejs.dev/config/
+  plugins: [constructCss()],
 });
 
 export default overrideVaadinConfig(customConfig);
 
-
-const run = (cmd) => {
+const run = (cmd: string) => {
   const npmrun = `npm run ${cmd}`;
   console.log(`Running ${npmrun}`);
   try {
