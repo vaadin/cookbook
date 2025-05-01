@@ -3,31 +3,32 @@
   padding-bottom: var(--space-lg);
 }
 
-::slotted([slot='header']) {
+.header > * {
   background-color: var(--color-white);
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
 }
 
-::slotted(:not([slot]).container-fluid) {
+.example :global(.container-fluid) {
   display: block;
   min-height: 100px;
   padding-top: var(--space-md);
   padding-bottom: var(--space-md);
 }
 
-::slotted(.flow-example) {
+.example :global(.flow-example) {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.recipe-view-back-link {
+.back-link {
   font-weight: 600;
   text-decoration: none !important;
   margin-left: -1.25em;
 }
-.recipe-view-title {
+
+.title {
   margin-bottom: var(--space-xs);
   padding-top: var(--space-sm);
 }

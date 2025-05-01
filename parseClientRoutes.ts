@@ -5,6 +5,7 @@ import { relative } from 'node:path/posix';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import ast from 'tsc-template';
+import * as prettier from 'prettier';
 import {
   createPrinter,
   createSourceFile,
@@ -33,7 +34,11 @@ const {
   allowPositionals: true,
 });
 
+const script = fileURLToPath(import.meta.url);
+const root = dirname(script);
 const printer = createPrinter({ newLine: NewLineKind.LineFeed });
+
+const prettierOptions = await prettier.resolveConfig(script);
 
 function extractMetadata(source: SourceFile): ObjectLiteralExpression | undefined {
   function find(node: Node): ObjectLiteralExpression | undefined {
@@ -143,15 +148,26 @@ for await (const file of glob(filesGlob, { cwd })) {
   const route = ast`
     import '${relative(dirname(routePath), `${filePath.substring(0, filePath.length - extname(filePath).length)}.js`)}';
     import Tag from '../generated/com/vaadin/recipes/recipe/Tag.js';
+    import Recipe from './_shared/Recipe.js';
     import type { ViewConfig } from './_shared/ViewConfig.js';
   
     export const config: ViewConfig = ${viewConfigObject};
     
     export default function ${reactComponentName}() {
-      return <${fileName} />;
+      return (
+        <Recipe>
+          <${fileName} />
+        </Recipe>
+      );
     }
   `.source;
 
-  await writeFile(resolve(views, routePath), printer.printFile(route), 'utf8');
+  const routeFilePath = resolve(views, routePath);
+  const finalCode = await prettier.format(printer.printFile(route), {
+    ...prettierOptions,
+    filepath: routeFilePath,
+  });
+
+  await writeFile(routeFilePath, finalCode, 'utf8');
   console.debug(`Created: ${routePath}`);
 }

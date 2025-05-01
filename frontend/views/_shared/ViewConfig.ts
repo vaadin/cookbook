@@ -5,5 +5,5 @@ export type ViewConfigRecipeInfo = Omit<RecipeInfo, 'url' | 'howDoI'>;
 
 export type ViewConfig = _ViewConfig &
   Readonly<{
-    detail: ViewConfigRecipeInfo;
+    detail?: ViewConfigRecipeInfo;
   }>;

@@ -26,50 +26,50 @@ declare module 'react' {
 @customElement('geo-location')
 export class GeoLocation extends Recipe {
   @property({ type: Object })
-  private position?: GeolocationPosition;
+  accessor #position: GeolocationPosition | undefined;
 
   @property({ type: Object })
-  private error?: GeolocationPositionError;
+  accessor #error: GeolocationPositionError | undefined;
 
-  private watchId = -1;
+  #watchId = -1;
 
   render() {
     return html`
       <section>
         <h2>Position</h2>
-        ${this.position
+        ${this.#position
           ? html`
-              <p>Latitude: ${this.position?.coords.latitude} [± ${this.position?.coords.accuracy} meters]</p>
-              <p>Longitude: ${this.position?.coords.longitude} [± ${this.position?.coords.accuracy} meters]</p>
+              <p>Latitude: ${this.#position?.coords.latitude} [± ${this.#position?.coords.accuracy} meters]</p>
+              <p>Longitude: ${this.#position?.coords.longitude} [± ${this.#position?.coords.accuracy} meters]</p>
               <p>
                 Altitude:
-                ${this.position?.coords.altitude
+                ${this.#position?.coords.altitude
                   ? html`
-                      ${this.position?.coords.altitude} meters [± ${this.position?.coords.altitudeAccuracy} meters]
+                      ${this.#position?.coords.altitude} meters [± ${this.#position?.coords.altitudeAccuracy} meters]
                     `
                   : 'not available'}
               </p>
               <p>
                 Heading to:
-                ${this.position?.coords.heading ? html` ${this.position?.coords.heading} ` : 'not available'}
+                ${this.#position?.coords.heading ? html` ${this.#position?.coords.heading} ` : 'not available'}
               </p>
               <p>
                 Speed:
-                ${this.position?.coords.speed
-                  ? html` ${this.position?.coords.speed} meters per second `
+                ${this.#position?.coords.speed
+                  ? html` ${this.#position?.coords.speed} meters per second `
                   : 'not available'}
               </p>
-              <p>Updated at: ${new Date(this.position?.timestamp!)}</p>
+              <p>Updated at: ${new Date(this.#position?.timestamp!)}</p>
             `
           : `Updating...`}
       </section>
 
-      ${this.error
+      ${this.#error
         ? html`
             <section>
               <h2>Error</h2>
-              <p>Code: ${this.error?.code}</p>
-              <p>Message: ${this.error?.message}</p>
+              <p>Code: ${this.#error?.code}</p>
+              <p>Message: ${this.#error?.message}</p>
             </section>
           `
         : nothing}
@@ -91,21 +91,21 @@ export class GeoLocation extends Recipe {
     };
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition
-    this.watchId = navigator.geolocation.watchPosition(
+    this.#watchId = navigator.geolocation.watchPosition(
       (position: GeolocationPosition) => {
-        this.position = position;
-        this.error = undefined;
+        this.#position = position;
+        this.#error = undefined;
       },
       (error: GeolocationPositionError) => {
-        this.position = undefined;
-        this.error = error;
+        this.#position = undefined;
+        this.#error = error;
       },
       options,
     );
   }
 
   disconnectedCallback() {
-    navigator.geolocation.clearWatch(this.watchId);
+    navigator.geolocation.clearWatch(this.#watchId);
     super.disconnectedCallback();
   }
 

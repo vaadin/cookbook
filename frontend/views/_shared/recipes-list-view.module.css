@@ -1,11 +1,11 @@
-:host {
+.host {
   display: block;
   --recipes-filter-column-width: 200px;
   --recipes-list-view-header-height: 80px;
   background-color: var(--color-alloy-lighter);
 }
 
-.recipes-list-view-header {
+.header {
   background-color: var(--color-white);
   position: -webkit-sticky;
   position: sticky;
@@ -13,7 +13,7 @@
   height: var(--recipes-list-view-header-height);
 }
 
-.recipes-list-view-header > .container-fluid {
+.header > .container-fluid {
   min-height: calc(var(--space-lg));
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);

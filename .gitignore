@@ -19,5 +19,5 @@ error-screenshots/
 parseClientRoutes.js
 src/main/resources/ts-recipe-info.json
 frontend/generated
-frontend/ts-routes.ts
+frontend/___ts-routes.ts
 vite.generated.ts
