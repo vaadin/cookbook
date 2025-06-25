@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +69,7 @@ public class UploadImageToFile extends Recipe {
         this.mimeType = MIMEType;
         try {
             // Create a temporary file for example, you can provide your file here.
-            this.file = File.createTempFile("prefix-", "-suffix");
+            this.file = Files.createTempFile(null, null).toFile();
             file.deleteOnExit();
             return new FileOutputStream(file);
         } catch (FileNotFoundException e) {
