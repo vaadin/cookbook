@@ -105,11 +105,11 @@ export class CodeViewer extends LitElement {
     if (!code) return "";
 
     code = code.substring(code.search(/^import/gm)); // remove package
-    if(language == "java") {
+    if(language == "java" && code.includes("extends Recipe")) {
         code = code.replace("extends Recipe", "extends VerticalLayout");
         // add VerticalLayout import if needed
         if(!code.includes("import com.vaadin.flow.component.orderedlayout.VerticalLayout")) {
-            code = "import com.vaadin.flow.component.orderedlayout.VerticalLayout\n" + code;
+            code = "import com.vaadin.flow.component.orderedlayout.VerticalLayout;\n" + code;
         }
     }
     code = this.removeMetadataTag(code);
