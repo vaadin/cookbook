@@ -1,6 +1,7 @@
 package com.vaadin.recipes.recipe.gridexternaltemplaterenderer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -28,13 +29,13 @@ import com.vaadin.recipes.recipe.Tag;
 public class GridExternalTemplateRenderer extends Recipe {
 
     public GridExternalTemplateRenderer() {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 423524l);
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
 
         generator.setData(Person::setId, DataType.ID);
         generator.setData(Person::setName, DataType.FULL_NAME);
         generator.setData(Person::setEmail, DataType.EMAIL);
         generator.setData(Person::setBirthday, DataType.DATE_OF_BIRTH);
-        List<Person> personList = generator.create(100);
+        List<Person> personList = generator.create(100,1);
         personList.stream().forEach(this::generatePhoneNumberList);
 
         Grid<Person> personGrid = new Grid<>();

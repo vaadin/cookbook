@@ -1,5 +1,6 @@
 package com.vaadin.recipes.recipe.gridprobinder;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.vaadin.artur.exampledata.DataType;
@@ -33,11 +34,11 @@ public class GridProBinder extends Recipe {
 
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, 123);
+                Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setEmail, DataType.EMAIL);
-        return generator.create(count);
+        return generator.create(count, 1);
     }
 
     public GridProBinder() {
