@@ -11,5 +11,5 @@ export const replaceQueryParameter = (key:string,value:string) => {
   }
 
   const newLocation =  `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-  history.replaceState('','', newLocation);
+  history.replaceState(null, '', newLocation);
 }
