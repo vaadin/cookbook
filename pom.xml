@@ -136,7 +136,7 @@
                 </includes>
             </resource>
             <resource>
-                <directory>frontend</directory>
+                <directory>src/main/frontend</directory>
                 <includes>
                     <include>recipe/**</include>
                 </includes>
