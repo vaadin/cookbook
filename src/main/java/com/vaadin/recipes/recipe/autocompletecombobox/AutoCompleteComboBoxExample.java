@@ -21,6 +21,8 @@ public class AutoCompleteComboBoxExample extends Recipe {
         comboBox.setItems(new ItemWithText(1, "Item Root 1"), new ItemWithText(2, "Item Root 2"), new ItemWithText(3, "Item Branch 3"));
         comboBox.setItemLabelGenerator(ItemWithText::text);
         add(comboBox);
+
+        add(new Div("Note: This auto-complete combo-box implementation supports only list data (items set with setItems(Collection<T>) or setItems(T...))."));
     }
 
     public record ItemWithText(int id, String text) {
