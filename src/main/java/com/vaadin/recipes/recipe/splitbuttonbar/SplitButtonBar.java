@@ -19,10 +19,38 @@ import com.vaadin.recipes.recipe.Tag;
 public class SplitButtonBar extends Recipe {
 
     public SplitButtonBar() {
+        add(new H4("Use a individual item alignment (Since V24.7)"), withIndividualAlignment());
+        add(new H4("Use a wrapper layout and 'between' justification"), withBetween());
         add(new H4("Use a wrapper layout and expand"), withWrapperLayout());
         add(new H4("Set margin-right: auto on second button"), withMarginLeft());
         add(new H4("Add a invisible element and expand it"), withSpacerElement());
         setWidthFull();
+    }
+
+    public HorizontalLayout withIndividualAlignment() {
+        Button delete = new Button("Delete");
+        Button cancel = new Button("Cancel");
+        Button save = new Button("Save");
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.addToStart(delete); // <--
+        horizontalLayout.addToEnd(cancel, save); // <--
+        return horizontalLayout;
+    }
+
+    public HorizontalLayout withBetween() {
+        Button delete = new Button("Delete");
+        Button cancel = new Button("Cancel");
+        Button save = new Button("Save");
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        HorizontalLayout rightGroup = new HorizontalLayout(cancel, save);
+        HorizontalLayout buttonLayout = new HorizontalLayout(delete, rightGroup);
+        buttonLayout.setJustifyContentMode(JustifyContentMode.BETWEEN); // <--
+        buttonLayout.setWidthFull();
+        return buttonLayout;
     }
 
     public HorizontalLayout withWrapperLayout() {
