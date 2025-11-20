@@ -13,14 +13,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 
-import dev.hilla.Nonnull;
 import jakarta.validation.constraints.NotBlank;
+import org.jspecify.annotations.NonNull;
 
 public class RecipeInfo {
     @JsonIgnore
     private Class<? extends Recipe> recipeClass;
 
-    @Nonnull
+    @NonNull
     private String howDoI;
 
     @NotBlank
@@ -32,7 +32,7 @@ public class RecipeInfo {
     private List<String> sourceFiles;
 
     @Nullable
-    private List<@Nonnull Tag> tags;
+    private List<@NonNull Tag> tags;
 
     public RecipeInfo() {}
 
