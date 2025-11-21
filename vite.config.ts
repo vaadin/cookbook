@@ -1,6 +1,6 @@
 import { UserConfigFn } from 'vite';
 import { overrideVaadinConfig } from './vite.generated';
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
 const customConfig: UserConfigFn = (env) => ({
   // Here you can add custom Vite parameters

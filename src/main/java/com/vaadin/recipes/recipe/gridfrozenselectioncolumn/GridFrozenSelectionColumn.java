@@ -11,6 +11,7 @@ import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Route(value = "grid-frozen-selection-column")
@@ -39,11 +40,11 @@ public class GridFrozenSelectionColumn extends Recipe {
     }
 
     private Collection<Person> createExamplePersons(int count) {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 123);
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setBirthDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count);
+        return generator.create(count, 1);
     }
 
     public static class Person {
