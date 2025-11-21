@@ -6,6 +6,7 @@ import org.jsoup.safety.Safelist;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -17,7 +18,7 @@ import com.vaadin.recipes.recipe.Tag;
 public class FormatText extends Recipe {
     public FormatText() {
         Paragraph lineBreaks = new Paragraph("Text\nwith\nline\nbreaks");
-        lineBreaks.getElement().getStyle().set("white-space", "pre");
+        lineBreaks.getStyle().setWhiteSpace(Style.WhiteSpace.PRE);
 
         Html html = new Html(Jsoup.clean("<p>Formatted <b>text</b><br>as <i>HTML</i></p>", Safelist.basic()));
 

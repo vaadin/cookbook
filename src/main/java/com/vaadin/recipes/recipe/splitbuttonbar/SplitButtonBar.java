@@ -45,7 +45,7 @@ public class SplitButtonBar extends Recipe {
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         HorizontalLayout buttonLayout = new HorizontalLayout(delete, cancel, save);
-        delete.getStyle().set("margin-right", "auto"); // <--
+        delete.getStyle().setMarginRight("auto"); // <--
         buttonLayout.setWidthFull();
         return buttonLayout;
     }

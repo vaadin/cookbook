@@ -35,7 +35,7 @@ public class HighlightRouterLinkWithDefaultRoute extends Recipe implements Route
 
         contentWrapper.setWidth("500px");
         contentWrapper.setHeight("150px");
-        contentWrapper.getStyle().set("border", "2px green solid");
+        contentWrapper.getStyle().setBorder("2px green solid");
 
         RouterLink homeLink = new RouterLink("Link to Home", HomeView.class);
         RouterLink aboutLink = new RouterLink("Link to About", AboutView.class);

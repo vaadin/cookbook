@@ -7,6 +7,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.shared.Registration;
 
 /**
@@ -44,7 +45,7 @@ public class MyCollapsableLayout extends VerticalLayout {
         header.setMargin(false);
         header.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         header.setHeight("40px");
-        header.getStyle().set("border-bottom", "1px solid #eee");
+        header.getStyle().setBorderBottom("1px solid #eee");
 
         content = new Div();
         content.setSizeFull();
@@ -155,7 +156,7 @@ public class MyCollapsableLayout extends VerticalLayout {
      */
     public void addHeaderComponentAsLastAndAlignToRight(Component component) {
         getHeader().addComponentAtIndex(getHeader().getComponentCount(), component);
-        component.getElement().getStyle().set("margin-left", "auto");
+        component.getStyle().setMarginLeft("auto");
     }
 
     /**

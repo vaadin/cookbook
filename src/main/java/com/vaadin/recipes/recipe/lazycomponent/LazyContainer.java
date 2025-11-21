@@ -64,7 +64,7 @@ public class LazyContainer<T extends Component> extends Composite<Div> {
     public void setWidthFull() {
         getContent().setWidthFull();
         if (component != null) {
-            component.getElement().getStyle().set(ElementConstants.STYLE_WIDTH, "100%");
+            component.getStyle().set(ElementConstants.STYLE_WIDTH, "100%");
         }
     }
 

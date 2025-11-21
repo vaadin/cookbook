@@ -20,6 +20,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -42,7 +43,7 @@ public class FocusableLayout extends Recipe {
         vLayout.setPadding(false);
         MyLayout mLayout = new MyLayout();
         Button button = new Button(VaadinIcon.MENU.create());
-        button.getStyle().set("align-self", "flex-end");
+        button.getStyle().setAlignSelf(Style.AlignSelf.FLEX_END);
         button.setVisible(false);
         vLayout.add(button);
         mLayout.add(new Span("Select"));

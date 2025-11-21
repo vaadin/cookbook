@@ -11,6 +11,7 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.dom.Style;
 
 /**
  * AbsoluteLayout is a layout implementation that mimics html absolute
@@ -32,7 +33,7 @@ public class AbsoluteLayout extends Composite<Div> implements HasSize {
 
     @Override
     protected Div initContent() {
-        div.getElement().getStyle().set("position", "relative");
+        div.getStyle().setPosition(Style.Position.RELATIVE);
         div.setSizeFull();
         return div;
     }
@@ -142,7 +143,7 @@ public class AbsoluteLayout extends Composite<Div> implements HasSize {
         resetPosition(component);
         for (String style : position.getCSSString().split(";")) {
             String[] css = style.split(":");
-            component.getElement().getStyle().set(css[0], css[1]);
+            component.getStyle().set(css[0], css[1]);
         }
     }
 
@@ -152,18 +153,18 @@ public class AbsoluteLayout extends Composite<Div> implements HasSize {
                 resetPosition(key);
                 for (String style : value.getCSSString().split(";")) {
                     String[] css = style.split(":");
-                    key.getElement().getStyle().set(css[0], css[1]);
+                    key.getStyle().set(css[0], css[1]);
                 }               
             }
         });
     }
 
     private void resetPosition(Component component) {
-        component.getElement().getStyle().set("position", "absolute");
-        component.getElement().getStyle().remove("bottom");
-        component.getElement().getStyle().remove("top");
-        component.getElement().getStyle().remove("right");
-        component.getElement().getStyle().remove("left");
+        component.getStyle().setPosition(Style.Position.ABSOLUTE);
+        component.getStyle().remove("bottom");
+        component.getStyle().remove("top");
+        component.getStyle().remove("right");
+        component.getStyle().remove("left");
     }
 
     public void removeComponent(Component c) {
