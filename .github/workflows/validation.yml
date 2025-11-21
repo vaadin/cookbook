@@ -31,8 +31,8 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
       - uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'adopt'
+          java-version: '21'
+          distribution: 'temurin'
       - uses: stCarolas/setup-maven@v4.5
         with:
           maven-version: 3.8.7
