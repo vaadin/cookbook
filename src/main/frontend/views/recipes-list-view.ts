@@ -156,6 +156,11 @@ export class RecipesListView extends LitElement {
           font-weight: 700;
           font-size: var(--text-size-xs);
           color: var(--color-stainless-darker);
+          padding-top: 2px;
+        }
+
+        .recipes-list-tags vaadin-checkbox::part(label) {
+          max-width: 100%;
         }
 
         .recipes-list {
