@@ -4,7 +4,6 @@ import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.recipes.recipe.Recipe;
-import elemental.json.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +36,9 @@ public class GridScrollListener extends Recipe {
             .getElement()
             .executeJs(
                 "this.$.outerscroller.addEventListener('scroll', (scrollEvent) => " +
-                "{requestAnimationFrame(() => $0.$server.onGridScroll({gi: " +
+                "{requestAnimationFrame(() => $0.$server.onGridScroll(" +
                 gridIdentifier +
-                ", st: this.$.table.scrollTop}))},true)",
+                ", this.$.table.scrollTop))},true)",
                 getElement()
             );
         return grid;
@@ -49,9 +48,9 @@ public class GridScrollListener extends Recipe {
      * Server-side listener of grid scroll event fired from the client-side
      */
     @ClientCallable
-    public void onGridScroll(JsonObject scrollEvent) {
-        int gridIdentifier = (int) scrollEvent.getNumber("gi");
-        int scrollTop = (int) scrollEvent.getNumber("st");
+    public void onGridScroll(double gi, double st) {
+        int gridIdentifier = (int) gi;
+        int scrollTop = (int) st;
         scrollTopValueSpan.setText("Grid " + gridIdentifier + " scrollTop=" + scrollTop);
     }
 

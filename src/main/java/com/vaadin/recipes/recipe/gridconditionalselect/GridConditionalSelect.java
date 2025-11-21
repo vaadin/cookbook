@@ -48,7 +48,7 @@ public class GridConditionalSelect extends Recipe {
             }
         });
         // Generate "no-select" class name for rows that cannot be selected
-        grid.setClassNameGenerator(
+        grid.setPartNameGenerator(
                 item -> canSelect(item) ? "no-select"
                         : null);
 

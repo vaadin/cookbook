@@ -6,7 +6,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import elemental.json.JsonValue;
+import com.vaadin.flow.dom.DomEvent;
 
 @Route("avoid-double-click")
 @Metadata(
@@ -23,8 +23,8 @@ public class AvoidDoubleClick extends Recipe {
             .addEventListener(
                 "click",
                 e -> {
-                    JsonValue detail = e.getEventData().get("event.detail");
-                    if (detail.asNumber() > 1) {
+                    double detail = e.getEventData().get("event.detail").asDouble();
+                    if (detail > 1) {
                         // double click, ignore
                     } else {
                         Notification.show("Single click, do something");

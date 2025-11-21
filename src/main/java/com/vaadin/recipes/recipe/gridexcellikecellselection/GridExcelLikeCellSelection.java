@@ -11,9 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import elemental.json.JsonArray;
-import elemental.json.JsonObject;
-import elemental.json.JsonValue;
+import tools.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,19 +65,16 @@ public class GridExcelLikeCellSelection extends Recipe {
             .addEventListener(
                 "excel-like-selected-cells",
                 event -> {
-                    JsonObject eventData = event.getEventData();
                     results.removeAll();
                     results.add(new H3("Selection results"));
 
                     VerticalLayout items = new VerticalLayout();
-
                     items.add(new H5("Selected Items"));
 
-                    JsonValue value = eventData.get("event.detail.selectedKeys");
-                    if (value instanceof JsonArray) {
-                        JsonArray array = (JsonArray) value;
-                        for (int i = 0; i < array.length(); i++) {
-                            String key = array.getString(i);
+                    JsonNode selectedKeys = event.getEventData().get("event.detail.selectedKeys");
+                    if (selectedKeys != null && selectedKeys.isArray()) {
+                        for (JsonNode keyNode : selectedKeys) {
+                            String key = keyNode.asText();
                             SamplePerson item = grid.getDataCommunicator().getKeyMapper().get(key);
                             if (item != null) {
                                 items.add(new Span(item.toString()));
@@ -89,12 +84,10 @@ public class GridExcelLikeCellSelection extends Recipe {
 
                     VerticalLayout columns = new VerticalLayout();
                     columns.add(new H5("Selected Columns"));
-                    value = eventData.get("event.detail.selectedColumns");
-                    if (value instanceof JsonArray) {
-                        JsonArray array = (JsonArray) value;
-                        for (int i = 0; i < array.length(); i++) {
-                            String key = array.getString(i);
-                            columns.add(new Span(key));
+                    JsonNode selectedColumns = event.getEventData().get("event.detail.selectedColumns");
+                    if (selectedColumns != null && selectedColumns.isArray()) {
+                        for (JsonNode columnNode : selectedColumns) {
+                            columns.add(new Span(columnNode.asText()));
                         }
                     }
 

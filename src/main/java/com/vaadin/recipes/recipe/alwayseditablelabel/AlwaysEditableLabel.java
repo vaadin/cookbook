@@ -22,7 +22,10 @@ public class AlwaysEditableLabel extends Recipe {
             .getElement()
             .addEventListener(
                 "input",
-                e -> Notification.show("Value changed: " + e.getEventData().getString("event.target.innerHTML"))
+                e -> {
+                    String innerHTML = e.getEventData().get("event.target.innerHTML").asText();
+                    Notification.show("Value changed: " + innerHTML);
+                }
             )
             .addEventData("event.target.innerHTML");
 
