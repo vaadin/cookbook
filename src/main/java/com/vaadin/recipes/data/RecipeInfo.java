@@ -1,26 +1,19 @@
 package com.vaadin.recipes.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
-import dev.hilla.Nonnull;
 import jakarta.validation.constraints.NotBlank;
+import org.jspecify.annotations.NonNull;
+
+import javax.annotation.Nullable;
+import java.util.*;
 
 public class RecipeInfo {
     @JsonIgnore
     private Class<? extends Recipe> recipeClass;
 
-    @Nonnull
+    @NonNull
     private String howDoI;
 
     @NotBlank
@@ -32,7 +25,7 @@ public class RecipeInfo {
     private List<String> sourceFiles;
 
     @Nullable
-    private List<@Nonnull Tag> tags;
+    private List<@NonNull Tag> tags;
 
     public RecipeInfo() {}
 

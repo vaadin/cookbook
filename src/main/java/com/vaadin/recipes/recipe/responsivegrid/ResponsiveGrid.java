@@ -41,15 +41,14 @@ public class ResponsiveGrid extends Recipe {
         // Add browser window listener to observe width change
         Page page = attachEvent.getUI().getPage();
         listener = page.addBrowserWindowResizeListener(event -> {
-                adjustVisibleGridColumns(grid, event.getWidth());
+            adjustVisibleGridColumns(grid, event.getWidth());
         });
         // Adjust Grid according to initial width of the screen
         page.retrieveExtendedClientDetails(receiver -> {
             int browserWidth = receiver.getBodyClientWidth();
-                adjustVisibleGridColumns(grid, browserWidth);
+            adjustVisibleGridColumns(grid, browserWidth);
         });
     }
- 
     
     @Override
     protected void onDetach(DetachEvent detachEvent) {
@@ -57,7 +56,7 @@ public class ResponsiveGrid extends Recipe {
         listener.remove();
         super.onDetach(detachEvent);
     }
-        
+
     private Grid<Person> createGrid() {
         Grid<Person> grid = new Grid<>();
         grid.addComponentColumn(item -> {

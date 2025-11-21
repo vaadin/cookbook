@@ -11,4 +11,4 @@ window
   .addEventListener('change', function () {
       window.applyTheme()
   });
-window.applyTheme();
+

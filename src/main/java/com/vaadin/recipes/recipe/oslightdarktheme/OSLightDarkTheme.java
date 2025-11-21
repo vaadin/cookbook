@@ -1,5 +1,6 @@
 package com.vaadin.recipes.recipe.oslightdarktheme;
 
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.router.Route;
@@ -24,4 +25,9 @@ public class OSLightDarkTheme extends Recipe {
         + "In this example, the whole application will be affected after you visit this view.</p>"));
     }
 
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        getElement().executeJs("window.applyTheme()");
+    }
 }
