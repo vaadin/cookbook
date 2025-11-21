@@ -19,7 +19,7 @@ import com.vaadin.recipes.recipe.Tag;
 public class SplitButtonBar extends Recipe {
 
     public SplitButtonBar() {
-        add(new H4("Use a individual item alignment (Since V24.7 - Recommended)"), withIndividualAlignment());
+        add(new H4("Use individual item alignment (Since V24.7 - Recommended)"), withIndividualAlignment());
         add(new H4("Use a wrapper layout and 'between' justification"), withBetween());
         add(new H4("Use a wrapper layout and expand"), withWrapperLayout());
         add(new H4("Set margin-right: auto on second button"), withMarginLeft());
