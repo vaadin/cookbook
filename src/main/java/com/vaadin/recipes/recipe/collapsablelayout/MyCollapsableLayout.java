@@ -156,7 +156,7 @@ public class MyCollapsableLayout extends VerticalLayout {
      */
     public void addHeaderComponentAsLastAndAlignToRight(Component component) {
         getHeader().addComponentAtIndex(getHeader().getComponentCount(), component);
-        component.getElement().getStyle().setMarginLeft("auto");
+        component.getStyle().setMarginLeft("auto");
     }
 
     /**

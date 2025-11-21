@@ -27,7 +27,7 @@ public class CollapsableLayoutRecipe extends Recipe {
         add(collapsableLayout);
 
         //A border to show the outline of the layout itself
-        collapsableLayout.getElement().getStyle().setBorder("1px solid #aaa");
+        collapsableLayout.getStyle().setBorder("1px solid #aaa");
 
         collapsableLayout.addContentComponent(createSomeContent());
 

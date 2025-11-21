@@ -18,7 +18,7 @@ import com.vaadin.recipes.recipe.Tag;
 public class FormatText extends Recipe {
     public FormatText() {
         Paragraph lineBreaks = new Paragraph("Text\nwith\nline\nbreaks");
-        lineBreaks.getElement().getStyle().setWhiteSpace(Style.WhiteSpace.PRE);
+        lineBreaks.getStyle().setWhiteSpace(Style.WhiteSpace.PRE);
 
         Html html = new Html(Jsoup.clean("<p>Formatted <b>text</b><br>as <i>HTML</i></p>", Safelist.basic()));
 
