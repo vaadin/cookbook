@@ -2,7 +2,7 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "scripts": {
-    "parseClientRoutes": "tsc --project tsconfig.parser.json && node target/parser/parseClientRoutes.js \"frontend/recipe/**/*.ts\""
+    "parseClientRoutes": "tsc --project tsconfig.parser.json && node target/parser/parseClientRoutes.js \"src/main/frontend/recipe/**/*.ts\""
   },
   "husky": {
     "hooks": {

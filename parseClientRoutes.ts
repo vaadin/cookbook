@@ -136,7 +136,7 @@ async function main() {
       routes.push(r);
     }
   });
-  const frontend = path.resolve("frontend");
+  const frontend = path.resolve("src/main/frontend");
   const recipeInfoJson = path.resolve(
       "target",
       "classes",
