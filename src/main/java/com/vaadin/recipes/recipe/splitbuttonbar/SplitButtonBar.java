@@ -5,6 +5,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -45,7 +46,7 @@ public class SplitButtonBar extends Recipe {
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         HorizontalLayout buttonLayout = new HorizontalLayout(delete, cancel, save);
-        delete.getStyle().set("margin-right", "auto"); // <--
+        delete.getStyle().setMarginRight("auto"); // <--
         buttonLayout.setWidthFull();
         return buttonLayout;
     }

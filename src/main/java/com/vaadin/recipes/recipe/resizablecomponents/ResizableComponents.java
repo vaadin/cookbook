@@ -1,6 +1,7 @@
 package com.vaadin.recipes.recipe.resizablecomponents;
 
 import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -22,19 +23,19 @@ public class ResizableComponents extends Recipe {
         TextArea resizableVertically = new TextArea("Vertically resizable");
         resizableVertically.setWidth("300px");
         resizableVertically.getStyle().set("resize", "vertical");
-        resizableVertically.getStyle().set("overflow", "auto");
+        resizableVertically.getStyle().setOverflow(Style.Overflow.AUTO);
         add(resizableVertically);
 
         TextArea resizableHorizontally = new TextArea("Horizontally resizable");
         resizableHorizontally.setWidth("300px");
         resizableHorizontally.getStyle().set("resize", "horizontal");
-        resizableHorizontally.getStyle().set("overflow", "auto");
+        resizableHorizontally.getStyle().setOverflow(Style.Overflow.AUTO);
         add(resizableHorizontally);
 
         TextArea resizableInBothDirections = new TextArea("Vertically & Horizontally resizable");
         resizableInBothDirections.setWidth("300px");
         resizableInBothDirections.getStyle().set("resize", "both");
-        resizableInBothDirections.getStyle().set("overflow", "auto");
+        resizableInBothDirections.getStyle().setOverflow(Style.Overflow.AUTO);
         add(resizableInBothDirections);
 
     }

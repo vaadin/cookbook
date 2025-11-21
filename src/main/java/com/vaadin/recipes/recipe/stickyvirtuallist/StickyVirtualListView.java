@@ -5,6 +5,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.virtuallist.VirtualList;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -65,8 +66,8 @@ public class StickyVirtualListView extends Recipe {
                 return;
             if (top == null || top.isEmpty())
                 top = "0px";
-            component.getStyle().set("position", "sticky");
-            component.getStyle().set("top", "calc(" + top + " - var(--virtual-list-y-offset))");
+            component.getStyle().setPosition(Style.Position.STICKY);
+            component.getStyle().setTop("calc(" + top + " - var(--virtual-list-y-offset))");
         }
 
         public static void makeSticky(HasStyle component) {
@@ -87,9 +88,9 @@ public class StickyVirtualListView extends Recipe {
             // Add sticky positioning to header
             StickyVirtualList.makeSticky(headerText);
 
-            headerText.getStyle().set("padding", "5px");
-            headerText.getStyle().set("background-color", "white");
-            headerText.getStyle().set("color", "black");
+            headerText.getStyle().setPadding("5px");
+            headerText.getStyle().setBackgroundColor("white");
+            headerText.getStyle().setColor("black");
             headerText.setWidthFull();
             add(headerText, contentText);
         }

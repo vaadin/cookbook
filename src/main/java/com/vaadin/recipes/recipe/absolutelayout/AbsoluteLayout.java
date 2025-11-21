@@ -11,6 +11,7 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.dom.Style;
 
 /**
  * AbsoluteLayout is a layout implementation that mimics html absolute
@@ -32,7 +33,7 @@ public class AbsoluteLayout extends Composite<Div> implements HasSize {
 
     @Override
     protected Div initContent() {
-        div.getElement().getStyle().set("position", "relative");
+        div.getElement().getStyle().setPosition(Style.Position.RELATIVE);
         div.setSizeFull();
         return div;
     }
@@ -159,7 +160,7 @@ public class AbsoluteLayout extends Composite<Div> implements HasSize {
     }
 
     private void resetPosition(Component component) {
-        component.getElement().getStyle().set("position", "absolute");
+        component.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
         component.getElement().getStyle().remove("bottom");
         component.getElement().getStyle().remove("top");
         component.getElement().getStyle().remove("right");

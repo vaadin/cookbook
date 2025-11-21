@@ -6,6 +6,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -26,7 +27,7 @@ public class CollapsableLayoutRecipe extends Recipe {
         add(collapsableLayout);
 
         //A border to show the outline of the layout itself
-        collapsableLayout.getElement().getStyle().set("border", "1px solid #aaa");
+        collapsableLayout.getElement().getStyle().setBorder("1px solid #aaa");
 
         collapsableLayout.addContentComponent(createSomeContent());
 

@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProviderListener;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.provider.Query;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
@@ -74,8 +75,8 @@ public class GridMessageWhenEmpty extends Recipe {
             Label text = new Label();
             DataProviderListener<ExampleBean> eventListener = (e -> text.setText("Items: " + items.size()));
             dataProvider.addDataProviderListener(eventListener);
-            text.getStyle().set("font-size", "25px");
-            text.getStyle().set("margin-left", "auto"); // https://vaadin.com/learn/training/v14-layouting 18:45
+            text.getStyle().setFontSize("25px");
+            text.getStyle().setMarginLeft("auto"); // https://vaadin.com/learn/training/v14-layouting 18:45
 
             setAlignItems(Alignment.END);
             setWidthFull();
