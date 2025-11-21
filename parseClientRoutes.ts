@@ -1,19 +1,16 @@
 import * as ts from "typescript";
 import RecipeInfo from "./frontend/generated/com/vaadin/recipes/data/RecipeInfo";
-import type { Route } from "@vaadin/router";
-import { glob } from "glob";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { BaseRoute } from "@vaadin/router";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const debug = (...theArgs: any[]) => {
+const debug = (...theArgs) => {
   // console.log(theArgs);
 };
 debug("Running");
+
+const glob = require("glob");
+const path = require("path");
+
+const fs = require("fs");
 
 const args = process.argv.slice(2);
 export const firstToLower = (text: string) => {
@@ -31,10 +28,10 @@ export const recipeToRoute = (
     recipeInfo.url + ".ts",
     ...(recipeInfo.sourceFiles || []),
   ].map((sourceFile) => {
-    if (sourceFile && sourceFile.includes(".java")) {
+    if (sourceFile.includes(".java")) {
       return sourceFile;
     } else {
-      return folder + (sourceFile || "");
+      return folder + sourceFile;
     }
   });
   const modifiedRecipeInfo = Object.assign(recipeInfo, {
@@ -45,7 +42,7 @@ export const recipeToRoute = (
     ),
   });
   return {
-    path: recipeInfo.url || "",
+    path: recipeInfo.url,
     component: recipeInfo.url,
     actionString: `./recipe/${recipeInfo.url}/${recipeInfo.url}`,
     info: modifiedRecipeInfo,
@@ -97,14 +94,12 @@ const visit = (
   return route;
 };
 
-type RecipeRouteWithAction = {
-  path: string;
-  component?: string;
+interface RecipeRouteWithAction extends BaseRoute {
   info: RecipeInfo;
   actionString: string;
 }
 
-const writeIfChanged = (file: string, contents: string) => {
+const writeIfChanged = (file, contents) => {
   debug("Checking if write is needed for ", file);
   debug("Contents:");
   debug(contents);
@@ -115,61 +110,57 @@ const writeIfChanged = (file: string, contents: string) => {
   debug("Writing ", file);
   fs.writeFileSync(file, contents);
 };
-async function main() {
-  const tsFileGlobs = args[0];
-  const routes: RecipeRouteWithAction[] = [];
+const tsFileGlobs = args[0];
+const routes: RecipeRouteWithAction[] = [];
 
-  const g = path.resolve(tsFileGlobs);
-  debug("Looking for " + g);
-  const files = await glob(g);
+const g = path.resolve(tsFileGlobs);
+debug("Looking for " + g);
+const files = glob.sync(g);
 
-  debug("Found files", files);
-  files.forEach((file) => {
-    debug("Scanning " + file);
-    const originalCode = fs.readFileSync(file, "utf8");
-    const source = ts.createSourceFile(
-      "my-view.ts",
-      originalCode,
-      ts.ScriptTarget.Latest
-    );
-    const r = visit(source, source, routes);
-    if (r) {
-      routes.push(r);
-    }
-  });
-  const frontend = path.resolve("frontend");
-  const recipeInfoJson = path.resolve(
-    "target",
-    "classes",
-    "ts-recipe-info.json"
+debug("Found files", files);
+files.forEach((file) => {
+  debug("Scanning " + file);
+  const originalCode = fs.readFileSync(file, "utf8");
+  const source = ts.createSourceFile(
+    "my-view.ts",
+    originalCode,
+    ts.ScriptTarget.Latest
   );
-  const routesTsTemplateFile = path.resolve("ts-routes.ts.template");
-  const routesTsFile = path.resolve(frontend, "ts-routes.ts");
+  const r = visit(source, source, routes);
+  if (r) {
+    routes.push(r);
+  }
+});
+const frontend = path.resolve("frontend");
+const recipeInfoJson = path.resolve(
+  "target",
+  "classes",
+  "ts-recipe-info.json"
+);
+const routesTsTemplateFile = path.resolve("ts-routes.ts.template");
+const routesTsFile = path.resolve(frontend, "ts-routes.ts");
 
-  writeIfChanged(
-    recipeInfoJson,
-    JSON.stringify(
-      routes.map((route) => route.info),
-      null,
-      2
-    ).replace(/"Tag.([A-Za-z_]*)"/g, '"$1"')
-  );
+writeIfChanged(
+  recipeInfoJson,
+  JSON.stringify(
+    routes.map((route) => route.info),
+    null,
+    2
+  ).replace(/"Tag.([A-Za-z_]*)"/g, '"$1"')
+);
 
-  const routesJson = JSON.stringify(routes, null, 2);
-  const routesTS = routesJson
-    .replace(
-      /"actionString": "(.*)"/g,
-      'action: async() => { await import("$1");}'
-    )
-    .replace(/"Tag.([A-Za-z_]*)"/g, "Tag.$1");
+const routesJson = JSON.stringify(routes, null, 2);
+const routesTS = routesJson
+  .replace(
+    /"actionString": "(.*)"/g,
+    'action: async() => { await import("$1");}'
+  )
+  .replace(/"Tag.([A-Za-z_]*)"/g, "Tag.$1");
 
-  const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
+const tsRoutesTpl = fs.readFileSync(routesTsTemplateFile, "utf-8");
 
-  const tsRoutes = tsRoutesTpl.replace(
-    /export const tsRecipeRoutes: RecipeRoute\[\] = .*/s,
-    "export const tsRecipeRoutes: RecipeRoute[] = " + routesTS + ";"
-  );
-  writeIfChanged(routesTsFile, tsRoutes);
-}
-
-main().catch(console.error);
+const tsRoutes = tsRoutesTpl.replace(
+  /export const tsRecipeRoutes: RecipeRoute\[\] = .*/s,
+  "export const tsRecipeRoutes: RecipeRoute[] = " + routesTS + ";"
+);
+writeIfChanged(routesTsFile, tsRoutes);

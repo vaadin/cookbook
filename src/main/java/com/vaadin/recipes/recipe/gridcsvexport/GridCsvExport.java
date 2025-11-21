@@ -12,7 +12,6 @@ import org.vaadin.firitin.components.DynamicFileDownloader;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.stream.Stream;
 
@@ -87,11 +86,11 @@ public class GridCsvExport extends Recipe {
     }
 
     private Collection<Person> createExamplePersons(int count) {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 123);
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
         generator.setData(Person::setBirthDate, DataType.DATE_OF_BIRTH);
-        return generator.create(count, 1);
+        return generator.create(count);
     }
 
 }

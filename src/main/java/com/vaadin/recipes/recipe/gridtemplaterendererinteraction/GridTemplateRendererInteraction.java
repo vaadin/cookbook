@@ -8,7 +8,6 @@ import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +25,13 @@ public class GridTemplateRendererInteraction extends Recipe {
     private final Map<Long, Boolean> disabledMap;
 
     public GridTemplateRendererInteraction() {
-        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, LocalDateTime.now());
+        ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(Person.class, 423524l);
 
         generator.setData(Person::setId, DataType.ID);
         generator.setData(Person::setName, DataType.FULL_NAME);
         generator.setData(Person::setEmail, DataType.EMAIL);
         generator.setData(Person::setBirthday, DataType.DATE_OF_BIRTH);
-        List<Person> personList = generator.create(100,1);
+        List<Person> personList = generator.create(100);
         disabledMap = new HashMap<>();
 
         Grid<Person> personGrid = new Grid<>();

@@ -1,6 +1,5 @@
 package com.vaadin.recipes.recipe.gridproconditionaledit;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.vaadin.artur.exampledata.DataType;
@@ -25,10 +24,10 @@ public class GridProConditionalEdit extends Recipe {
 
     private Collection<Person> createExamplePersons(int count) {
         ExampleDataGenerator<Person> generator = new ExampleDataGenerator<>(
-                Person.class, LocalDateTime.now());
+                Person.class, 123);
         generator.setData(Person::setFirstName, DataType.FIRST_NAME);
         generator.setData(Person::setLastName, DataType.LAST_NAME);
-        return generator.create(count, 1);
+        return generator.create(count);
     }
 
     public GridProConditionalEdit() {
