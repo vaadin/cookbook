@@ -4,12 +4,13 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.Endpoint;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
+import org.apache.commons.io.IOUtils;
+import org.jspecify.annotations.NonNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.apache.commons.io.IOUtils;
-import org.jspecify.annotations.NonNull;
 
 @AnonymousAllowed
 @Endpoint
