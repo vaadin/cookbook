@@ -42,7 +42,7 @@ public class DatePickerPattern extends Recipe {
     }
 
     @JsModule("./recipe/date-picker-pattern/date-picker-pattern.js")
-    @NpmPackage(value = "date-fns", version = "2.29.3")
+    @NpmPackage(value = "date-fns", version = "2.16.0")
     public static class DatePickerWithPattern extends DatePicker {
         private String pattern;
 
