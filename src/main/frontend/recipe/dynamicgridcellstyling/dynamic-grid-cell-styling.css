@@ -1,20 +1,20 @@
-.month {
+[part~="month-cell"] {
   font-weight: 500;
 }
 
-.month.winter {
+[part~="month-cell"][part~="winter-cell"] {
   color: blue;
 }
-.month.spring {
+[part~="month-cell"][part~="spring-cell"] {
   color: green;
 }
-.month.summer {
+[part~="month-cell"][part~="summer-cell"] {
   color: #eeba11;
 }
-.month.fall {
+[part~="month-cell"][part~="fall-cell"] {
   color: brown;
 }
 
-.toomuch {
+[part~="toomuch-cell"] {
   color: red;
 }

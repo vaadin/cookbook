@@ -9,7 +9,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Route("long-running-task")
 @Metadata(
@@ -52,33 +51,26 @@ public class LongRunningTask extends Recipe {
 
         backendService
             .longRunningTask()
-            .addCallback(
-                new ListenableFutureCallback<>() {
-
-                    @Override
-                    public void onFailure(Throwable ex) {
-                        ui.access(
-                            () -> {
-                                // setup for error
-                                button.setEnabled(true);
-                                progressBar.setVisible(false);
-                                message.setText("Error.");
-                            }
-                        );
-                    }
-
-                    @Override
-                    public void onSuccess(Void result) {
-                        ui.access(
-                            () -> {
-                                // setup for task completed
-                                button.setEnabled(true);
-                                progressBar.setVisible(false);
-                                message.setText("Task completed.");
-                            }
-                        );
-                    }
+            .whenComplete((result, ex) -> {
+                if (ex != null) {
+                    ui.access(
+                        () -> {
+                            // setup for error
+                            button.setEnabled(true);
+                            progressBar.setVisible(false);
+                            message.setText("Error.");
+                        }
+                    );
+                } else {
+                    ui.access(
+                        () -> {
+                            // setup for task completed
+                            button.setEnabled(true);
+                            progressBar.setVisible(false);
+                            message.setText("Task completed.");
+                        }
+                    );
                 }
-            );
+            });
     }
 }

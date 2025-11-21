@@ -19,11 +19,12 @@ public class LazyDetails extends Recipe {
 
         Details details = new Details("Expand me", placeholder);
         details.addOpenedChangeListener(event -> {
-            // placeholder is attached until setContent below has been run
+            // placeholder is attached until content replacement below has been run
             if (event.isOpened() && placeholder.isAttached()) {
                 Span realContent = new Span("This is the real content");
 
-                details.setContent(realContent);
+                details.removeAll();
+                details.add(realContent);
             }
         });
 
