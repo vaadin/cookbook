@@ -23,6 +23,9 @@ import java.io.ByteArrayOutputStream;
 )
 public class DownloadingDynamicallyGeneratedFile extends Recipe {
 
+    // If you are using a Vaadin version older than 24.8, DownloadHandler will not be available to you.
+    // See DynamicFileDownloader from https://vaadin.com/directory/component/flow-viritin for an alternative.
+
     private TextField name = new TextField("Name");
     private IntegerField yearOfBirth = new IntegerField("Year of Birth");
 
