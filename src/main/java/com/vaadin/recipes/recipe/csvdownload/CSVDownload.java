@@ -34,9 +34,9 @@ public class CSVDownload extends Recipe {
         add(text);
 
         add(new Div("Download Link:"));
-        add(getDownloadAnchor(text));
+        add(createDownloadAnchor(text));
         add(new Div("Download Button:"));
-        add(getWrappedDownloadButton(text));
+        add(createWrappedDownloadButton(text));
 
         add(createOtherExamplesSection());
     }
@@ -49,7 +49,7 @@ public class CSVDownload extends Recipe {
         return text;
     }
 
-    private static Anchor getDownloadAnchor(TextArea text) {
+    private static Anchor createDownloadAnchor(TextArea text) {
         // Create a download handler that collects text from the text area, converts it to input stream, and provides a download response.
         DownloadHandler downloadHandlerAnchor = DownloadHandler.fromInputStream(event -> {
             InputStream inputStream = new ByteArrayInputStream(text.getValue().getBytes());
@@ -60,7 +60,7 @@ public class CSVDownload extends Recipe {
         return  new Anchor(downloadHandlerAnchor, "Download");
     }
 
-    private static Anchor getWrappedDownloadButton(TextArea text) {
+    private static Anchor createWrappedDownloadButton(TextArea text) {
         // Create a download handler that collects text from the text area, converts it to input stream, and provides a download response.
         DownloadHandler downloadHandlerButton = DownloadHandler.fromInputStream(event -> {
             InputStream inputStream = new ByteArrayInputStream(text.getValue().getBytes());
