@@ -90,7 +90,7 @@ public class CSVDownload extends Recipe {
         fieldSet.getLegend().getStyle().setPaddingLeft("5px");
 
         var content = new VerticalLayout();
-        content.add(new Anchor("/dynamic-download", " Offer a dynamic / generated file for downloa."));
+        content.add(new Anchor("/dynamic-download", " Offer a dynamic / generated file for download."));
         content.add(new Anchor("/grid-csv-export", "Export grid data as a CSV file."));
         fieldSet.add(content);
         return fieldSet;
