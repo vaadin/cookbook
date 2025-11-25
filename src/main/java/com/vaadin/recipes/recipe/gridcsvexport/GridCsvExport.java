@@ -2,15 +2,17 @@ package com.vaadin.recipes.recipe.gridcsvexport;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
-import org.vaadin.firitin.components.DynamicFileDownloader;
 
-import java.io.PrintWriter;
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -19,9 +21,12 @@ import java.util.stream.Stream;
 @Metadata(
     howdoI = "Export grid data as CSV",
     description = "Export the contents of a Vaadin Grid as CSV so your users can download and save it. Using the Java component API. ",
-    tags = { Tag.GRID, Tag.CSV, Tag.DOWNLOAD }, addons = "Viritin;https://vaadin.com/directory/component/flow-viritin"
+    tags = { Tag.GRID, Tag.CSV, Tag.DOWNLOAD }
 )
 public class GridCsvExport extends Recipe {
+
+    // If you are using a Vaadin version older than 24.8, DownloadHandler will not be available to you.
+    // See DynamicFileDownloader from https://vaadin.com/directory/component/flow-viritin for an alternative.
 
     public GridCsvExport() {
         // Setup a grid with random data
@@ -31,8 +36,8 @@ public class GridCsvExport extends Recipe {
 
         add(grid);
 
-        add(new DynamicFileDownloader("Download as CSV...", "persons.csv", out -> {
-            Stream<Person> persons = null;
+        var downloadHandler = DownloadHandler.fromInputStream(downloadEvent -> {
+            Stream<Person> persons;
             if (grid.asMultiSelect().getValue().isEmpty()) {
                 // No selected rows, write all
                 persons = grid.getGenericDataView().getItems();
@@ -41,18 +46,22 @@ public class GridCsvExport extends Recipe {
                 persons = grid.asMultiSelect().getValue().stream();
             }
 
-            PrintWriter writer = new PrintWriter(out);
-            writer.println("birthDate,firstName,lastName");
+            var csvContent = new StringBuilder("birthDate,firstName,lastName\n");
             persons.forEach(p -> {
-                writer.println("%s,%s,%s".formatted(
+                csvContent.append("%s,%s,%s\n".formatted(
                         p.getBirthDate(),
                         p.getFirstName(),
                         p.getLastName()
-                    ));
+                ));
             });
-            writer.close();
 
-        }));
+            var contentInputStream = new ByteArrayInputStream(csvContent.toString().getBytes());
+            return new DownloadResponse(contentInputStream, "persons.csv", "text/csv", -1);
+        });
+
+        var downloadLink = new Anchor(downloadHandler, "Download as CSV...");
+
+        add(downloadLink);
     }
 
     public static class Person {
