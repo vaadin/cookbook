@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @since Vaadin 24.7
+ */
 @Route("grid-message-when-empty")
 @Metadata(
     howdoI = "Show a meaningful message instead of an empty Grid",
@@ -24,13 +27,7 @@ import java.util.Random;
 )
 public class GridMessageWhenEmpty extends Recipe {
 
-    // This example uses Vaadin 24.5+ API
-    // For earlier versions, see the old example:
-    // https://github.com/vaadin/cookbook/blob/8a04538930b4649cbb9be92af92e1cf73188b308/src/main/java/com/vaadin/recipes/recipe/gridmessagewhenempty/GridMessageWhenEmpty.java
-
     public GridMessageWhenEmpty() {
-        addClassName("grid-message-example");
-
         var control = new ItemsControl();
 
         var grid = new Grid<>(ExampleBean.class);
