@@ -14,6 +14,7 @@
     "src/main/java/**/*.java": "prettier --write"
   },
   "dependencies": {
+    "@polymer/polymer": "^3.5.2",
     "@vaadin/a11y-base": "25.0.2",
     "@vaadin/accordion": "25.0.2",
     "@vaadin/app-layout": "25.0.2",
@@ -244,7 +245,7 @@
       "workbox-core": "7.3.0",
       "workbox-precaching": "7.3.0"
     },
-    "hash": "0d756899246dfc7928924898942ef47dde788128e832b7926c55b11fe2811b3d"
+    "hash": "d59270243fbfc90c742fc59599172e2458df7ceee4f0f5e844839ac1da504673"
   },
   "overrides": {
     "@vaadin/accordion": "$@vaadin/accordion",
@@ -329,7 +330,8 @@
     "@vaadin/hilla-lit-form": "$@vaadin/hilla-lit-form",
     "@vaadin/aura": "$@vaadin/aura",
     "ol": "$ol",
-    "@vaadin/react-components": "25.0.2"
+    "@vaadin/react-components": "25.0.2",
+    "@polymer/polymer": "$@polymer/polymer"
   },
   "type": "module"
 }
