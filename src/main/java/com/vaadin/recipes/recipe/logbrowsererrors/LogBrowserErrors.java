@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @Route("log-browser-errors")
 @Metadata(
