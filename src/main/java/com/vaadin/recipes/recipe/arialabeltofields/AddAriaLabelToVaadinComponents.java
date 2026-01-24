@@ -1,7 +1,6 @@
 package com.vaadin.recipes.recipe.arialabeltofields;
 
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.HasAriaLabel;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -36,63 +35,28 @@ public class AddAriaLabelToVaadinComponents extends Recipe {
 
     public AddAriaLabelToVaadinComponents() {
         searchField = new TextField("TextField example");
+        searchField.setAriaLabel("Search");
+
         yearSelect = new ComboBox<>("ComboBox example");
         yearSelect.setItems(IntStream.range(1900, 2021).boxed().collect(toList()));
+        yearSelect.setAriaLabel("Year born");
+
         datePicker = new DatePicker("DatePicker example");
+        datePicker.setAriaLabel("Birth date");
+
         dateTimePicker = new DateTimePicker("DateTimePicker example");
+        dateTimePicker.setDateAriaLabel("Event date");
+        dateTimePicker.setTimeAriaLabel("Event time");
+
         checkbox = new Checkbox("CheckBox example");
+        checkbox.setAriaLabel("Task completed");
+
         upload = new Upload();
+        ((HasAriaLabel) upload.getUploadButton()).setAriaLabel("Upload resume");
+
         saveButton = new Button("S");
+        saveButton.setAriaLabel("Save");
+
         add(searchField, yearSelect, datePicker, dateTimePicker, checkbox, upload, saveButton);
     }
-
-    @Override
-    protected void onAttach(AttachEvent attachEvent) {
-        super.onAttach(attachEvent);
-        // helps to prevent possible timing issues
-        getElement().executeJs("this.$server.addAriaLabels()");
-    }
-
-    @ClientCallable
-    protected void addAriaLabels() {
-        // we can utilize public inputElement property: https://github.com/vaadin/vaadin-text-field/blob/v3.0.1/src/vaadin-text-field-mixin.js#L384
-        searchField.getElement()
-                .executeJs("this.inputElement.setAttribute('aria-label', 'Search')");
-        // it is recommend to remove auto generated aria-labelledby attribute
-        searchField.getElement()
-                .executeJs("this.inputElement.removeAttribute('aria-labelledby')");
-
-        // the focused input element slightly deeper, but we can still utilize public properties
-        yearSelect.getElement()
-                .executeJs("this.inputElement.inputElement.setAttribute('aria-label', 'Year born')");
-        // remove auto generated aria-labelledby attribute
-        yearSelect.getElement()
-                .executeJs("this.inputElement.inputElement.removeAttribute('aria-labelledby')");
-
-        // we need to go into shadow dom to find underlying text-field for the aria-label
-        datePicker.getElement()
-                .executeJs("this.shadowRoot.querySelector('[part=\"text-field\"]').setAttribute('aria-label', 'Birth date')");
-
-        // sometimes we need to get quite deep...
-        dateTimePicker.getElement()
-                .executeJs("this.querySelector('[slot=\"date-picker\"]').shadowRoot.querySelector('[part=\"text-field\"]').setAttribute('aria-label', 'Event date')");
-        // ... or even deeper
-        // this also means that this is not robust for the possible future updates of the component
-        dateTimePicker.getElement()
-                .executeJs("this.querySelector('[slot=\"time-picker\"]').shadowRoot.querySelector('vaadin-combo-box-light')" +
-                        ".querySelector('[role=\"application\"]').setAttribute('aria-label', 'Event time')");
-
-        // here we have public focusElement property
-        checkbox.getElement()
-                .executeJs("this.focusElement.setAttribute('aria-label', 'Task completed')");
-
-        // need to get button element from the shadow dom
-        upload.getElement()
-                .executeJs("this.shadowRoot.querySelector('[part=\"upload-button\"]').shadowRoot.querySelector('button').setAttribute('aria-label', 'Upload resume')");
-
-        // using shorthand query selector for getting element which id is `button`
-        saveButton.getElement()
-                .executeJs("this.$.button.setAttribute('aria-label', 'Save')");
-    }
-
 }
