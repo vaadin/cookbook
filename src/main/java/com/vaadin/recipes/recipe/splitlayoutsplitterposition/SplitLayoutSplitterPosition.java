@@ -10,7 +10,6 @@ import com.vaadin.flow.shared.Registration;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import elemental.json.JsonObject;
 import org.apache.commons.lang3.StringUtils;
 
 @Route("split-layout-splitter-position")
@@ -54,10 +53,8 @@ public class SplitLayoutSplitterPosition extends Recipe {
         Element element = layout.getElement();
 
         return element.addEventListener("splitter-dragend", event -> {
-                    JsonObject data = event.getEventData();
-
-                    String primaryWidth = data.getString(EVENT_KEY_PRIMARY_CHILD);
-                    String secondaryWidth = data.getString(EVENT_KEY_SECONDARY_CHILD);
+                    String primaryWidth = event.getEventData().get(EVENT_KEY_PRIMARY_CHILD).asText();
+                    String secondaryWidth = event.getEventData().get(EVENT_KEY_SECONDARY_CHILD).asText();
 
                     double splitPosition;
                     if (StringUtils.isBlank(primaryWidth)) {

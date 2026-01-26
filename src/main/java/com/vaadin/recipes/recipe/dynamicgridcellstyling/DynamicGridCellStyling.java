@@ -47,7 +47,7 @@ public class DynamicGridCellStyling extends Recipe {
                     .withProperty("expense", MonthlyExpense::getExpense)
             )
             .setHeader("Styled using generator (can only target the whole cell)")
-            .setClassNameGenerator(item -> item.getExpense() > 500 ? "toomuch" : "");
+            .setPartNameGenerator(item -> item.getExpense() > 500 ? "toomuch" : "");
         grid.setItems(Stream.of(Month.values()).map(this::generateMonthlyExpense).collect(Collectors.toList()));
         grid.setAllRowsVisible(true);
         add(grid);

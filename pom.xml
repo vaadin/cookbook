@@ -14,13 +14,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>24.9.5</vaadin.version>
+        <vaadin.version>25.0.3</vaadin.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.8</version>
+        <version>4.0.1</version>
     </parent>
 
     <repositories>
@@ -78,8 +78,17 @@
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>hilla-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -106,7 +115,7 @@
         <dependency>
             <groupId>in.virit</groupId>
             <artifactId>viritin</artifactId>
-            <version>2.21.1</version>
+            <version>3.1.2</version>
         </dependency>
         <dependency>
             <groupId>io.projectreactor</groupId>

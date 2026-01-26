@@ -13,8 +13,6 @@ import com.vaadin.flow.component.map.configuration.layer.VectorLayer;
 import com.vaadin.flow.component.map.configuration.source.VectorSource;
 import com.vaadin.flow.shared.Registration;
 
-import elemental.json.JsonArray;
-
 @JsModule("./recipe/map-marker-drag-drop/map-marker-drag-drop.js")
 public class CustomMap extends Map {
     @Override
@@ -35,10 +33,10 @@ public class CustomMap extends Map {
 
         public MapMarkerDropEvent(CustomMap source, boolean fromClient,
                                   @EventData("event.detail.markerId") String markerId,
-                                  @EventData("event.detail.coordinate") JsonArray coordinate) {
+                                  @EventData("event.detail.coordinate") double[] coordinate) {
             super(source, fromClient);
 
-            this.coordinate = new Coordinate(coordinate.getNumber(0), coordinate.getNumber(1));
+            this.coordinate = new Coordinate(coordinate[0], coordinate[1]);
             this.marker = findMarker(source, markerId);
         }
 

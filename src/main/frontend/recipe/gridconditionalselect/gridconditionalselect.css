@@ -1,4 +1,4 @@
-.no-select[first-column] ::slotted(*) {
+[part~="no-select-row"][part~="first-column-cell"] ::slotted(*) {
   opacity: 0.5;
   pointer-events: none;
 }
