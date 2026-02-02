@@ -6,21 +6,14 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.upload.Upload;
-import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
-import com.vaadin.flow.internal.MessageDigestUtil;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.UploadHandler;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
+
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Iterator;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import org.apache.commons.io.IOUtils;
 
 @Route("camera")
 @Metadata(
@@ -32,8 +25,14 @@ public class CameraView extends Recipe {
     private Paragraph photoName;
 
     public CameraView() {
-        MemoryBuffer buffer = new MemoryBuffer();
-        Upload upload = new Upload(buffer);
+        var output = new Div();
+
+        var uploadHandler = UploadHandler.inMemory(((metadata, data) -> {
+            var component = createComponent(metadata.contentType(), metadata.fileName(), data);
+            showOutput(metadata.fileName(), component, output);
+        }));
+
+        var upload = new Upload(uploadHandler);
         upload.setAcceptedFileTypes("image/*");
         // You can use the capture html5 attribute
         // https://caniuse.com/html-media-capture
@@ -45,54 +44,17 @@ public class CameraView extends Recipe {
         // you can set it in application.properties:
         // spring.servlet.multipart.max-request-size=30MB
         // spring.servlet.multipart.max-file-size=30MB
-        Div output = new Div();
-
-        upload.addSucceededListener(
-            event -> {
-                Component component = createComponent(
-                    event.getMIMEType(),
-                    event.getFileName(),
-                    buffer.getInputStream()
-                );
-                showOutput(event.getFileName(), component, output);
-            }
-        );
 
         add(upload, output);
     }
 
-    private Component createComponent(String mimeType, String fileName, InputStream stream) {
-        if (mimeType.startsWith("image")) {
-            Image image = new Image();
-            try {
-                byte[] bytes = IOUtils.toByteArray(stream);
-                image
-                    .getElement()
-                    .setAttribute("src", new StreamResource(fileName, () -> new ByteArrayInputStream(bytes)));
-                try (ImageInputStream in = ImageIO.createImageInputStream(new ByteArrayInputStream(bytes))) {
-                    final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
-                    if (readers.hasNext()) {
-                        ImageReader reader = readers.next();
-                        try {
-                            reader.setInput(in);
-                            image.setMaxWidth("100%");
-                        } finally {
-                            reader.dispose();
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return image;
+    private Component createComponent(String contentType, String fileName, byte[] data) {
+        if (contentType.startsWith("image")) {
+            return new Image(DownloadHandler.fromInputStream(downloadEvent ->
+                    new DownloadResponse(new ByteArrayInputStream(data), fileName, contentType, -1)), "Camera picture");
         }
-        Div content = new Div();
-        String text = String.format(
-            "Mime type: '%s'\nSHA-256 hash: '%s'",
-            mimeType,
-            Arrays.toString(MessageDigestUtil.sha256(stream.toString()))
-        );
+        var content = new Div();
+        var text = String.format("Content type: '%s'", contentType);
         content.setText(text);
         return content;
     }
