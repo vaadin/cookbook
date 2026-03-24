@@ -1,7 +1,7 @@
 package com.vaadin.recipes.recipe.stickyvirtuallist;
 
 import com.vaadin.flow.component.HasStyle;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.virtuallist.VirtualList;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -81,16 +81,17 @@ public class StickyVirtualListView extends Recipe {
     }
 
     public static class ItemComponent extends VerticalLayout {
-        Label headerText = new Label();
-        Label contentText = new Label();
+        Div headerText = new Div();
+        Div contentText = new Div();
 
         public ItemComponent() {
             // Add sticky positioning to header
             StickyVirtualList.makeSticky(headerText);
 
-            headerText.getStyle().setPadding("5px");
-            headerText.getStyle().setBackgroundColor("white");
-            headerText.getStyle().setColor("black");
+            headerText.getStyle().setPadding("5px")
+                    .setPaddingLeft("10px")
+                    .setBackgroundColor("#ade7ff")
+                    .setColor("black");
             headerText.setWidthFull();
             add(headerText, contentText);
         }
