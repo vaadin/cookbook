@@ -50,27 +50,23 @@ public class CSVDownload extends Recipe {
     }
 
     private static Anchor createDownloadAnchor(TextArea text) {
-        // Create a download handler that collects text from the text area, converts it to input stream, and provides a download response.
-        DownloadHandler downloadHandlerAnchor = DownloadHandler.fromInputStream(event -> {
-            InputStream inputStream = new ByteArrayInputStream(text.getValue().getBytes());
-            return new DownloadResponse(inputStream, "output.txt", "text/plain", -1);
-        });
-
         // Create a link with our download handler
-        return  new Anchor(downloadHandlerAnchor, "Download");
+        return new Anchor(event -> {
+            event.setFileName("output.txt");
+            event.setContentType("text/plain");
+            event.getOutputStream().write(text.getValue().getBytes());
+        }, "Download");
     }
 
     private static Anchor createWrappedDownloadButton(TextArea text) {
-        // Create a download handler that collects text from the text area, converts it to input stream, and provides a download response.
-        DownloadHandler downloadHandlerButton = DownloadHandler.fromInputStream(event -> {
-            InputStream inputStream = new ByteArrayInputStream(text.getValue().getBytes());
-            return new DownloadResponse(inputStream, "output.txt", "text/plain", -1);
-        });
-
         // Create a button which will trigger download
         Button downloadButton = new Button("Download", VaadinIcon.DOWNLOAD.create());
         // Create a link with our download handler (triggered on button click)
-        Anchor wrappedDownloadButton = new Anchor(downloadHandlerButton, "");
+        Anchor wrappedDownloadButton = new Anchor(event -> {
+            event.setFileName("output.txt");
+            event.setContentType("text/plain");
+            event.getOutputStream().write(text.getValue().getBytes());
+        }, "");
         // Wrap the button in the link
         wrappedDownloadButton.add(downloadButton);
         return wrappedDownloadButton;
