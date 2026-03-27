@@ -1,7 +1,7 @@
 package com.vaadin.recipes.recipe.downloadgeneratedfile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -9,15 +9,17 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import org.vaadin.firitin.components.DynamicFileDownloader;
 
 @Route("dynamic-download")
 @Metadata(
         howdoI = "Offer a dynamic / generated file for download",
         description = "Shows how to allow the user to download a file generated on the server.",
-        tags = { Tag.DOWNLOAD }, addons = "Viritin;https://vaadin.com/directory/component/flow-viritin"
+        tags = { Tag.DOWNLOAD }
 )
 public class DownloadingDynamicallyGeneratedFile extends Recipe {
+
+    // If you are using a Vaadin version older than 24.8, DownloadHandler will not be available to you.
+    // See DynamicFileDownloader from https://vaadin.com/directory/component/flow-viritin for an alternative.
 
     private TextField name = new TextField("Name");
     private IntegerField yearOfBirth = new IntegerField("Year of Birth");
@@ -31,17 +33,16 @@ public class DownloadingDynamicallyGeneratedFile extends Recipe {
         var person = new PersonDto();
         binder.setBean(person);
 
-        // The actual download component and file generation
-        add(new DynamicFileDownloader("Download as JSON", outputStream -> {
+        var link = new Anchor(event -> {
+            event.setFileName(name.getValue().replaceAll(" ", "_") + ".json");  // dynamic file name
+            event.setContentType("application/json");
+
             // Using Jackson here to generate JSON to the output stream,
             // but could be just as well be XML, image or PDF
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(outputStream, person);
-        }).withFileNameGenerator(r -> {
-            // Using a FileNameGenerator, you can customize the
-            // name of the downloaded file
-            return person.getName().replaceAll(" ", "_") + ".json";
-        }));
+            var objectMapper = new ObjectMapper();
+            objectMapper.writeValue(event.getOutputStream(), binder.getBean());
+        }, "Download as JSON");
+        add(link);
     }
 
     public static class PersonDto {
