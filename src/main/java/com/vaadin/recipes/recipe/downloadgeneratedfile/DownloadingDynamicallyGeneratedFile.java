@@ -6,14 +6,9 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.streams.DownloadHandler;
-import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 @Route("dynamic-download")
 @Metadata(
@@ -38,23 +33,15 @@ public class DownloadingDynamicallyGeneratedFile extends Recipe {
         var person = new PersonDto();
         binder.setBean(person);
 
-        var downloadHandler = DownloadHandler.fromInputStream(downloadEvent -> {
-            var outputValue = binder.getBean();
-            var outputStream = new ByteArrayOutputStream();
+        var link = new Anchor(event -> {
+            event.setFileName(name.getValue().replaceAll(" ", "_") + ".json");  // dynamic file name
+            event.setContentType("application/json");
+
             // Using Jackson here to generate JSON to the output stream,
             // but could be just as well be XML, image or PDF
             var objectMapper = new ObjectMapper();
-            objectMapper.writeValue(outputStream, outputValue);
-
-            // Convert output stream to input stream
-            var inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-            return new DownloadResponse(inputStream,
-                    name.getValue().replaceAll(" ", "_") + ".json", // dynamic file name
-                    "application/json", // content type
-                    -1); // content length (-1 = unknown)
-        });
-
-        var link = new Anchor(downloadHandler, "Download as JSON");
+            objectMapper.writeValue(event.getOutputStream(), binder.getBean());
+        }, "Download as JSON");
         add(link);
     }
 
