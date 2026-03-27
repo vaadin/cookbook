@@ -5,14 +5,12 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.streams.DownloadHandler;
-import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
-import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -36,7 +34,7 @@ public class GridCsvExport extends Recipe {
 
         add(grid);
 
-        var downloadHandler = DownloadHandler.fromInputStream(downloadEvent -> {
+        DownloadHandler downloadHandler = (downloadEvent -> {
             Stream<Person> persons;
             if (grid.asMultiSelect().getValue().isEmpty()) {
                 // No selected rows, write all
@@ -55,13 +53,12 @@ public class GridCsvExport extends Recipe {
                 ));
             });
 
-            var contentInputStream = new ByteArrayInputStream(csvContent.toString().getBytes());
-            return new DownloadResponse(contentInputStream, "persons.csv", "text/csv", -1);
+            downloadEvent.setFileName("persons.csv");
+            downloadEvent.setContentType("text/csv");
+            downloadEvent.getOutputStream().write(csvContent.toString().getBytes());
         });
 
-        var downloadLink = new Anchor(downloadHandler, "Download as CSV...");
-
-        add(downloadLink);
+        add(new Anchor(downloadHandler, "Download as CSV..."));
     }
 
     public static class Person {
