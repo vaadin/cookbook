@@ -2,7 +2,6 @@ package com.vaadin.recipes.recipe.stickyvirtuallist;
 
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.virtuallist.VirtualList;
 import com.vaadin.flow.data.renderer.ComponentRenderer;

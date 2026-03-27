@@ -2,8 +2,6 @@ package com.vaadin.recipes.recipe.downloadgeneratedfile;
 
 import com.vaadin.flow.component.html.Anchor;
 import tools.jackson.databind.ObjectMapper;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
