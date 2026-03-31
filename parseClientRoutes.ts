@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import RecipeInfo from "./src/main/frontend/generated/com/vaadin/recipes/data/RecipeInfo";
+import type RecipeInfo from "./src/main/frontend/generated/com/vaadin/recipes/data/RecipeInfo";
 import { glob } from "glob";
 import path from "path";
 import fs from "fs";
