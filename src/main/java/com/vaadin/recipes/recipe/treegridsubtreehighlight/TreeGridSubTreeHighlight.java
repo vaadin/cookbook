@@ -42,7 +42,7 @@ public class TreeGridSubTreeHighlight extends Recipe {
                 }
             );
 
-        grid.setClassNameGenerator(
+        grid.setPartNameGenerator(
             department -> {
                 if (
                     grid.asSingleSelect().getValue() != null &&

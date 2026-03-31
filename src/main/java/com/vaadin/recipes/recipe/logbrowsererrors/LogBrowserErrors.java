@@ -10,11 +10,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
-import elemental.json.JsonObject;
-import elemental.json.JsonString;
-import elemental.json.JsonValue;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @Route("log-browser-errors")
 @Metadata(
@@ -24,6 +21,15 @@ import javax.annotation.Nullable;
 )
 @JsModule("./recipe/log-browser-errors/log-browser-errors.js")
 public class LogBrowserErrors extends Recipe {
+
+    public record ErrorDetails(
+        @Nullable String filename,
+        @Nullable Integer line,
+        @Nullable Integer col,
+        String level,
+        @Nullable String message,
+        @Nullable String stack
+    ) {}
 
     private final Pre output;
 
@@ -36,7 +42,7 @@ public class LogBrowserErrors extends Recipe {
                  // Depending on your architecture, you may need to unregister this listener later on.
                  window.addEventListener('error', event => {
                      const {message, filename, lineno: line, colno: col, error } = event;
-         
+
                      this.$server.onLogFromClient(message.toString(), {
                          filename,
                          line,
@@ -79,22 +85,25 @@ public class LogBrowserErrors extends Recipe {
     /**
      * This method is called by the client side to notify the server about the error.
      * The message contains the error message, while the details contain any additional information,
-     * like the stacktrace.
+     * like the stacktrace, filename, line and column numbers.
      * @param pMessage error message
-     * @param pDetails additional details
+     * @param pDetails error details including filename, line, col, level, message, and stack
      */
     @ClientCallable
     protected void onLogFromClient(
             final String pMessage,
-            @Nullable final JsonValue pDetails)
+            @Nullable final ErrorDetails pDetails)
     {
-        if (pDetails instanceof JsonObject) {
-            JsonValue value = ((JsonObject) pDetails).get("stack");
-            if (value instanceof JsonString) {
-
-                // here you should use your own logger
-                output.add(value.asString() + "\n\n");
-            }
+        if (pDetails != null && pDetails.stack() != null && !pDetails.stack().isEmpty()) {
+            // here you should use your own logger
+            String logEntry = String.format(
+                "Error at %s:%d:%d\n%s\n\n",
+                pDetails.filename() != null ? pDetails.filename() : "unknown",
+                pDetails.line() != null ? pDetails.line() : 0,
+                pDetails.col() != null ? pDetails.col() : 0,
+                pDetails.stack()
+            );
+            output.add(logEntry);
         }
 
         // This is optional, as the browser logs the errors on its own. You maybe want to inform

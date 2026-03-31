@@ -5,7 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProviderListener;
@@ -71,7 +71,7 @@ public class GridMessageWhenEmpty extends Recipe {
             Button addButton = new Button("+");
             addButton.addClickListener(evt -> addItem());
 
-            Label text = new Label();
+            Span text = new Span();
             DataProviderListener<ExampleBean> eventListener = (e -> text.setText("Items: " + items.size()));
             dataProvider.addDataProviderListener(eventListener);
             text.getStyle().setFontSize("25px");

@@ -1,21 +1,20 @@
 package com.vaadin.recipes.recipe.longrunningtask;
 
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
-import org.springframework.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class BackendService {
 
     @Async // runs in a separate thread (enable with @EnableAsync in a config class)
-    public ListenableFuture<Void> longRunningTask() {
+    public CompletableFuture<Void> longRunningTask() {
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
-            return AsyncResult.forExecutionException(new RuntimeException("Error"));
+            return CompletableFuture.failedFuture(new RuntimeException("Error"));
         }
 
-        return AsyncResult.forValue(null);
+        return CompletableFuture.completedFuture(null);
     }
 }

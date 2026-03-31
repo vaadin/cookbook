@@ -43,7 +43,7 @@ public class GridItemSpecificDropLocations extends Recipe {
         grid.setSelectionMode(SelectionMode.NONE);
         grid.setRowsDraggable(true);
 
-        grid.setClassNameGenerator(item -> {
+        grid.setPartNameGenerator(item -> {
             if (draggedItem == null) {
                 return "";
             }

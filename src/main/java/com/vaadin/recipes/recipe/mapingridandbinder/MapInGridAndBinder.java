@@ -84,7 +84,7 @@ public class MapInGridAndBinder extends Recipe {
 
         // Add column for the sum
         grid.addColumn(map -> map.get("sum")).setHeader("Sum")
-                .setClassNameGenerator(item -> "sum");
+                .setPartNameGenerator(item -> "sum");
 
         // Tip: Lets use item click listener as toggle for editing
         grid.addItemClickListener(event -> {

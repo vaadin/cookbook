@@ -56,7 +56,7 @@ public class GridDrillDown extends Recipe {
                     .addColumn(list -> list.get(index))
                     .setKey("" + i)
                     .setHeader("M" + (i / 5))
-                    .setClassNameGenerator(item -> "month");
+                    .setPartNameGenerator(item -> "month");
             } else {
                 grid
                     .addColumn(list -> list.get(index))
