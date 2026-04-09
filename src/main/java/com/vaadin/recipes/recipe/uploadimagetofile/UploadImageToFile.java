@@ -1,22 +1,12 @@
 package com.vaadin.recipes.recipe.uploadimagetofile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.UploadHandler;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 
@@ -27,57 +17,25 @@ import com.vaadin.recipes.recipe.Recipe;
 )
 public class UploadImageToFile extends Recipe {
 
-
-    private File file;
-    private String originalFileName;
-    private String mimeType;
-
     UploadImageToFile() {
-        Upload upload = new Upload(this::receiveUpload);
-        Div output = new Div(new Text("(no image file uploaded yet)"));
-        add(upload, output);
+        var output = new Div(new Text("(no image file uploaded yet)"));
 
-        // Configure upload component
+        // Use UploadHandler.toFile(..) instead if you want it permanently saved.
+        var handler = UploadHandler.toTempFile((metadata, data) -> {
+            data.deleteOnExit(); // Delete the temporary file once Java exists.
+            output.removeAll();
+            output.add(new Text("Uploaded: " + metadata.fileName() + " to "+ data.getAbsolutePath() + " Type: " + metadata.contentType()));
+            output.add(new Image(DownloadHandler.forFile(data),"Uploaded image"));
+        }).whenComplete(((transferContext, success) -> {
+            if (!success) {
+                output.removeAll();
+                output.add(new Text("Upload failed: " + transferContext.exception().getMessage()));
+            }
+        }));
+
+        var upload = new Upload(handler);
         upload.setAcceptedFileTypes("image/jpeg", "image/png", "image/gif");
-        upload.addSucceededListener(event -> {
-            output.removeAll();
-            output.add(new Text("Uploaded: "+originalFileName+" to "+ file.getAbsolutePath()+ "Type: "+mimeType));
-            output.add(new Image(new StreamResource(this.originalFileName,this::loadFile),"Uploaded image"));
-        });
-        upload.addFailedListener(event -> {
-            output.removeAll();
-            output.add(new Text("Upload failed: " + event.getReason()));
-        });
-    }
 
-    /** Load a file from local filesystem.
-     *
-     */
-    public InputStream loadFile() {
-        try {
-            return new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Failed to create InputStream for: '" + this.file.getAbsolutePath(), e);
-        }
-        return null;
-    }
-
-    /** Receive a uploaded file to a file.
-     */
-    public OutputStream receiveUpload(String originalFileName, String MIMEType) {
-        this.originalFileName = originalFileName;
-        this.mimeType = MIMEType;
-        try {
-            // Create a temporary file for example, you can provide your file here.
-            this.file = Files.createTempFile(null, null).toFile();
-            file.deleteOnExit();
-            return new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Failed to create InputStream for: '" + this.file.getAbsolutePath(), e);
-        } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Failed to create InputStream for: '" + this.file.getAbsolutePath() + "'", e);
-        }
-
-        return null;
+        add(upload, output);
     }
 }
