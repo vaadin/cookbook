@@ -34,7 +34,7 @@ public class DynamicGridCellBackgroundColor extends Recipe {
 
         expensesGrid
             .getColumnByKey("expense")
-            .setClassNameGenerator(monthlyExpense -> monthlyExpense.getExpense() > 500 ? "warn" : null);
+            .setPartNameGenerator(monthlyExpense -> monthlyExpense.getExpense() > 500 ? "warn" : null);
     }
 
     private MonthlyExpense generateMonthlyExpense(Month month) {

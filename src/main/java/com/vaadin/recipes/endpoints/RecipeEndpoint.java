@@ -1,7 +1,7 @@
 package com.vaadin.recipes.endpoints;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.hilla.Endpoint;
+import com.vaadin.hilla.BrowserCallable;
 import com.vaadin.recipes.data.AllRecipes;
 import com.vaadin.recipes.data.RecipeInfo;
 import org.apache.commons.io.IOUtils;
@@ -12,8 +12,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+@BrowserCallable
 @AnonymousAllowed
-@Endpoint
 public class RecipeEndpoint {
 
     @NonNull
