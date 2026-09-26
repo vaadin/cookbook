@@ -86,7 +86,7 @@ public class CSVDownload extends Recipe {
 
         var content = new VerticalLayout();
         content.add(new Anchor("/dynamic-download", " Offer a dynamic / generated file for download."));
-        content.add(new Anchor("/grid-csv-export", "Export grid data as a CSV file."));
+        content.add(new Anchor("https://vaadin.com/docs/latest/building-apps/forms-data/handle-downloads", "Handle downloads (Vaadin documentation)."));
         fieldSet.add(content);
         return fieldSet;
     }
