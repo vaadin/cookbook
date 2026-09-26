@@ -1,3 +1,0 @@
-:host([theme~="custom-item-background"]) [part="checkmark"] {
-  display: none;
-}

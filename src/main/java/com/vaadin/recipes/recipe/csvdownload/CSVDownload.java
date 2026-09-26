@@ -13,7 +13,6 @@ import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.recipes.recipe.Metadata;
 import com.vaadin.recipes.recipe.Recipe;
 import com.vaadin.recipes.recipe.Tag;
-import com.vaadin.recipes.recipe.gridcsvimport.GridCsvImport;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayInputStream;
@@ -74,7 +73,7 @@ public class CSVDownload extends Recipe {
 
     private String loadExampleTextFromFile() {
         try {
-            return IOUtils.toString(GridCsvImport.class.getResource("input.csv"), StandardCharsets.UTF_8);
+            return IOUtils.toString(CSVDownload.class.getResource("input.csv"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             return "Unable to load data";
         }
